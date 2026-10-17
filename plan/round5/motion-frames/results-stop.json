@@ -1,0 +1,74 @@
+[
+ {
+  "midStop": [
+   {
+    "y": 0,
+    "max": 0,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\index-1440-midstop\\stop-1--y0.jpg"
+   },
+   {
+    "y": 300,
+    "max": 7151,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\index-1440-midstop\\stop-2--y300.jpg"
+   },
+   {
+    "y": 600,
+    "max": 7151,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\index-1440-midstop\\stop-3--y600.jpg"
+   },
+   {
+    "y": 900,
+    "max": 7151,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\index-1440-midstop\\stop-4--y900.jpg"
+   }
+  ]
+ },
+ {
+  "midStop": [
+   {
+    "y": 0,
+    "max": 0,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\services-1440-midstop\\stop-1--y0.jpg"
+   },
+   {
+    "y": 300,
+    "max": 5378,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\services-1440-midstop\\stop-2--y300.jpg"
+   },
+   {
+    "y": 600,
+    "max": 5378,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\services-1440-midstop\\stop-3--y600.jpg"
+   },
+   {
+    "y": 900,
+    "max": 5378,
+    "scene": "",
+    "field": "",
+    "splash": true,
+    "file": "C:\\Cargado Strategies\\plan\\round5\\motion-frames\\services-1440-midstop\\stop-4--y900.jpg"
+   }
+  ]
+ }
+]

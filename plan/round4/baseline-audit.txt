@@ -1,0 +1,496 @@
+Fit audit  2026-10-17T08:40:35.228Z  http://localhost:8000/  mode: film, activated, Round 4 box
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+index.html             ok      1/12      1/12      1/12      2/12      1/12      1/12      4/12      7/12
+services.html          ok       2/8       1/8       3/8       4/8       5/8       3/8       6/8       7/8
+story.html             ok       1/7       1/7       1/7       3/7       1/7       1/7       2/7       3/7
+partners.html         1/8       2/8       2/8       3/8       3/8       3/8       1/8       4/8       5/8
+legal.html            2/7       3/7       3/7       3/7       5/7       5/7       4/7       5/7       6/7
+
+ok   index.html @ 1920x1080: 12 scenes, all fit
+FAIL index.html @ 1536x864: 12 scenes, 1 fail
+  - #11 close: Y +149 (content 937 / box 788)
+        why y +137: footer.site-footer "Cargado Strategies Connected"
+        why y +136: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +85: span.ph "[Wording to be confirmed by "
+        why y +66: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 1440x900: 12 scenes, 1 fail
+  - #11 close: Y +104 (content 928 / box 824)
+        why y +92: footer.site-footer "Cargado Strategies Connected"
+        why y +91: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +41: span.ph "[Wording to be confirmed by "
+        why y +22: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 1366x768: 12 scenes, 1 fail
+  - #11 close: Y +212 (content 904 / box 692)
+        why y +200: footer.site-footer "Cargado Strategies Connected"
+        why y +199: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +148: span.ph "[Wording to be confirmed by "
+        why y +129: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 1280x720: 12 scenes, 2 fail
+  - #5 founder: Y +7 (content 651 / box 644)
+  - #11 close: Y +241 (content 885 / box 644)
+        why y +229: footer.site-footer "Cargado Strategies Connected"
+        why y +228: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +177: span.ph "[Wording to be confirmed by "
+        why y +158: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 1024x768: 12 scenes, 1 fail
+  - #11 close: Y +152 (content 844 / box 692)
+        why y +140: footer.site-footer "Cargado Strategies Connected"
+        why y +139: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +89: span.ph "[Wording to be confirmed by "
+        why y +69: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 768x1024: 12 scenes, 1 fail
+  - #7 find: Y +63 (content 1011 / box 948)
+        why y +50: figcaption#map-cap.map__cap.ui "Map preview · cities shown f"
+        why y +20: svg#canada-map "VancouverWinnipegTorontoHali"
+FAIL index.html @ 390x844: 12 scenes, 4 fail
+  - #0 hero: Y +317 (content 1097 / box 780)
+        why y +305: ul.proof "[n]introductions made [n]app"
+        why y +305: li "★ [rating]on Facebook"
+        why y +292: span.proof__l "cities across Canada"
+        why y +284: span.proof__l "on Facebook"
+  - #5 founder: Y +371 (content 1151 / box 780)
+        why y +359: figure.span-6.md-span-6 "“[Real client quote about th"
+        why y +357: figcaption.ui "[name] · [city] · [service]"
+        why y +357: span.ph "[name]"
+        why y +357: span.ph "[city]"
+  - #7 find: Y +17 (content 797 / box 780)
+        why y +4: figcaption#map-cap.map__cap.ui "Map preview · cities shown f"
+  - #11 close: Y +401 (content 1181 / box 780)
+        why y +389: footer.site-footer "Cargado Strategies Connected"
+        why y +388: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +350: span.ph "[Wording to be confirmed by "
+        why y +331: p.site-footer__notice "Partners are independent bus"
+FAIL index.html @ 360x740: 12 scenes, 7 fail
+  - #0 hero: Y +463 (content 1139 / box 676)
+        why y +451: ul.proof "[n]introductions made [n]app"
+        why y +451: li "★ [rating]on Facebook"
+        why y +438: span.proof__l "cities across Canada"
+        why y +430: span.proof__l "on Facebook"
+  - #3 compare: Y +33 (content 709 / box 676)
+        why y +21: div.span-7.md-span-12 "On your ownOn your own Searc"
+        why y +20: div.compare__side.compare__us "With CargadoWith Cargado One"
+  - #5 founder: Y +502 (content 1178 / box 676)
+        why y +490: figure.span-6.md-span-6 "“[Real client quote about th"
+        why y +489: figcaption.ui "[name] · [city] · [service]"
+        why y +489: span.ph "[name]"
+        why y +489: span.ph "[city]"
+  - #6 services: Y +36 (content 712 / box 676)
+        why y +24: li "09 Financial Planning Partne"
+        why y +11: span.tile__own.ui "Partner network"
+  - #7 find: Y +141 (content 817 / box 676)
+        why y +128: figcaption#map-cap.map__cap.ui "Map preview · cities shown f"
+        why y +78: svg#canada-map "VancouverWinnipegTorontoHali"
+  - #10 faq: Y +76 (content 552 / box 676)
+        why y +76: p "We use it to answer you and "
+        why y +76: a "privacy policy"
+  - #11 close: Y +496 (content 1172 / box 676)
+        why y +484: footer.site-footer "Cargado Strategies Connected"
+        why y +483: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +445: span.ph "[Wording to be confirmed by "
+        why y +426: p.site-footer__notice "Partners are independent bus"
+ok   services.html @ 1920x1080: 8 scenes, all fit
+FAIL services.html @ 1536x864: 8 scenes, 2 fail
+  - #5 categories: Y +2 (content 790 / box 788)
+  - #7 close: Y +149 (content 937 / box 788)
+        why y +137: footer.site-footer "Cargado Strategies Connected"
+        why y +136: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +85: span.ph "[Wording to be confirmed by "
+        why y +66: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 1440x900: 8 scenes, 1 fail
+  - #7 close: Y +104 (content 928 / box 824)
+        why y +92: footer.site-footer "Cargado Strategies Connected"
+        why y +91: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +41: span.ph "[Wording to be confirmed by "
+        why y +22: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 1366x768: 8 scenes, 3 fail
+  - #5 categories: Y +151 (content 843 / box 692)
+        why y +139: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +106: p.notice "Partners are independent bus"
+        why y +95: span.ph "[Wording to be confirmed by "
+        why y +15: ul.cat-rail__list "Manufacturing Legal Mortgage"
+  - #6 inquiry: Y +78 (content 770 / box 692)
+        why y +66: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +31: p.hint "Opens WhatsApp with your inq"
+        why y +4: button.btn.btn--primary "Send My Inquiry Send My Inqu"
+  - #7 close: Y +212 (content 904 / box 692)
+        why y +200: footer.site-footer "Cargado Strategies Connected"
+        why y +199: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +148: span.ph "[Wording to be confirmed by "
+        why y +129: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 1280x720: 8 scenes, 4 fail
+  - #2 ours-strategy: Y +53 (content 697 / box 644)
+        why y +41: p.notice "Strategy and coaching only. "
+        why y +10: strong "Strategy and coaching only."
+  - #5 categories: Y +220 (content 864 / box 644)
+        why y +208: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +175: p.notice "Partners are independent bus"
+        why y +164: span.ph "[Wording to be confirmed by "
+        why y +75: a.btn.btn--primary "Find One Near You Find One N"
+  - #6 inquiry: Y +146 (content 790 / box 644)
+        why y +134: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +100: p.hint "Opens WhatsApp with your inq"
+        why y +73: button.btn.btn--primary "Send My Inquiry Send My Inqu"
+        why y +35: span.visually-hidden.roll__sr "Send My Inquiry"
+  - #7 close: Y +241 (content 885 / box 644)
+        why y +229: footer.site-footer "Cargado Strategies Connected"
+        why y +228: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +177: span.ph "[Wording to be confirmed by "
+        why y +158: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 1024x768: 8 scenes, 5 fail
+  - #2 ours-strategy: Y +440 (content 1132 / box 692)
+        why y +428: div.offer-promise.panel-3d "Our promiseOur promise If yo"
+        why y +404: p "If your plan doesn't give yo"
+        why y +404: span.ph "[we keep working with you at"
+        why y +379: span.ph "[3]"
+  - #4 finder: Y +156 (content 848 / box 692)
+        why y +143: p.notice.results__notice "Sorted by distance only. Thi"
+        why y +143: li "Free"
+        why y +143: li "No obligation"
+        why y +132: span.ph "[Wording to be confirmed by "
+  - #5 categories: Y +551 (content 1243 / box 692)
+        why y +539: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +506: p.notice "Partners are independent bus"
+        why y +495: span.ph "[Wording to be confirmed by "
+        why y +405: a.btn.btn--primary "Find One Near You Find One N"
+  - #6 inquiry: Y +427 (content 1119 / box 692)
+        why y +415: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +381: p.hint "Opens WhatsApp with your inq"
+        why y +354: button.btn.btn--primary "Send My Inquiry Send My Inqu"
+        why y +316: span.visually-hidden.roll__sr "Send My Inquiry"
+  - #7 close: Y +152 (content 844 / box 692)
+        why y +140: footer.site-footer "Cargado Strategies Connected"
+        why y +139: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +89: span.ph "[Wording to be confirmed by "
+        why y +69: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 768x1024: 8 scenes, 3 fail
+  - #2 ours-strategy: Y +186 (content 1134 / box 948)
+        why y +174: div.offer-promise.panel-3d "Our promiseOur promise If yo"
+        why y +151: p "If your plan doesn't give yo"
+        why y +151: span.ph "[we keep working with you at"
+        why y +125: span.ph "[3]"
+  - #5 categories: Y +273 (content 1221 / box 948)
+        why y +261: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +228: p.notice "Partners are independent bus"
+        why y +217: span.ph "[Wording to be confirmed by "
+        why y +128: a.btn.btn--primary "Find One Near You →"
+  - #6 inquiry: Y +154 (content 1102 / box 948)
+        why y +142: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +107: p.hint "Opens WhatsApp with your inq"
+        why y +80: button.btn.btn--primary "Send My Inquiry →"
+        why y +4: p.notice "Partners are independent bus"
+FAIL services.html @ 390x844: 8 scenes, 6 fail
+  - #2 ours-strategy: Y +754 (content 1534 / box 780)
+        why y +742: div.offer-promise.panel-3d "Our promiseOur promise If yo"
+        why y +718: p "If your plan doesn't give yo"
+        why y +718: span.ph "[we keep working with you at"
+        why y +641: span.ph "[3]"
+  - #3 ours-outsourcing: Y +73 (content 853 / box 780)
+        why y +59: p.hint "Provided by Cargado Strategi"
+        why y +8: a.btn.btn--ghost "Send an Inquiry"
+  - #4 finder: Y +502 (content 1282 / box 780)
+        why y +489: li "Free"
+        why y +489: li "No obligation"
+        why y +458: li "Day [3]We check in to see it"
+        why y +445: span.next-steps__when.num "Day [3]"
+  - #5 categories: Y +753 (content 1533 / box 780)
+        why y +741: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +720: p.notice "Partners are independent bus"
+        why y +709: span.ph "[Wording to be confirmed by "
+        why y +580: a.btn.btn--ghost "Ask on WhatsApp (opens in a "
+  - #6 inquiry: Y +671 (content 1451 / box 780)
+        why y +659: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +636: p.hint "Opens WhatsApp with your inq"
+        why y +588: button.btn.btn--primary "Send My Inquiry →"
+        why y +512: p.notice "Partners are independent bus"
+  - #7 close: Y +401 (content 1181 / box 780)
+        why y +389: footer.site-footer "Cargado Strategies Connected"
+        why y +388: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +350: span.ph "[Wording to be confirmed by "
+        why y +331: p.site-footer__notice "Partners are independent bus"
+FAIL services.html @ 360x740: 8 scenes, 7 fail
+  - #1 ours-insurance: Y +99 (content 775 / box 676)
+        why y +87: p.notice "This is our founder's own bu"
+        why y +13: p.hint "Opens WhatsApp with your mes"
+  - #2 ours-strategy: Y +879 (content 1555 / box 676)
+        why y +867: div.offer-promise.panel-3d "Our promiseOur promise If yo"
+        why y +843: p "If your plan doesn't give yo"
+        why y +843: span.ph "[we keep working with you at"
+        why y +792: span.ph "[3]"
+  - #3 ours-outsourcing: Y +177 (content 853 / box 676)
+        why y +163: p.hint "Provided by Cargado Strategi"
+        why y +111: a.btn.btn--ghost "Send an Inquiry"
+        why y +51: a.btn.btn--primary "Ask About Outsourcing →"
+  - #4 finder: Y +599 (content 1275 / box 676)
+        why y +586: li "Free"
+        why y +586: li "No obligation"
+        why y +555: li "Day [3]We check in to see it"
+        why y +542: span.next-steps__when.num "Day [3]"
+  - #5 categories: Y +928 (content 1604 / box 676)
+        why y +916: div.cat-card.panel-3d "Ours + partners Insurance Li"
+        why y +895: p.notice "Partners are independent bus"
+        why y +884: span.ph "[Wording to be confirmed by "
+        why y +755: a.btn.btn--ghost "Ask on WhatsApp (opens in a "
+  - #6 inquiry: Y +840 (content 1516 / box 676)
+        why y +828: div#inquiry-panel.span-7.start-6 "Your name Email Phone or Wha"
+        why y +806: p.hint "Opens WhatsApp with your inq"
+        why y +758: button.btn.btn--primary "Send My Inquiry →"
+        why y +682: p.notice "Partners are independent bus"
+  - #7 close: Y +496 (content 1172 / box 676)
+        why y +484: footer.site-footer "Cargado Strategies Connected"
+        why y +483: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +445: span.ph "[Wording to be confirmed by "
+        why y +426: p.site-footer__notice "Partners are independent bus"
+ok   story.html @ 1920x1080: 7 scenes, all fit
+FAIL story.html @ 1536x864: 7 scenes, 1 fail
+  - #6 talk: Y +56 (content 844 / box 788)
+        why y +44: footer.site-footer "Cargado Strategies Connected"
+        why y +43: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL story.html @ 1440x900: 7 scenes, 1 fail
+  - #6 talk: Y +15 (content 839 / box 824)
+        why y +3: footer.site-footer "Cargado Strategies Connected"
+        why y +2: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL story.html @ 1366x768: 7 scenes, 1 fail
+  - #6 talk: Y +129 (content 821 / box 692)
+        why y +117: footer.site-footer "Cargado Strategies Connected"
+        why y +116: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +66: span.ph "[Wording to be confirmed by "
+        why y +47: p.site-footer__notice "Partners are independent bus"
+FAIL story.html @ 1280x720: 7 scenes, 3 fail
+  - #1 beginning: Y +24 (content 668 / box 644)
+        why y +12: div.span-6.start-3 "One Conversation [Founder na"
+  - #4 values: Y +8 (content 652 / box 644)
+  - #6 talk: Y +166 (content 810 / box 644)
+        why y +154: footer.site-footer "Cargado Strategies Connected"
+        why y +153: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +103: span.ph "[Wording to be confirmed by "
+        why y +84: p.site-footer__notice "Partners are independent bus"
+FAIL story.html @ 1024x768: 7 scenes, 1 fail
+  - #6 talk: Y +99 (content 791 / box 692)
+        why y +87: footer.site-footer "Cargado Strategies Connected"
+        why y +86: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +36: span.ph "[Wording to be confirmed by "
+        why y +17: p.site-footer__notice "Partners are independent bus"
+FAIL story.html @ 768x1024: 7 scenes, 1 fail
+  - #6 talk: Y +78 (content 1026 / box 948)
+        why y +66: footer.site-footer "Cargado Strategies Connected"
+        why y +65: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +15: span.ph "[Wording to be confirmed by "
+FAIL story.html @ 390x844: 7 scenes, 2 fail
+  - #4 values: Y +92 (content 872 / box 780)
+        why y +80: li.story-value "03 Responsible Growth We gro"
+        why y +57: p.muted "We grow the network with car"
+  - #6 talk: Y +380 (content 1160 / box 780)
+        why y +368: footer.site-footer "Cargado Strategies Connected"
+        why y +367: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +329: span.ph "[Wording to be confirmed by "
+        why y +310: p.site-footer__notice "Partners are independent bus"
+FAIL story.html @ 360x740: 7 scenes, 3 fail
+  - #1 beginning: Y +22 (content 698 / box 676)
+        why y +10: div.span-6.start-3 "One Conversation [Founder na"
+  - #4 values: Y +196 (content 872 / box 676)
+        why y +184: li.story-value "03 Responsible Growth We gro"
+        why y +161: p.muted "We grow the network with car"
+        why y +78: span.list-num__n "03"
+        why y +78: h3 "Responsible Growth"
+  - #6 talk: Y +475 (content 1151 / box 676)
+        why y +463: footer.site-footer "Cargado Strategies Connected"
+        why y +462: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +424: span.ph "[Wording to be confirmed by "
+        why y +405: p.site-footer__notice "Partners are independent bus"
+FAIL partners.html @ 1920x1080: 8 scenes, 1 fail
+  - #6 apply: Y +980 (content 1984 / box 1004)
+        why y +968: form#apply-form.form.apply-form "All fields are required unle"
+        why y +966: p.hint "Opens WhatsApp with your app"
+        why y +966: span "An email option will follow:"
+        why y +966: span.ph "[company email]"
+FAIL partners.html @ 1536x864: 8 scenes, 2 fail
+  - #6 apply: Y +1195 (content 1983 / box 788)
+        why y +1183: form#apply-form.form.apply-form "All fields are required unle"
+        why y +1182: p.hint "Opens WhatsApp with your app"
+        why y +1182: span "An email option will follow:"
+        why y +1182: span.ph "[company email]"
+  - #7 close: Y +65 (content 853 / box 788)
+        why y +53: footer.site-footer "Cargado Strategies Connected"
+        why y +52: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +2: span.ph "[Wording to be confirmed by "
+FAIL partners.html @ 1440x900: 8 scenes, 2 fail
+  - #6 apply: Y +1157 (content 1981 / box 824)
+        why y +1145: form#apply-form.form.apply-form "All fields are required unle"
+        why y +1143: p.hint "Opens WhatsApp with your app"
+        why y +1143: span "An email option will follow:"
+        why y +1143: span.ph "[company email]"
+  - #7 close: Y +24 (content 848 / box 824)
+        why y +12: footer.site-footer "Cargado Strategies Connected"
+        why y +11: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL partners.html @ 1366x768: 8 scenes, 3 fail
+  - #0 hero: Y +42 (content 734 / box 692)
+        why y +28: p.t-small.muted "We don't promise a number of"
+  - #6 apply: Y +1302 (content 1994 / box 692)
+        why y +1290: form#apply-form.form.apply-form "All fields are required unle"
+        why y +1288: p.hint "Opens WhatsApp with your app"
+        why y +1288: span "An email option will follow:"
+        why y +1288: span.ph "[company email]"
+  - #7 close: Y +135 (content 827 / box 692)
+        why y +123: footer.site-footer "Cargado Strategies Connected"
+        why y +122: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +71: span.ph "[Wording to be confirmed by "
+        why y +52: p.site-footer__notice "Partners are independent bus"
+FAIL partners.html @ 1280x720: 8 scenes, 3 fail
+  - #0 hero: Y +73 (content 717 / box 644)
+        why y +58: p.t-small.muted "We don't promise a number of"
+  - #6 apply: Y +1370 (content 2014 / box 644)
+        why y +1358: form#apply-form.form.apply-form "All fields are required unle"
+        why y +1356: p.hint "Opens WhatsApp with your app"
+        why y +1356: span "An email option will follow:"
+        why y +1356: span.ph "[company email]"
+  - #7 close: Y +167 (content 811 / box 644)
+        why y +155: footer.site-footer "Cargado Strategies Connected"
+        why y +154: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +104: span.ph "[Wording to be confirmed by "
+        why y +85: p.site-footer__notice "Partners are independent bus"
+FAIL partners.html @ 1024x768: 8 scenes, 3 fail
+  - #3 tiers: Y +167 (content 859 / box 692)
+        why y +155: li.tier.is-pickable "Premier [$ per month] Everyt"
+        why y +103: span.visually-hidden.roll__sr "Apply for Premier"
+        why y +80: span.ph "[Partner events and co-hoste"
+        why y +71: span.ph "[$ per month]"
+  - #6 apply: Y +1849 (content 2541 / box 692)
+        why y +1837: div.apply__panel.panel-3d "What happens nextWhat happen"
+        why y +1804: p.notice "Independent partners. Partne"
+        why y +1773: strong "Independent partners."
+        why y +1712: p.notice "Commission. Cargado Strategi"
+  - #7 close: Y +25 (content 717 / box 692)
+        why y +13: footer.site-footer "Cargado Strategies Connected"
+        why y +12: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL partners.html @ 768x1024: 8 scenes, 1 fail
+  - #6 apply: Y +1631 (content 2579 / box 948)
+        why y +1619: div.apply__panel.panel-3d "What happens nextWhat happen"
+        why y +1586: p.notice "Independent partners. Partne"
+        why y +1555: strong "Independent partners."
+        why y +1494: p.notice "Commission. Cargado Strategi"
+FAIL partners.html @ 390x844: 8 scenes, 4 fail
+  - #2 arrangement: Y +217 (content 997 / box 780)
+        why y +193: a.btn.btn--link "See the Membership Tiers →"
+        why y +141: p.notice "Commission terms [to be conf"
+        why y +29: strong "Commission terms [to be conf"
+        why y +29: span.ph "[to be confirmed by counsel]"
+  - #3 tiers: Y +312 (content 1092 / box 780)
+        why y +300: li.tier.is-pickable "Premier [$ per month] Everyt"
+        why y +267: a.btn.btn--link "Apply for Premier →"
+        why y +225: span.ph "[Partner events and co-hoste"
+        why y +199: span.ph "[More than one service area]"
+  - #6 apply: Y +2573 (content 3353 / box 780)
+        why y +2561: div.apply__panel.panel-3d "What happens nextWhat happen"
+        why y +2528: p.notice "Independent partners. Partne"
+        why y +2457: strong "Independent partners."
+        why y +2396: p.notice "Commission. Cargado Strategi"
+  - #7 close: Y +362 (content 1142 / box 780)
+        why y +350: footer.site-footer "Cargado Strategies Connected"
+        why y +349: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +310: span.ph "[Wording to be confirmed by "
+        why y +291: p.site-footer__notice "Partners are independent bus"
+FAIL partners.html @ 360x740: 8 scenes, 5 fail
+  - #0 hero: Y +66 (content 742 / box 676)
+        why y +52: p.t-small.muted "We don't promise a number of"
+  - #2 arrangement: Y +372 (content 1048 / box 676)
+        why y +348: a.btn.btn--link "See the Membership Tiers →"
+        why y +296: p.notice "Commission terms [to be conf"
+        why y +184: strong "Commission terms [to be conf"
+        why y +184: span.ph "[to be confirmed by counsel]"
+  - #3 tiers: Y +461 (content 1137 / box 676)
+        why y +449: li.tier.is-pickable "Premier [$ per month] Everyt"
+        why y +416: a.btn.btn--link "Apply for Premier →"
+        why y +374: span.ph "[Partner events and co-hoste"
+        why y +325: span.ph "[More than one service area]"
+  - #6 apply: Y +2718 (content 3394 / box 676)
+        why y +2706: div.apply__panel.panel-3d "What happens nextWhat happen"
+        why y +2673: p.notice "Independent partners. Partne"
+        why y +2602: strong "Independent partners."
+        why y +2541: p.notice "Commission. Cargado Strategi"
+  - #7 close: Y +457 (content 1133 / box 676)
+        why y +445: footer.site-footer "Cargado Strategies Connected"
+        why y +444: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +406: span.ph "[Wording to be confirmed by "
+        why y +386: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 1920x1080: 7 scenes, 2 fail
+  - #2 privacy: scroll-y +103 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 961 / box 961)
+  - #6 close: Y +36 (content 997 / box 961)
+        why y +24: footer.site-footer "Cargado Strategies Connected"
+        why y +23: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL legal.html @ 1536x864: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +319 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 745 / box 745)
+  - #3 terms: scroll-y +68 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 745 / box 745)
+  - #6 close: Y +223 (content 968 / box 745)
+        why y +211: footer.site-footer "Cargado Strategies Connected"
+        why y +210: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +159: span.ph "[Wording to be confirmed by "
+        why y +140: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 1440x900: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +283 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 781 / box 781)
+  - #3 terms: scroll-y +32 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 781 / box 781)
+  - #6 close: Y +178 (content 959 / box 781)
+        why y +166: footer.site-footer "Cargado Strategies Connected"
+        why y +165: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +115: span.ph "[Wording to be confirmed by "
+        why y +96: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 1366x768: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +415 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 649 / box 649)
+  - #3 terms: scroll-y +164 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 649 / box 649)
+  - #6 close: Y +286 (content 935 / box 649)
+        why y +274: footer.site-footer "Cargado Strategies Connected"
+        why y +273: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +222: span.ph "[Wording to be confirmed by "
+        why y +203: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 1280x720: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +98 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 601 / box 601)
+  - #2 privacy: scroll-y +463 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 601 / box 601)
+  - #3 terms: scroll-y +212 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 601 / box 601)
+  - #4 conduct: scroll-y +33 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 601 / box 601)
+  - #6 close: Y +315 (content 916 / box 601)
+        why y +303: footer.site-footer "Cargado Strategies Connected"
+        why y +302: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +251: span.ph "[Wording to be confirmed by "
+        why y +232: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 1024x768: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +159 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 649 / box 649)
+  - #2 privacy: scroll-y +469 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 649 / box 649)
+  - #3 terms: scroll-y +245 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 649 / box 649)
+  - #4 conduct: scroll-y +25 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 649 / box 649)
+  - #6 close: Y +225 (content 874 / box 649)
+        why y +213: footer.site-footer "Cargado Strategies Connected"
+        why y +212: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +161: span.ph "[Wording to be confirmed by "
+        why y +142: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 768x1024: 7 scenes, 4 fail
+  - #1 disclosure: scroll-y +66 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 905 / box 905)
+  - #2 privacy: scroll-y +376 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 905 / box 905)
+  - #3 terms: scroll-y +125 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 905 / box 905)
+  - #6 close: Y +24 (content 929 / box 905)
+        why y +12: footer.site-footer "Cargado Strategies Connected"
+        why y +11: p.site-footer__copy "© 2026 Cargado Strategies"
+FAIL legal.html @ 390x844: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +299 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 731 / box 731)
+  - #2 privacy: scroll-y +545 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 731 / box 731)
+  - #3 terms: scroll-y +312 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 731 / box 731)
+  - #4 conduct: scroll-y +65 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 731 / box 731)
+  - #6 close: Y +476 (content 1207 / box 731)
+        why y +464: footer.site-footer "Cargado Strategies Connected"
+        why y +463: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +425: span.ph "[Wording to be confirmed by "
+        why y +406: p.site-footer__notice "Partners are independent bus"
+FAIL legal.html @ 360x740: 7 scenes, 6 fail
+  - #0 contents: Y +14 (content 641 / box 627)
+        why y +2: a.toc__link "05Q&A6 questions"
+  - #1 disclosure: scroll-y +505 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 627 / box 627)
+  - #2 privacy: scroll-y +675 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 627 / box 627)
+  - #3 terms: scroll-y +442 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 627 / box 627)
+  - #4 conduct: scroll-y +194 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 627 / box 627)
+  - #6 close: Y +572 (content 1199 / box 627)
+        why y +560: footer.site-footer "Cargado Strategies Connected"
+        why y +559: p.site-footer__copy "© 2026 Cargado Strategies"
+        why y +520: span.ph "[Wording to be confirmed by "
+        why y +501: p.site-footer__notice "Partners are independent bus"
+
+122 scene/viewport combinations fail.

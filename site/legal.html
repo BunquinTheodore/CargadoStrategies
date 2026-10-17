@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Legal · Cargado Strategies</title>
+  <meta name="description" content="Professional disclosure, privacy policy, terms of use, partner code of conduct and straight answers from Cargado Strategies. Draft, to be reviewed by a lawyer in Canada before launch.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    /* Film or flow mode before first paint; falls back to flow if the engine never starts. */
+    (function (d) {
+      var h = d.documentElement;
+      var FALLBACK_MS = 8000;
+      var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* The visitor's "Pause animation" choice (assets/js/motion-pref.js). */
+      if (/[?&]motion=off(&|$)/.test(location.search)) rm = true;
+      try { if (localStorage.getItem('cs-motion') === 'off') rm = true; } catch (e) {}
+      h.classList.add('js', rm ? 'rm' : 'film');
+      /* If the site script never ran (a blocked or failed module), chrome.js drew no header:
+         give the page a plain nav so every page stays reachable. */
+      var rescueNav = function () {
+        if (d.querySelector('.site-header, .nav-rescue')) return;
+        var here = location.pathname.split('/').pop() || 'index.html';
+        var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Our Story'],
+          ['partners.html', 'Become a Partner'], ['legal.html', 'Legal']];
+        var nav = d.createElement('nav');
+        nav.className = 'nav-rescue';
+        nav.setAttribute('aria-label', 'Main');
+        nav.innerHTML = links.map(function (l) {
+          return '<a href="' + l[0] + '"' + (l[0] === here ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
+        }).join('');
+        d.body.insertBefore(nav, d.body.firstChild);
+      };
+      /* Hidden (background) tabs cannot start the film, so their time does not count. */
+      var wait = function () {
+        d.addEventListener('visibilitychange', function f() {
+          if (d.visibilityState !== 'visible') return;
+          d.removeEventListener('visibilitychange', f);
+          arm();
+        });
+      };
+      var arm = function () {
+        setTimeout(function () {
+          if (h.classList.contains('film-ready')) return;
+          if (d.visibilityState === 'hidden') return wait();
+          /* film-fallback: film.js stands down if it is still building (film.js fallBackToFlow). */
+          h.classList.remove('film'); h.classList.add('rm', 'film-fallback');
+          rescueNav();
+        }, FALLBACK_MS);
+      };
+      if (rm) setTimeout(rescueNav, FALLBACK_MS);
+      else if (d.visibilityState === 'hidden') wait();
+      else arm();
+    })(document);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
+       Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap"></noscript>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/fx.css">
+  <link rel="stylesheet" href="assets/css/legal.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <link rel="modulepreload" href="assets/js/main.js">
+  <link rel="modulepreload" href="assets/js/film.js">
+  <link rel="modulepreload" href="assets/js/chrome.js">
+  <script type="module" src="assets/js/legal.js"></script>
+  <style id="splash-css">
+    /* Splash: paints with the HTML; assets/js/splash.js opens it, or it fades by itself at 2.6 s. */
+    html:not(.js) .splash { display: none; }
+    .splash { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: #0B0B0C; color: #D4AF37; pointer-events: none; animation: splash-out 0.5s ease 2.6s forwards; }
+    .splash-js .splash { animation: none; }
+    .splash__inner { display: grid; justify-items: center; gap: 18px; animation: splash-in 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+    .splash__mark { display: block; width: 76px; height: 76px; }
+    .splash__word { margin: 0; font: 400 1.5rem/1 "Times New Roman", Times, Tinos, serif; color: #F3ECDD; }
+    .splash__line { position: relative; display: block; width: 168px; height: 1px; overflow: hidden; background: rgba(243, 236, 221, 0.18); }
+    .splash__fill, .splash__line::after { position: absolute; inset: 0; background: #D4AF37; transform-origin: 0 50%; }
+    .splash__fill { transform: scaleX(0); animation: splash-load 1.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.1s forwards; }
+    .splash__line::after { content: ""; transform: scaleX(0); transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.1, 1); }
+    .splash.is-leaving .splash__line::after { transform: scaleX(1); }
+    @keyframes splash-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
+    @keyframes splash-load { to { transform: scaleX(0.86); } }
+    @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+    @media (prefers-reduced-motion: reduce) {
+      .splash__inner, .splash__fill { animation: none; }
+      .splash__fill { transform: scaleX(0.86); }
+    }
+    /* The visitor's "Pause animation" (html.rm, set before first paint) is as calm as reduced motion. */
+    html.rm .splash__inner, html.rm .splash__fill { animation: none; }
+    html.rm .splash__fill { transform: scaleX(0.86); }
+  </style>
+</head>
+<body data-page="legal">
+  <!-- Splash (decorative, aria-hidden, nothing focusable): CW monogram, wordmark, progress line. -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__inner">
+      <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
+        <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>
+        <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
+      </svg>
+      <p class="splash__word">Cargado Strategies</p>
+      <span class="splash__line"><span class="splash__fill"></span></span>
+    </div>
+  </div>
+  <!-- Persistent on this page (FR16, PLAN §2). Remove only after a lawyer in Canada has reviewed every section. -->
+  <div class="legal-draft" role="note" aria-label="Draft notice">
+    <p class="legal-draft__text"><span class="legal-draft__tag">Draft</span> — to be reviewed by a lawyer in Canada before launch</p>
+  </div>
+
+  <div class="stage">
+    <div class="fields"></div>
+    <canvas id="stars"></canvas>
+    <canvas id="gl"></canvas>
+    <div class="grain"></div>
+    <div class="hud"></div>
+    <main class="scenes" id="content">
+
+      <!-- 1 · Contents -->
+      <section class="scene legal-contents" id="contents" data-field="ink" data-dur="5"
+               data-pose="1.55,0.28,0,0.15,0.2,0.82" data-pose-sm="1.56,1.04,0,0.2,0.3,0.16"
+               data-title="Legal" aria-labelledby="contents-title">
+        <div class="scene__inner">
+          <div class="grid legal-contents__grid">
+            <div class="span-7 md-span-12 stack">
+              <p class="eyebrow" data-reveal="fade">Privacy · Terms · Disclosure</p>
+              <h1 id="contents-title" class="t-hero legal-contents__title" data-reveal="lines">Legal</h1>
+              <p class="t-lead" data-reveal="fade">Privacy, terms, disclosure, the partner code of conduct and straight answers to common questions.</p>
+              <p class="notice" data-reveal="fade"><strong>Draft for review.</strong> These pages are written to read as formal legal documents, but they are drafts and not legal advice. A lawyer in Canada must review and adjust every page, including the province and the privacy contact in <span class="ph">[brackets]</span>, before the website goes live.</p>
+              <p class="legal-meta" data-reveal="fade">Updated <span class="ph">[date]</span></p>
+            </div>
+          </div>
+          <nav class="toc" aria-label="On this page">
+            <ol class="toc__list" data-reveal="stagger">
+              <li><a class="toc__link" href="#disclosure" data-tilt data-cursor-label="Read"><span class="toc__n" data-depth="44">01</span><span class="toc__name" data-depth="26">Professional Disclosure</span><span class="toc__meta" data-depth="12">5 clauses</span></a></li>
+              <li><a class="toc__link" href="#privacy" data-tilt data-cursor-label="Read"><span class="toc__n" data-depth="44">02</span><span class="toc__name" data-depth="26">Privacy Policy</span><span class="toc__meta" data-depth="12">8 sections</span></a></li>
+              <li><a class="toc__link" href="#terms" data-tilt data-cursor-label="Read"><span class="toc__n" data-depth="44">03</span><span class="toc__name" data-depth="26">Terms of Use</span><span class="toc__meta" data-depth="12">6 sections</span></a></li>
+              <li><a class="toc__link" href="#conduct" data-tilt data-cursor-label="Read"><span class="toc__n" data-depth="44">04</span><span class="toc__name" data-depth="26">Partner Code of Conduct</span><span class="toc__meta" data-depth="12">6 commitments</span></a></li>
+              <li><a class="toc__link" href="#faq" data-tilt data-cursor-label="Read"><span class="toc__n" data-depth="44">05</span><span class="toc__name" data-depth="26">Q&amp;A</span><span class="toc__meta" data-depth="12">6 questions</span></a></li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      <!-- 2 · Professional disclosure (SRS Appendix B) -->
+      <section class="scene legal-doc" id="disclosure" data-field="bone" data-dur="5" data-iris="16% 30%"
+               data-pose="-2.05,-0.95,0,0.25,-0.7,0.42" data-pose-sm="1.56,1.09,0,0.25,-0.7,0"
+               data-title="Professional Disclosure" aria-labelledby="disclosure-title">
+        <div class="scene__inner">
+          <div class="grid legal-grid">
+            <header class="span-4 legal-head">
+              <span class="legal-num" aria-hidden="true">01</span>
+              <p class="eyebrow" data-reveal="fade"><span class="num">01</span> / 05 · Disclosure</p>
+              <h2 id="disclosure-title" class="legal-title" data-reveal="lines">Professional Disclosure</h2>
+              <span class="legal-rule" aria-hidden="true"></span>
+              <p class="legal-meta" data-reveal="fade">Draft · Updated <span class="ph">[date]</span></p>
+            </header>
+            <div class="span-7 start-6 legal-panel" data-reveal="fade">
+              <span class="legal-sheet legal-sheet--2" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-16"></span></span>
+              <span class="legal-sheet legal-sheet--1" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-8"></span></span>
+              <div class="scene__scroll legal-panel__face" tabindex="0" role="region" aria-label="Professional disclosure text">
+                <ol class="clauses">
+                  <li><p>Cargado Strategies connects visitors with independent partners. Each partner is solely responsible for their own services, licensing and compliance with the rules of their profession and province.</p></li>
+                  <li><p>Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice through this website. A listing is not an endorsement or a recommendation. Partners are listed by distance only.</p></li>
+                  <li><p>Some services on this website are offered by the founder through her own businesses. Those businesses are named as the founder's own and operate under their own licences. <span class="ph">[Confirm entity names and licence numbers.]</span></p></li>
+                  <li><p>Cargado Strategies may receive a commission from a partner when a referral becomes a client. <span class="ph">[Wording to be set by counsel.]</span></p></li>
+                  <li><p>Cargado's finance and operations strategy service is separate from partner services. It is not licensed accounting, tax or investment advice.</p></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · Privacy policy (SRS Appendix B; CR06, CR07, CR10) -->
+      <section class="scene legal-doc" id="privacy" data-field="ink" data-dur="5" data-iris="84% 30%"
+               data-pose="2.05,-0.95,0,0.1,0.9,0.42" data-pose-sm="1.56,1.09,0,0.1,0.9,0"
+               data-title="Privacy Policy" aria-labelledby="privacy-title">
+        <div class="scene__inner">
+          <div class="grid legal-grid legal-grid--mirror">
+            <header class="span-4 start-9 legal-head">
+              <span class="legal-num" aria-hidden="true">02</span>
+              <p class="eyebrow" data-reveal="fade"><span class="num">02</span> / 05 · Privacy</p>
+              <h2 id="privacy-title" class="legal-title" data-reveal="lines">Privacy Policy</h2>
+              <span class="legal-rule" aria-hidden="true"></span>
+              <p class="legal-meta" data-reveal="fade">Draft · Updated <span class="ph">[date]</span></p>
+              <p class="legal-aside" data-reveal="fade">Privacy contact: <span class="ph">[privacy officer name and email]</span></p>
+            </header>
+            <div class="span-7 start-1 legal-panel" data-reveal="fade">
+              <span class="legal-sheet legal-sheet--2" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-16"></span></span>
+              <span class="legal-sheet legal-sheet--1" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-8"></span></span>
+              <div class="scene__scroll legal-panel__face" tabindex="0" role="region" aria-label="Privacy policy text">
+                <ol class="clauses">
+                  <li><h3 class="clause__title">Information We Collect</h3><p>Your name, email address, phone or WhatsApp number, city or area, and the message you send us.</p></li>
+                  <li><h3 class="clause__title">Why We Collect It</h3><p>To answer your inquiry and connect you with a suitable partner. We ask for your city so that we can find someone close to you.</p></li>
+                  <li><h3 class="clause__title">Who Sees It</h3><p>Cargado staff and the partner we connect you with. We do not sell your information.</p></li>
+                  <li><h3 class="clause__title">Where It Is Kept</h3><p>In our lead records. Facebook and WhatsApp apply their own terms to messages sent through them.</p></li>
+                  <li><h3 class="clause__title">How Long We Keep It</h3><p><span class="ph">[Retention period.]</span></p></li>
+                  <li><h3 class="clause__title">Your Rights</h3><p>You may ask to see, correct or delete your information, and you may withdraw consent at any time. Contact <span class="ph">[privacy officer name and email]</span>. We follow the privacy laws that apply in Canada and in your province.</p></li>
+                  <li><h3 class="clause__title">Messages</h3><p>We send you messages only with your consent, and each marketing message includes a way to unsubscribe.</p></li>
+                  <li><h3 class="clause__title">Cookies and Analytics</h3><p><span class="ph">[List the tools once chosen.]</span></p></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · Terms of use (SRS Appendix B) -->
+      <section class="scene legal-doc" id="terms" data-field="bone" data-dur="5" data-iris="16% 78%"
+               data-pose="-2.05,0.85,0,0.35,-1.3,0.42" data-pose-sm="1.56,1.09,0,0.35,-1.3,0"
+               data-title="Terms of Use" aria-labelledby="terms-title">
+        <div class="scene__inner">
+          <div class="grid legal-grid">
+            <header class="span-4 legal-head legal-head--end">
+              <span class="legal-num" aria-hidden="true">03</span>
+              <p class="eyebrow" data-reveal="fade"><span class="num">03</span> / 05 · Terms</p>
+              <h2 id="terms-title" class="legal-title" data-reveal="lines">Terms of Use</h2>
+              <span class="legal-rule" aria-hidden="true"></span>
+              <p class="legal-meta" data-reveal="fade">Draft · Updated <span class="ph">[date]</span></p>
+            </header>
+            <div class="span-7 start-6 legal-panel" data-reveal="fade">
+              <span class="legal-sheet legal-sheet--2" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-16"></span></span>
+              <span class="legal-sheet legal-sheet--1" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-8"></span></span>
+              <div class="scene__scroll legal-panel__face" tabindex="0" role="region" aria-label="Terms of use text">
+                <ol class="clauses">
+                  <li><h3 class="clause__title">General Information</h3><p>This website gives general information. Using it does not create a professional relationship with Cargado Strategies or with any partner.</p></li>
+                  <li><h3 class="clause__title">Independent Partners</h3><p>Partners are independent. Cargado Strategies is not responsible for their advice, services or results.</p></li>
+                  <li><h3 class="clause__title">Acceptable Use</h3><p>You agree not to misuse the website and not to submit false or misleading information.</p></li>
+                  <li><h3 class="clause__title">Changes</h3><p>We may change the website and these terms at any time. The latest version applies when you use the website.</p></li>
+                  <li><h3 class="clause__title">Limit of Liability</h3><p>To the extent the law allows, Cargado Strategies is not liable for losses arising from use of this website. <span class="ph">[Counsel to adjust.]</span></p></li>
+                  <li><h3 class="clause__title">Governing Law</h3><p>These terms are governed by the laws of <span class="ph">[province]</span>, Canada.</p></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 · Partner code of conduct (SRS Appendix B; CR04) -->
+      <section class="scene legal-doc" id="conduct" data-field="gold" data-dur="5" data-iris="30% 22%"
+               data-pose="2.15,0.82,0,0.3,1.6,0.36" data-pose-sm="1.56,1.09,0,0.3,1.6,0"
+               data-title="Partner Code of Conduct" aria-labelledby="conduct-title">
+        <div class="scene__inner">
+          <div class="grid legal-grid legal-grid--stacked">
+            <header class="span-8 legal-head">
+              <span class="legal-num" aria-hidden="true">04</span>
+              <p class="eyebrow" data-reveal="fade"><span class="num">04</span> / 05 · Partner Conduct</p>
+              <h2 id="conduct-title" class="legal-title" data-reveal="lines">Partner Code of Conduct</h2>
+              <span class="legal-rule" aria-hidden="true"></span>
+              <p class="legal-meta" data-reveal="fade">Draft · Updated <span class="ph">[date]</span></p>
+              <p class="legal-aside" data-reveal="fade">Every partner agrees to these commitments when they apply.</p>
+            </header>
+            <div class="span-12 legal-panel legal-panel--wide" data-reveal="fade">
+              <span class="legal-sheet legal-sheet--2" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-16"></span></span>
+              <span class="legal-sheet legal-sheet--1" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-8"></span></span>
+              <div class="scene__scroll legal-panel__face legal-panel__face--wide" tabindex="0" role="region" aria-label="Partner code of conduct text">
+                <ol class="clauses clauses--two">
+                  <li><p>Describe your licence, credentials and services honestly, and keep your licence current.</p></li>
+                  <li><p>Put clients before transactions, and explain any fee or commission before work begins.</p></li>
+                  <li><p>Protect client confidentiality and personal information.</p></li>
+                  <li><p>Reply to inquiries within <span class="ph">[number]</span> business&nbsp;days.</p></li>
+                  <li><p>Never promise results you cannot guarantee, and follow your regulator's advertising and referral rules.</p></li>
+                  <li><p>Accept removal from the network if these commitments are broken.</p></li>
+                </ol>
+                <p class="legal-panel__action"><a class="btn btn--link" href="partners.html">Become a Partner <span class="btn__arrow" aria-hidden="true">→</span></a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 · Q&A (FR16). Footer links use legal.html#qa, so the eyebrow carries that id. -->
+      <section class="scene legal-doc" id="faq" data-field="bone" data-dur="5" data-iris="84% 76%"
+               data-pose="2.05,0.85,0,0.2,2.4,0.42" data-pose-sm="1.56,1.09,0,0.2,2.4,0"
+               data-title="Q&amp;A" aria-labelledby="faq-title">
+        <div class="scene__inner">
+          <div class="grid legal-grid legal-grid--mirror">
+            <header class="span-4 start-9 legal-head legal-head--end">
+              <span class="legal-num" aria-hidden="true">05</span>
+              <p class="eyebrow" id="qa" data-reveal="fade"><span class="num">05</span> / 05 · Q&amp;A</p>
+              <h2 id="faq-title" class="legal-title" data-reveal="lines">Straight Answers.</h2>
+              <span class="legal-rule" aria-hidden="true"></span>
+              <p class="legal-meta" data-reveal="fade">Draft · Updated <span class="ph">[date]</span></p>
+            </header>
+            <div class="span-7 start-1 legal-panel legal-panel--faq" data-reveal="fade">
+              <span class="legal-sheet legal-sheet--2" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-16"></span></span>
+              <span class="legal-sheet legal-sheet--1" aria-hidden="true"><span class="legal-sheet__paper" data-depth="-8"></span></span>
+              <div class="scene__scroll legal-panel__face legal-panel__face--faq" tabindex="0" role="region" aria-label="Questions and answers">
+                <details class="acc">
+                  <summary>Why Is It Free for Me?</summary>
+                  <div class="acc__body">
+                    <p>Partners may pay us a fee if you become their client. You never pay us for an introduction.</p>
+                    <p>Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form. <span class="ph">[Wording to be set by counsel.]</span></p>
+                  </div>
+                </details>
+                <details class="acc">
+                  <summary>Do I Have to Hire Them?</summary>
+                  <div class="acc__body">
+                    <p>No. You decide what happens next. An introduction does not create a professional relationship with Cargado Strategies or with the partner, and you are free to speak with anyone else.</p>
+                  </div>
+                </details>
+                <details class="acc">
+                  <summary>How Are Partners Listed?</summary>
+                  <div class="acc__body">
+                    <p>By distance only, closest first. A listing is not an endorsement or a recommendation. Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled.</p>
+                    <p>Partners are independent businesses. Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence.</p>
+                  </div>
+                </details>
+                <details class="acc">
+                  <summary>What Happens to My Information?</summary>
+                  <div class="acc__body">
+                    <p>We use your name, contact details, city or area and your message to answer you and connect you with a partner close to you. We ask for your city only to find someone near you. Cargado staff and the partner we connect you with see it, and we do not sell it.</p>
+                    <p>You may ask to see, correct or delete it at any time. <a href="#privacy">Read the privacy policy</a>.</p>
+                  </div>
+                </details>
+                <details class="acc">
+                  <summary>Does Cargado Give Advice?</summary>
+                  <div class="acc__body">
+                    <p>Not through this website. Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here. Advice comes from the partner you choose.</p>
+                    <p>The founder's own businesses (insurance, business strategy and outsourcing) are named as hers and show their own details: <span class="ph">[company name]</span> · <span class="ph">[licence #]</span> · <span class="ph">[regulator]</span>. Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice.</p>
+                  </div>
+                </details>
+                <details class="acc">
+                  <summary>How Do I Become a Partner?</summary>
+                  <div class="acc__body">
+                    <p>Apply on the <a href="partners.html">Become a Partner</a> page with your business details, category, licence number and issuing body, and service area. The Cargado team reviews and approves each application, and every partner agrees to the <a href="#conduct">code of conduct</a>.</p>
+                    <p>Membership buys a listing and network tools only. It does not promise referrals or outcomes.</p>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 · Close + footer -->
+      <section class="scene legal-close" id="close" data-field="ink" data-dur="4" data-iris="24% 40%"
+               data-pose="1.6,0.55,0,0.3,2.9,0.62" data-pose-sm="1.56,1.2,0,0.3,2.9,0"
+               data-title="Questions?" aria-labelledby="close-title">
+        <div class="scene__inner">
+          <div class="stack stack-xl">
+            <div class="close stack stack-l">
+              <div class="stack">
+                <p class="eyebrow" data-reveal="fade">Still Have a Question?</p>
+                <h2 id="close-title" class="t-d1 close__title" data-reveal="lines">One Message. <span class="nowrap-md">The Right Person.</span> <span class="nowrap-md">Close to You.</span></h2>
+                <p class="t-lead muted" data-reveal="fade">Ask us about privacy, the terms or partner conduct, or tell us what you need and your city.</p>
+              </div>
+              <div class="stack stack-s" data-reveal="fade">
+                <div class="row">
+                  <a class="btn btn--primary btn--lg" data-wa href="#">Ask Us on WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></a>
+                  <a class="btn btn--link" href="#contents">Back to Contents <span class="btn__arrow" aria-hidden="true">→</span></a>
+                </div>
+                <p class="hint">Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
+              </div>
+            </div>
+            <div data-footer></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <div class="scroll-spacer"></div>
+</body>
+</html>

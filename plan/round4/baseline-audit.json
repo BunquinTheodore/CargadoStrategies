@@ -1,0 +1,9003 @@
+[
+ {
+  "page": "index.html",
+  "viewport": "1920x1080",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 645,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 1004,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 1004,
+    "content": 481,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 1004,
+    "content": 387,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 1004,
+    "content": 386,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 1004,
+    "content": 473,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 1004,
+    "content": 634,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 1004,
+    "content": 423,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 1004,
+    "content": 712,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 1004,
+    "content": 447,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 1004,
+    "content": 556,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 1004,
+    "content": 324,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 1004,
+    "content": 966,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "1536x864",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 563,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12,
+   "attempts": 2
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 788,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 788,
+    "content": 481,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 788,
+    "content": 387,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 788,
+    "content": 375,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 788,
+    "content": 466,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 788,
+    "content": 628,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 788,
+    "content": 423,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 788,
+    "content": 712,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 788,
+    "content": 446,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 788,
+    "content": 542,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 788,
+    "content": 324,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 788,
+    "content": 937,
+    "overflowY": 149,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 137,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 136,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 85,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 66,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "1440x900",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 232,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 824,
+    "content": 594,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 824,
+    "content": 479,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 824,
+    "content": 387,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 824,
+    "content": 364,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 824,
+    "content": 458,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 824,
+    "content": 620,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 824,
+    "content": 423,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 824,
+    "content": 709,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 824,
+    "content": 443,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 824,
+    "content": 469,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 824,
+    "content": 324,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 824,
+    "content": 928,
+    "overflowY": 104,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 92,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 91,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 41,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 22,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "1366x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 423,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 692,
+    "content": 614,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 692,
+    "content": 456,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 692,
+    "content": 387,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 692,
+    "content": 355,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 692,
+    "content": 449,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 692,
+    "content": 661,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 692,
+    "content": 423,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 692,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 692,
+    "content": 441,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 692,
+    "content": 487,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 692,
+    "content": 324,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 692,
+    "content": 904,
+    "overflowY": 212,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 200,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 199,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 148,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 129,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "1280x720",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 211,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 644,
+    "content": 614,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 644,
+    "content": 431,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 644,
+    "content": 384,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 644,
+    "content": 344,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 644,
+    "content": 437,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 644,
+    "content": 651,
+    "overflowY": 7,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 644,
+    "content": 423,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 644,
+    "content": 579,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 644,
+    "content": 439,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 644,
+    "content": 560,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 644,
+    "content": 324,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 644,
+    "content": 885,
+    "overflowY": 241,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 229,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 228,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 177,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 158,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "1024x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 518,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 692,
+    "content": 625,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 692,
+    "content": 355,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 692,
+    "content": 553,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 692,
+    "content": 454,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 692,
+    "content": 412,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 692,
+    "content": 619,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 692,
+    "content": 316,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 692,
+    "content": 517,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 692,
+    "content": 344,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 692,
+    "content": 442,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 692,
+    "content": 518,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 692,
+    "content": 844,
+    "overflowY": 152,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 140,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 139,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 89,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 69,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "768x1024",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 280,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 948,
+    "content": 850,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 948,
+    "content": 678,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 948,
+    "content": 528,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 948,
+    "content": 512,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 948,
+    "content": 409,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 948,
+    "content": 802,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 948,
+    "content": 860,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 948,
+    "content": 1011,
+    "overflowY": 63,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 50,
+       "el": "figcaption#map-cap.map__cap.ui \"Map preview · cities shown f\""
+      },
+      {
+       "px": 20,
+       "el": "svg#canada-map \"VancouverWinnipegTorontoHali\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 948,
+    "content": 668,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 948,
+    "content": 449,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 948,
+    "content": 500,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 948,
+    "content": 901,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "390x844",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 408,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 780,
+    "content": 1097,
+    "overflowY": 317,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 305,
+       "el": "ul.proof \"[n]introductions made [n]app\""
+      },
+      {
+       "px": 305,
+       "el": "li \"★ [rating]on Facebook\""
+      },
+      {
+       "px": 292,
+       "el": "span.proof__l \"cities across Canada\""
+      },
+      {
+       "px": 284,
+       "el": "span.proof__l \"on Facebook\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 780,
+    "content": 598,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 780,
+    "content": 572,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 780,
+    "content": 645,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 780,
+    "content": 619,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 780,
+    "content": 1151,
+    "overflowY": 371,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 359,
+       "el": "figure.span-6.md-span-6 \"“[Real client quote about th\""
+      },
+      {
+       "px": 357,
+       "el": "figcaption.ui \"[name] · [city] · [service]\""
+      },
+      {
+       "px": 357,
+       "el": "span.ph \"[name]\""
+      },
+      {
+       "px": 357,
+       "el": "span.ph \"[city]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 780,
+    "content": 695,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 780,
+    "content": 797,
+    "overflowY": 17,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 4,
+       "el": "figcaption#map-cap.map__cap.ui \"Map preview · cities shown f\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 780,
+    "content": 463,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 780,
+    "content": 551,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 780,
+    "content": 509,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 780,
+    "content": 1181,
+    "overflowY": 401,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 389,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 388,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 350,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 331,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "index.html",
+  "viewport": "360x740",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 387,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 12
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Introduction",
+    "box": 676,
+    "content": 1139,
+    "overflowY": 463,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 451,
+       "el": "ul.proof \"[n]introductions made [n]app\""
+      },
+      {
+       "px": 451,
+       "el": "li \"★ [rating]on Facebook\""
+      },
+      {
+       "px": 438,
+       "el": "span.proof__l \"cities across Canada\""
+      },
+      {
+       "px": 430,
+       "el": "span.proof__l \"on Facebook\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "video",
+    "title": "What We Do",
+    "box": 676,
+    "content": 581,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "situations",
+    "title": "Sounds Like You?",
+    "box": 676,
+    "content": 588,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "compare",
+    "title": "One Message",
+    "box": 676,
+    "content": 709,
+    "overflowY": 33,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 21,
+       "el": "div.span-7.md-span-12 \"On your ownOn your own Searc\""
+      },
+      {
+       "px": 20,
+       "el": "div.compare__side.compare__us \"With CargadoWith Cargado One\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "how-it-works",
+    "title": "How It Works",
+    "box": 676,
+    "content": 619,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "founder",
+    "title": "From Our Founder",
+    "box": 676,
+    "content": 1178,
+    "overflowY": 502,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 490,
+       "el": "figure.span-6.md-span-6 \"“[Real client quote about th\""
+      },
+      {
+       "px": 489,
+       "el": "figcaption.ui \"[name] · [city] · [service]\""
+      },
+      {
+       "px": 489,
+       "el": "span.ph \"[name]\""
+      },
+      {
+       "px": 489,
+       "el": "span.ph \"[city]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "services",
+    "title": "Services",
+    "box": 676,
+    "content": 712,
+    "overflowY": 36,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 24,
+       "el": "li \"09 Financial Planning Partne\""
+      },
+      {
+       "px": 11,
+       "el": "span.tile__own.ui \"Partner network\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "find",
+    "title": "Find a Partner",
+    "box": 676,
+    "content": 817,
+    "overflowY": 141,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 128,
+       "el": "figcaption#map-cap.map__cap.ui \"Map preview · cities shown f\""
+      },
+      {
+       "px": 78,
+       "el": "svg#canada-map \"VancouverWinnipegTorontoHali\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 8,
+    "id": "story",
+    "title": "Our Story",
+    "box": 676,
+    "content": 489,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 9,
+    "id": "partners",
+    "title": "For Professionals",
+    "box": 676,
+    "content": 616,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 10,
+    "id": "faq",
+    "title": "Straight Answers",
+    "box": 676,
+    "content": 552,
+    "overflowY": 76,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 76,
+       "el": "p \"We use it to answer you and \""
+      },
+      {
+       "px": 76,
+       "el": "a \"privacy policy\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 11,
+    "id": "close",
+    "title": "Get My Introduction",
+    "box": 676,
+    "content": 1172,
+    "overflowY": 496,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 484,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 483,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 445,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 426,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1920x1080",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 388,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 1004,
+    "content": 600,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 1004,
+    "content": 591,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 1004,
+    "content": 672,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 1004,
+    "content": 604,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 1004,
+    "content": 682,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 1004,
+    "content": 790,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 1004,
+    "content": 770,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 1004,
+    "content": 966,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1536x864",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 485,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 788,
+    "content": 561,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 788,
+    "content": 589,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 788,
+    "content": 670,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 788,
+    "content": 603,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 788,
+    "content": 681,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 788,
+    "content": 790,
+    "overflowY": 2,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 788,
+    "content": 770,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 788,
+    "content": 937,
+    "overflowY": 149,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 137,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 136,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 85,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 66,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1440x900",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 210,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 824,
+    "content": 551,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 824,
+    "content": 583,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 824,
+    "content": 665,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 824,
+    "content": 600,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 824,
+    "content": 677,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 824,
+    "content": 790,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 824,
+    "content": 770,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 824,
+    "content": 928,
+    "overflowY": 104,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 92,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 91,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 41,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 22,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1366x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 318,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 692,
+    "content": 540,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 692,
+    "content": 578,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 692,
+    "content": 682,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 692,
+    "content": 598,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 692,
+    "content": 670,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 692,
+    "content": 843,
+    "overflowY": 151,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 139,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 106,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 95,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 15,
+       "el": "ul.cat-rail__list \"Manufacturing Legal Mortgage\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 692,
+    "content": 770,
+    "overflowY": 78,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 66,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 31,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 4,
+       "el": "button.btn.btn--primary \"Send My Inquiry Send My Inqu\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 692,
+    "content": 904,
+    "overflowY": 212,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 200,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 199,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 148,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 129,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1280x720",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 269,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 644,
+    "content": 526,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 644,
+    "content": 573,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 644,
+    "content": 697,
+    "overflowY": 53,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 41,
+       "el": "p.notice \"Strategy and coaching only. \""
+      },
+      {
+       "px": 10,
+       "el": "strong \"Strategy and coaching only.\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 644,
+    "content": 596,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 644,
+    "content": 638,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 644,
+    "content": 864,
+    "overflowY": 220,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 208,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 175,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 164,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 75,
+       "el": "a.btn.btn--primary \"Find One Near You Find One N\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 644,
+    "content": 790,
+    "overflowY": 146,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 134,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 100,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 73,
+       "el": "button.btn.btn--primary \"Send My Inquiry Send My Inqu\""
+      },
+      {
+       "px": 35,
+       "el": "span.visually-hidden.roll__sr \"Send My Inquiry\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 644,
+    "content": 885,
+    "overflowY": 241,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 229,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 228,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 177,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 158,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "1024x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 202,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 692,
+    "content": 621,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 692,
+    "content": 643,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 692,
+    "content": 1132,
+    "overflowY": 440,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 428,
+       "el": "div.offer-promise.panel-3d \"Our promiseOur promise If yo\""
+      },
+      {
+       "px": 404,
+       "el": "p \"If your plan doesn't give yo\""
+      },
+      {
+       "px": 404,
+       "el": "span.ph \"[we keep working with you at\""
+      },
+      {
+       "px": 379,
+       "el": "span.ph \"[3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 692,
+    "content": 586,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 692,
+    "content": 848,
+    "overflowY": 156,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 143,
+       "el": "p.notice.results__notice \"Sorted by distance only. Thi\""
+      },
+      {
+       "px": 143,
+       "el": "li \"Free\""
+      },
+      {
+       "px": 143,
+       "el": "li \"No obligation\""
+      },
+      {
+       "px": 132,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 692,
+    "content": 1243,
+    "overflowY": 551,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 539,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 506,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 495,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 405,
+       "el": "a.btn.btn--primary \"Find One Near You Find One N\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 692,
+    "content": 1119,
+    "overflowY": 427,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 415,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 381,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 354,
+       "el": "button.btn.btn--primary \"Send My Inquiry Send My Inqu\""
+      },
+      {
+       "px": 316,
+       "el": "span.visually-hidden.roll__sr \"Send My Inquiry\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 692,
+    "content": 844,
+    "overflowY": 152,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 140,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 139,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 89,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 69,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "768x1024",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 204,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 948,
+    "content": 580,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 948,
+    "content": 728,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 948,
+    "content": 1134,
+    "overflowY": 186,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 174,
+       "el": "div.offer-promise.panel-3d \"Our promiseOur promise If yo\""
+      },
+      {
+       "px": 151,
+       "el": "p \"If your plan doesn't give yo\""
+      },
+      {
+       "px": 151,
+       "el": "span.ph \"[we keep working with you at\""
+      },
+      {
+       "px": 125,
+       "el": "span.ph \"[3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 948,
+    "content": 574,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 948,
+    "content": 755,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 948,
+    "content": 1221,
+    "overflowY": 273,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 261,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 228,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 217,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 128,
+       "el": "a.btn.btn--primary \"Find One Near You →\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 948,
+    "content": 1102,
+    "overflowY": 154,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 142,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 107,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 80,
+       "el": "button.btn.btn--primary \"Send My Inquiry →\""
+      },
+      {
+       "px": 4,
+       "el": "p.notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 948,
+    "content": 901,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "390x844",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 390,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 780,
+    "content": 638,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 780,
+    "content": 670,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 780,
+    "content": 1534,
+    "overflowY": 754,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 742,
+       "el": "div.offer-promise.panel-3d \"Our promiseOur promise If yo\""
+      },
+      {
+       "px": 718,
+       "el": "p \"If your plan doesn't give yo\""
+      },
+      {
+       "px": 718,
+       "el": "span.ph \"[we keep working with you at\""
+      },
+      {
+       "px": 641,
+       "el": "span.ph \"[3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 780,
+    "content": 853,
+    "overflowY": 73,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 59,
+       "el": "p.hint \"Provided by Cargado Strategi\""
+      },
+      {
+       "px": 8,
+       "el": "a.btn.btn--ghost \"Send an Inquiry\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 780,
+    "content": 1282,
+    "overflowY": 502,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 489,
+       "el": "li \"Free\""
+      },
+      {
+       "px": 489,
+       "el": "li \"No obligation\""
+      },
+      {
+       "px": 458,
+       "el": "li \"Day [3]We check in to see it\""
+      },
+      {
+       "px": 445,
+       "el": "span.next-steps__when.num \"Day [3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 780,
+    "content": 1533,
+    "overflowY": 753,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 741,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 720,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 709,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 580,
+       "el": "a.btn.btn--ghost \"Ask on WhatsApp (opens in a \""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 780,
+    "content": 1451,
+    "overflowY": 671,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 659,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 636,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 588,
+       "el": "button.btn.btn--primary \"Send My Inquiry →\""
+      },
+      {
+       "px": 512,
+       "el": "p.notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 780,
+    "content": 1181,
+    "overflowY": 401,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 389,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 388,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 350,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 331,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "services.html",
+  "viewport": "360x740",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 353,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "intro",
+    "title": "Services",
+    "box": 676,
+    "content": 657,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "ours-insurance",
+    "title": "Insurance · Ours",
+    "box": 676,
+    "content": 775,
+    "overflowY": 99,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 87,
+       "el": "p.notice \"This is our founder's own bu\""
+      },
+      {
+       "px": 13,
+       "el": "p.hint \"Opens WhatsApp with your mes\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "ours-strategy",
+    "title": "Business Strategy · Ours",
+    "box": 676,
+    "content": 1555,
+    "overflowY": 879,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 867,
+       "el": "div.offer-promise.panel-3d \"Our promiseOur promise If yo\""
+      },
+      {
+       "px": 843,
+       "el": "p \"If your plan doesn't give yo\""
+      },
+      {
+       "px": 843,
+       "el": "span.ph \"[we keep working with you at\""
+      },
+      {
+       "px": 792,
+       "el": "span.ph \"[3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "ours-outsourcing",
+    "title": "Outsourcing · Ours",
+    "box": 676,
+    "content": 853,
+    "overflowY": 177,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 163,
+       "el": "p.hint \"Provided by Cargado Strategi\""
+      },
+      {
+       "px": 111,
+       "el": "a.btn.btn--ghost \"Send an Inquiry\""
+      },
+      {
+       "px": 51,
+       "el": "a.btn.btn--primary \"Ask About Outsourcing →\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "finder",
+    "title": "Partner Finder",
+    "box": 676,
+    "content": 1275,
+    "overflowY": 599,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 586,
+       "el": "li \"Free\""
+      },
+      {
+       "px": 586,
+       "el": "li \"No obligation\""
+      },
+      {
+       "px": 555,
+       "el": "li \"Day [3]We check in to see it\""
+      },
+      {
+       "px": 542,
+       "el": "span.next-steps__when.num \"Day [3]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "categories",
+    "title": "Every Category",
+    "box": 676,
+    "content": 1604,
+    "overflowY": 928,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 916,
+       "el": "div.cat-card.panel-3d \"Ours + partners Insurance Li\""
+      },
+      {
+       "px": 895,
+       "el": "p.notice \"Partners are independent bus\""
+      },
+      {
+       "px": 884,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 755,
+       "el": "a.btn.btn--ghost \"Ask on WhatsApp (opens in a \""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "inquiry",
+    "title": "Send an Inquiry",
+    "box": 676,
+    "content": 1516,
+    "overflowY": 840,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 828,
+       "el": "div#inquiry-panel.span-7.start-6 \"Your name Email Phone or Wha\""
+      },
+      {
+       "px": 806,
+       "el": "p.hint \"Opens WhatsApp with your inq\""
+      },
+      {
+       "px": 758,
+       "el": "button.btn.btn--primary \"Send My Inquiry →\""
+      },
+      {
+       "px": 682,
+       "el": "p.notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Close",
+    "box": 676,
+    "content": 1172,
+    "overflowY": 496,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 484,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 483,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 445,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 426,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1920x1080",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 446,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 1004,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 1004,
+    "content": 665,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 1004,
+    "content": 591,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 1004,
+    "content": 693,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 1004,
+    "content": 651,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 1004,
+    "content": 564,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 1004,
+    "content": 870,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1536x864",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 230,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 788,
+    "content": 576,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 788,
+    "content": 665,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 788,
+    "content": 592,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 788,
+    "content": 600,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 788,
+    "content": 648,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 788,
+    "content": 560,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 788,
+    "content": 844,
+    "overflowY": 56,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 44,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 43,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1440x900",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 201,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 824,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 824,
+    "content": 664,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 824,
+    "content": 590,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 824,
+    "content": 619,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 824,
+    "content": 640,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 824,
+    "content": 564,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 824,
+    "content": 839,
+    "overflowY": 15,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 3,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 2,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1366x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 208,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 692,
+    "content": 531,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 692,
+    "content": 683,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 692,
+    "content": 543,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 692,
+    "content": 548,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 692,
+    "content": 660,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 692,
+    "content": 532,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 692,
+    "content": 821,
+    "overflowY": 129,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 117,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 116,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 66,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 47,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1280x720",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 383,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 644,
+    "content": 518,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 644,
+    "content": 668,
+    "overflowY": 24,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 12,
+       "el": "div.span-6.start-3 \"One Conversation [Founder na\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 644,
+    "content": 514,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 644,
+    "content": 522,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 644,
+    "content": 652,
+    "overflowY": 8,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 644,
+    "content": 525,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 644,
+    "content": 810,
+    "overflowY": 166,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 154,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 153,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 103,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 84,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "1024x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 383,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 692,
+    "content": 521,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 692,
+    "content": 642,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 692,
+    "content": 436,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 692,
+    "content": 486,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 692,
+    "content": 638,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 692,
+    "content": 551,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 692,
+    "content": 791,
+    "overflowY": 99,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 87,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 86,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 36,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 17,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "768x1024",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 276,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 948,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 948,
+    "content": 645,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 948,
+    "content": 349,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 948,
+    "content": 440,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 948,
+    "content": 596,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 948,
+    "content": 610,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 948,
+    "content": 1026,
+    "overflowY": 78,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 66,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 65,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 15,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "390x844",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 343,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7,
+   "attempts": 2
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 780,
+    "content": 581,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 780,
+    "content": 645,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 780,
+    "content": 560,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 780,
+    "content": 477,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 780,
+    "content": 872,
+    "overflowY": 92,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 80,
+       "el": "li.story-value \"03 Responsible Growth We gro\""
+      },
+      {
+       "px": 57,
+       "el": "p.muted \"We grow the network with car\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 780,
+    "content": 576,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 780,
+    "content": 1160,
+    "overflowY": 380,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 368,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 367,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 329,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 310,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "story.html",
+  "viewport": "360x740",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 338,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "top",
+    "title": "Our Story",
+    "box": 676,
+    "content": 370,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "beginning",
+    "title": "Where It Began",
+    "box": 676,
+    "content": 698,
+    "overflowY": 22,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 10,
+       "el": "div.span-6.start-3 \"One Conversation [Founder na\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "founder",
+    "title": "The Founder",
+    "box": 676,
+    "content": 593,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "logo",
+    "title": "The Logo",
+    "box": 676,
+    "content": 478,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "values",
+    "title": "Mission and Values",
+    "box": 676,
+    "content": 872,
+    "overflowY": 196,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 184,
+       "el": "li.story-value \"03 Responsible Growth We gro\""
+      },
+      {
+       "px": 161,
+       "el": "p.muted \"We grow the network with car\""
+      },
+      {
+       "px": 78,
+       "el": "span.list-num__n \"03\""
+      },
+      {
+       "px": 78,
+       "el": "h3 \"Responsible Growth\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "network",
+    "title": "The Network",
+    "box": 676,
+    "content": 576,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "talk",
+    "title": "Talk to Us",
+    "box": 676,
+    "content": 1151,
+    "overflowY": 475,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 463,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 462,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 424,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 405,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1920x1080",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 630,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 1004,
+    "content": 847,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 1004,
+    "content": 641,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 1004,
+    "content": 605,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 1004,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 1004,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 1004,
+    "content": 546,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 1004,
+    "content": 1984,
+    "overflowY": 980,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 968,
+       "el": "form#apply-form.form.apply-form \"All fields are required unle\""
+      },
+      {
+       "px": 966,
+       "el": "p.hint \"Opens WhatsApp with your app\""
+      },
+      {
+       "px": 966,
+       "el": "span \"An email option will follow:\""
+      },
+      {
+       "px": 966,
+       "el": "span.ph \"[company email]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 1004,
+    "content": 879,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1536x864",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 334,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 788,
+    "content": 769,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 788,
+    "content": 639,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 788,
+    "content": 604,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 788,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 788,
+    "content": 642,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 788,
+    "content": 545,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 788,
+    "content": 1983,
+    "overflowY": 1195,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1183,
+       "el": "form#apply-form.form.apply-form \"All fields are required unle\""
+      },
+      {
+       "px": 1182,
+       "el": "p.hint \"Opens WhatsApp with your app\""
+      },
+      {
+       "px": 1182,
+       "el": "span \"An email option will follow:\""
+      },
+      {
+       "px": 1182,
+       "el": "span.ph \"[company email]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 788,
+    "content": 853,
+    "overflowY": 65,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 53,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 52,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 2,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1440x900",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 442,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 824,
+    "content": 749,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 824,
+    "content": 634,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 824,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 824,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 824,
+    "content": 634,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 824,
+    "content": 542,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 824,
+    "content": 1981,
+    "overflowY": 1157,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1145,
+       "el": "form#apply-form.form.apply-form \"All fields are required unle\""
+      },
+      {
+       "px": 1143,
+       "el": "p.hint \"Opens WhatsApp with your app\""
+      },
+      {
+       "px": 1143,
+       "el": "span \"An email option will follow:\""
+      },
+      {
+       "px": 1143,
+       "el": "span.ph \"[company email]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 824,
+    "content": 848,
+    "overflowY": 24,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 12,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 11,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1366x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 402,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8,
+   "attempts": 2
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 692,
+    "content": 734,
+    "overflowY": 42,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 28,
+       "el": "p.t-small.muted \"We don't promise a number of\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 692,
+    "content": 629,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 692,
+    "content": 621,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 692,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 692,
+    "content": 628,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 692,
+    "content": 540,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 692,
+    "content": 1994,
+    "overflowY": 1302,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1290,
+       "el": "form#apply-form.form.apply-form \"All fields are required unle\""
+      },
+      {
+       "px": 1288,
+       "el": "p.hint \"Opens WhatsApp with your app\""
+      },
+      {
+       "px": 1288,
+       "el": "span \"An email option will follow:\""
+      },
+      {
+       "px": 1288,
+       "el": "span.ph \"[company email]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 692,
+    "content": 827,
+    "overflowY": 135,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 123,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 122,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 71,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 52,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1280x720",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 340,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 644,
+    "content": 717,
+    "overflowY": 73,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 58,
+       "el": "p.t-small.muted \"We don't promise a number of\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 644,
+    "content": 625,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 644,
+    "content": 614,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 644,
+    "content": 595,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 644,
+    "content": 621,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 644,
+    "content": 538,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 644,
+    "content": 2014,
+    "overflowY": 1370,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1358,
+       "el": "form#apply-form.form.apply-form \"All fields are required unle\""
+      },
+      {
+       "px": 1356,
+       "el": "p.hint \"Opens WhatsApp with your app\""
+      },
+      {
+       "px": 1356,
+       "el": "span \"An email option will follow:\""
+      },
+      {
+       "px": 1356,
+       "el": "span.ph \"[company email]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 644,
+    "content": 811,
+    "overflowY": 167,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 155,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 154,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 104,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 85,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "1024x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 322,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 692,
+    "content": 660,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 692,
+    "content": 562,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 692,
+    "content": 620,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 692,
+    "content": 859,
+    "overflowY": 167,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 155,
+       "el": "li.tier.is-pickable \"Premier [$ per month] Everyt\""
+      },
+      {
+       "px": 103,
+       "el": "span.visually-hidden.roll__sr \"Apply for Premier\""
+      },
+      {
+       "px": 80,
+       "el": "span.ph \"[Partner events and co-hoste\""
+      },
+      {
+       "px": 71,
+       "el": "span.ph \"[$ per month]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 692,
+    "content": 597,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 692,
+    "content": 525,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 692,
+    "content": 2541,
+    "overflowY": 1849,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1837,
+       "el": "div.apply__panel.panel-3d \"What happens nextWhat happen\""
+      },
+      {
+       "px": 1804,
+       "el": "p.notice \"Independent partners. Partne\""
+      },
+      {
+       "px": 1773,
+       "el": "strong \"Independent partners.\""
+      },
+      {
+       "px": 1712,
+       "el": "p.notice \"Commission. Cargado Strategi\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 692,
+    "content": 717,
+    "overflowY": 25,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 13,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 12,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "768x1024",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 341,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 948,
+    "content": 602,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 948,
+    "content": 555,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 948,
+    "content": 653,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 948,
+    "content": 867,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 948,
+    "content": 572,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 948,
+    "content": 511,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 948,
+    "content": 2579,
+    "overflowY": 1631,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 1619,
+       "el": "div.apply__panel.panel-3d \"What happens nextWhat happen\""
+      },
+      {
+       "px": 1586,
+       "el": "p.notice \"Independent partners. Partne\""
+      },
+      {
+       "px": 1555,
+       "el": "strong \"Independent partners.\""
+      },
+      {
+       "px": 1494,
+       "el": "p.notice \"Commission. Cargado Strategi\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 948,
+    "content": 848,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "390x844",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 295,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 780,
+    "content": 693,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 780,
+    "content": 629,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 780,
+    "content": 997,
+    "overflowY": 217,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 193,
+       "el": "a.btn.btn--link \"See the Membership Tiers →\""
+      },
+      {
+       "px": 141,
+       "el": "p.notice \"Commission terms [to be conf\""
+      },
+      {
+       "px": 29,
+       "el": "strong \"Commission terms [to be conf\""
+      },
+      {
+       "px": 29,
+       "el": "span.ph \"[to be confirmed by counsel]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 780,
+    "content": 1092,
+    "overflowY": 312,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 300,
+       "el": "li.tier.is-pickable \"Premier [$ per month] Everyt\""
+      },
+      {
+       "px": 267,
+       "el": "a.btn.btn--link \"Apply for Premier →\""
+      },
+      {
+       "px": 225,
+       "el": "span.ph \"[Partner events and co-hoste\""
+      },
+      {
+       "px": 199,
+       "el": "span.ph \"[More than one service area]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 780,
+    "content": 591,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 780,
+    "content": 630,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 780,
+    "content": 3353,
+    "overflowY": 2573,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 2561,
+       "el": "div.apply__panel.panel-3d \"What happens nextWhat happen\""
+      },
+      {
+       "px": 2528,
+       "el": "p.notice \"Independent partners. Partne\""
+      },
+      {
+       "px": 2457,
+       "el": "strong \"Independent partners.\""
+      },
+      {
+       "px": 2396,
+       "el": "p.notice \"Commission. Cargado Strategi\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 780,
+    "content": 1142,
+    "overflowY": 362,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 350,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 349,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 310,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 291,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "partners.html",
+  "viewport": "360x740",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 357,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 8
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "hero",
+    "title": "Become a Partner",
+    "box": 676,
+    "content": 742,
+    "overflowY": 66,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 52,
+       "el": "p.t-small.muted \"We don't promise a number of\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "how",
+    "title": "How It Works",
+    "box": 676,
+    "content": 629,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "arrangement",
+    "title": "The Referral Arrangement",
+    "box": 676,
+    "content": 1048,
+    "overflowY": 372,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 348,
+       "el": "a.btn.btn--link \"See the Membership Tiers →\""
+      },
+      {
+       "px": 296,
+       "el": "p.notice \"Commission terms [to be conf\""
+      },
+      {
+       "px": 184,
+       "el": "strong \"Commission terms [to be conf\""
+      },
+      {
+       "px": 184,
+       "el": "span.ph \"[to be confirmed by counsel]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "tiers",
+    "title": "Membership Tiers",
+    "box": 676,
+    "content": 1137,
+    "overflowY": 461,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 449,
+       "el": "li.tier.is-pickable \"Premier [$ per month] Everyt\""
+      },
+      {
+       "px": 416,
+       "el": "a.btn.btn--link \"Apply for Premier →\""
+      },
+      {
+       "px": 374,
+       "el": "span.ph \"[Partner events and co-hoste\""
+      },
+      {
+       "px": 325,
+       "el": "span.ph \"[More than one service area]\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "founding",
+    "title": "Founding Partner Offer",
+    "box": 676,
+    "content": 653,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "ask",
+    "title": "What We Ask",
+    "box": 676,
+    "content": 657,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "apply",
+    "title": "Apply",
+    "box": 676,
+    "content": 3394,
+    "overflowY": 2718,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 2706,
+       "el": "div.apply__panel.panel-3d \"What happens nextWhat happen\""
+      },
+      {
+       "px": 2673,
+       "el": "p.notice \"Independent partners. Partne\""
+      },
+      {
+       "px": 2602,
+       "el": "strong \"Independent partners.\""
+      },
+      {
+       "px": 2541,
+       "el": "p.notice \"Commission. Cargado Strategi\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 7,
+    "id": "close",
+    "title": "Questions",
+    "box": 676,
+    "content": 1133,
+    "overflowY": 457,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 445,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 444,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 406,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 386,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1920x1080",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 212,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 961,
+    "content": 591,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 961,
+    "content": 961,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 961,
+    "content": 961,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 103
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 961,
+    "content": 961,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 961,
+    "content": 961,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 961,
+    "content": 961,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 961,
+    "content": 997,
+    "overflowY": 36,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 24,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 23,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1536x864",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 206,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 745,
+    "content": 572,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 745,
+    "content": 745,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 745,
+    "content": 745,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 319
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 745,
+    "content": 745,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 68
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 745,
+    "content": 745,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 745,
+    "content": 745,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 745,
+    "content": 968,
+    "overflowY": 223,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 211,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 210,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 159,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 140,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1440x900",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 233,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 781,
+    "content": 567,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 781,
+    "content": 781,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 781,
+    "content": 781,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 283
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 781,
+    "content": 781,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 32
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 781,
+    "content": 781,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 781,
+    "content": 781,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 781,
+    "content": 959,
+    "overflowY": 178,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 166,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 165,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 115,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 96,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1366x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 309,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7,
+   "attempts": 2
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 649,
+    "content": 559,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 415
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 164
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 649,
+    "content": 935,
+    "overflowY": 286,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 274,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 273,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 222,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 203,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1280x720",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 258,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 601,
+    "content": 550,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 601,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Cargado Strategies connects \"",
+      "px": 98
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 601,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 463
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 601,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 212
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 601,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Describe your licence, crede\"",
+      "px": 33
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 601,
+    "content": 601,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 601,
+    "content": 916,
+    "overflowY": 315,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 303,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 302,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 251,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 232,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "1024x768",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 205,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7,
+   "attempts": 2
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 649,
+    "content": 609,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Cargado Strategies connects \"",
+      "px": 159
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 469
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 245
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Describe your licence, crede\"",
+      "px": 25
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 649,
+    "content": 649,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 649,
+    "content": 874,
+    "overflowY": 225,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 213,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 212,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 161,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 142,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "768x1024",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 232,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 905,
+    "content": 581,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 905,
+    "content": 905,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Cargado Strategies connects \"",
+      "px": 66
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 905,
+    "content": 905,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 376
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 905,
+    "content": 905,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 125
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 905,
+    "content": 905,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 905,
+    "content": 905,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 905,
+    "content": 929,
+    "overflowY": 24,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 12,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 11,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "390x844",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 280,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 731,
+    "content": 621,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 731,
+    "content": 731,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Cargado Strategies connects \"",
+      "px": 299
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 731,
+    "content": 731,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 545
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 731,
+    "content": 731,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 312
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 731,
+    "content": 731,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Describe your licence, crede\"",
+      "px": 65
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 731,
+    "content": 731,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 731,
+    "content": 1207,
+    "overflowY": 476,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 464,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 463,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 425,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 406,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ },
+ {
+  "page": "legal.html",
+  "viewport": "360x740",
+  "mode": "film, activated",
+  "hooked": true,
+  "state": {
+   "waited": 201,
+   "hooked": true,
+   "film": true,
+   "ready": true,
+   "count": 7
+  },
+  "scenes": [
+   {
+    "i": 0,
+    "id": "contents",
+    "title": "Legal",
+    "box": 627,
+    "content": 641,
+    "overflowY": 14,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 2,
+       "el": "a.toc__link \"05Q&A6 questions\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 1,
+    "id": "disclosure",
+    "title": "Professional Disclosure",
+    "box": 627,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Cargado Strategies connects \"",
+      "px": 505
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 2,
+    "id": "privacy",
+    "title": "Privacy Policy",
+    "box": 627,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Information We CollectYour n\"",
+      "px": 675
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 3,
+    "id": "terms",
+    "title": "Terms of Use",
+    "box": 627,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"General InformationThis webs\"",
+      "px": 442
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 4,
+    "id": "conduct",
+    "title": "Partner Code of Conduct",
+    "box": 627,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [
+     {
+      "axis": "y",
+      "el": "div.scene__scroll.legal-panel__face \"Describe your licence, crede\"",
+      "px": 194
+     }
+    ],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 5,
+    "id": "faq",
+    "title": "Q&A",
+    "box": 627,
+    "content": 627,
+    "overflowY": 0,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   },
+   {
+    "i": 6,
+    "id": "close",
+    "title": "Questions?",
+    "box": 627,
+    "content": 1199,
+    "overflowY": 572,
+    "overflowX": 0,
+    "sideX": "right",
+    "headerOverlap": 0,
+    "innerScroll": [],
+    "why": {
+     "y": [
+      {
+       "px": 560,
+       "el": "footer.site-footer \"Cargado Strategies Connected\""
+      },
+      {
+       "px": 559,
+       "el": "p.site-footer__copy \"© 2026 Cargado Strategies\""
+      },
+      {
+       "px": 520,
+       "el": "span.ph \"[Wording to be confirmed by \""
+      },
+      {
+       "px": 501,
+       "el": "p.site-footer__notice \"Partners are independent bus\""
+      }
+     ],
+     "header": [],
+     "x": []
+    },
+    "activated": true
+   }
+  ]
+ }
+]

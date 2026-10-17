@@ -1,0 +1,70 @@
+[
+ {
+  "page": "index.html",
+  "w": 1440,
+  "h": 900,
+  "reduce": false,
+  "splashGone": 5585,
+  "splashSeen": true,
+  "nav": {
+   "fcp": 656,
+   "splashDoneAt": 9120
+  },
+  "notches": 41,
+  "sceneAtNotch": {
+   "hero": 0,
+   "video": 6,
+   "situations": 15,
+   "compare": 22,
+   "how-it-works": 31,
+   "founder": 39
+  },
+  "ft": {
+   "n": 565,
+   "p50": 99,
+   "p95": 316,
+   "long": 521
+  },
+  "last": {
+   "notch": 39,
+   "y": 3957,
+   "max": 9488,
+   "scene": "founder",
+   "field": "bone",
+   "splash": false
+  }
+ },
+ {
+  "page": "story.html",
+  "w": 1440,
+  "h": 900,
+  "reduce": false,
+  "splashGone": 11689,
+  "splashSeen": true,
+  "nav": {
+   "fcp": 292,
+   "splashDoneAt": 3921
+  },
+  "notches": 31,
+  "sceneAtNotch": {
+   "top": 0,
+   "beginning": 6,
+   "founder": 14,
+   "logo": 22
+  },
+  "ft": {
+   "n": 362,
+   "p50": 100,
+   "p95": 399,
+   "long": 348
+  },
+  "last": {
+   "notch": 29,
+   "y": 2967,
+   "max": 5299,
+   "scene": "logo",
+   "field": "bone",
+   "splash": false
+  }
+ }
+]

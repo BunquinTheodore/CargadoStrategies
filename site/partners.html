@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Become a Partner · Cargado Strategies</title>
+  <meta name="description" content="For professionals and businesses in Canada: meet people in your city who already need your service. Start free on Community, pay a commission when an introduction becomes your client, and add an optional paid tier for more tools.">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    /* Film or flow mode before first paint; falls back to flow if the engine never starts. */
+    (function (d) {
+      var h = d.documentElement;
+      var FALLBACK_MS = 8000;
+      var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* The visitor's "Pause animation" choice (assets/js/motion-pref.js). */
+      if (/[?&]motion=off(&|$)/.test(location.search)) rm = true;
+      try { if (localStorage.getItem('cs-motion') === 'off') rm = true; } catch (e) {}
+      h.classList.add('js', rm ? 'rm' : 'film');
+      /* If the site script never ran (a blocked or failed module), chrome.js drew no header:
+         give the page a plain nav so every page stays reachable. */
+      var rescueNav = function () {
+        if (d.querySelector('.site-header, .nav-rescue')) return;
+        var here = location.pathname.split('/').pop() || 'index.html';
+        var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Our Story'],
+          ['partners.html', 'Become a Partner'], ['legal.html', 'Legal']];
+        var nav = d.createElement('nav');
+        nav.className = 'nav-rescue';
+        nav.setAttribute('aria-label', 'Main');
+        nav.innerHTML = links.map(function (l) {
+          return '<a href="' + l[0] + '"' + (l[0] === here ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
+        }).join('');
+        d.body.insertBefore(nav, d.body.firstChild);
+      };
+      /* Hidden (background) tabs cannot start the film, so their time does not count. */
+      var wait = function () {
+        d.addEventListener('visibilitychange', function f() {
+          if (d.visibilityState !== 'visible') return;
+          d.removeEventListener('visibilitychange', f);
+          arm();
+        });
+      };
+      var arm = function () {
+        setTimeout(function () {
+          if (h.classList.contains('film-ready')) return;
+          if (d.visibilityState === 'hidden') return wait();
+          /* film-fallback: film.js stands down if it is still building (film.js fallBackToFlow). */
+          h.classList.remove('film'); h.classList.add('rm', 'film-fallback');
+          rescueNav();
+        }, FALLBACK_MS);
+      };
+      if (rm) setTimeout(rescueNav, FALLBACK_MS);
+      else if (d.visibilityState === 'hidden') wait();
+      else arm();
+    })(document);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
+       Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap"></noscript>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/fx.css">
+  <link rel="stylesheet" href="assets/css/partners.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+  <link rel="modulepreload" href="assets/js/main.js">
+  <link rel="modulepreload" href="assets/js/film.js">
+  <link rel="modulepreload" href="assets/js/chrome.js">
+  <script type="module" src="assets/js/partners.js"></script>
+  <style id="splash-css">
+    /* Splash: paints with the HTML; assets/js/splash.js opens it, or it fades by itself at 2.6 s. */
+    html:not(.js) .splash { display: none; }
+    .splash { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: #0B0B0C; color: #D4AF37; pointer-events: none; animation: splash-out 0.5s ease 2.6s forwards; }
+    .splash-js .splash { animation: none; }
+    .splash__inner { display: grid; justify-items: center; gap: 18px; animation: splash-in 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
+    .splash__mark { display: block; width: 76px; height: 76px; }
+    .splash__word { margin: 0; font: 400 1.5rem/1 "Times New Roman", Times, Tinos, serif; color: #F3ECDD; }
+    .splash__line { position: relative; display: block; width: 168px; height: 1px; overflow: hidden; background: rgba(243, 236, 221, 0.18); }
+    .splash__fill, .splash__line::after { position: absolute; inset: 0; background: #D4AF37; transform-origin: 0 50%; }
+    .splash__fill { transform: scaleX(0); animation: splash-load 1.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.1s forwards; }
+    .splash__line::after { content: ""; transform: scaleX(0); transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.1, 1); }
+    .splash.is-leaving .splash__line::after { transform: scaleX(1); }
+    @keyframes splash-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
+    @keyframes splash-load { to { transform: scaleX(0.86); } }
+    @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
+    @media (prefers-reduced-motion: reduce) {
+      .splash__inner, .splash__fill { animation: none; }
+      .splash__fill { transform: scaleX(0.86); }
+    }
+    /* The visitor's "Pause animation" (html.rm, set before first paint) is as calm as reduced motion. */
+    html.rm .splash__inner, html.rm .splash__fill { animation: none; }
+    html.rm .splash__fill { transform: scaleX(0.86); }
+  </style>
+</head>
+<body data-page="partners">
+  <!-- Splash (decorative, aria-hidden, nothing focusable): CW monogram, wordmark, progress line. -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__inner">
+      <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
+        <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>
+        <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
+      </svg>
+      <p class="splash__word">Cargado Strategies</p>
+      <span class="splash__line"><span class="splash__fill"></span></span>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="fields"></div>
+    <canvas id="stars"></canvas>
+    <canvas id="gl"></canvas>
+    <div class="grain"></div>
+    <div class="hud"></div>
+    <main class="scenes" id="content">
+
+      <!-- 1 · Hero: the offer (wireframe 4c) -->
+      <section class="scene" id="hero" data-field="ink" data-dur="5"
+               data-pose="1.55,0.05,0,0.15,0.45,1.05" data-pose-md="1.64,-0.76,0,0.15,0.45,0.6" data-pose-sm="3.33,0.95,0,0.15,0.45,0.64"
+               data-title="Become a Partner" aria-labelledby="hero-title">
+        <div class="scene__inner">
+          <div class="grid align-center">
+            <div class="span-7 md-span-12 stack">
+              <p class="eyebrow" data-reveal="fade">For professionals and businesses in Canada</p>
+              <h1 id="hero-title" class="t-hero pt-hero" data-reveal="lines">Meet&nbsp;People in&nbsp;Your&nbsp;City Who&nbsp;Already&nbsp;Need Your&nbsp;Service.</h1>
+              <p class="t-lead" data-reveal="fade">When people near you ask us for your kind of service, they see the partners closest to them, sorted by distance. Introductions cost nothing up front: you pay a commission only when one becomes your client <span class="ph">[terms&nbsp;to&nbsp;be&nbsp;confirmed]</span>.</p>
+              <ul class="ticks" data-reveal="stagger">
+                <li>Start free on Community <span class="ph">[confirm]</span></li>
+                <li>Paid tiers are optional</li>
+                <li>No ads, no cold calls</li>
+              </ul>
+              <div class="row" data-reveal="fade">
+                <a class="btn btn--primary btn--lg" href="#apply">Apply to Join <span class="btn__arrow" aria-hidden="true">→</span></a>
+                <a class="btn btn--ghost btn--lg" href="#how">How It Works</a>
+              </div>
+              <p class="t-small muted hero-honest" data-reveal="fade">We don't promise a number of introductions, clients or results. That depends on what people near you ask for.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 · How it works for partners -->
+      <section class="scene" id="how" data-field="bone" data-dur="5" data-iris="76% 50%"
+               data-pose="-1.85,0,0,0.1,-0.55,0.85" data-pose-md="-1.9,-0.6,0,0.1,-0.55,0" data-pose-sm="-3.33,-1,0,0.1,-0.55,0.64"
+               data-title="How It Works" aria-labelledby="how-title">
+        <div class="scene__inner">
+          <div class="grid">
+            <div class="span-7 start-6 md-span-12 stack stack-l">
+              <div class="stack">
+                <p class="eyebrow" data-reveal="fade">How it works for partners</p>
+                <h2 id="how-title" data-reveal="lines">You Win on Being Close, Not on&nbsp;Bidding.</h2>
+              </div>
+              <div class="how__list">
+                <span class="how__guide" aria-hidden="true"></span>
+                <ol class="list-rule list-num" data-reveal="stagger">
+                  <li data-tilt><span class="list-num__n" data-depth="34" data-decode data-delay="0.4">01</span><div class="how__item"><h3 class="t-d4" data-depth="22">Pre-Qualified</h3><p class="muted" data-depth="8">We ask what they need and where they live before we introduce them.</p></div></li>
+                  <li data-tilt><span class="list-num__n" data-depth="34" data-decode data-delay="0.4">02</span><div class="how__item"><h3 class="t-d4" data-depth="22">Same-Day Hand-Off</h3><p class="muted" data-depth="8">A WhatsApp intro with context, so you don't start from zero.</p></div></li>
+                  <li data-tilt><span class="list-num__n" data-depth="34" data-decode data-delay="0.4">03</span><div class="how__item"><h3 class="t-d4" data-depth="22">Shown by Distance</h3><p class="muted" data-depth="8">Lists are sorted by distance only. No bidding, no paid ranking, and a listing is never a recommendation.</p></div></li>
+                </ol>
+              </div>
+              <p data-reveal="fade"><a class="btn btn--link" href="#arrangement">How You Pay <span class="btn__arrow" aria-hidden="true">→</span></a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 · The referral arrangement (FR11) -->
+      <section class="scene" id="arrangement" data-field="gold" data-dur="5" data-iris="22% 52%"
+               data-pose="2.05,1.0,0,0.25,0.9,0.5" data-pose-md="1.54,-0.83,0,0.25,0.9,0.33" data-pose-sm="3.33,0.9,0,0.25,0.9,0.64"
+               data-title="The Referral Arrangement" aria-labelledby="arrangement-title">
+        <div class="scene__inner">
+          <div class="stack stack-xl">
+            <div class="grid">
+              <div class="span-8 md-span-12 stack">
+                <p class="eyebrow" data-reveal="fade">The referral arrangement</p>
+                <h2 id="arrangement-title" data-reveal="lines">Pay on Clients, Not on&nbsp;Clicks.</h2>
+              </div>
+            </div>
+            <div class="flow">
+              <span class="flow__line" aria-hidden="true"></span>
+              <ol class="flow__steps" data-reveal="stagger">
+                <li class="flow__step">
+                  <span class="flow__dot" aria-hidden="true"></span>
+                  <div class="flow__card panel-3d">
+                    <p class="flow__n num" data-depth="38" data-decode data-delay="0.4">01</p>
+                    <h3 class="t-d4" data-depth="24">Someone Asks</h3>
+                    <p data-depth="10">A person near you tells us what they need and their city, by WhatsApp, Facebook or our website.</p>
+                  </div>
+                </li>
+                <li class="flow__step">
+                  <span class="flow__dot" aria-hidden="true"></span>
+                  <div class="flow__card panel-3d">
+                    <p class="flow__n num" data-depth="38" data-decode data-delay="0.4">02</p>
+                    <h3 class="t-d4" data-depth="24">We Introduce</h3>
+                    <p data-depth="10">We show them the nearest partners for that service, sorted by distance, with a short WhatsApp introduction. They choose who to talk to.</p>
+                  </div>
+                </li>
+                <li class="flow__step">
+                  <span class="flow__dot" aria-hidden="true"></span>
+                  <div class="flow__card panel-3d">
+                    <p class="flow__n num" data-depth="38" data-decode data-delay="0.4">03</p>
+                    <h3 class="t-d4" data-depth="24">You Pay on Success</h3>
+                    <p data-depth="10">If they become your client, you pay <span class="ph">[the&nbsp;agreed&nbsp;commission]</span>. If they don't, you owe nothing.</p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+            <div class="stack">
+              <p class="notice" data-reveal="fade"><strong>Commission terms <span class="ph">[to be confirmed by counsel]</span>.</strong> Referral fees are restricted for some professions in some provinces, so terms are set for each profession and province before launch. Partners are independent businesses, each responsible for their own licence and&nbsp;advice.</p>
+              <p data-reveal="fade"><a class="btn btn--link" href="#tiers">See the Membership Tiers <span class="btn__arrow" aria-hidden="true">→</span></a></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 · Tiers (FR11, CR04) -->
+      <section class="scene" id="tiers" data-field="ink" data-dur="5" data-iris="82% 26%"
+               data-pose="-2.1,-0.95,0,-0.1,-0.9,0.5" data-pose-md="1.4,-0.6,0,-0.1,-0.9,0" data-pose-sm="-3.33,-1,0,-0.1,-0.9,0.64"
+               data-title="Membership Tiers" aria-labelledby="tiers-title">
+        <div class="scene__inner">
+          <div class="grid">
+            <div class="span-5 md-span-12 stack">
+              <p class="eyebrow" data-reveal="fade">Membership tiers</p>
+              <h2 id="tiers-title" data-reveal="lines">Community, Growth, Premier.</h2>
+              <p class="muted" data-reveal="fade">Community is free. Growth and Premier are optional paid tiers that add listing and network tools. Every tier is reviewed and approved the same way.</p>
+              <p class="notice" data-reveal="fade"><strong>Membership covers listing and network tools only.</strong> It never buys introductions, referrals, a higher place in the list or our endorsement. Lists stay sorted by distance for every tier. <span class="ph">[Tier names, fees and features to be&nbsp;confirmed]</span></p>
+            </div>
+            <ul class="span-7 start-6 md-span-12 tiers" data-reveal="stagger">
+              <li class="tier" data-cursor-label="Apply">
+                <div class="tier__head" data-depth="32">
+                  <h3 class="tier__name">Community</h3>
+                  <p class="tier__price num"><span class="ph">[No fee]</span></p>
+                </div>
+                <ul class="tier__list" data-depth="12">
+                  <li>Listing for your service area</li>
+                  <li>Partner profile with your licence and who issued it</li>
+                  <li>Commission only when an introduction becomes your&nbsp;client&nbsp;<span class="ph">[terms]</span></li>
+                </ul>
+                <a class="btn btn--link tier__pick" data-depth="24" href="#apply" data-tier="community">Apply for Community <span class="btn__arrow" aria-hidden="true">→</span></a>
+              </li>
+              <li class="tier" data-cursor-label="Apply">
+                <div class="tier__head" data-depth="32">
+                  <h3 class="tier__name">Growth</h3>
+                  <p class="tier__price num"><span class="ph">[$ per month]</span></p>
+                </div>
+                <ul class="tier__list" data-depth="12">
+                  <li>Everything in Community</li>
+                  <li><span class="ph">[Longer profile: languages, services, hours]</span></li>
+                  <li><span class="ph">[Network tools, e.g. an introduction log]</span></li>
+                </ul>
+                <a class="btn btn--link tier__pick" data-depth="24" href="#apply" data-tier="growth">Apply for Growth <span class="btn__arrow" aria-hidden="true">→</span></a>
+              </li>
+              <li class="tier" data-cursor-label="Apply">
+                <div class="tier__head" data-depth="32">
+                  <h3 class="tier__name">Premier</h3>
+                  <p class="tier__price num"><span class="ph">[$ per month]</span></p>
+                </div>
+                <ul class="tier__list" data-depth="12">
+                  <li>Everything in Growth</li>
+                  <li><span class="ph">[More than one service area]</span></li>
+                  <li><span class="ph">[Partner events and co-hosted workshops]</span></li>
+                </ul>
+                <a class="btn btn--link tier__pick" data-depth="24" href="#apply" data-tier="premier">Apply for Premier <span class="btn__arrow" aria-hidden="true">→</span></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 · Founding partner offer (wireframe 4c) -->
+      <section class="scene" id="founding" data-field="gold" data-dur="5" data-iris="18% 80%"
+               data-pose="1.85,0.05,0,0.3,1.6,0.8" data-pose-md="1.69,-0.13,0,0.3,1.6,0.62" data-pose-sm="3.33,0.9,0,0.3,1.6,0.64"
+               data-title="Founding Partner Offer" aria-labelledby="founding-title">
+        <div class="scene__inner">
+          <div class="grid align-center">
+            <div class="span-7 md-span-12 stack stack-l">
+              <div class="stack">
+                <p class="eyebrow" data-reveal="fade">Founding partner offer</p>
+                <h2 id="founding-title" class="t-d1 founding__title" data-reveal="lines"><span class="nowrap-md">The First <span class="ph">[2]</span> Partners</span> per&nbsp;Service, per&nbsp;City.</h2>
+              </div>
+              <p class="t-lead" data-reveal="fade">They get <span class="ph">[0% commission on the first client]</span>. After that, standard terms. A founding spot never changes the order of the list: it stays sorted by distance.</p>
+              <div class="ticket" data-reveal="scale">
+                <p class="ticket__label ui" data-depth="16" data-decode data-delay="0.4">Spots Open</p>
+                <p class="ticket__value num" data-depth="34"><span class="ph">[City]</span> · <span class="ph">[service]</span>: <span class="ph">[n] of [2]</span> open <span class="ph">[live count]</span></p>
+              </div>
+              <p class="t-small founding__why" data-reveal="fade">The cap is real. Lists show only a few people per city, so founding spots are limited to <span class="ph">[2]</span> per service, per city.</p>
+              <div class="row" data-reveal="fade">
+                <a class="btn btn--primary btn--lg" href="#apply">Check My Area and Apply <span class="btn__arrow" aria-hidden="true">→</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 · What we ask (wireframes 4c + 3d) -->
+      <section class="scene" id="ask" data-field="ink" data-dur="5" data-iris="76% 50%"
+               data-pose="-1.95,-0.1,0,0.35,-1.1,1.05" data-pose-md="-1.9,0,0,0.05,-0.25,0" data-pose-sm="-3.33,-1,0,0.05,-0.25,0.64"
+               data-title="What We Ask" aria-labelledby="ask-title">
+        <div class="scene__inner">
+          <div class="grid">
+            <div class="span-7 start-6 md-span-12 stack stack-l">
+              <div class="stack">
+                <p class="eyebrow" data-reveal="fade">What we ask</p>
+                <h2 id="ask-title" data-reveal="lines">We Only Accept Partners&nbsp;Who:</h2>
+              </div>
+              <div class="ask__panel panel-3d">
+                <ul class="list-rule ask__list" data-reveal="stagger">
+                  <li data-depth="10">Hold a current licence where one applies. <span class="muted">How we confirm it: <span class="ph">[process to be confirmed by the founder and counsel]</span>.</span></li>
+                  <li data-depth="16">Reply to introductions within <span class="ph">[1&nbsp;business&nbsp;day]</span>.</li>
+                  <li data-depth="22">Describe their services honestly.</li>
+                  <li data-depth="28">Follow the <a href="legal.html#conduct">Partner Code of Conduct</a>.</li>
+                </ul>
+              </div>
+              <p class="muted" data-reveal="fade">We review and approve each application. A listing goes live only after approval.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7 · Application form (FR10) -->
+      <section class="scene" id="apply" data-field="bone" data-dur="6" data-iris="22% 50%"
+               data-pose="-2.6,0,0,0.05,-1.2,0" data-pose-md="-2.6,0,0,0.05,-1.2,0" data-pose-sm="-3.33,0,0,0.05,-1.2,0"
+               data-title="Apply" aria-labelledby="apply-title">
+        <div class="scene__inner">
+          <div class="grid">
+            <div class="span-12 stack">
+              <p class="eyebrow" data-reveal="fade">Application</p>
+              <h2 id="apply-title" data-reveal="lines">Apply to Join the Partner&nbsp;Network.</h2>
+            </div>
+
+            <div class="span-8 md-span-12 apply__main" data-reveal="fade">
+              <form class="form apply-form lead-rule" id="apply-form" novalidate aria-labelledby="apply-title">
+                <p class="hint">All fields are required unless marked optional.</p>
+                <div class="apply-errors" id="apply-errors" tabindex="-1" hidden></div>
+
+                <fieldset class="apply-form__group" data-tilt>
+                  <legend class="apply-form__legend" data-depth="26">Your Business</legend>
+                  <div class="apply-form__grid">
+                    <div class="form-row">
+                      <label class="label" for="pa-business">Business name</label>
+                      <input class="input" id="pa-business" name="business" autocomplete="organization" maxlength="120" required aria-describedby="pa-business-error">
+                      <p class="error" id="pa-business-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-entity">Legal entity name</label>
+                      <input class="input" id="pa-entity" name="entity" maxlength="120" required aria-describedby="pa-entity-hint pa-entity-error">
+                      <p class="hint" id="pa-entity-hint">As registered. Repeat the business name if it's the same.</p>
+                      <p class="error" id="pa-entity-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-contact">Contact name</label>
+                      <input class="input" id="pa-contact" name="contact" autocomplete="name" maxlength="120" required aria-describedby="pa-contact-error">
+                      <p class="error" id="pa-contact-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-email">Email</label>
+                      <input class="input" id="pa-email" name="email" type="email" autocomplete="email" maxlength="120" required aria-describedby="pa-email-error">
+                      <p class="error" id="pa-email-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-phone">Phone or WhatsApp</label>
+                      <input class="input" id="pa-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" required aria-describedby="pa-phone-hint pa-phone-error">
+                      <p class="hint" id="pa-phone-hint">Include the area code.</p>
+                      <p class="error" id="pa-phone-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-tier">Tier you're interested in <span class="apply-form__opt">(optional)</span></label>
+                      <select class="select" id="pa-tier" name="tier">
+                        <option value="">Not sure yet</option>
+                        <option value="community">Community</option>
+                        <option value="growth">Growth</option>
+                        <option value="premier">Premier</option>
+                      </select>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <fieldset class="apply-form__group" data-tilt>
+                  <legend class="apply-form__legend" data-depth="26">Your Service and Licence</legend>
+                  <div class="apply-form__grid">
+                    <div class="form-row apply-form__full">
+                      <label class="label" for="pa-category">Service category</label>
+                      <select class="select" id="pa-category" name="category" required aria-describedby="pa-category-error">
+                        <option value="">Choose a category</option>
+                      </select>
+                      <p class="error" id="pa-category-error" hidden></p>
+                    </div>
+                    <fieldset class="form-row apply-form__full" id="pa-types" hidden>
+                      <legend class="label">Types you offer <span class="apply-form__opt">(optional, choose any)</span></legend>
+                      <div class="chips" id="pa-types-chips"></div>
+                    </fieldset>
+                    <div class="form-row">
+                      <label class="label" for="pa-licence">Licence or credential number <span class="apply-form__opt" data-licence-opt>(where one applies)</span></label>
+                      <input class="input" id="pa-licence" name="licence" maxlength="60" aria-describedby="pa-licence-hint pa-licence-error">
+                      <p class="error" id="pa-licence-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-issuer">Issuing body <span class="apply-form__opt" data-licence-opt>(where one applies)</span></label>
+                      <input class="input" id="pa-issuer" name="issuer" maxlength="120" aria-describedby="pa-licence-hint pa-issuer-error">
+                      <p class="error" id="pa-issuer-error" hidden></p>
+                    </div>
+                    <p class="hint apply-form__full" id="pa-licence-hint">Required for insurance, legal, mortgage and real estate. We review it before approval <span class="ph">[how we confirm it with the issuing body: to be confirmed]</span>.</p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="apply-form__group" data-tilt>
+                  <legend class="apply-form__legend" data-depth="26">Where You Work</legend>
+                  <div class="apply-form__grid">
+                    <div class="form-row">
+                      <label class="label" for="pa-city">City or town</label>
+                      <input class="input" id="pa-city" name="city" autocomplete="address-level2" maxlength="80" required aria-describedby="pa-area-hint pa-city-error">
+                      <p class="error" id="pa-city-error" hidden></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="pa-province">Province or territory</label>
+                      <select class="select" id="pa-province" name="province" autocomplete="address-level1" required aria-describedby="pa-area-hint pa-province-error">
+                        <option value="">Choose one</option>
+                        <option value="AB">Alberta</option>
+                        <option value="BC">British Columbia</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="NB">New Brunswick</option>
+                        <option value="NL">Newfoundland and Labrador</option>
+                        <option value="NS">Nova Scotia</option>
+                        <option value="NT">Northwest Territories</option>
+                        <option value="NU">Nunavut</option>
+                        <option value="ON">Ontario</option>
+                        <option value="PE">Prince Edward Island</option>
+                        <option value="QC">Quebec</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="YT">Yukon</option>
+                      </select>
+                      <p class="error" id="pa-province-error" hidden></p>
+                    </div>
+                    <p class="hint apply-form__full" id="pa-area-hint">Lists are sorted by distance, so we use this to show you to people near you.</p>
+                  </div>
+                </fieldset>
+
+                <fieldset class="apply-form__group" data-tilt>
+                  <legend class="apply-form__legend" data-depth="26">About You</legend>
+                  <div class="form-row">
+                    <label class="label" for="pa-references">Professional references</label>
+                    <textarea class="textarea apply-form__short" id="pa-references" name="references" maxlength="600" required aria-describedby="pa-references-hint pa-references-error"></textarea>
+                    <p class="hint" id="pa-references-hint">One or two names and how to reach them, such as a colleague or a long-standing client. We contact them only to review your application.</p>
+                    <p class="error" id="pa-references-error" hidden></p>
+                  </div>
+                  <div class="form-row">
+                    <label class="label" for="pa-about">About your work</label>
+                    <textarea class="textarea" id="pa-about" name="about" maxlength="800" required aria-describedby="pa-about-hint pa-about-error"></textarea>
+                    <p class="hint" id="pa-about-hint">Two or three plain sentences: what you do, who you help and the languages you work in.</p>
+                    <p class="error" id="pa-about-error" hidden></p>
+                  </div>
+                </fieldset>
+
+                <div class="apply-form__agree">
+                  <div class="form-row">
+                    <label class="check" for="pa-conduct">
+                      <input type="checkbox" id="pa-conduct" name="conduct" value="yes" required aria-describedby="pa-conduct-error">
+                      <span>I have read and agree to follow the <a class="link" href="legal.html#conduct" target="_blank" rel="noopener">Partner Code of Conduct<span class="visually-hidden"> (opens in a new tab)</span></a>, and the details above are true.</span>
+                    </label>
+                    <p class="error" id="pa-conduct-error" hidden></p>
+                  </div>
+                  <div class="form-row">
+                    <label class="check" for="pa-consent">
+                      <input type="checkbox" id="pa-consent" name="consent" value="yes" required aria-describedby="pa-consent-error">
+                      <span>Cargado Strategies may use these details to review my application and contact me about it. See the <a class="link" href="legal.html#privacy" target="_blank" rel="noopener">privacy policy<span class="visually-hidden"> (opens in a new tab)</span></a>.</span>
+                    </label>
+                    <p class="error" id="pa-consent-error" hidden></p>
+                  </div>
+                </div>
+
+                <div class="hp" aria-hidden="true">
+                  <label for="pa-website">Leave this field empty</label>
+                  <input id="pa-website" name="website" type="text" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="apply-form__send stack stack-s">
+                  <div class="row">
+                    <button class="btn btn--primary btn--lg" type="submit" name="via" value="whatsapp">Send My Application on WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></button>
+                    <button class="btn btn--ghost btn--lg" type="submit" name="via" value="email" data-email-only hidden>Send by Email Instead</button>
+                  </div>
+                  <p class="hint">Opens WhatsApp with your application written out. Nothing is sent until you tap send. <span data-email-missing>An email option will follow: <span class="ph" data-email-label>[company email]</span>.</span></p>
+                </div>
+              </form>
+
+              <div class="apply-success panel-3d stack" id="apply-success" hidden>
+                <p class="eyebrow">Application ready</p>
+                <h3 class="t-d3" id="apply-success-title" tabindex="-1" data-depth="30">Thank You. <span class="nowrap-md">We Review and Approve Each&nbsp;One.</span></h3>
+                <p class="t-lead" data-success-text>WhatsApp has opened in a new tab with your application written out. Nothing is sent until you tap send.</p>
+                <p data-success-retry>Didn't open? <a id="apply-success-link" href="#" target="_blank" rel="noopener">Open it again<span class="visually-hidden"> (opens in a new tab)</span></a>.</p>
+                <div class="row">
+                  <button class="btn btn--ghost" type="button" id="apply-edit">Edit My Application</button>
+                </div>
+              </div>
+            </div>
+
+            <aside class="span-4 md-span-12 apply__aside" aria-label="What happens after you apply">
+              <div class="apply__panel panel-3d stack stack-l" data-reveal="fade">
+              <div class="stack stack-s" data-depth="22">
+                <p class="eyebrow" data-decode data-delay="0.4">What happens next</p>
+                <ol class="list-rule list-num apply__steps">
+                  <li><span class="list-num__n">01</span><span>You send the application. Nothing is sent until you tap send.</span></li>
+                  <li><span class="list-num__n">02</span><span>We review your licence details <span class="ph">[process to be confirmed]</span> and contact your references.</span></li>
+                  <li><span class="list-num__n">03</span><span>We reply within <span class="ph">[5 business days]</span>.</span></li>
+                  <li><span class="list-num__n">04</span><span>If approved, your listing goes live.</span></li>
+                </ol>
+              </div>
+              <p class="notice" data-depth="12"><strong>Commission.</strong> Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. <span class="ph">[Commission terms to be confirmed by&nbsp;counsel]</span></p>
+              <p class="notice" data-depth="8"><strong>Independent partners.</strong> Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement.</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8 · Close + footer -->
+      <section class="scene" id="close" data-field="ink" data-dur="4" data-iris="50% 92%"
+               data-pose="1.75,0.55,0,0.2,2.3,0.85" data-pose-md="1.74,0.42,0,0.2,2.3,0.43" data-pose-sm="3.33,0.9,0,0.2,2.3,0.7"
+               data-title="Questions" aria-labelledby="close-title">
+        <div class="scene__inner">
+          <div class="stack stack-xl">
+            <div class="close stack stack-l">
+              <div class="stack">
+                <p class="eyebrow" data-reveal="fade">Talk to us</p>
+                <h2 id="close-title" class="t-d1 close__title" data-reveal="lines">Questions Before You&nbsp;Apply?</h2>
+                <p class="t-lead muted" data-reveal="fade">Message us on WhatsApp about tiers, commission terms or spots in your area.</p>
+              </div>
+              <div class="stack stack-s" data-reveal="fade">
+                <div class="row">
+                  <a class="btn btn--primary btn--lg" href="#" data-wa-partner>Ask on WhatsApp <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+                  <a class="btn btn--link" href="#apply">Back to the Application <span class="btn__arrow" aria-hidden="true">→</span></a>
+                </div>
+                <p class="hint">Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
+              </div>
+            </div>
+            <div data-footer></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+  <div class="scroll-spacer"></div>
+</body>
+</html>

@@ -1,0 +1,331 @@
+/* ==========================================================================
+   Cargado Strategies — home.css (index.html only)
+   Page styles on top of base.css. Colours always come from the field
+   variables (--fg, --accent, --line …) so every block works on ink, gold
+   and bone. Sections: hero · proof · video · situations · compare · process
+   founder · tiles · map · story · faq · 3D and interaction · small screens
+   (the close scene uses .close in base.css). Display type is Times New Roman
+   in Title Case as written: no uppercase transforms or wide tracking here.
+   ========================================================================== */
+
+/* Fainter globe on phones (base.css reads --gl-opacity-sm). */
+body[data-page="home"] { --gl-opacity-sm: 0.32; }
+
+/* A phrase or hyphenated compound in a heading that must not break (Near You, Back-Office). */
+.nobr { white-space: nowrap; }
+
+/* Hero ------------------------------------------------------------------------ */
+.hero__copy { container-type: inline-size; }
+/* .t-hero sets the size; capped so "The Right Professional" stays one line in the copy column
+   (Title Case capitals run about 8.8em for that phrase), giving three calm lines. */
+.hero__title { max-width: none; font-size: min(var(--fs-hero), 11cqi); }
+.hero__copy .t-lead { max-width: 46ch; }
+
+.intro {
+  display: grid;
+  gap: var(--space-m);
+  padding: var(--space-l) var(--space-l) var(--space-m);
+  background: rgba(11, 11, 12, 0.66);
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+.intro__title { color: var(--fg); }
+.intro__chips { gap: var(--space-xs); }
+.intro .hint { font-size: 0.8125rem; }
+.intro__go { width: 100%; text-wrap: balance; } /* full width without .btn--block, so the main action stays magnetic; a two-line label splits evenly */
+
+.proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: var(--space-l);
+  border-top: 1px solid var(--line);
+}
+.proof > li {
+  display: grid;
+  gap: 4px;
+  padding: var(--space-m) var(--space-m) 0 0;
+}
+.proof > li + li { padding-left: var(--space-m); border-left: 1px solid var(--line); }
+.proof__n { font-size: clamp(1.25rem, 1rem + 0.8vw, 1.75rem); font-weight: 500; color: var(--accent); line-height: 1.1; }
+.proof__l { font: 500 var(--fs-xs)/1.4 var(--font-ui); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+
+/* Video frame -------------------------------------------------------------------- */
+#video-status a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+.vframe { display: grid; gap: var(--space-s); }
+.vframe__clip {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--c-black);
+  color: var(--c-ivory-text);
+  box-shadow: 0 40px 90px rgba(11, 11, 12, 0.25);
+}
+.vframe__media, .vframe__ui { position: absolute; inset: 0; }
+.vframe__poster { width: 100%; height: 100%; object-fit: cover; }
+.vframe__poster--empty {
+  position: relative;
+  background: radial-gradient(90% 120% at 30% 20%, #2A2416 0%, #0B0B0C 70%);
+}
+.vframe__poster--empty span {
+  position: absolute;
+  right: 4%;
+  bottom: -4%;
+  font: 400 clamp(4rem, 2rem + 7vw, 10rem)/1 var(--font-display);
+  letter-spacing: 0.02em;
+  color: rgba(212, 175, 55, 0.08);
+}
+.vframe__player { width: 100%; height: 100%; border: 0; background: var(--c-black); }
+.vframe__ui { display: grid; place-items: center; }
+.vframe__play {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  padding: 0;
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  border-radius: 50%;
+  background: var(--c-gold);
+  color: var(--c-black);
+  transition: transform 0.3s var(--ease);
+}
+.vframe__play svg { width: 30px; height: 30px; margin-left: 4px; }
+/* The whole frame is the play button's hit area; the icon (not the button, which would
+   become the containing block) grows on hover. */
+button.vframe__play::after { content: ""; position: absolute; inset: 0; }
+button.vframe__play svg { transition: transform 0.3s var(--ease); }
+button.vframe__play:hover svg { transform: scale(1.12); }
+button.vframe__play:focus-visible { outline: 2px solid var(--c-ivory-text); outline-offset: 4px; }
+.vframe__play--off { background: transparent; color: var(--c-gold); border-style: dashed; }
+.vframe__soon { display: grid; justify-items: center; gap: var(--space-s); text-align: center; }
+.vframe__soon-text { font-size: 0.8125rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; }
+.vframe__cap { font-size: var(--fs-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+
+/* Situations 01–04 ------------------------------------------------------------------ */
+.situations > li { border-top: 1px solid var(--line-strong); }
+.situations > li:last-child { border-bottom: 1px solid var(--line-strong); }
+.situation {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+  gap: var(--space-m);
+  align-items: center;
+  min-height: 56px;
+  padding: var(--space-m) var(--space-xs);
+  color: inherit;
+  text-decoration: none;
+}
+.situation:hover { background: var(--surface); }
+.situation:hover .situation__q { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.situation__n { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.1em; color: var(--accent); }
+.situation__body { display: grid; gap: 4px; }
+.situation__q { font: 600 clamp(1.0625rem, 0.95rem + 0.5vw, 1.375rem)/1.3 var(--font-body); text-wrap: balance; }
+.situation__tags { font: 500 var(--fs-xs)/1.4 var(--font-ui); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); }
+.situation__go { font: 400 1.5rem/1 var(--font-ui); color: var(--accent); }
+.situation__arrow { display: inline-block; } /* the depth layer: .situation__go itself slides in on the film */
+
+/* Compare panel ------------------------------------------------------------------------- */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--line-strong);
+}
+/* The hover depth layer for the "With Cargado" side; the panel inside carries the film's 3D entrance. */
+.compare__lift { display: grid; }
+.compare__side { display: grid; gap: var(--space-m); align-content: start; padding: var(--space-l); }
+.compare__us { background: var(--field-bg); color: var(--fg); }
+.compare__label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg-muted); }
+.compare__us .compare__label { color: var(--fg); }
+.compare__list { display: grid; gap: var(--space-s); }
+.compare__own .compare__list > li {
+  position: relative;
+  width: fit-content;
+  font: 500 1.0625rem/1.4 var(--font-body);
+  color: var(--fg-muted);
+}
+.compare__strike {
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 55%;
+  height: 1.5px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+.compare__us .ticks { font: 600 1.0625rem/1.4 var(--font-body); }
+
+/* Process timeline ------------------------------------------------------------------------ */
+.how__go { align-self: end; justify-self: end; }
+.process { position: relative; }
+.process__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 1px;
+  background: var(--line-strong);
+  transform-origin: 0 50%;
+}
+.process__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-col); }
+.process__step { display: grid; gap: var(--space-xs); align-content: start; padding-right: var(--space-l); }
+.process__dot {
+  width: 15px;
+  height: 15px;
+  margin-bottom: var(--space-m);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 6px var(--bg);
+}
+.process__when { font-size: var(--fs-xs); font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+.process__when .ph { text-transform: none; } /* placeholders read exactly as written: [24h] */
+.process__what { font-size: var(--fs-d3); }
+
+/* Founder offers 6/3/3 ------------------------------------------------------------------------ */
+.offers { align-items: stretch; }
+.offer {
+  position: relative;
+  display: grid;
+  gap: var(--space-s);
+  align-content: start;
+  justify-items: start;
+  padding-top: var(--space-m);
+  border-top: 1px solid var(--line-strong);
+}
+.offer--lead { border-top-color: transparent; padding-right: var(--space-l); }
+.offer__rule {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+.offer__title { font-size: clamp(1.75rem, 1.1rem + 1.9vw, 2.75rem); }
+/* Small offers: the title scales with its card so "Your Back-Office Team" keeps to one line
+   (about 9.6em) instead of leaving "Team" alone. */
+.offer:not(.offer--lead) { container-type: inline-size; }
+.offer__title--sm { font-size: min(var(--fs-d3), 10cqi); }
+/* From 760px the two cards sit side by side: reserve two lines so their meta, fine print and
+   links line up ("The Family Protection Review" wraps, "Your Back-Office Team" does not).
+   Below 760px they stack full width (no sm-span-6), so each title keeps one readable line. */
+.offer__title--sm { --title-lh: 1.1; line-height: var(--title-lh); }
+@media (min-width: 760px) { .offer__title--sm { min-height: calc(2em * var(--title-lh)); } }
+.offer__meta { font-size: var(--fs-small); font-weight: 500; color: var(--fg); }
+.offer__fine { font-size: 0.8125rem; color: var(--fg-muted); }
+
+.quotes { padding-top: var(--space-xs); }
+.quote { display: grid; gap: var(--space-xs); padding-left: var(--space-m); border-left: 1px solid var(--line-strong); }
+.quote blockquote { margin: 0; font-size: 1.0625rem; }
+.quote figcaption { font-size: var(--fs-xs); letter-spacing: 0.08em; color: var(--fg-muted); }
+
+/* Service tiles --------------------------------------------------------------------------------- */
+.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--gap-col); }
+.tiles > li { border-top: 1px solid var(--line-strong); }
+.tile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "n go" "name name" "own own";
+  gap: 6px var(--space-s);
+  min-height: 132px;
+  padding: var(--space-m) 0;
+  color: inherit;
+  text-decoration: none;
+}
+.tile__n { grid-area: n; font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0.12em; color: var(--fg-muted); }
+.tile__name { grid-area: name; font: 400 clamp(1.375rem, 1.05rem + 0.8vw, 1.875rem)/1.08 var(--font-display); letter-spacing: var(--track-display); text-wrap: balance; }
+.tile__own { grid-area: own; font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fg-muted); }
+.tile__go { grid-area: go; font: 400 1.25rem/1 var(--font-ui); transition: transform 0.25s var(--ease); }
+.tile:hover .tile__go { transform: translateX(4px); }
+.tile:hover .tile__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+
+/* Canada map preview ------------------------------------------------------------------------------- */
+.map { display: grid; gap: var(--space-s); }
+.map__svg { width: 100%; height: auto; max-height: calc(100svh - var(--header-h) - var(--bottom-h) - 120px); overflow: visible; }
+.map__dots { fill: none; stroke: var(--fg); stroke-linecap: round; opacity: 0.4; }
+.map__pin circle { fill: var(--accent); }
+.map__city--hub .map__pin circle { fill: var(--accent); stroke: var(--bg); stroke-width: 0.25; }
+.map__ring { fill: none; stroke: var(--accent); stroke-width: 0.12; opacity: 0.8; }
+.map__label { font: 500 1.25px var(--font-ui); letter-spacing: 0.08em; fill: var(--fg); text-transform: uppercase; stroke: var(--bg); stroke-width: 0.45px; paint-order: stroke; }
+.map__cap { font-size: var(--fs-xs); letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg-muted); }
+
+/* Story teaser ------------------------------------------------------------------------------------- */
+.story-mark { display: grid; justify-items: center; gap: var(--space-m); }
+.story-mark__lift { width: min(100%, 340px); } /* hover depth layer; the monogram inside turns in on the film */
+.story-mark__svg { width: 100%; color: var(--accent); }
+.story-mark__svg .monogram { width: 100%; height: auto; }
+.story-mark__letters {
+  display: flex;
+  gap: 0.35em;
+  overflow: hidden;
+  font: 400 var(--fs-d2)/1.05 var(--font-display);
+  letter-spacing: 0.04em;
+  color: var(--fg);
+}
+.story-mark__letters span { display: inline-block; }
+.story-mark__dot { color: var(--accent); }
+/* "C for Cargado." is one unbreakable phrase; in Times it fits six columns at the full d1 size. */
+@media (min-width: 760px) { .story__title { font-size: min(var(--fs-d1), 5.6vw); } }
+
+/* Partner call to action ------------------------------------------------------------------------- */
+.partners__title { font-size: clamp(2rem, 1.1rem + 3vw, 4.25rem); }
+
+/* FAQ ---------------------------------------------------------------------------------------------- */
+.faq .acc__body a { color: var(--accent); font-weight: 600; text-underline-offset: 3px; }
+
+/* 3D and interaction (Round 3) ---------------------------------------------------------------------
+   Tilt, depth layers ([data-depth]), magnetic pull and the cursor labels come from interact.js and
+   cursor.js; home-tweens.js adds the scrubbed 3D entrances. These rules add the hover depth and the
+   FAQ's 3D flip. Film mode only (html.film), never with reduced motion. */
+/* Keeps the tilt's depth (var(--depth), set by interact.js) while nudging right. */
+html.film .situation:hover .situation__arrow { translate: 6px 0 var(--depth, 0px); }
+html.film .faq .acc > summary { transition: translate 0.45s var(--ease); }
+html.film .faq .acc > summary:hover { translate: 6px 0; }
+html.film .faq .acc[open] > .acc__body { transform-origin: 50% 0; animation: acc-flip 0.6s var(--ease) both; }
+@keyframes acc-flip { from { opacity: 0; transform: perspective(900px) rotateX(-80deg); } }
+@media (prefers-reduced-motion: reduce) {
+  html.film .faq .acc[open] > .acc__body { animation: none; }
+  html.film .faq .acc > summary:hover, html.film .situation:hover .situation__arrow { translate: none; }
+}
+
+
+/* Small screens ------------------------------------------------------------------------------------ */
+@media (max-width: 1099px) {
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process__step { padding-right: 0; }
+}
+/* Landscape tablets and small laptops: base.css .keep-md keeps the desktop column pairs side by side. */
+@media (min-width: 760px) and (max-width: 1099px) and (min-aspect-ratio: 1/1) {
+  .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .tile { min-height: 0; padding: var(--space-s) 0; }
+  .tile__name { font-size: clamp(1rem, 1.9vw, 1.25rem); } /* "Manufacturing" fits a third of the 8-column area */
+  .hero__title { font-size: min(calc(var(--fs-d1) * 1.08), 11cqi); } /* fits beside the form, still above every h2 */
+  /* A tighter intro form and proof strip keep the hero inside one screen at 1024×768, so the
+     hold drift never pushes the form's gold rule up under the header. */
+  .intro { gap: var(--space-s); padding: var(--space-m) var(--space-m) var(--space-s); }
+  .proof { margin-top: var(--space-m); }
+  .story-mark__lift { width: min(100%, 240px); }
+}
+@media (max-width: 759px) {
+  .hero__copy .t-lead { font-size: 1.0625rem; }
+  .intro { padding: var(--space-m); }
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-l); }
+  .proof > li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .proof > li { padding-bottom: var(--space-s); }
+  .situation { grid-template-columns: 2.25rem minmax(0, 1fr) auto; gap: var(--space-s); padding-inline: 0; }
+  .compare { grid-template-columns: 1fr; }
+  .compare__side { padding: var(--space-m); }
+  .process__line { display: none; }
+  .process__steps { grid-template-columns: 1fr; gap: var(--space-l); }
+  .process__step { grid-template-columns: 15px 1fr; column-gap: var(--space-m); }
+  .process__dot { grid-row: 1 / span 3; margin: 4px 0 0; }
+  .offer--lead { padding-right: 0; }
+  .offer__title--sm { font-size: min(1.5rem, 10cqi); }
+  .tile { min-height: 0; padding: var(--space-s) 0; }
+  .tiles { column-gap: var(--space-m); }
+  /* Two narrow columns: "Manufacturing" must fit at 360px (Times Title Case runs narrower than the old caps). */
+  .tile__name { font-size: clamp(1.0625rem, 5vw, 1.375rem); overflow-wrap: anywhere; }
+  .story-mark__lift { width: 140px; }
+  .map__label { font-size: 1.6px; }
+  .story-mark { justify-items: start; grid-auto-flow: column; align-items: center; justify-content: start; }
+}
+

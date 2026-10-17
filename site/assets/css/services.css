@@ -1,0 +1,394 @@
+/* ==========================================================================
+   Services page — page-specific styles only (base.css has the system).
+   Sections: 1 intro jump rail · 2 founder scenes · 3 finder · 4 map
+   5 results + next steps · 6 categories · 7 inquiry · 8 close · 9 flow mode
+   10 Round 3: display type, 3D panels, flips, shake (fx.css has the shared hooks)
+   Colours always come from the field variables so every block works on
+   ink, gold and bone.
+   ========================================================================== */
+
+/* 1. Intro jump rail ---------------------------------------------------------- */
+.jump-rail {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  margin-top: var(--space-xl);
+  border-top: 1px solid var(--line);
+}
+.jump-rail__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 10px;
+  row-gap: 4px;
+  align-content: start;
+  min-height: 44px;
+  padding: var(--space-m) var(--space-s) var(--space-m) 0;
+  border-right: 1px solid var(--line);
+  color: var(--fg);
+  text-decoration: none;
+}
+.jump-rail__item:last-child { border-right: 0; }
+.jump-rail__item + .jump-rail__item { padding-left: var(--space-s); }
+.jump-rail__n { grid-row: 1 / span 2; font: 500 0.75rem/1.4 var(--font-ui); color: var(--accent); font-variant-numeric: tabular-nums; }
+.jump-rail__group { font: 500 0.6875rem/1.3 var(--font-ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); }
+.jump-rail__label { font: 500 0.9375rem/1.3 var(--font-ui); text-wrap: balance; transition: transform 0.25s var(--ease); }
+.jump-rail__item:hover .jump-rail__label { transform: translateX(4px); }
+
+@media (max-width: 1099px) {
+  .jump-rail { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .jump-rail__item:nth-child(3n) { border-right: 0; }
+  .jump-rail__item:nth-child(n + 4) { border-top: 1px solid var(--line); }
+  .jump-rail__item:nth-child(3n + 1) { padding-left: 0; }
+}
+@media (max-width: 759px) {
+  .jump-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--space-l); }
+  .jump-rail__item { padding-block: var(--space-s); }
+  .jump-rail__item:nth-child(3n) { border-right: 1px solid var(--line); }
+  .jump-rail__item:nth-child(2n) { border-right: 0; padding-left: var(--space-s); }
+  .jump-rail__item:nth-child(2n + 1) { padding-left: 0; }
+  .jump-rail__item:nth-child(n + 3) { border-top: 1px solid var(--line); }
+}
+
+/* 2. Founder scenes ------------------------------------------------------------- */
+.offer-meta { font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--fg-muted); }
+/* Small-caps UI labels never change a [placeholder]: the founder must see it exactly as written. */
+.offer-meta .ph, .next-steps__when .ph { text-transform: none; letter-spacing: 0.02em; }
+
+.cred { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--gap-col); margin: 0; }
+.stack > .cred:not(:first-child) { margin-top: var(--stack); } /* keep the stack's rhythm (the reset above would zero it) */
+.cred > div { padding: var(--space-s) 0; border-top: 1px solid var(--line); }
+.cred dt { font: 500 0.6875rem/1.4 var(--font-ui); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fg-muted); }
+.cred dd { margin: 2px 0 0; font: 500 0.9375rem/1.4 var(--font-ui); }
+
+.offer-stack > li {
+  display: grid;
+  grid-template-columns: 2rem 1fr auto;
+  gap: var(--space-m);
+  align-items: baseline;
+  padding: var(--space-s) 0;
+  border-top: 1px solid var(--line);
+}
+.offer-stack > li:last-child { border-bottom: 1px solid var(--line); }
+.offer-stack__n { font: 500 0.875rem/1 var(--font-ui); color: var(--accent); font-variant-numeric: tabular-nums; }
+.offer-stack__what { display: grid; gap: 2px; }
+.offer-stack__what strong { font: 500 1rem/1.35 var(--font-ui); }
+.offer-stack__fix { font-size: 0.875rem; color: var(--fg-muted); }
+.offer-stack__value { font: 500 0.875rem/1 var(--font-ui); white-space: nowrap; }
+.offer-stack__bonus .offer-stack__n { font-size: 1.125rem; }
+
+.offer-promise { display: grid; gap: var(--space-xs); padding: var(--space-m); background: var(--surface); border-left: 2px solid var(--accent); }
+
+.roles > li {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-m);
+  align-items: baseline;
+  padding: var(--space-s) 0;
+  border-top: 1px solid var(--line);
+  font: 500 0.9375rem/1.4 var(--font-ui);
+}
+.roles > li:last-child { border-bottom: 1px solid var(--line); }
+.roles > li > * { justify-self: start; }
+.roles__n { color: var(--accent); font-size: 0.8125rem; }
+.roles__what { font: 400 0.875rem/1.45 var(--font-body); color: var(--fg-muted); }
+@media (max-width: 759px) {
+  .cred { grid-template-columns: 1fr; }
+  .roles > li { grid-template-columns: 2rem 1fr; }
+  .roles__what { grid-column: 2; }
+  .offer-stack > li { grid-template-columns: 1.5rem 1fr; gap: 6px var(--space-s); }
+  .offer-stack__value { grid-column: 2; }
+}
+
+/* 3. Finder layout ---------------------------------------------------------------- */
+.finder { align-items: start; }
+.finder__controls { position: relative; z-index: 2; } /* the suggestion list opens over the map on stacked layouts */
+.finder__controls .form { gap: var(--space-m); }
+.chips--compact { gap: 6px; }
+.chips--compact .chip { padding: 0 12px; font-size: 0.8125rem; }
+
+.combo { position: relative; }
+.combo__input { padding-right: 52px; }
+.combo__go {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: none;
+  color: var(--fg);
+}
+.combo__list {
+  position: absolute;
+  z-index: 6;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 290px;
+  overflow-y: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--bg);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+.combo__option {
+  display: grid;
+  gap: 2px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+}
+.combo__option:first-child { border-top: 0; }
+.combo__option[aria-selected="true"], .combo__option:hover { background: var(--surface); box-shadow: inset 2px 0 0 var(--accent); }
+.combo__label { font: 500 0.9375rem/1.3 var(--font-ui); }
+.combo__kind { font-size: 0.75rem; color: var(--fg-muted); }
+
+/* 4. Map ------------------------------------------------------------------------------ */
+.finder__map { margin: 0; display: grid; gap: var(--space-s); }
+.map {
+  position: relative;
+  aspect-ratio: 1000 / 858;
+  width: 100%;
+}
+.map__loading, .map__error { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: var(--space-l); }
+.map__error { border: 1px dashed var(--accent); font: 500 0.875rem/1.5 var(--font-ui); color: var(--fg); }
+.map__svg { width: 100%; height: 100%; overflow: visible; }
+.map__region {
+  fill: var(--accent);
+  fill-opacity: 0.12;
+  stroke: var(--accent);
+  stroke-opacity: 0.6;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  cursor: pointer;
+  outline: none;
+}
+.map__region:hover { fill-opacity: 0.28; }
+.map__region.is-selected { fill-opacity: 0.5; stroke-opacity: 1; }
+.map__region:focus-visible { stroke: var(--fg); stroke-opacity: 1; stroke-width: 2.5; fill-opacity: 0.32; }
+.map__partner { fill: var(--fg); }
+.map__marker-dot { fill: var(--fg); stroke: var(--bg); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.map__marker-ring {
+  fill: none;
+  stroke: var(--fg);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: map-ping 2.4s var(--ease) infinite;
+}
+@keyframes map-ping {
+  0% { transform: scale(0.4); opacity: 0.9; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+.map__caption { display: grid; gap: 4px; }
+.map__chosen { font: 500 0.875rem/1.3 var(--font-ui); letter-spacing: 0.04em; }
+.map__chosen::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--accent); vertical-align: 1px; }
+
+/* 5. Results + what happens next --------------------------------------------------------- */
+.results { display: grid; gap: var(--space-s); align-content: start; }
+.results__status { font: 500 0.9375rem/1.45 var(--font-ui); }
+.results__list { display: grid; gap: var(--space-m); }
+.results__list:empty { display: none; }
+.results__rows { display: grid; }
+.result { display: grid; gap: 4px; padding: var(--space-m) 0; border-top: 1px solid var(--line); }
+.result:last-child { border-bottom: 1px solid var(--line); }
+.result__head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-s); }
+.result__name { font: 600 1rem/1.3 var(--font-ui); }
+.result__km { font-size: 0.9375rem; color: var(--accent); white-space: nowrap; }
+.result__meta, .result__cred { font-size: 0.8125rem; color: var(--fg-muted); }
+.results__ask { display: grid; gap: 6px; justify-items: start; }
+.results__ask-title { font: 600 0.9375rem/1.3 var(--font-ui); }
+.results__ours { display: grid; gap: 4px; justify-items: start; padding-left: 14px; border-left: 2px solid var(--accent); font-size: 0.875rem; }
+.results .partner-card { padding-block: var(--space-s); }
+.results .partner-card__avatar { width: 44px; height: 44px; }
+.results .partner-card { grid-template-columns: 44px 1fr; gap: var(--space-s); }
+.results__notice { font-size: 0.75rem; }
+.results .btn--sm { min-height: 44px; } /* tap target ≥ 44 px (ENGINE.md §10) */
+
+.next-steps { display: grid; gap: var(--space-s); align-content: start; }
+.next-steps__list > li {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: var(--space-s);
+  align-items: baseline;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+}
+.next-steps__list > li:last-child { border-bottom: 1px solid var(--line); }
+.next-steps__when { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.next-steps__list--compact > li { padding: 8px 0; }
+
+@media (max-width: 1099px) {
+  .finder__side { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-l) var(--gap-col); align-items: start; }
+  .finder__side > * + * { margin-top: 0; }
+}
+@media (max-width: 759px) {
+  .finder__side { grid-template-columns: 1fr; }
+}
+
+/* 6. Categories: rail + detail ----------------------------------------------------------------- */
+.cat-rail { display: grid; gap: var(--space-xs); }
+.cat-rail__group { font: 500 0.6875rem/1.3 var(--font-ui); letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-top: var(--space-s); }
+.cat-rail__group:first-child { margin-top: 0; }
+.cat-rail__list { border-top: 1px solid var(--line); }
+.cat-rail__item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-s);
+  min-height: 44px;
+  padding: 8px 4px 8px 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  color: var(--fg);
+  font: 500 0.9375rem/1.3 var(--font-ui);
+  text-align: left;
+}
+.cat-rail__item > span:first-child { transition: transform 0.25s var(--ease); }
+.cat-rail__item:hover > span:first-child { transform: translateX(4px); }
+.cat-rail__item[aria-current="true"] { box-shadow: inset 3px 0 0 var(--accent); padding-left: 14px; font-weight: 600; }
+.cat-rail__tag { font-size: 0.6875rem; letter-spacing: 0.08em; color: var(--fg-muted); white-space: nowrap; }
+
+.cat-detail:focus { outline: none; }
+.cat-card { display: grid; gap: var(--space-m); align-content: start; }
+.cat-detail__desc { font-size: var(--fs-lead); line-height: 1.55; max-width: 56ch; }
+.cat-detail__offer { font: 500 1rem/1.35 var(--font-ui); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags > li {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font: 500 0.8125rem/1 var(--font-ui);
+}
+.cat-detail .partner-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap-col); }
+.cat-detail .partner-card:last-child { border-bottom: 0; }
+.cat-detail .partner-list { border-bottom: 1px solid var(--line); }
+
+@media (max-width: 1099px) {
+  .cat-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap-col); align-items: start; }
+  .cat-rail__group { grid-row: 1; margin-top: 0; }
+  .cat-rail__list { grid-row: 2; }
+}
+@media (max-width: 759px) {
+  .cat-detail .partner-list { grid-template-columns: 1fr; }
+  .cat-rail__tag { display: none; }
+}
+
+/* 7. Inquiry ----------------------------------------------------------------------------------- */
+.inq-form { gap: var(--space-m); }
+.inq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s) var(--gap-col); align-items: start; }
+.inq-grid .chips, .finder__form .chips { align-items: flex-start; }
+.inq-grid .error:empty { display: none; }
+.inq-grid__full { grid-column: 1 / -1; }
+.inq-grid .textarea { min-height: 84px; }
+.inq-form .notice { font-size: 0.75rem; }
+.inq-success { display: grid; gap: var(--space-m); justify-items: start; padding-top: var(--space-m); border-top: 2px solid var(--accent); }
+.inq-success:focus { outline: none; }
+.inq-success .next-steps__list { width: 100%; }
+.inquiry-panel .error:empty, .form-row > .error:empty { display: none; }
+@media (max-width: 759px) {
+  .inq-grid { grid-template-columns: 1fr; }
+}
+
+/* 8. Close: the shared pattern lives in base.css (.close) */
+
+/* 9. Flow mode (reduced motion) and motion safety --------------------------------------------------- */
+html:not(.film) .map__marker-ring { animation: none; opacity: 0.6; }
+/* An SVG transform runs on the main thread: ping only while the finder is on screen. */
+html.film .scene:not(.is-active) .map__marker-ring { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .map__marker-ring { animation: none; }
+}
+
+/* Partner profile panel (partner-profile.js) inside finder results and category cards --------- */
+.profile { width: 100%; }
+.profile__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  cursor: pointer;
+  font: 600 0.875rem/1.2 var(--font-ui);
+  color: var(--accent);
+  list-style: none;
+}
+.profile__toggle::-webkit-details-marker { display: none; }
+.profile__toggle::after { content: "+"; font: 300 1.25rem/1 var(--font-ui); transition: transform 0.3s var(--ease); }
+.profile[open] > .profile__toggle::after { transform: rotate(45deg); }
+.profile__body { padding: 0 0 var(--space-s); font-size: 0.875rem; }
+.profile__facts { display: grid; gap: 6px; }
+.profile__facts > div { display: grid; grid-template-columns: minmax(0, 9.5rem) 1fr; gap: var(--space-s); }
+.profile__facts dt { font: 500 0.6875rem/1.6 var(--font-ui); letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-muted); }
+.profile__facts dd { margin: 0; }
+.profile__notice { font-size: 0.75rem; }
+@media (max-width: 759px) { .profile__facts > div { grid-template-columns: 1fr; gap: 0; } }
+
+/* 10. Round 3 ------------------------------------------------------------------------------------
+   Display type is Times New Roman (base.css): Title Case as written, no transforms. Its x-height is
+   smaller than Poppins', so the page's small serif titles (.t-d4) step up a size to hold their rank
+   over the UI text beside them. */
+.t-d4 { font-size: clamp(1.5rem, 1.25rem + 0.5vw, 1.75rem); line-height: 1.12; letter-spacing: -0.005em; }
+.cat-card .t-d3 { font-size: clamp(1.75rem, 1.3rem + 1.4vw, 2.5rem); }
+.results__ask-title, .cat-detail__offer { text-wrap: balance; }
+.cat-detail__desc, .results__status, .roles__what, .offer-stack__fix { text-wrap: pretty; }
+
+/* 3D panels: the insurance offer, the finder controls, the category card and the inquiry form
+   (.panel-3d in fx.css: tilt, sheen, offset edge). Children with data-depth lift while tilting. */
+.svc-panel { gap: var(--space-m); }
+/* The panel's offset edge (fx.css, 9px) takes no layout space, so the hint under it clears it. */
+.svc-panel + * { margin-top: calc(var(--space-m) + 9px); }
+.finder__form.panel-3d { padding: var(--space-m); }
+/* Three columns: the panel bleeds into the page margin and the gutter, so its fields keep the
+   column's full width (the placeholder "City, province or postal code" stays whole). */
+@media (min-width: 1100px) {
+  .finder__form.panel-3d { margin-inline: calc(-1 * var(--space-m)) calc(-1 * min(var(--space-m), var(--gap-col))); }
+  /* ...and the map steps in by the same amount, so the panel's offset edge never touches the coast. */
+  .finder__map { padding-left: var(--space-m); }
+}
+.inquiry-panel.panel-3d { padding: var(--space-l); }
+.inquiry-panel .inq-success { padding-top: 0; border-top: 0; } /* the panel frames it */
+.offer-promise.panel-3d { padding: var(--space-m) var(--space-l); border-left: 2px solid var(--accent); }
+.cat-card.panel-3d { padding: var(--space-l); }
+.cat-card .partner-list { border-bottom: 0; }
+@media (max-width: 759px) {
+  .inquiry-panel.panel-3d, .cat-card.panel-3d { padding: var(--space-m); }
+  .offer-promise.panel-3d { padding: var(--space-m); }
+}
+
+/* Tilting rows (offer stack, roles, jump rail, results): a hairline lift while the pointer is on them. */
+.offer-stack > li.is-tilting, .roles > li.is-tilting, .jump-rail__item.is-tilting { background-color: var(--surface); }
+
+/* Category card: a picked category turns in like a page (film mode, motion allowed). */
+@keyframes svc-flip-in {
+  from { opacity: 0; transform: perspective(1200px) translate3d(28px, 0, -90px) rotateY(-16deg); }
+}
+/* The inquiry confirmation and a partner profile unfold from their top edge. */
+@keyframes svc-unfold {
+  from { opacity: 0; transform: perspective(900px) rotateX(-62deg); }
+}
+/* An invalid field nudges sideways (the error text says why). */
+@keyframes svc-shake {
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(2px); }
+}
+html.film .cat-card.is-entering { transform-origin: 0 50%; animation: svc-flip-in 0.7s var(--ease) backwards; }
+html.film .inq-success:not([hidden]) { transform-origin: 50% 0; animation: svc-unfold 0.6s var(--ease) backwards; }
+html.film .profile[open] > .profile__body { transform-origin: 50% 0; animation: svc-unfold 0.45s var(--ease) backwards; }
+html.film .combo__list:not([hidden]) { transform-origin: 50% 0; animation: svc-unfold 0.3s var(--ease) backwards; }
+html.film .form-row.is-shaking { animation: svc-shake 0.42s var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .cat-card.is-entering, .inq-success, .profile__body, .combo__list, .form-row.is-shaking { animation: none !important; }
+}

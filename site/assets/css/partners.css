@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Become a partner — page styles only (partners.html).
+   Colours always come from the field variables in base.css; the panel edge
+   and depth tints (--panel-edge, --panel-depth) come from fx.css.
+   Display type is Times New Roman in Title Case: no uppercase, no wide tracking.
+   ========================================================================== */
+
+/* Offset edge + soft depth shadow shared by this page's layered panels (tiers,
+   ticket, form groups); .panel-3d (fx.css) uses the same recipe at full size. */
+:root { --pt-edge: 7px; }
+
+
+/* Hero ---------------------------------------------------------------------- */
+.pt-hero { max-width: 17ch; } /* size from .t-hero; &nbsp; groups in the markup break it into four phrases */
+.hero-honest { max-width: 52ch; }
+
+
+/* How it works: a perspective list of tilting rows -------------------------------- */
+.how__list { position: relative; transform-origin: 0 50%; }
+.how__guide {
+  position: absolute;
+  left: -14px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--accent);
+  transform-origin: 50% 0;
+}
+.how__item { display: grid; gap: 6px; max-width: 46ch; }
+#how .list-num > li { grid-template-columns: 3.5rem 1fr; }
+#how .list-num__n { align-self: baseline; }
+@media (max-width: 759px) {
+  #how .list-num > li { grid-template-columns: 2.5rem 1fr; }
+  .how__guide { left: -8px; } /* keep the line inside the 16px phone gutter, off the screen edge */
+}
+/* Depth layers inside a tilting card only lift when every wrapper keeps 3D. */
+.fx-tilt.has-depth :is(.how__item, .ask__list) { transform-style: preserve-3d; }
+
+
+/* Referral arrangement: three layered cards on a drawn line ------------------------- */
+.flow { position: relative; transform-origin: 50% 100%; }
+.flow__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  height: 1px;
+  background: var(--line-strong);
+  transform-origin: 0 50%;
+}
+.flow__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap-col);
+}
+.flow__step { position: relative; display: grid; grid-template-rows: 1fr; padding-top: var(--space-l); }
+.flow__card {
+  display: grid;
+  gap: var(--space-xs);
+  align-content: start;
+  padding: var(--space-m) var(--space-m) var(--space-l);
+}
+.flow__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+.flow__n { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); }
+.flow__card p:last-child { max-width: 40ch; color: var(--fg-muted); }
+
+@media (max-width: 759px) {
+  .flow__line { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; transform-origin: 50% 0; }
+  .flow__steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-m); }
+  .flow__step { padding: 0 0 0 var(--space-l); }
+  .flow__card { padding: var(--space-m); }
+  .flow__dot { top: var(--space-m); }
+}
+
+
+/* Tiers: depth-stacked panels; the whole panel picks the tier ------------------------ */
+.tiers { display: grid; gap: var(--space-m); padding-right: var(--pt-edge); transform-origin: 100% 50%; }
+.tiers > .tier {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
+  grid-template-areas: "head list" "head pick";
+  gap: var(--space-xs) var(--gap-col);
+  padding: var(--space-m) var(--space-l);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow:
+    var(--pt-edge) var(--pt-edge) 0 -1px var(--bg),
+    var(--pt-edge) var(--pt-edge) 0 0 var(--panel-edge),
+    0 30px 60px -32px var(--panel-depth);
+}
+.tiers > .tier:first-child { border-top: 2px solid var(--accent); }
+/* Panels on ink sit on the solid field colour so the star layer never shows through them. */
+.tiers > .tier, .ask__panel { background: linear-gradient(var(--surface), var(--surface)), var(--bg); }
+.tiers > .tier.is-pickable { cursor: pointer; }
+.tier__head { grid-area: head; display: grid; gap: var(--space-xs); align-content: start; }
+.tier__name { font-size: var(--fs-d3); }
+.tier__price { font-size: 0.9375rem; font-weight: 500; }
+.tier__list { grid-area: list; display: grid; gap: 4px; font-size: var(--fs-small); color: var(--fg-muted); }
+.tier__list > li { padding-left: 1.1em; text-indent: -1.1em; }
+.tier__list > li::before { content: "\2014"; margin-right: 0.45em; color: var(--accent); }
+.tier__pick { grid-area: pick; justify-self: start; }
+
+@media (max-width: 759px) {
+  .tiers { gap: var(--space-s); }
+  .tiers > .tier { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "list" "pick"; padding: var(--space-m); }
+  .tier__head { grid-template-columns: auto 1fr; align-items: baseline; gap: var(--space-m); }
+}
+
+
+/* Founding partner offer: a ticket with an offset edge ------------------------------ */
+/* Two phrases: "The First [2] Partners" / "per Service, per City." Capped at 10vw so the
+   first phrase still fits one line at 360px (the d1 floor of 38px is a few px too wide there). */
+.founding__title { max-width: 19ch; font-size: min(var(--fs-d1), 10vw); }
+.ticket {
+  display: grid;
+  gap: 6px;
+  max-width: 34rem;
+  padding: var(--space-m) var(--space-l);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow:
+    var(--pt-edge) var(--pt-edge) 0 -1px var(--bg),
+    var(--pt-edge) var(--pt-edge) 0 0 var(--panel-edge),
+    0 30px 60px -30px var(--panel-depth);
+  transform-origin: 0 50%;
+}
+.ticket__label { font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); }
+.ticket__value { font-size: 1rem; font-weight: 500; }
+.founding__why { max-width: 52ch; color: var(--fg-muted); }
+@media (max-width: 759px) { .ticket { padding: var(--space-m); } }
+
+
+/* What we ask: the list sits in a 3D panel, items stepping up in depth -------------- */
+.ask__panel { max-width: 46rem; padding-block: var(--space-2xs); transform-origin: 50% 100%; }
+.ask__list > li { position: relative; padding-left: 2.25rem; font-size: var(--fs-lead); }
+.ask__panel .ask__list > li:first-child { border-top: 0; }
+.ask__panel .ask__list > li:last-child { border-bottom: 0; }
+.ask__list > li::before {
+  content: "\2014";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.ask__list a { color: var(--accent); text-underline-offset: 3px; }
+@media (max-width: 759px) { .ask__list > li { padding-left: 1.75rem; } }
+
+
+/* Application -------------------------------------------------------------------- */
+.apply__main { min-width: 0; }
+.apply-form { gap: var(--space-l); }
+/* Each group is a light panel that tilts (tilt pauses while a field inside is focused). */
+.apply-form__group {
+  display: grid;
+  gap: var(--space-m);
+  min-width: 0;
+  padding: var(--space-m) var(--space-l) var(--space-l);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 26px 50px -34px var(--panel-depth);
+}
+/* Floated, the legend becomes an ordinary first row instead of cutting the border. */
+.apply-form__legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  font: 400 1.5rem/1.15 var(--font-display);
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+.apply-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-m) var(--gap-col);
+  align-items: start;
+}
+.apply-form__full { grid-column: 1 / -1; }
+.apply-form__opt { letter-spacing: 0.06em; text-transform: none; color: var(--fg-muted); font-weight: 400; }
+.apply-form__short { min-height: 96px; }
+.apply-form__agree { display: grid; gap: var(--space-s); }
+.apply-form__agree a, .apply-success a { color: var(--accent); text-underline-offset: 3px; }
+.apply-form .check { font-size: 0.9375rem; }
+@media (max-width: 759px) {
+  .apply-form__grid { grid-template-columns: minmax(0, 1fr); }
+  .apply-form__group { padding: var(--space-m) var(--space-m) var(--space-l); }
+  .apply-form__legend { font-size: 1.375rem; }
+}
+
+.apply-errors {
+  padding: var(--space-m);
+  border-left: 3px solid var(--error);
+  background: var(--surface);
+}
+.apply-errors:focus-visible { outline-offset: 2px; }
+.apply-errors__title { font: 600 0.9375rem/1.4 var(--font-ui); color: var(--error); }
+.apply-errors__list { display: grid; gap: 2px; margin-top: var(--space-xs); }
+.apply-errors__list a { display: inline-block; padding: 4px 0; color: var(--fg); font-size: var(--fs-small); text-underline-offset: 3px; }
+
+#apply .input, #apply .select, #apply .textarea, #apply input[type="checkbox"], .apply-errors, #apply-success-title {
+  scroll-margin-top: calc(var(--header-h) + var(--space-l)); /* flow mode: clear the fixed header */
+}
+#apply-success-title:focus { outline: none; } /* focused only to move screen readers here */
+#apply .list-num > li { grid-template-columns: 2.5rem 1fr; gap: var(--space-s); font-size: var(--fs-small); }
+.apply__aside { min-width: 0; }
+.apply__panel { padding: var(--space-l) var(--space-m); }
+.apply__panel .list-rule > li:first-child { border-top: 0; }
+.apply__panel .list-rule > li:last-child { border-bottom: 0; }
+.apply-success { max-width: 44rem; }
+
+
+/* Short leads (2-3 lines): balance them so no word or two is left alone on the last line. */
+#founding .t-lead, #close .t-lead { text-wrap: balance; }
+
+/* Reading measure for classed copy, which the shared class-less rule skips: on
+   stacked tablet layouts (760-1099px) these otherwise run to 100+ characters. */
+.scene__inner p.muted, .apply-form .hint { max-width: var(--measure); }
+
+
+
+/* Flow mode (reduced motion): keep the stacked page tidy ------------------------- */
+html:not(.film) .how__guide,
+html:not(.film) .flow__line { transform: none; }

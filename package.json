@@ -1,0 +1,22 @@
+{
+  "name": "cargado-strategies-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production build of the Cargado Strategies static site (site/ is the readable source, dist/ is what you upload).",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node serve.mjs dist 8231",
+    "serve:src": "node serve.mjs site 8230",
+    "start": "npm run build && npm run serve"
+  },
+  "devDependencies": {
+    "@fontsource/manrope": "5.1.0",
+    "@fontsource/poppins": "5.1.0",
+    "@fontsource/tinos": "5.1.0",
+    "esbuild": "0.24.0",
+    "gsap": "3.12.5",
+    "lenis": "1.1.13",
+    "three": "0.160.0"
+  }
+}

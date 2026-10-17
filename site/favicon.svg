@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <title>Cargado Strategies</title>
+  <rect width="48" height="48" rx="10" fill="#0B0B0C"/>
+  <g fill="none" stroke="#D4AF37" stroke-width="2.8" stroke-linecap="square">
+    <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
+    <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" stroke-linejoin="miter"/>
+  </g>
+</svg>

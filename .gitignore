@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+Thumbs.db
+# Client source documents: kept local, not published (the repo is public)
+Cargado-Strategies-Proposal-SRS*.pdf
+Cargado-Wireframes.html
+# Generated screenshots (large)
+plan/round5/shots/

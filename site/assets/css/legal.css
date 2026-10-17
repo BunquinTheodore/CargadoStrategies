@@ -1,0 +1,366 @@
+/* ==========================================================================
+   legal.css — Legal page only (legal.html). Builds on base.css + fx.css tokens.
+   Sections: 1 draft banner · 2 stage offset · 3 contents + 3D index cards
+   4 document scenes (heading column, ghost numeral) · 5 3D document stack
+   6 clauses · 7 Q&A (3D flip) · 8 close · 9 flow mode · 10 small screens
+   Colour always comes from the field variables (--fg, --accent, --line …).
+   Display type is Times New Roman at weight 400, Title Case as written.
+   ========================================================================== */
+
+body[data-page="legal"] {
+  --draft-h: 44px; /* set from the banner's real height (gap included) by legal.js */
+  --banner-h: var(--draft-h); /* base.css offsets scenes (film) and scroll targets (flow) by this */
+  --draft-gap: 8px; /* breathing room between the banner and scene content */
+  --legal-measure: 64ch;
+  --sheet-off: 10px; /* paper stack: how far each sheet sits behind the face (legal-fx.js reads it) */
+  --sheet-turn: 0.7deg;
+  --face-pad: clamp(20px, 2.4vw, 36px);
+  --fade-h: 44px; /* bottom fade inside a scrolling face */
+}
+
+/* The document face is a solid sheet so the paper behind it never shows through.
+   Ink lifts toward the text colour; bone and gold lift toward white (contrast rises). */
+.legal-doc[data-field="ink"] { --face: color-mix(in srgb, var(--bg) 95%, var(--fg)); }
+.legal-doc[data-field="bone"] { --face: color-mix(in srgb, var(--bg) 45%, #fff); }
+.legal-doc[data-field="gold"] { --face: color-mix(in srgb, var(--bg) 78%, #fff); }
+
+/* 1. Draft banner: fixed under the header on every scene ----------------------- */
+.legal-draft {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: 39;
+  padding: 0 var(--page-pad) var(--draft-gap);
+  pointer-events: none;
+}
+.legal-draft__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px 10px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 7px 14px;
+  border: 1px dashed var(--accent);
+  background: var(--bg);
+  color: var(--fg);
+  font: 500 0.6875rem/1.35 var(--font-ui);
+  letter-spacing: 0.14em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.legal-draft__tag {
+  padding: 2px 8px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 600;
+}
+html.nav-open .legal-draft { visibility: hidden; }
+
+/* 2. Stage offset: base.css starts scenes below header + --banner-h ------------- */
+
+/* The shared scroll cue (layers.js) sits at the stage centre, which lands on an
+   index card's title at laptop heights (1366×768). On this page it runs down the
+   gutter between two cards instead. Gutter offset from the centre, for a row of
+   n equal cards: (W + gap) / n × k, with W the content width. */
+body[data-page="legal"] { --toc-w: min(100% - 2 * var(--page-pad), var(--max-w)); }
+@media (min-width: 1100px) {
+  body[data-page="legal"] .scroll-cue { left: calc(50% + (var(--toc-w) + var(--space-m)) / 10); } /* 5 cards: gutter 3|4 */
+}
+@media (min-width: 760px) and (max-width: 1099px) {
+  body[data-page="legal"] .scroll-cue { left: calc(50% - (var(--toc-w) + var(--space-m)) / 6); } /* 3 cards: gutter 1|2 */
+}
+
+/* 3. Contents scene: hero + a perspective row of 3D index cards ------------------ */
+.legal-contents__title { line-height: 0.95; }
+.legal-contents .t-lead { max-width: 46ch; }
+.legal-meta {
+  font: 500 var(--fs-xs)/1.5 var(--font-ui);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+.legal-meta .ph { text-transform: none; letter-spacing: 0.04em; }
+
+.toc { margin-top: var(--space-xl); }
+.toc__list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-s) var(--space-m);
+  perspective: 1100px; /* the cards fold back in depth as the scene leaves (legal-fx.js) */
+}
+.toc__list > li { perspective: 900px; } /* tilt depth for each card */
+.toc__link {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-xs);
+  height: 100%;
+  min-height: 44px;
+  padding: var(--space-m) var(--space-s) var(--space-s);
+  border-top: 1px solid var(--line-strong);
+  color: var(--fg);
+  text-decoration: none;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.toc__n {
+  font: 500 0.8125rem/1 var(--font-ui);
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.toc__name {
+  font: 400 clamp(1.25rem, 1.05rem + 0.45vw, 1.5rem)/1.12 var(--font-display);
+  letter-spacing: var(--track-display);
+  text-wrap: balance;
+}
+.toc__meta {
+  font: 500 var(--fs-xs)/1.3 var(--font-ui);
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+}
+.toc__meta::after {
+  content: "\2192";
+  content: "\2192" / ""; /* decorative: kept out of the card's accessible name */
+  display: inline-block;
+  margin-left: 0.5em;
+  color: var(--accent);
+  transition: transform 0.25s var(--ease);
+}
+.toc__link:hover .toc__meta::after,
+.toc__link:focus-visible .toc__meta::after { transform: translateX(4px); }
+.toc__link:hover, .toc__link:focus-visible { border-top-color: var(--accent); background-color: var(--surface); }
+
+/* 4. Document scenes: heading column with a ghost chapter numeral ------------------- */
+.legal-grid { align-items: stretch; }
+.legal-head { position: relative; display: flex; flex-direction: column; gap: var(--space-s); align-self: start; }
+.legal-head--end { align-self: end; }
+.legal-title {
+  font-size: clamp(2rem, 1.15rem + 2.3vw, 3.375rem);
+  line-height: 1.04;
+  letter-spacing: var(--track-display);
+  max-width: 12ch; /* two balanced lines in the side column, never a lone word */
+}
+.legal-grid--stacked .legal-title { max-width: none; }
+.legal-rule {
+  display: block;
+  width: 64px;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: 0 50%;
+}
+.legal-aside { font-size: var(--fs-small); color: var(--fg-muted); max-width: 44ch; }
+.legal-aside .ph { display: inline-block; } /* a bracket wraps as one piece, never leaving "email]" alone */
+
+/* Decorative outline numeral: the back layer of the heading's 3D stack (legal-fx.js
+   scrubs it in from depth). Stroke only, so it never competes with the title. */
+.legal-num {
+  display: block;
+  margin-bottom: calc(var(--space-xs) * -1);
+  font: 400 clamp(4.5rem, 2.2rem + 5.2vw, 8.5rem)/0.8 var(--font-display);
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 60%, transparent);
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 0 60%;
+}
+/* Stacked heading (conduct): the numeral sits in the empty space to the right. */
+.legal-grid--stacked .legal-num {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  transform-origin: 100% 60%;
+}
+.legal-grid--stacked .legal-head { justify-self: start; padding-right: clamp(120px, 13vw, 220px); } /* numeral follows the title */
+
+/* 5. 3D document stack: the frame tilts (interact.js), two paper sheets sit behind
+   the face and spread in depth while it tilts, and fan out as the scene comes in. */
+.legal-panel {
+  position: relative;
+  align-self: center;
+  justify-self: start;
+  width: 100%;
+  max-width: calc(var(--legal-measure) + 2 * var(--face-pad) + 2.75rem);
+  margin-bottom: calc(var(--sheet-off) * 2); /* room for the fanned sheets */
+}
+.legal-sheet {
+  --lvl: 1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translate(calc(var(--sheet-off) * var(--lvl)), calc(var(--sheet-off) * var(--lvl))) rotate(calc(var(--sheet-turn) * var(--lvl)));
+  transform-origin: 0 0;
+  transform-style: preserve-3d; /* passes the paper's depth (data-depth) through to the tilting frame */
+}
+/* The paper is its own layer: GSAP fans the sheet (transform), interact.js lifts the paper (translate). */
+.legal-sheet__paper {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--face, var(--bg));
+}
+.legal-sheet--2 { --lvl: 2; }
+.legal-sheet--2 .legal-sheet__paper { opacity: 0.6; }
+.legal-panel__face {
+  position: relative;
+  display: block;
+  padding: var(--space-xs) var(--face-pad) 0;
+  border: 1px solid var(--line-strong);
+  border-top: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--face, var(--bg));
+  box-shadow: 0 40px 80px -40px var(--panel-depth, rgba(0, 0, 0, 0.3));
+}
+/* Bottom fade of a scrolling face, sticky so it stays at the visible edge. */
+.legal-panel__face::after {
+  content: "";
+  position: sticky;
+  bottom: 0;
+  display: block;
+  height: var(--fade-h);
+  margin-top: calc(var(--fade-h) * -1 + var(--space-l));
+  background: linear-gradient(to bottom, transparent, var(--face, var(--bg)));
+  pointer-events: none;
+}
+.legal-panel__face:focus-visible { outline-offset: 4px; }
+.legal-panel__action { position: relative; z-index: 1; margin: var(--space-m) 0 var(--space-xs); }
+
+/* Film mode: each document scene fills the space under the banner; the face
+   scrolls inside it (no pan), so the film never needs to move tall text. */
+html.film .legal-doc .scene__pan { height: 100%; display: flex; flex-direction: column; }
+html.film .legal-doc .legal-grid { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+html.film .legal-doc .legal-grid--stacked { grid-template-rows: auto minmax(0, 1fr); }
+html.film .legal-doc .legal-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: calc(100% - var(--sheet-off) * 2);
+}
+html.film .legal-doc .legal-panel__face { flex: 0 1 auto; min-height: 0; max-height: none; }
+.legal-grid--stacked .legal-panel { align-self: start; }
+@media (min-width: 760px) {
+  .legal-grid--mirror > * { grid-row: 1; }
+}
+
+/* 6. Clauses ------------------------------------------------------------------------ */
+.clauses {
+  counter-reset: clause;
+  display: grid;
+  gap: 0;
+}
+.clauses > li {
+  counter-increment: clause;
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  column-gap: var(--space-s);
+  padding: var(--space-m) 0;
+  border-top: 1px solid var(--line);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.clauses > li:first-child { border-top: 0; }
+.clauses > li::before {
+  content: counter(clause, decimal-leading-zero);
+  grid-row: span 2;
+  padding-top: 0.25em;
+  font: 500 0.8125rem/1.6 var(--font-ui);
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.clauses p { grid-column: 2; max-width: var(--legal-measure); }
+.clause__title {
+  grid-column: 2;
+  margin-bottom: var(--space-2xs);
+  font: 400 1.3125rem/1.25 var(--font-display);
+  letter-spacing: var(--track-display);
+}
+.legal-panel--wide { max-width: none; --sheet-turn: 0.2deg; } /* a wide sheet turns less, or its far corner drops */
+.clauses--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-xl);
+}
+.clauses--two > li:nth-child(2) { border-top: 0; }
+.legal-doc .scene__scroll .ph { white-space: normal; }
+
+/* 7. Q&A: answers flip down in 3D when opened (film mode, motion allowed) ------------- */
+.legal-panel__face--faq { padding-top: var(--space-2xs); }
+.legal-panel__face--faq .acc:first-of-type { border-top: 0; }
+.legal-panel__face--faq .acc:last-of-type { border-bottom: 0; }
+.legal-panel__face--faq .acc { perspective: 900px; }
+.legal-panel__face--faq .acc > summary { font: 400 1.3125rem/1.3 var(--font-display); letter-spacing: var(--track-display); } /* base.css balances it: no lone "Information?" on phones */
+.legal-panel__face--faq .acc__body { display: grid; gap: var(--space-s); color: var(--fg); line-height: 1.7; transform-origin: 50% 0; }
+.legal-panel__face--faq .acc__body a { color: var(--accent); font-weight: 600; }
+.legal-panel__face--faq .acc:last-of-type .acc__body { padding-bottom: var(--space-l); }
+@media (prefers-reduced-motion: no-preference) {
+  html.film .legal-panel__face--faq .acc[open] > .acc__body { animation: acc-flip 0.6s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+}
+@keyframes acc-flip {
+  from { opacity: 0; transform: rotateX(-78deg) translateZ(-24px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 8. Close ---------------------------------------------------------------------------- */
+.legal-close .row { gap: var(--space-s) var(--space-m); }
+
+/* 9. Flow mode (reduced motion): stacked sections under header + banner -------------- */
+/* The banner band is solid here, so the previous section never shows around it. */
+html:not(.film) .legal-draft { background: var(--bg); }
+html:not(.film) body[data-page="legal"] { --sheet-turn: 0deg; } /* full-height documents: a straight stack */
+html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(var(--header-h) + var(--draft-h) + var(--space-m)); }
+html:not(.film) .legal-head--end { align-self: start; }
+html:not(.film) .legal-panel__face::after { content: none; }
+html:not(.film) .legal-panel__face { padding-bottom: var(--space-s); }
+
+/* 10. Medium and small screens ----------------------------------------------------------- */
+@media (max-width: 1099px) {
+  .toc__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Short laptop screens (1024×768, 1280×720): a tighter index so the opening scene fits without panning. */
+@media (min-width: 760px) and (max-height: 820px) {
+  .toc { margin-top: var(--space-m); }
+  .toc__link { padding-top: var(--space-s); }
+}
+@media (max-width: 759px) {
+  body[data-page="legal"] { --sheet-off: 6px; --sheet-turn: 0.5deg; --face-pad: 16px; --fade-h: 36px; }
+  .legal-draft__text { display: block; padding: 6px 10px; font-size: 0.625rem; letter-spacing: 0.06em; }
+  .legal-draft__tag { margin-right: 4px; padding: 1px 6px; }
+  .legal-num { display: none; }
+  .legal-grid--stacked .legal-head { padding-right: 0; }
+  .toc__meta { font-size: 0.6875rem; letter-spacing: 0.04em; }
+  .legal-contents .t-lead { font-size: 1rem; }
+  .toc { margin-top: var(--space-l); }
+  .toc__list { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .toc__link {
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    grid-template-rows: none;
+    align-items: baseline;
+    padding: var(--space-s) var(--space-2xs);
+    border-top-color: var(--line);
+  }
+  .toc__name { font-size: 1.125rem; }
+  .legal-contents .notice { font-size: 0.75rem; }
+  .legal-head { gap: var(--space-xs); }
+  .legal-title { font-size: 2rem; max-width: none; }
+  .legal-aside { display: none; }
+  .clauses--two { grid-template-columns: minmax(0, 1fr); }
+  .clauses--two > li:nth-child(2) { border-top: 1px solid var(--line); }
+  .clauses > li { grid-template-columns: 2.25rem minmax(0, 1fr); padding: var(--space-s) 0; font-size: 0.9375rem; }
+  .clause__title { font-size: 1.1875rem; }
+  .legal-panel__face--faq .acc > summary { font-size: 1.1875rem; }
+  html.film .legal-doc .legal-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+  /* Flex column: "end"/"start" would push the heading sideways, so stretch it to the gutter. */
+  html.film .legal-doc .legal-head { flex: none; align-self: stretch; }
+  html.film .legal-doc .legal-panel { flex: 0 1 auto; min-height: 0; align-self: stretch; width: calc(100% - var(--sheet-off) * 2); }
+  html:not(.film) .legal-panel { width: calc(100% - var(--sheet-off) * 2); }
+}
