@@ -215,10 +215,6 @@
   "services.html": {
    "notice": [
     {
-     "where": "section#ours-insurance",
-     "text": "This is our founder's own business. It is separate from the network of independent partners."
-    },
-    {
      "where": "section",
      "text": "Sorted by distance only. This list is not a recommendation. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us."
     },
@@ -360,15 +356,6 @@
       "tap send"
      ],
      "text": "Nothing is sent until you tap send.",
-     "count": 1
-    },
-    {
-     "where": "section#ours-insurance",
-     "el": "p.notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "It is separate from the network of independent partners.",
      "count": 1
     },
     {
@@ -1106,6 +1093,11 @@
   {
    "page": "index.html, services.html, partners.html",
    "note": "Owner 2026-10-20: removed the Home find fine print and the Services strategy coaching notice; tier prices/perks, commission and founding brackets filled or removed (tier prices are owner-approved stand-ins to be replaced)."
+  },
+  {
+   "page": "services.html",
+   "where": "section#ours-insurance",
+   "note": "Owner 2026-10-20: removed \"This is our founder's own business. It is separate from the network of independent partners.\""
   }
  ]
 }
