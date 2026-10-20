@@ -237,10 +237,6 @@
      "text": "Opens WhatsApp. Nothing is sent until you tap send."
     },
     {
-     "where": "section#ours-outsourcing",
-     "text": "Provided by Cargado Strategies itself, not by a partner. Nothing is sent until you tap send."
-    },
-    {
      "where": "section#finder",
      "text": "We use your city or area only to sort partners by distance. It isn't stored on this website."
     },
@@ -365,15 +361,6 @@
       "tap send"
      ],
      "text": "Nothing is sent until you tap send.",
-     "count": 1
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "el": "p.hint",
-     "keys": [
-      "Provided by Cargado"
-     ],
-     "text": "Provided by Cargado Strategies itself, not by a partner.",
      "count": 1
     },
     {
@@ -1098,6 +1085,11 @@
    "page": "services.html",
    "where": "section#ours-insurance",
    "note": "Owner 2026-10-20: removed \"This is our founder's own business. It is separate from the network of independent partners.\""
+  },
+  {
+   "page": "services.html",
+   "where": "section#ours-outsourcing",
+   "note": "Owner 2026-10-20: removed \"Provided by Cargado Strategies itself, not by a partner.\""
   }
  ]
 }
