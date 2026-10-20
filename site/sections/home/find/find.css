@@ -14,7 +14,8 @@
 /* Wide, short screens: the copy runs further toward the map instead of leaving a dead band in
    the middle (the map keeps its own box, measured from the narrower column above). */
 @media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
-  .find__copy { width: min(50%, 48rem); }
+  #find .scene__pan { justify-content: center; }   /* the copy sits in the middle, not on the floor (owner, 2026-10-20) */
+  .find__copy { width: min(50%, 48rem); padding-bottom: 0; }
   .find__head .t-d1 { font-size: min(var(--fs-d1), 10cqh); }
   .find__body { max-width: 50ch; font-size: clamp(var(--fs-lead), 2.6svh, 1.625rem); }
 }
