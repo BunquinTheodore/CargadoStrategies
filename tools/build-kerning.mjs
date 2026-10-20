@@ -75,6 +75,10 @@ export async function buildKerning({ force = false } = {}) {
   const pairsHash = createHash('sha256').update(`${FONT_STACK}|${pairs.join('|')}`).digest('hex').slice(0, 16);
   const current = existsSync(KERN_FILE) ? JSON.parse(readFileSync(KERN_FILE, 'utf8')) : null;
   if (!force && current?.pairsHash === pairsHash) return { status: 'fresh', pairs: pairs.length, kept: Object.keys(current.faces?.normal || {}).length };
+  // CI hosts (Vercel, GitHub Actions) have no Chrome: ship the committed table rather than measure.
+  if (!force && current && (process.env.CI || process.env.VERCEL)) {
+    return { status: 'kept', pairs: pairs.length, warning: 'CI build; kept the committed kern.json (run npm run build locally to refresh it)' };
+  }
   let chrome;
   try {
     chrome = await launchChrome({ prefix: 'kern-' });

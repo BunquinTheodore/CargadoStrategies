@@ -111,6 +111,10 @@ export async function launchChrome({ args = [], prefix = 'cs-tool-' } = {}) {
     '--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
     '--no-first-run', '--no-default-browser-check', '--hide-scrollbars', '--mute-audio', ...args, 'about:blank',
   ], { stdio: 'ignore' });
+  // A missing binary (CI hosts such as Vercel have no Chrome) arrives as an 'error' event; without
+  // a listener it crashes the process instead of rejecting, so callers could not fall back.
+  let spawnError = null;
+  chrome.on('error', (e) => { spawnError = e; });
   const close = async () => {
     chrome.kill();
     await sleep(300);
@@ -120,6 +124,7 @@ export async function launchChrome({ args = [], prefix = 'cs-tool-' } = {}) {
     let target;
     for (let t = 0; t < START_POLLS && !target; t++) {
       await sleep(START_POLL_MS);
+      if (spawnError) throw new Error(`Chrome could not be started (${CHROME}: ${spawnError.code || spawnError.message}; set CHROME_PATH)`);
       target = await fetch(`http://127.0.0.1:${port}/json/list`).then((r) => r.json())
         .then((l) => l.find((x) => x.type === 'page')).catch(() => null);
     }
