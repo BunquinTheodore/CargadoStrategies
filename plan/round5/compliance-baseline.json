@@ -665,20 +665,12 @@
      "text": "[live count]"
     },
     {
-     "where": "section#ask",
-     "text": "[process to be confirmed by the founder and counsel]"
-    },
-    {
      "where": "section#apply",
      "text": "[how we confirm it with the issuing body: to be confirmed]"
     },
     {
      "where": "section#apply",
      "text": "[company email]"
-    },
-    {
-     "where": "aside",
-     "text": "[process to be confirmed]"
     },
     {
      "where": "aside",
@@ -1090,6 +1082,11 @@
    "page": "services.html",
    "where": "section#ours-outsourcing",
    "note": "Owner 2026-10-20: removed \"Provided by Cargado Strategies itself, not by a partner.\""
+  },
+  {
+   "page": "partners.html",
+   "where": "#partner-faq",
+   "note": "Owner 2026-10-20: removed the licence-check process brackets (and \"How we confirm it:\")"
   }
  ]
 }

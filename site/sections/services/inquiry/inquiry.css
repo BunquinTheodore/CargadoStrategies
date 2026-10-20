@@ -23,3 +23,19 @@
 .inq-success:focus { outline: none; }
 .inq-success__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
 .inq-success__text, .inq-success__retry { font-size: var(--fs-note); line-height: var(--lh-note); }
+/* Owner, 2026-10-20: a larger headline beside the paper, and the paper as a raised 3D slab: a lit
+   top-left face, a gold side edge stepped out to the lower right, and a deep soft drop. No
+   transform, so the reveal and focus rings stay untouched. Desktop and tablet only. */
+@media (min-width: 760px) {
+  .inq__paper {
+    background: linear-gradient(150deg, #212125 0%, #161618 45%, #101012 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(243,236,221,.10),
+      inset -1px -1px 0 rgba(0,0,0,.55),
+      2px 2px 0 #9C7A26, 4px 4px 0 #8A6A1E, 6px 6px 0 #765914, 8px 8px 0 #5F470F,
+      18px 22px 40px -6px rgba(0,0,0,.75), 0 0 60px -10px rgba(212,175,55,.18);
+  }
+}
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
+  .inq__title { font-size: min(11rem, 21cqh, 9.6vw); max-width: 8ch; line-height: .96; }
+}
