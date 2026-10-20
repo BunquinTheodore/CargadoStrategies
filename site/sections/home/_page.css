@@ -1,0 +1,7 @@
+/* 1. Every Home pan fills its scene box, so groups can anchor top and bottom. */
+body[data-page="home"] .scene:not(.scene--credits) .scene__pan {
+  margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
+  display: flex; flex-direction: column;
+}
+.hero__head, .sit__head, .founder__head, .find__head { display: grid; gap: var(--space-s); justify-items: start; }
+.hero__head .rule, .find__head .rule { margin-top: var(--space-xs); }

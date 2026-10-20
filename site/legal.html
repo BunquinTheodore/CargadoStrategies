@@ -70,16 +70,16 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/fx.css">
-  <link rel="stylesheet" href="assets/css/ui.css">
-  <link rel="stylesheet" href="assets/css/visual.css">
-  <link rel="stylesheet" href="assets/css/legal.css">
+  <link rel="stylesheet" href="core/design/base.css">
+  <link rel="stylesheet" href="core/design/fx.css">
+  <link rel="stylesheet" href="core/design/ui.css">
+  <link rel="stylesheet" href="core/design/visual.css">
+  <link rel="stylesheet" href="pages/legal.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <link rel="modulepreload" href="assets/js/main.js">
-  <link rel="modulepreload" href="assets/js/film.js">
-  <link rel="modulepreload" href="assets/js/chrome.js">
-  <script type="module" src="assets/js/legal.js"></script>
+  <link rel="modulepreload" href="core/main.js">
+  <link rel="modulepreload" href="core/engine/film.js">
+  <link rel="modulepreload" href="core/chrome/chrome.js">
+  <script type="module" src="pages/legal.js"></script>
 </head>
 <body data-page="legal">
   <!-- Shared chrome (2b): skip link and header, painted with the page; chrome.js wires them. -->
@@ -104,323 +104,29 @@
     <main class="scenes" id="content">
 
       <!-- L1 · Contents · bone · R: the five documents as index rows, the draft notice as fine print -->
-      <section class="scene legal-contents" id="contents" data-field="bone" data-archetype="R"
-               data-title="Legal" aria-labelledby="contents-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <div class="contents__head" data-group="head">
-            <p class="eyebrow">Legal</p>
-            <h1 id="contents-title" class="t-d1 contents__title" data-reveal="words" data-delay="0">The Fine Print, in <em>Plain English</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h1>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.1">Updated <span class="ph">[date]</span></p>
-          </div>
-          <ul class="rows contents__rows" data-group="body" data-reveal="stagger" data-delay="0.12">
-            <li><a class="row" href="#disclosure"><span class="row__num num-outline">01</span><span class="row__title">Professional Disclosure</span><span class="row__meta">5 clauses</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row" href="#privacy"><span class="row__num num-outline">02</span><span class="row__title">Privacy</span><span class="row__meta">8 sections</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row" href="#terms"><span class="row__num num-outline">03</span><span class="row__title">Terms</span><span class="row__meta">6 sections</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row" href="#conduct"><span class="row__num num-outline">04</span><span class="row__title">Partner Code of Conduct</span><span class="row__meta">6 commitments</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row" href="#faq"><span class="row__num num-outline">05</span><span class="row__title">Q&amp;A</span><span class="row__meta">6 questions</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-          </ul>
-          <p class="fineprint contents__fine" data-compliance data-reveal="fade" data-delay="0.2"><strong>Draft for review.</strong> These pages are written to read as formal legal documents, but they are drafts and not legal advice. A lawyer in Canada must review and adjust every page, including the province and the privacy contact in <span class="ph">[brackets]</span>, before the website goes live.</p>
-        </div></div>
-      </section>
+      <!-- @section legal/contents -->
 
       <!-- L2 · Professional disclosure (SRS Appendix B) · bone · P: the paged document -->
-      <section class="scene legal-doc" id="disclosure" data-field="bone" data-archetype="P"
-               data-title="Professional Disclosure" aria-labelledby="disclosure-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <header class="legal-head" data-group="head">
-            <p class="eyebrow"><span class="num">01</span> / 05 · Disclosure</p>
-            <h2 id="disclosure-title" class="legal-title" data-reveal="words" data-delay="0">Professional <em>Disclosure</em></h2>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.08">Draft · Updated <span class="ph">[date]</span></p>
-          </header>
-          <div class="legal-paper paper" data-group="body" data-reveal="fade" data-delay="0.1">
-            <svg class="paper__frame" aria-hidden="true" focusable="false"><rect data-frame x=".5" y=".5"/></svg>
-            <div class="legal-reader" data-compliance role="region" aria-label="Professional disclosure text" data-pager>
-              <div class="pager__window" id="disclosure-pages">
-                <ol class="clauses" data-pager-track>
-                  <li data-n="01" data-page-item><p>Cargado Strategies connects visitors with independent partners. Each partner is solely responsible for their own services, licensing and compliance with the rules of their profession and province.</p></li>
-                  <li data-n="02" data-page-item><p>Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice through this website. A listing is not an endorsement or a recommendation. Partners are listed by distance only.</p></li>
-                  <li data-n="03" data-page-item><p>Some services on this website are offered by the founder through her own businesses. Those businesses are named as the founder's own and operate under their own licences. <span class="ph">[Confirm entity names and licence numbers.]</span></p></li>
-                  <li data-n="04" data-page-item><p>Cargado Strategies may receive a commission from a partner when a referral becomes a client. <span class="ph">[Wording to be set by counsel.]</span></p></li>
-                  <li data-n="05" data-page-item><p>Cargado's finance and operations strategy service is separate from partner services. It is not licensed accounting, tax or investment advice.</p></li>
-                </ol>
-              </div>
-              <nav class="pager legal-pager" aria-label="Disclosure pages" data-pager-bar hidden>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="disclosure-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="disclosure-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-              </nav>
-              <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-            </div>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/disclosure -->
 
       <!-- L3 · Privacy policy (SRS Appendix B; CR06, CR07, CR10) · bone · P -->
-      <section class="scene legal-doc" id="privacy" data-field="bone" data-archetype="P"
-               data-title="Privacy Policy" aria-labelledby="privacy-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <header class="legal-head" data-group="head">
-            <p class="eyebrow"><span class="num">02</span> / 05 · Privacy</p>
-            <h2 id="privacy-title" class="legal-title" data-reveal="words" data-delay="0">Privacy <em>Policy</em></h2>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.08">Draft · Updated <span class="ph">[date]</span></p>
-            <p class="legal-aside" data-reveal="fade" data-delay="0.12">Privacy contact: <span class="ph">[privacy officer name and email]</span></p>
-          </header>
-          <div class="legal-paper paper" data-group="body" data-reveal="fade" data-delay="0.1">
-            <svg class="paper__frame" aria-hidden="true" focusable="false"><rect data-frame x=".5" y=".5"/></svg>
-            <div class="legal-reader" data-compliance role="region" aria-label="Privacy policy text" data-pager>
-              <div class="pager__window" id="privacy-pages">
-                <ol class="clauses" data-pager-track>
-                  <li data-n="01" data-page-item><h3 class="clause__title">Information We Collect</h3><p>Your name, email address, phone or WhatsApp number, city or area, and the message you send us.</p></li>
-                  <li data-n="02" data-page-item><h3 class="clause__title">Why We Collect It</h3><p>To answer your inquiry and connect you with a suitable partner. We ask for your city so that we can find someone close to you.</p></li>
-                  <li data-n="03" data-page-item><h3 class="clause__title">Who Sees It</h3><p>Cargado staff and the partner we connect you with. We do not sell your information.</p></li>
-                  <li data-n="04" data-page-item><h3 class="clause__title">Where It Is Kept</h3><p>In our lead records. Facebook and WhatsApp apply their own terms to messages sent through them.</p></li>
-                  <li data-n="05" data-page-item><h3 class="clause__title">How Long We Keep It</h3><p><span class="ph">[Retention period.]</span></p></li>
-                  <li data-n="06" data-page-item><h3 class="clause__title">Your Rights</h3><p>You may ask to see, correct or delete your information, and you may withdraw consent at any time. Contact <span class="ph">[privacy officer name and email]</span>. We follow the privacy laws that apply in Canada and in your province.</p></li>
-                  <li data-n="07" data-page-item><h3 class="clause__title">Messages</h3><p>We send you messages only with your consent, and each marketing message includes a way to unsubscribe.</p></li>
-                  <li data-n="08" data-page-item><h3 class="clause__title">Cookies and Analytics</h3><p><span class="ph">[List the tools once chosen.]</span></p></li>
-                </ol>
-              </div>
-              <nav class="pager legal-pager" aria-label="Privacy policy pages" data-pager-bar hidden>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="privacy-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="privacy-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-              </nav>
-              <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-            </div>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/privacy -->
 
       <!-- L4 · Terms of use (SRS Appendix B) · bone · P -->
-      <section class="scene legal-doc" id="terms" data-field="bone" data-archetype="P"
-               data-title="Terms of Use" aria-labelledby="terms-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <header class="legal-head" data-group="head">
-            <p class="eyebrow"><span class="num">03</span> / 05 · Terms</p>
-            <h2 id="terms-title" class="legal-title" data-reveal="words" data-delay="0">Terms of <em>Use</em></h2>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.08">Draft · Updated <span class="ph">[date]</span></p>
-          </header>
-          <div class="legal-paper paper" data-group="body" data-reveal="fade" data-delay="0.1">
-            <svg class="paper__frame" aria-hidden="true" focusable="false"><rect data-frame x=".5" y=".5"/></svg>
-            <div class="legal-reader" data-compliance role="region" aria-label="Terms of use text" data-pager>
-              <div class="pager__window" id="terms-pages">
-                <ol class="clauses" data-pager-track>
-                  <li data-n="01" data-page-item><h3 class="clause__title">General Information</h3><p>This website gives general information. Using it does not create a professional relationship with Cargado Strategies or with any partner.</p></li>
-                  <li data-n="02" data-page-item><h3 class="clause__title">Independent Partners</h3><p>Partners are independent. Cargado Strategies is not responsible for their advice, services or results.</p></li>
-                  <li data-n="03" data-page-item><h3 class="clause__title">Acceptable Use</h3><p>You agree not to misuse the website and not to submit false or misleading information.</p></li>
-                  <li data-n="04" data-page-item><h3 class="clause__title">Changes</h3><p>We may change the website and these terms at any time. The latest version applies when you use the website.</p></li>
-                  <li data-n="05" data-page-item><h3 class="clause__title">Limit of Liability</h3><p>To the extent the law allows, Cargado Strategies is not liable for losses arising from use of this website. <span class="ph">[Counsel to adjust.]</span></p></li>
-                  <li data-n="06" data-page-item><h3 class="clause__title">Governing Law</h3><p>These terms are governed by the laws of <span class="ph">[province]</span>, Canada.</p></li>
-                </ol>
-              </div>
-              <nav class="pager legal-pager" aria-label="Terms of use pages" data-pager-bar hidden>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="terms-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="terms-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-              </nav>
-              <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-            </div>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/terms -->
 
       <!-- L5 · Partner code of conduct (SRS Appendix B; CR04) · bone · P -->
-      <section class="scene legal-doc" id="conduct" data-field="bone" data-archetype="P"
-               data-title="Partner Code of Conduct" aria-labelledby="conduct-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <header class="legal-head" data-group="head">
-            <p class="eyebrow"><span class="num">04</span> / 05 · Partner Conduct</p>
-            <h2 id="conduct-title" class="legal-title" data-reveal="words" data-delay="0">Partner Code of <em>Conduct</em></h2>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.08">Draft · Updated <span class="ph">[date]</span></p>
-            <p class="legal-aside legal-aside--keep" data-reveal="fade" data-delay="0.12">Every partner agrees to these commitments when they apply.</p>
-            <p class="legal-head__action" data-reveal="fade" data-delay="0.16"><a class="link" href="partners.html">Become a Partner <span aria-hidden="true">→</span></a></p>
-          </header>
-          <div class="legal-paper paper" data-group="body" data-reveal="fade" data-delay="0.1">
-            <svg class="paper__frame" aria-hidden="true" focusable="false"><rect data-frame x=".5" y=".5"/></svg>
-            <div class="legal-reader" data-compliance role="region" aria-label="Partner code of conduct text" data-pager>
-              <div class="pager__window" id="conduct-pages">
-                <ol class="clauses" data-pager-track>
-                  <li data-n="01" data-page-item><p>Describe your licence, credentials and services honestly, and keep your licence current.</p></li>
-                  <li data-n="02" data-page-item><p>Put clients before transactions, and explain any fee or commission before work begins.</p></li>
-                  <li data-n="03" data-page-item><p>Protect client confidentiality and personal information.</p></li>
-                  <li data-n="04" data-page-item><p>Reply to inquiries within <span class="ph">[number]</span> business&nbsp;days.</p></li>
-                  <li data-n="05" data-page-item><p>Never promise results you cannot guarantee, and follow your regulator's advertising and referral rules.</p></li>
-                  <li data-n="06" data-page-item><p>Accept removal from the network if these commitments are broken.</p></li>
-                </ol>
-              </div>
-              <nav class="pager legal-pager" aria-label="Code of conduct pages" data-pager-bar hidden>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="conduct-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="conduct-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-              </nav>
-              <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-            </div>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/conduct -->
 
       <!-- L6 · Q&A (FR16) · bone · R: an exclusive accordion, 3 per page; phones drill into one answer.
            Footer links use legal.html#qa, so the eyebrow carries that id; panel ids (#qa-advice) deep-link. -->
-      <section class="scene legal-doc legal-faq" id="faq" data-field="bone" data-archetype="R"
-               data-title="Q&amp;A" aria-labelledby="faq-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <header class="legal-head" data-group="head">
-            <p class="eyebrow" id="qa"><span class="num">05</span> / 05 · Q&amp;A</p>
-            <h2 id="faq-title" class="legal-title" data-reveal="words" data-delay="0">Straight <em>Answers</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="legal-meta" data-reveal="fade" data-delay="0.08">Draft · Updated <span class="ph">[date]</span></p>
-          </header>
-          <div class="qa tabs" data-tabs data-group="body" data-reveal="fade" data-delay="0.1">
-            <div class="tabs__list qa__list">
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-free" aria-controls="qa-free"><span class="qa__n num" aria-hidden="true">01</span><span class="qa__text">Why Is It Free for Me?</span><span class="qa__plus" aria-hidden="true"></span></button>
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-hire" aria-controls="qa-hire"><span class="qa__n num" aria-hidden="true">02</span><span class="qa__text">Do I Have to Hire Them?</span><span class="qa__plus" aria-hidden="true"></span></button>
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-listed" aria-controls="qa-listed"><span class="qa__n num" aria-hidden="true">03</span><span class="qa__text">How Are Partners Listed?</span><span class="qa__plus" aria-hidden="true"></span></button>
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-info" aria-controls="qa-info"><span class="qa__n num" aria-hidden="true">04</span><span class="qa__text">What Happens to My Information?</span><span class="qa__plus" aria-hidden="true"></span></button>
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-advice" aria-controls="qa-advice"><span class="qa__n num" aria-hidden="true">05</span><span class="qa__text">Does Cargado Give Advice?</span><span class="qa__plus" aria-hidden="true"></span></button>
-              <button class="tabs__tab qa__q" type="button" id="qa-tab-join" aria-controls="qa-join"><span class="qa__n num" aria-hidden="true">06</span><span class="qa__text">How Do I Become a Partner?</span><span class="qa__plus" aria-hidden="true"></span></button>
-            </div>
-            <nav class="pager qa__pager" aria-label="More questions" data-pager-bar hidden>
-              <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> questions</span></button>
-              <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-              <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1">Next<span class="visually-hidden"> questions</span> <span aria-hidden="true">→</span></button>
-            </nav>
-            <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-            <div class="qa__bar" data-tabs-bar hidden>
-              <button class="link qa__back" type="button" data-tabs-back><span aria-hidden="true">←</span> All Questions</button>
-              <button class="link qa__next" type="button" data-tabs-next>Next Question <span aria-hidden="true">→</span></button>
-            </div>
-            <div class="qa__panels" data-tabs-panels data-compliance>
-              <section class="tabs__panel qa__panel" id="qa-free" aria-labelledby="qa-free-title">
-                <h3 class="qa__title" id="qa-free-title" tabindex="-1">Why Is It Free for Me?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-free-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>Partners may pay us a fee if you become their client. You never pay us for an introduction.</p>
-                      <p data-page-item>Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form. <span class="ph">[Wording to be set by counsel.]</span></p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-free-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-free-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-              <section class="tabs__panel qa__panel" id="qa-hire" aria-labelledby="qa-hire-title">
-                <h3 class="qa__title" id="qa-hire-title" tabindex="-1">Do I Have to Hire Them?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-hire-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>No. You decide what happens next. An introduction does not create a professional relationship with Cargado Strategies or with the partner, and you are free to speak with anyone else.</p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-hire-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-hire-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-              <section class="tabs__panel qa__panel" id="qa-listed" aria-labelledby="qa-listed-title">
-                <h3 class="qa__title" id="qa-listed-title" tabindex="-1">How Are Partners Listed?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-listed-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>By distance only, closest first. A listing is not an endorsement or a recommendation. Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled.</p>
-                      <p data-page-item>Partners are independent businesses. Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence.</p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-listed-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-listed-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-              <section class="tabs__panel qa__panel" id="qa-info" aria-labelledby="qa-info-title">
-                <h3 class="qa__title" id="qa-info-title" tabindex="-1">What Happens to My Information?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-info-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>We use your name, contact details, city or area and your message to answer you and connect you with a partner close to you. We ask for your city only to find someone near you. Cargado staff and the partner we connect you with see it, and we do not sell it.</p>
-                      <p data-page-item>You may ask to see, correct or delete it at any time. <a href="#privacy">Read the privacy policy</a>.</p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-info-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-info-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-              <section class="tabs__panel qa__panel" id="qa-advice" aria-labelledby="qa-advice-title">
-                <h3 class="qa__title" id="qa-advice-title" tabindex="-1">Does Cargado Give Advice?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-advice-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>Not through this website. Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here. Advice comes from the partner you choose.</p>
-                      <p data-page-item>The founder's own businesses (insurance, business strategy and outsourcing) are named as hers. Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice.</p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-advice-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-advice-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-              <section class="tabs__panel qa__panel" id="qa-join" aria-labelledby="qa-join-title">
-                <h3 class="qa__title" id="qa-join-title" tabindex="-1">How Do I Become a Partner?</h3>
-                <div class="qa__body" data-pager data-pager-when="(max-width: 759px)">
-                  <div class="pager__window" id="qa-join-pages">
-                    <div class="qa__track" data-pager-track>
-                      <p data-page-item>Apply on the <a href="partners.html">Become a Partner</a> page with your business details, category, licence number and issuing body, and service area. The Cargado team reviews and approves each application, and every partner agrees to the <a href="#conduct">code of conduct</a>.</p>
-                      <p data-page-item>Membership buys a listing and network tools only. It does not promise referrals or outcomes.</p>
-                    </div>
-                  </div>
-                  <nav class="pager legal-pager" aria-label="Answer pages" data-pager-bar hidden>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1" aria-controls="qa-join-pages"><span aria-hidden="true">←</span> Previous<span class="visually-hidden"> page</span></button>
-                    <p class="pager__status num">Page <span data-pager-current>1</span> of <span data-pager-total>1</span></p>
-                    <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1" aria-controls="qa-join-pages">Next<span class="visually-hidden"> page</span> <span aria-hidden="true">→</span></button>
-                  </nav>
-                  <p class="visually-hidden" aria-live="polite" aria-atomic="true" data-pager-live></p>
-                </div>
-              </section>
-            </div>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/faq -->
 
       <!-- L7 · Close · bone · M: the static medallion (W5 bookend, no globe on legal), one statement, one CTA (the C22 sheet, context "legal") -->
-      <section class="scene legal-close" id="close" data-field="bone" data-archetype="M"
-               data-title="Still Have a Question?" aria-labelledby="close-title">
-        <div class="scene__inner"><div class="scene__pan">
-          <div class="medallion close__medallion" aria-hidden="true"></div>
-          <h2 id="close-title" class="t-statement close__title" data-group="head" data-reveal="words" data-delay="0">Still Have a Question? <em>Ask Us</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-          <div class="close__action" data-group="action" data-reveal="fade" data-delay="0.15">
-            <a class="btn btn--primary" data-wa-sheet data-context="legal"
-               href="https://wa.me/12048692508" target="_blank" rel="noopener">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
-          </div>
-        </div></div>
-      </section>
+      <!-- @section legal/close -->
 
       <!-- Credits: the same on every page (R4 shared.md §5.4, DIRECTION §6.4), on legal's one bone field (§7.5). Shared node (2b). -->
-      <section class="scene scene--credits" id="credits" data-field="bone" data-archetype="credits"
-               data-pose="0,0.35,-1,0.25,2.4,0.7" data-title="Contact and Legal" aria-label="Contact and legal">
-        <div class="scene__inner"><div class="scene__pan">
-          <div class="globe-anchor globe-anchor--credits" data-globe-anchor aria-hidden="true"></div>
-          <div data-footer></div>
-        </div></div>
-      </section>
+      <!-- @section legal/credits -->
 
     </main>
     <div class="iris" aria-hidden="true"></div>

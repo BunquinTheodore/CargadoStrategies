@@ -5,6 +5,7 @@
   "description": "Production build of the Cargado Strategies static site (site/ is the readable source, dist/ is what you upload).",
   "type": "module",
   "scripts": {
+    "dev": "node serve.mjs site 8000",
     "build": "node build.mjs",
     "serve": "node serve.mjs dist 8231",
     "serve:src": "node serve.mjs site 8230",

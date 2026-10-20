@@ -1,0 +1,12 @@
+/* 5. P4 · Founding (gold metal): the monument in cols 1-7, a large outline "2" holds cols 8-12 */
+#founding .scene__pan { justify-content: center; gap: var(--space-l); }
+.founding__mark {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%); margin-right: -.04em;
+  font: 400 min(66svh, 36vw)/.74 var(--font-display); letter-spacing: 0; pointer-events: none; user-select: none;
+  color: transparent; -webkit-text-stroke: 1.5px var(--stroke-num);
+}
+.founding__head { max-width: 62%; }
+.founding__title { font-size: min(var(--fs-statement), 14svh); max-width: 19ch; }
+.founding__body { display: grid; gap: var(--space-s); max-width: 48ch; }
+.founding__terms { margin: 0; font-size: var(--fs-lead); line-height: 1.55; }
+.founding__live { margin: 0; font: 500 var(--fs-label)/1.4 var(--font-ui); }

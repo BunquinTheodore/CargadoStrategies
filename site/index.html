@@ -70,16 +70,16 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/fx.css">
-  <link rel="stylesheet" href="assets/css/ui.css">
-  <link rel="stylesheet" href="assets/css/visual.css">
-  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="core/design/base.css">
+  <link rel="stylesheet" href="core/design/fx.css">
+  <link rel="stylesheet" href="core/design/ui.css">
+  <link rel="stylesheet" href="core/design/visual.css">
+  <link rel="stylesheet" href="pages/home.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <link rel="modulepreload" href="assets/js/main.js">
-  <link rel="modulepreload" href="assets/js/film.js">
-  <link rel="modulepreload" href="assets/js/chrome.js">
-  <script type="module" src="assets/js/home.js"></script>
+  <link rel="modulepreload" href="core/main.js">
+  <link rel="modulepreload" href="core/engine/film.js">
+  <link rel="modulepreload" href="core/chrome/chrome.js">
+  <script type="module" src="pages/home.js"></script>
 </head>
 <body data-page="home">
   <!-- splash (2c): plan/round5/snippets/splash.html. Shared node (2b). -->
@@ -116,209 +116,28 @@
     <main class="scenes" id="content">
 
       <!-- H1 · Hero · ink · O · W1: the promise on the left, the globe on the right ------------------- -->
-      <section class="scene" id="hero" data-field="ink" data-archetype="O" data-globe-mode="sphere"
-               data-pose="1.66,0.05,-0.4,0.12,0.15,1.5" data-pose-sm="3.5,-1.45,-0.6,0.12,0.15,1.05" data-title="Introduction"
-               aria-labelledby="hero-title" style="--kx: 28%; --ky: 60%">
-        <div class="scene__inner">
-          <div class="globe-anchor hero__globe" data-globe-anchor data-fit-ignore aria-hidden="true"></div>
-          <div class="hero__copy">
-            <div class="hero__head" data-group="head">
-              <p class="eyebrow">Free Introductions<span class="hero__sep"> · </span>Across Canada</p>
-              <h1 id="hero-title" class="t-statement hero__title" data-reveal="words" data-hero-title>The Right Professional, <em>Near&nbsp;You</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h1>
-              <span class="rule" aria-hidden="true"></span>
-            </div>
-            <p class="t-lead hero__lead" data-group="body" data-reveal="fade" data-delay="0.08"><span class="avatar hero__avatar" data-when="FOUNDER_PHOTO" data-founder-photo aria-hidden="true"></span>Send one message to <span class="ph" data-founder-name>[First name]</span> at Cargado Strategies. She handles insurance, business strategy and outsourcing herself, and introduces you to a trusted professional close to you for everything else.</p>
-            <div class="hero__action" data-group="action" data-reveal="fade" data-delay="0.16">
-              <div class="hero__ctas">
-                <a class="btn btn--primary hero__cta" data-magnetic data-wa-sheet data-context="home" data-wa-intro
-                   href="https://wa.me/12048692508" target="_blank" rel="noopener"><span class="hero__sheen" aria-hidden="true"></span>Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
-                <a class="link hero__alt" href="tel:+12048692508" data-wa-sheet="contact" data-context="home">Or Call / Email Us</a>
-              </div>
-              <p class="fineprint hero__trust">No fee to you · No obligation · <span class="phone-hide">Licence shown where one applies<span class="hero__sep hero__sep--trust"> · </span></span><span class="nw">Replies within 24&nbsp;hours</span></p>
-              <ul class="proof">
-                <li data-when="STATS"><span class="proof__n num"><span class="ph">[n]</span></span> introductions made</li>
-                <li data-when="STATS"><span class="proof__n num"><span class="ph">[n]</span></span> approved partners</li>
-                <li data-when="STATS"><span class="proof__n num"><span class="ph">[n]</span></span> cities across Canada</li>
-                <li data-when="RATING"><span class="proof__n num"><span aria-hidden="true">★</span> <span class="ph">[rating]</span></span> on Facebook</li>
-              </ul>
-            </div>
-          </div>
-          <button class="next hero__next" type="button" data-cut="next">Next <span class="next__chev" aria-hidden="true">↓</span></button>
-        </div>
-      </section>
+      <!-- @section home/hero -->
 
       <!-- H2 · One message · bone · M · W2: four searches struck, then the monument ---------------------- -->
-      <section class="scene" id="one-message" data-alias="compare how-it-works video" data-field="bone" data-archetype="M"
-               data-iris="stop" data-title="How It Works" aria-labelledby="one-title">
-        <div class="scene__inner">
-          <div class="one__head" data-group="head">
-            <p class="eyebrow">How It Works</p>
-            <ul class="strike one__strike">
-              <li class="is-struck"><s>Searching “Broker Near Me”</s></li>
-              <li class="is-struck phone-hide"><s>Calling Five Offices</s></li>
-              <li class="is-struck"><s>Waiting for Call-Backs</s></li>
-              <li class="is-struck"><s>Guessing Who to Trust</s></li>
-            </ul>
-          </div>
-          <h2 id="one-title" class="t-mega one__title" data-group="body" data-reveal="words">One <em>Message</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-          <ol class="steps one__steps" data-group="action" data-reveal="stagger" data-delay="0.2">
-            <li><span class="steps__n num-outline" aria-hidden="true">1</span><span class="steps__when">Now</span><span class="steps__what">You send one message</span></li>
-            <li><span class="steps__n num-outline" aria-hidden="true">2</span><span class="steps__when">Within 24h</span><span class="steps__what">We introduce someone close to you</span></li>
-            <li><span class="steps__n num-outline" aria-hidden="true">3</span><span class="steps__when">Day 3</span><span class="steps__what">We check in</span></li>
-          </ol>
-        </div>
-      </section>
+      <!-- @section home/one-message -->
 
       <!-- H3 · Situations · bone · R: four quote rows into the services --------------------------------- -->
-      <section class="scene" id="situations" data-alias="services" data-field="bone" data-archetype="R"
-               data-title="Sounds Like You?" aria-labelledby="situations-title">
-        <div class="scene__inner">
-          <div class="sit__head" data-group="head">
-            <p class="eyebrow">Start With Your Situation</p>
-            <h2 id="situations-title" class="t-d1" data-reveal="words" data-delay="0">Sounds Like <em>You</em>?</h2>
-          </div>
-          <ul class="rows sit__rows" data-group="body" data-reveal="stagger" data-delay="0">
-            <li><a class="row row--quote" href="services.html#mortgage"><span class="row__num num-outline">01</span><span class="row__title">“We’re buying our first home.”</span><span class="row__meta">Mortgage, real estate, lawyer</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row row--quote" href="services.html#business-strategy"><span class="row__num num-outline">02</span><span class="row__title">“My business is busy but money is tight.”</span><span class="row__meta">Business strategy, tax</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row row--quote" href="services.html#insurance"><span class="row__num num-outline">03</span><span class="row__title">“If something happens to me, is my family OK?”</span><span class="row__meta">Insurance, wills and estates</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row row--quote" href="services.html#outsourcing"><span class="row__num num-outline">04</span><span class="row__title">“I’m doing everything myself.”</span><span class="row__meta">Outsourcing</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-          </ul>
-          <p class="sit__more" data-group="action" data-reveal="fade" data-delay="0.2"><a class="link" href="services.html">See All Services <span aria-hidden="true">→</span></a></p>
-        </div>
-      </section>
+      <!-- @section home/situations -->
 
       <!-- H4 · Founder · gold (metal) · D · W3: three doors, everything visible at rest ------------------ -->
-      <section class="scene" id="founder" data-field="gold" data-archetype="D" data-iris="trigger"
-               data-title="From Our Founder" aria-labelledby="founder-title">
-        <div class="scene__inner">
-          <div class="founder__head" data-group="head">
-            <span class="avatar founder__avatar" data-when="FOUNDER_PHOTO" data-founder-photo aria-hidden="true"></span>
-            <p class="eyebrow">From <span class="ph" data-founder-name>[First Name]</span> Herself</p>
-            <span class="founder__sig" data-when="FOUNDER_SIGNATURE" data-founder-signature></span>
-            <h2 id="founder-title" class="t-d1 founder__title" data-reveal="words" data-delay="0">Three Things <span class="ph" data-founder-name>[First name]</span> Does <em>Herself</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-            <div class="founder__quotes" data-when="QUOTES">
-              <figure class="founder__quote"><blockquote><p><span class="ph">“[Real client quote about the outcome]”</span></p></blockquote><figcaption><span class="ph">[name]</span> · <span class="ph">[city]</span> · <span class="ph">[service]</span></figcaption></figure>
-              <figure class="founder__quote"><blockquote><p><span class="ph">“[Real client quote about the speed]”</span></p></blockquote><figcaption><span class="ph">[name]</span> · <span class="ph">[city]</span> · <span class="ph">[service]</span></figcaption></figure>
-            </div>
-          </div>
-          <div class="doors founder__doors" data-group="body">
-            <article class="door is-open" aria-labelledby="door-1-title">
-              <span class="ghost" aria-hidden="true">1</span>
-              <h3 class="door__title" id="door-1-title">Protect.</h3>
-              <p class="door__q t-quote">“Is My Family Covered?”</p>
-              <p class="door__offer">Family Protection Review · 30 min</p>
-              <button class="door__toggle" type="button" aria-expanded="true" aria-controls="door-1-more">Details<span class="visually-hidden"> for Protect</span> <span class="door__plus" aria-hidden="true"></span></button>
-              <div class="door__more" id="door-1-more">
-                <a class="btn btn--primary door__cta" data-wa-sheet data-need="insurance" data-context="founder"
-                   href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About Insurance <span class="btn__arrow" aria-hidden="true">→</span></a>
-              </div>
-            </article>
-            <article class="door" aria-labelledby="door-2-title">
-              <span class="ghost" aria-hidden="true">2</span>
-              <h3 class="door__title" id="door-2-title">Plan.</h3>
-              <p class="door__q t-quote">“Where Does My Money Go?”</p>
-              <p class="door__offer">The 30-Day Cash-Flow Clean-Up</p>
-              <button class="door__toggle" type="button" aria-expanded="false" aria-controls="door-2-more">Details<span class="visually-hidden"> for Plan</span> <span class="door__plus" aria-hidden="true"></span></button>
-              <div class="door__more" id="door-2-more">
-                <p class="fineprint" data-compliance>Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice.</p>
-                <a class="btn btn--primary door__cta" data-wa-sheet data-need="business-strategy" data-context="founder"
-                   href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About the Clean-Up <span class="btn__arrow" aria-hidden="true">→</span></a>
-              </div>
-            </article>
-            <article class="door" aria-labelledby="door-3-title">
-              <span class="ghost" aria-hidden="true">3</span>
-              <h3 class="door__title" id="door-3-title">Delegate.</h3>
-              <p class="door__q t-quote">“Am I Doing Everything Myself?”</p>
-              <p class="door__offer">Your Back-Office Team</p>
-              <button class="door__toggle" type="button" aria-expanded="false" aria-controls="door-3-more">Details<span class="visually-hidden"> for Delegate</span> <span class="door__plus" aria-hidden="true"></span></button>
-              <div class="door__more" id="door-3-more">
-                <p class="fineprint" data-compliance>Provided by Cargado Strategies itself.</p>
-                <a class="btn btn--primary door__cta" data-wa-sheet data-need="outsourcing" data-context="founder"
-                   href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About Outsourcing <span class="btn__arrow" aria-hidden="true">→</span></a>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
+      <!-- @section home/founder -->
 
       <!-- H5 · Find · ink · O · W4: the globe comes down to Canada -------------------------------------- -->
-      <section class="scene" id="find" data-field="ink" data-archetype="O" data-iris="trigger" data-globe-mode="map"
-               data-pose="0.95,0.1,0,0,0,0" data-pose-sm="0,0,0,0,0,0" data-title="Across Canada"
-               aria-labelledby="find-title" style="--kx: 22%; --ky: 64%">
-        <div class="scene__inner">
-          <div class="globe-anchor find__map" data-globe-anchor data-fit-ignore aria-hidden="true"></div>
-          <p class="find__cap" aria-hidden="true">Illustration only.</p>
-          <div class="find__copy">
-            <div class="find__head" data-group="head">
-              <p class="eyebrow">Across Canada</p>
-              <h2 id="find-title" class="t-d1" data-reveal="words" data-delay="0">Need Someone We Don’t Do <em>Ourselves</em>?</h2>
-              <span class="rule" aria-hidden="true"></span>
-            </div>
-            <p class="find__body" data-group="body" data-reveal="fade" data-delay="0">Lawyer, mortgage, accountant, real estate: tell us the service and your city. We’ll introduce you to someone good, close to you.</p>
-            <div class="find__action" data-group="action" data-reveal="fade" data-delay="0.12">
-              <a class="btn btn--primary" data-wa-sheet data-context="network" data-wa-intro
-                 href="https://wa.me/12048692508" target="_blank" rel="noopener">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
-              <p class="fineprint" data-compliance>Sorted by distance only. Partners are independent, and a listing is not a recommendation. Cargado Strategies may receive a commission when a referral becomes a client. <a class="link" href="legal.html#disclosure">Details <span aria-hidden="true">→</span></a></p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- @section home/find -->
 
       <!-- H6 · Close · ink · M · W5: the medallion bookend ------------------------------------------------ -->
-      <section class="scene" id="close" data-alias="story partners faq" data-open="faq-dialog:faq" data-field="ink"
-               data-archetype="M" data-globe-mode="medallion" data-title="Get My Introduction" aria-labelledby="close-title">
-        <div class="scene__inner">
-          <div class="medallion closing__medallion" aria-hidden="true"></div>
-          <h2 id="close-title" class="t-statement closing__title" data-group="head" data-reveal="words" data-delay="0">One Message. The Right Person. Close to <em>You</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-          <div class="closing__action" data-group="action" data-reveal="fade" data-delay="0.15">
-            <a class="btn btn--primary" data-wa-sheet data-context="home" data-wa-intro
-               href="https://wa.me/12048692508" target="_blank" rel="noopener">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
-            <a class="link" href="#faq" data-faq-open aria-haspopup="dialog" aria-controls="faq-dialog">Questions Everyone Asks First <span aria-hidden="true">→</span></a>
-          </div>
-          <ul class="rows closing__rows" data-group="body" data-reveal="stagger" data-delay="0.2">
-            <li><a class="row" href="story.html"><span class="row__title">Our Story</span><span class="row__meta">W for Wealth, C for Cargado</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-            <li><a class="row" href="partners.html"><span class="row__title">For Professionals</span><span class="row__meta">Be found close to home</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
-          </ul>
-        </div>
-      </section>
+      <!-- @section home/close -->
 
       <!-- Credits: the same on every page (R4 shared.md §5.4, DIRECTION §6.4). Shared node (2b). -->
-      <section class="scene scene--credits" id="credits" data-field="ink" data-archetype="credits"
-               data-pose="0,0.35,-1,0.25,2.4,0.7" data-title="Contact and Legal" aria-label="Contact and legal">
-        <div class="scene__inner"><div class="scene__pan">
-          <div class="globe-anchor globe-anchor--credits" data-globe-anchor aria-hidden="true"></div>
-          <div data-footer></div>
-        </div>
-      </section>
+      <!-- @section home/credits -->
 
       <!-- FAQ (H6): the questions everyone asks first, answers verbatim; #faq opens it (data-open on #close). -->
-      <dialog class="dialog faq" id="faq-dialog" aria-labelledby="faq-title">
-        <div class="dialog__panel">
-          <div class="dialog__head">
-            <h2 class="faq__title" id="faq-title">Questions Everyone Asks <em>First</em></h2>
-            <button type="button" class="link dialog__close" data-dialog-close>Close</button>
-          </div>
-          <div class="dialog__body faq__list">
-            <details class="acc" name="faq" open>
-              <summary>Why Is It Free for Me?</summary>
-              <div class="acc__body"><p>Partners may pay us a fee if you become their client. You never pay us for an introduction.</p></div>
-            </details>
-            <details class="acc" name="faq">
-              <summary>Do I Have to Hire Them?</summary>
-              <div class="acc__body"><p>No. You decide what happens next. Partners are independent businesses, and each one is responsible for their own licence and advice.</p></div>
-            </details>
-            <details class="acc" name="faq">
-              <summary>How Do You Choose Who to Show&nbsp;Me?</summary>
-              <div class="acc__body"><p>By distance only. We show the nearest partners for the service you need, closest first. No one pays to be listed higher, and a listing is not a recommendation or an endorsement.</p></div>
-            </details>
-            <details class="acc" name="faq">
-              <summary>What Happens to My Information?</summary>
-              <div class="acc__body"><p>We use it to answer you and connect you with a suitable partner. We ask for your city so we can find someone close to you. Cargado staff and the partner we connect you with see it, and we do not sell it. Read the <a href="legal.html#privacy">privacy policy</a>.</p></div>
-            </details>
-          </div>
-          <p class="faq__more"><a class="link" href="legal.html#qa">More Questions and Answers <span aria-hidden="true">→</span></a></p>
-        </div>
-      </dialog>
+      <!-- @section home/faq-dialog -->
 
     </main>
     <div class="iris" aria-hidden="true"></div>

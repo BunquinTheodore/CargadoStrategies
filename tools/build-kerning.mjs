@@ -1,6 +1,6 @@
 /**
  * build-kerning (DIRECTION §4.1): precomputes the display face's kerning pairs at build time,
- * so site/assets/js/kerning.js only applies a table and never measures in the browser.
+ * so site/core/engine/kerning.js only applies a table and never measures in the browser.
  *
  *   node tools/build-kerning.mjs [--force]
  *
@@ -23,6 +23,7 @@ import { readdir } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { evaluate, launchChrome } from './lib/cdp.mjs';
+import { readAssembled } from './lib/assemble.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = join(ROOT, 'site');
@@ -39,7 +40,7 @@ export async function displayPairs() {
   const files = (await readdir(SITE)).filter((f) => f.endsWith('.html'));
   const pairs = new Set();
   files.forEach((f) => {
-    const html = readFileSync(join(SITE, f), 'utf8');
+    const html = readAssembled(join(SITE, f));
     for (const m of html.matchAll(DISPLAY)) {
       const text = decode((m[2] ?? m[4] ?? '').replace(/<[^>]+>/g, ' '));
       text.split(/\s+/).forEach((word) => {

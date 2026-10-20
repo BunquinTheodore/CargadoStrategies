@@ -1,0 +1,28 @@
+/* 6. S5 · Outsourcing on metal: the head, four panels (capped, so the field shows under them), the action row
+   bottom-left (§4.2) */
+#ours-outsourcing :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-end; gap: var(--space-l); padding-bottom: clamp(8px, 3cqh, 40px); }
+.out__title { font-size: min(var(--fs-d1), 8cqh); }
+.out__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
+.out__rate { font: 600 var(--fs-note)/1.4 var(--font-body); }
+/* Ghost · title · line rows are shared (subgrid), so the four titles start on one line. */
+.panels {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) auto auto;
+  justify-content: stretch; flex: 0 1 auto; height: min(52cqh, 30rem); min-height: 0;
+}
+.panel {
+  position: relative; min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr);
+  grid-row: span 3; grid-template-rows: subgrid; row-gap: var(--space-xs);
+  padding: clamp(12px, 3cqh, 32px) clamp(16px, 2vw, 32px);
+}
+.panel + .panel { border-left: 1px solid rgba(11,11,12,.55); }
+/* The ghost numeral stands on the title's top at the panel's right: it never shares ink with copy. */
+.panel .ghost {
+  position: relative; inset: auto; grid-row: 1; align-self: end; justify-self: end; margin-right: -.06em;
+  font-size: min(var(--fs-ghost), 24svh); line-height: .74;
+}
+/* Role titles in Manrope 600 at 20 px (§4.1 item titles) while they are placeholders: they never outshout the head. */
+.panel__title { grid-row: 2; align-self: start; font: 600 1.25rem/1.3 var(--font-body); text-wrap: balance; }
+html:not(.ph-loud) .panel__title .ph { text-decoration: none; }
+.panel__line { grid-row: 3; max-width: 26ch; font-size: var(--fs-note); line-height: var(--lh-note); }
+.panel__toggle { display: none; }
+.panel:has(> .panel__line:not([data-when-on])) .panel__toggle { display: none !important; }   /* nothing to open yet */

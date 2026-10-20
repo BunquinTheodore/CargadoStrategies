@@ -1,0 +1,13 @@
+/* 5. S4 · What you get: the head and its rule, five hairline rows (item · the pain it fixes) */
+#ours-includes :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-l); }
+.incl__title { font-size: min(var(--fs-d1), 9cqh); }
+.incl__rows { display: grid; }
+.incl__row {
+  display: grid; grid-template-columns: 3.2ch minmax(0, 5fr) minmax(0, 4fr); align-items: center; column-gap: var(--gap-col);
+  min-height: min(var(--row-pitch), 11cqh); padding: var(--space-2xs) 24px; border-top: 1px solid var(--line);
+}
+.incl__row:last-child { border-bottom: 1px solid var(--line); }
+.incl__num { font-size: min(var(--fs-row-num), 6cqh); }
+/* The five titles carry the scene: up to 28 px on wide screens, where the rows run the full width. */
+.incl__item { font: 600 clamp(var(--fs-d4), 3.6cqh, 1.75rem)/1.3 var(--font-body); }
+.incl__fix { font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }

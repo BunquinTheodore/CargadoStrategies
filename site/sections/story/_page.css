@@ -1,0 +1,17 @@
+/* ==========================================================================
+   Cargado Strategies — story.css (story.html, DIRECTION §7.3 T1-T6)
+   1 shared scene frame · 2 T1 top (O) · 3 T2 beginning (M) · 4 T3 logo (stage, W5)
+   5 T4 values (R) · 6 T5 close (M, W5) · 7 bands: laptop-short, tablet portrait, phone
+   Shared mechanics (rule, stop, tportrait, portrait, medallion, fine print) live in
+   base.css, ui.css and visual.css; this file only places and sizes them.
+   Display type is Times New Roman in Title Case, never uppercased.
+   ========================================================================== */
+
+/* 1. Every Story pan fills its scene box, so groups can anchor top and bottom. */
+body[data-page="story"] .scene:not(.scene--credits) .scene__pan {
+  margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
+  display: flex; flex-direction: column;
+}
+.top__copy, .begin__head { display: grid; gap: var(--space-s); justify-items: start; }
+.top__copy .rule, .begin__head .rule { margin-top: var(--space-xs); }
+

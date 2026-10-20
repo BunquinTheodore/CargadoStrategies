@@ -1,0 +1,35 @@
+/* 4. P3 · Tiers: the head, three panels filling the rest, one Apply and "Compare All" ------- */
+#tiers .scene__pan { justify-content: flex-end; gap: var(--space-l); }
+.tiers__title { font-size: min(var(--fs-d1), 8cqh); }
+.tiers-wrap { flex: 0 1 58%; min-height: 0; display: grid; }
+/* Side by side (≥ 760) the panels share one row grid (subgrid): a spacer, then name, price and
+   lines, so the three prices sit on one baseline. One column per panel (slice lesson 11). */
+.tiers {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) repeat(3, auto);
+  min-height: min(46svh, 40cqh);
+}
+.tier {
+  position: relative; isolation: isolate; grid-row: 1 / -1;   /* no clip: a clipped panel over the stars costs a layer each */
+  display: grid; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); justify-content: stretch;
+  row-gap: var(--space-s); align-content: end; padding: var(--space-l) clamp(16px, 2vw, 32px);
+  border-top: 1px solid var(--line); cursor: pointer;
+  transition: background-color var(--dur-hover) var(--ease-out), box-shadow var(--dur-hover) var(--ease-out);
+}
+.tier + .tier { border-left: 1px solid var(--line); }
+.tier > * { grid-column: 1; }
+.tier:hover { background-color: rgba(243, 236, 221, .035); }
+.tier:has(.tier__pick:checked) { background-color: rgba(212, 175, 55, .07); box-shadow: inset 0 2px 0 var(--accent); }
+/* The outline numeral stands on the price's floor at the right, never under any text. */
+.tier .ghost {
+  position: relative; inset: auto; grid-row: 1 / 4; align-self: end; justify-self: end; margin-right: -.06em;
+  font-size: min(var(--fs-ghost), 24svh); line-height: .74;
+  color: transparent; -webkit-text-stroke: 1px var(--stroke-num);
+}
+/* The tier name is the panel's d2 heading; the radio is hidden, the gold top rule shows the pick. */
+.tier__title { grid-row: 2; margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.tier__name { display: inline-flex; align-items: center; min-height: var(--tap-min); width: fit-content; color: var(--fg); cursor: pointer; }
+.tier__pick { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.tier:has(.tier__pick:focus-visible) .tier__name { outline: var(--focus-w) solid var(--focus); outline-offset: var(--focus-off); }
+.tier__price { grid-row: 3; margin: 0; font: 400 1.75rem/1.2 var(--font-display); color: var(--fg-muted); }
+.tier__list { grid-row: 4; display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-note); line-height: 1.45; }
+.tiers__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }

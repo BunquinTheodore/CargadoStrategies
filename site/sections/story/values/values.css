@@ -1,0 +1,17 @@
+/* 5. T4 · Values: the head, three hairline rows (numeral · title · body), the fine print ------ */
+#values .scene__pan { justify-content: center; gap: var(--space-l); }
+.values__head { max-width: 62%; }
+.values__title { font-size: min(var(--fs-d1), 9cqh); }
+.values__rows { display: grid; margin: 0; padding: 0; list-style: none; }
+.value {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 44ch); grid-template-areas: "num title body";
+  align-items: center; column-gap: var(--gap-col); min-height: min(var(--row-pitch), 15cqh);
+  padding: var(--space-xs) 24px; border-top: 1px solid var(--line);
+}
+.value:last-child { border-bottom: 1px solid var(--line); }
+.value__num { grid-area: num; min-width: 2ch; font-size: var(--fs-row-num); }
+.value__title { grid-area: title; margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); text-wrap: balance; }
+.value__body { grid-area: body; margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
+.value__toggle { display: none; }
+.values__fine { margin: 0; }
+

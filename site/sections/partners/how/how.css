@@ -1,0 +1,16 @@
+/* 3. P2 · How: the head top-left, three hairline rows, the notice under them ---------------- */
+#how .scene__pan { justify-content: center; gap: var(--space-l); }
+.how__head { max-width: 62%; }
+.how__title { font-size: min(var(--fs-d1), 8.5cqh); }
+/* Static index rows (C11 without the link): numeral · Times d2 title · Manrope meta. */
+.prows { display: grid; }
+.prow {
+  display: grid; grid-template-columns: 3ch minmax(0, 1fr) minmax(0, 1.15fr); column-gap: var(--gap-col);
+  align-items: baseline; min-height: min(var(--row-pitch), 14cqh); padding: var(--space-xs) 24px;
+  border-top: 1px solid var(--line); align-content: center;
+}
+.prow:last-child { border-bottom: 1px solid var(--line); }
+.prow__num { font-size: var(--fs-row-num); }
+.prow__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+.prow__meta { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body, 1.5); color: var(--fg-muted); max-width: 46ch; }
+.how__fine { margin: 0; }

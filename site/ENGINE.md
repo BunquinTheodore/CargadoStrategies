@@ -82,7 +82,7 @@ Decided once per load (a pointer or preference change takes effect on the next l
   </script>
   <!-- fonts, base.css, fx.css, ui.css, visual.css, <page>.css (2b's head links) -->
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>   <!-- no ScrollTrigger, no Lenis tag -->
-  <script type="module" src="assets/js/services.js"></script>
+  <script type="module" src="pages/services.js"></script>
 </head>
 <body data-page="services">                    <!-- home | services | story | partners | legal -->
   <!-- splash (2c's snippet; not on legal) -->
@@ -160,8 +160,8 @@ Inside scenes, the engine also reads:
 ## 5. Page module
 
 ```js
-// assets/js/home.js
-import { boot } from './main.js';
+// pages/home.js
+import { boot } from '../core/main.js';
 
 renderDynamicContent();                                   // 1. dynamic DOM first (synchronously)
 const { film, chrome, sfx, tier, globe, sheet } = boot(); // 2. splash → tier → chrome → film → sheet hub, globe → idle extras
@@ -248,7 +248,7 @@ Same-origin cross-page link clicks store the link's centre in `sessionStorage['c
 - Never invent partners, people, photos, reviews, ratings, counts or licence numbers. Use `.ph` brackets and "Partner spot available". Compliance copy is verbatim (DIRECTION "Fixed constraints" and §10).
 - Display type is the Times New Roman stack in Title Case as written (never `text-transform`); body Manrope; UI Poppins. Black and gold only.
 - Tap targets ≥ 44 px; everything works from 360 px wide; every scene fits one screen (`tools/fit-audit.mjs`, also `--flow` and `--touch`).
-- Page CSS in `assets/css/<page>.css`, page JS in `assets/js/<page>.js`. Small functions, named constants, no `console.log`.
+- Page CSS in `pages/<page>.css` (an @import list of `sections/<page>/…`), page JS in `pages/<page>.js`, section markup and behaviour in `sections/<page>/<name>/`. Small functions, named constants, no `console.log`.
 - QA every page in the three modes: cut (1440×900), touch-cut (390×844, coarse pointer) and flow (reduced motion). Console clean, cut through every scene forward and back, deep links, Tab through every scene.
 
 ## 12. Round 4 compatibility (removed in stage 6)

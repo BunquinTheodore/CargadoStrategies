@@ -1,0 +1,52 @@
+<section class="scene" id="tiers" data-field="ink" data-archetype="D" data-iris="stop"
+               data-title="Membership Tiers" aria-labelledby="tiers-title">
+        <div class="scene__inner">
+          <div class="tiers__head" data-group="head">
+            <p class="eyebrow">Membership Tiers</p>
+            <h2 id="tiers-title" class="t-d1 tiers__title" data-reveal="words" data-delay="0">Community, Growth, <em>Premier</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+          </div>
+          <div class="tiers-wrap tabs" data-group="body" data-tabs="(max-width: 759px)" data-tabs-label="Membership tiers">
+            <div class="tabs__list switch">
+              <button class="tabs__tab switch__btn" type="button" id="tier-tab-community" aria-controls="tier-community">Community</button>
+              <button class="tabs__tab switch__btn" type="button" id="tier-tab-growth" aria-controls="tier-growth">Growth</button>
+              <button class="tabs__tab switch__btn" type="button" id="tier-tab-premier" aria-controls="tier-premier">Premier</button>
+            </div>
+            <div class="tiers" role="list" data-tabs-panels data-swipe-x>
+              <div class="tier tabs__panel" role="listitem" id="tier-community">
+                <span class="ghost" aria-hidden="true">1</span>
+                <h3 class="tier__title"><label class="tier__name"><input class="tier__pick" type="radio" name="tier-pick" value="community">Community</label></h3>
+                <p class="tier__price"><span class="ph">[No fee]</span></p>
+                <ul class="tier__list">
+                  <li>Listing for your service area</li>
+                  <li>Partner profile with your licence and who issued it</li>
+                  <li data-compliance>Commission only when an introduction becomes your&nbsp;client&nbsp;<span class="ph">[terms]</span></li>
+                </ul>
+              </div>
+              <div class="tier tabs__panel" role="listitem" id="tier-growth">
+                <span class="ghost" aria-hidden="true">2</span>
+                <h3 class="tier__title"><label class="tier__name"><input class="tier__pick" type="radio" name="tier-pick" value="growth">Growth</label></h3>
+                <p class="tier__price"><span class="ph">[$ per month]</span></p>
+                <ul class="tier__list">
+                  <li>Everything in Community</li>
+                  <li><span class="ph">[Longer profile: languages, services, hours]</span></li>
+                  <li><span class="ph">[Network tools, e.g. an introduction log]</span></li>
+                </ul>
+              </div>
+              <div class="tier tabs__panel" role="listitem" id="tier-premier">
+                <span class="ghost" aria-hidden="true">3</span>
+                <h3 class="tier__title"><label class="tier__name"><input class="tier__pick" type="radio" name="tier-pick" value="premier">Premier</label></h3>
+                <p class="tier__price"><span class="ph">[$ per month]</span></p>
+                <ul class="tier__list">
+                  <li>Everything in Growth</li>
+                  <li><span class="ph">[More than one service area]</span></li>
+                  <li><span class="ph">[Partner events and co-hosted workshops]</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tiers__action" data-group="action" data-reveal="fade" data-delay="0.3">
+            <a class="btn btn--primary" href="#apply" data-tier-apply>Apply to Join <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <button class="link" type="button" data-tiers-open aria-haspopup="dialog" aria-controls="tiers-dialog">Compare All <span aria-hidden="true">→</span></button>
+          </div>
+        </div>
+      </section>

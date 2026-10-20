@@ -1,0 +1,4 @@
+/* 8. Dialogs (continued): the P6 questions (#partner-faq); the shared dialog rules are in tiers-dialog.css. */
+.pfaq__list { gap: 0; }
+.pfaq .acc__body { display: grid; gap: var(--space-s); }
+.pfaq__ticks, .pfaq__steps { display: grid; gap: var(--space-2xs); margin: 0; padding-left: 1.25em; font-size: var(--fs-body); line-height: 1.5; }

@@ -173,7 +173,7 @@ export function interceptResponses(api, rules, { stayOn } = {}) {
 /** film.js rewrite rule exposing initFilm()'s result as `window[hook]`. */
 export function filmHook(hook) {
   return {
-    pattern: '*/assets/js/film.js*',
+    pattern: '*/film.js*',
     test: /\/film\.js(\?|$)/,
     rewrite: (url, body) => (/export function initFilm\(/.test(body)
       ? `${body.replace(/export function initFilm\(/, 'function __csToolInitFilm(')}

@@ -1,0 +1,10 @@
+/* 7. L7 · Close: a centred monument under the medallion, one statement and one CTA ---- */
+.legal-close .scene__pan {
+  align-items: center; justify-content: center; gap: var(--group-gap); text-align: center;
+  padding-bottom: max(var(--scene-pad-bottom), 8cqh);
+}
+/* The W5 bookend, static: no globe flies into it on legal, so it rests with its glint parked off the disc. */
+.legal-close .close__medallion { --medallion-size: min(16svh, 18cqh); }
+.close__title { max-width: 10em; font-size: min(var(--fs-statement), 17cqh); }
+@media (min-width: 760px) { .close__title { text-wrap: wrap; } }   /* "Still Have a Question?" / "Ask Us." */
+.close__action { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-s) var(--space-l); }

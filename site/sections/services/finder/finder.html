@@ -1,0 +1,85 @@
+<section class="scene" id="finder" data-alias="categories manufacturing legal mortgage real-estate accounting-and-tax financial-planning"
+               data-open="categories-dialog:*" data-field="ink" data-archetype="O" data-iris="trigger" data-globe-mode="map"
+               data-pose="0.95,0.1,0,0,0,0" data-pose-sm="0,0,0,0,0,0" data-title="Who Does What"
+               aria-labelledby="finder-title" style="--kx: 22%; --ky: 60%">
+        <div class="scene__inner">
+          <div class="globe-anchor finder__globe" data-globe-anchor data-fit-ignore aria-hidden="true"></div>
+          <div class="finder__copy">
+            <div class="finder__head" data-group="head">
+              <h2 id="finder-title" class="t-d1 finder__title" data-reveal="words" data-delay="0">Who Does What, <em>Near&nbsp;You</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+              <span class="rule" aria-hidden="true"></span>
+            </div>
+            <!-- C40 concierge: a service and a city open the WhatsApp sheet with both filled in. -->
+            <form class="concierge" id="concierge" data-group="body" data-reveal="fade" data-delay="0" novalidate>
+              <div class="concierge__fields">
+                <div class="form-row">
+                  <label class="label" for="concierge-need">What do you need?</label>
+                  <select class="select" id="concierge-need" name="need"></select>
+                </div>
+                <div class="form-row">
+                  <label class="label" for="concierge-city">Your city</label>
+                  <input class="input" id="concierge-city" name="city" type="text" autocomplete="address-level2" maxlength="60" placeholder="e.g. Winnipeg">
+                </div>
+              </div>
+              <button type="submit" class="btn btn--primary concierge__go">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span></button>
+            </form>
+            <!-- C41 finder (R4 services.md §7): shown once PARTNERS.length >= FINDER_MIN_PARTNERS. -->
+            <div class="finder" id="finder-root" data-group="body" data-tabs hidden>
+              <div class="tabs__list finder__tabs">
+                <button class="tabs__tab" type="button" id="ft-search" aria-controls="fp-search">Search</button>
+                <button class="tabs__tab" type="button" id="ft-map" aria-controls="fp-map">Map</button>
+                <button class="tabs__tab" type="button" id="ft-results" aria-controls="fp-results">Results <span class="tabs__count num" id="finder-count" aria-hidden="true"></span></button>
+              </div>
+              <p class="visually-hidden" id="finder-live" role="status" aria-live="polite"></p>
+              <div class="tabs__panel finder__controls" id="fp-search">
+                <form class="finder__form" id="finder-form" novalidate>
+                  <div class="form-row">
+                    <label class="label" for="finder-category">What do you need?</label>
+                    <select class="select" id="finder-category" name="category"></select>
+                  </div>
+                  <div class="form-row" id="finder-types" hidden>
+                    <label class="label" for="finder-type">Type</label>
+                    <select class="select" id="finder-type" name="type"></select>
+                  </div>
+                  <div class="form-row">
+                    <label class="label" for="finder-place" id="finder-place-label">Where are you?</label>
+                    <div class="combo" id="finder-combo">
+                      <input class="input combo__input" id="finder-place" name="place" type="text" autocomplete="off"
+                             placeholder="City, province or postal code" role="combobox" aria-autocomplete="list"
+                             aria-expanded="false" aria-controls="finder-suggestions" aria-describedby="finder-place-hint finder-place-error">
+                      <button class="combo__go" type="submit" aria-label="Search this place">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.6"/></svg>
+                      </button>
+                      <ul class="combo__list" id="finder-suggestions" role="listbox" aria-labelledby="finder-place-label" hidden></ul>
+                    </div>
+                    <p class="error" id="finder-place-error" aria-live="polite"></p>
+                    <p class="hint" id="finder-place-hint" data-compliance>We use your city or area only to sort partners by distance. It isn't stored on this website.</p>
+                  </div>
+                </form>
+              </div>
+              <figure class="tabs__panel finder__map" id="fp-map">
+                <div class="map-box"><div class="map" id="finder-map" aria-describedby="finder-map-help"><p class="map__loading">Loading the map of Canada…</p></div></div>
+                <figcaption class="map__caption">
+                  <span class="map__chosen" id="finder-chosen">No place chosen yet</span>
+                  <span class="map__help visually-hidden" id="finder-map-help">Click your province or territory, or use the arrow keys and Enter. The search box gives the same results.</span>
+                </figcaption>
+              </figure>
+              <section class="tabs__panel results" id="fp-results" aria-labelledby="results-title" data-pager-root>
+                <h3 class="results__title" id="results-title" tabindex="-1">Nearest Partners</h3>
+                <p class="results__status" id="finder-status"></p>
+                <div class="results__list" id="finder-results"></div>
+                <nav class="pager" aria-label="More results" data-pager-bar hidden>
+                  <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1">Previous<span class="visually-hidden"> results</span></button>
+                  <p class="pager__status num"><span data-pager-current>1</span> of <span data-pager-total>1</span></p>
+                  <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1">Next<span class="visually-hidden"> results</span></button>
+                </nav>
+                <span class="visually-hidden" aria-live="polite" data-pager-live></span>
+              </section>
+            </div>
+            <div class="finder__action" data-group="action" data-reveal="fade" data-delay="0.09">
+              <a class="link" href="#categories" data-categories-open aria-haspopup="dialog" aria-controls="categories-dialog">See All Nine Kinds of Help <span aria-hidden="true">→</span></a>
+              <p class="fineprint" data-compliance><span data-list-note><strong>Sorted by distance only.</strong> This list is not a recommendation. </span>Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us.</p>
+            </div>
+          </div>
+        </div>
+      </section>

@@ -1,0 +1,17 @@
+/* 4. L1 · Contents: the head, five index rows with large outline numerals, the notice -- */
+.legal-contents .scene__pan { justify-content: center; gap: var(--space-l); }
+.contents__head { display: grid; gap: var(--space-s); justify-items: start; width: fit-content; max-width: 100%; }
+.contents__title { font-size: min(var(--fs-d1), 10cqh); max-width: 18ch; }
+.contents__rows .row { min-height: min(var(--row-pitch), 11cqh); padding-block: 4px; }
+.contents__rows .row__num { min-width: 2.2ch; font-size: min(var(--fs-num), 7cqh); line-height: 1; }
+.contents__rows .row__title { font-size: min(var(--fs-d2), 6cqh); }
+.contents__fine { max-width: 76ch; }
+/* fx.css eases a row's padding-inline; on a cold load the stylesheet can land after a first
+   style pass, so the rows would ease in from 0 px, re-wrap their titles and shift the
+   centred index (mobile CLS 0.023). No easing until the engine is ready. */
+html:not(.film-ready) .contents__rows .row { transition: none; }
+@media (min-width: 760px) and (max-height: 880px) {              /* laptop (to 1536×864): a tighter index */
+  .legal-contents .scene__pan { gap: var(--space-m); }
+  .contents__rows .row { min-height: min(var(--row-pitch), 10cqh); }
+  .contents__title { font-size: min(var(--fs-d1), 9cqh); }
+}

@@ -1,0 +1,32 @@
+/* 10. Dialogs: categories (rail + detail) and the partner profile --------------------------- */
+.cats__title, .profile__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.cats .dialog__panel { gap: var(--space-s); }
+.cats .dialog__head { grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; }
+.cats__lead { font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); max-width: 52ch; }
+.cats__body { display: grid; grid-template-columns: minmax(0, 13rem) minmax(0, 1fr); column-gap: var(--space-l); align-items: start; }
+.cats__rail { display: grid; }
+.cats__group { margin: var(--space-xs) 0 2px; font: 500 var(--fs-label)/1.3 var(--font-ui); color: var(--fg-muted); }
+.cats__group:first-child { margin-top: 0; }
+.cats__list { border-top: 1px solid var(--line); }
+.cats__item {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-xs); width: 100%; min-height: 44px;
+  padding: 0 4px; border: 0; border-bottom: 1px solid var(--line); background: none; color: var(--fg);
+  font: 500 var(--fs-ui-min)/1.2 var(--font-ui); text-align: left;
+}
+.cats__item[aria-pressed="true"] { color: var(--accent); box-shadow: inset 2px 0 0 var(--accent); padding-left: 12px; }
+.cats__go { color: var(--accent); opacity: 0; transition: opacity var(--dur-hover) var(--ease-out); }
+.cats__item:is(:hover, :focus-visible, [aria-pressed="true"]) .cats__go { opacity: 1; }
+.cats__detail:focus { outline: none; }
+.cats__back { display: none; }
+.cats__card { display: grid; gap: var(--space-xs); justify-items: start; }
+.cats__name { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.cats__desc { max-width: 52ch; font-size: var(--fs-note); line-height: var(--lh-note); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags > li { display: inline-flex; align-items: center; min-height: 30px; padding: 0 12px; border: 1px solid var(--line-strong); border-radius: 999px; font: 500 var(--fs-label)/1 var(--font-ui); }
+.cats__offer { font-size: var(--fs-note); line-height: var(--lh-note); }
+.cats__offer .link { white-space: nowrap; }
+.cats__partners { display: grid; gap: var(--space-2xs); width: 100%; }
+.cats__cards { display: grid; }
+.cats__partner { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-xs); }
+.cats__cta { margin-top: var(--space-2xs); }
+.cats__notice { margin: 0; }

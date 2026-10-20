@@ -1,0 +1,73 @@
+/* 7. Bands ----------------------------------------------------------------------------------- */
+/* Laptop-short (≥ 760 wide, ≤ 760 tall): the caps tighten. */
+@media (min-width: 760px) and (max-height: 760px) {
+  .top__title { font-size: min(var(--fs-statement), 10svh, 5.4vw); }
+  .begin__title { font-size: min(var(--fs-mega), 15svh); }
+  #logo { --mono: min(48svh, 34vw, 560px); }
+  .value { min-height: 64px; }
+  .close__title { font-size: min(var(--fs-statement), 11svh); }
+}
+
+/* Tablet (760-1099). */
+@media (min-width: 760px) and (max-width: 1099px) {
+  #logo { --mono: min(46svh, 40vw, 440px); }
+  .logo__grid { column-gap: var(--space-m); }
+  .value { grid-template-columns: auto minmax(0, 1fr) minmax(0, 32ch); }
+}
+
+/* Phone (< 760) and tablet portrait: the portrait is a band on top, the text under it. */
+@media (max-width: 759px), (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #top .scene__pan { justify-content: center; gap: var(--space-m); }
+  /* the portrait group is as wide as its mark, so the band reads as one object, not a full-width box */
+  .top__portrait { position: relative; inset: auto; width: min(100%, 40svh); margin-inline: auto; flex: 1 1 30svh; min-height: 24svh; max-height: 40svh; }
+  .top__tportrait { --tportrait-h: min(40svh, 84vw); }
+  .top__copy { width: auto; flex: none; }
+  .top__title { font-size: var(--fs-statement); max-width: none; }
+  .begin__body { max-width: none; }
+  .values__head { max-width: none; }
+}
+
+/* Phone only. */
+@media (max-width: 759px) {
+  .top__tportrait .tportrait__name { font-size: var(--fs-d1); }
+  .top__tportrait .tportrait__quote { font-size: 1.5rem; max-width: 26ch; }
+  .top__by { font-size: 1.0625rem; }
+  /* the monument on 2-3 lines at ≈ 72-90 px, the story right under it, one centred group */
+  #beginning .scene__pan { gap: var(--space-m); padding-top: 0; }
+  /* three lines (One / Place. / Not Five.) at ≈ 80-86 px: the widest, "Not Five.", is ≈ 3.9em */
+  .begin__title { max-width: 4.1em; font-size: clamp(3.5rem, min(22vw, 11svh), 6rem); line-height: .9; }
+  .begin__body > p { font-size: 1.125rem; line-height: 1.5; }
+
+  #logo { --mono: min(72vw, 40svh); }
+  .logo__grid { grid-template-columns: 1fr; grid-template-rows: none; row-gap: var(--space-s); justify-items: center; text-align: center; }
+  .logo__eyebrow, .logo__line--w, .logo__line--c, .logo__mono, .logo__notes { grid-column: 1; grid-row: auto; }
+  /* the small line, then the gold word on its own line, large (the desktop contrast, stacked) */
+  .logo__lead { font-size: var(--fs-d2); }
+  .logo__word { font-size: min(var(--fs-statement), 7svh); }
+  .logo__line--w, .logo__line--c { justify-self: center; align-self: auto; text-align: center; }
+
+  /* three rows; the body opens under its title, one at a time (01 open) */
+  .value {
+    grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "num title toggle" "num body body";
+    row-gap: 4px; min-height: clamp(56px, 9svh, 72px); padding-inline: 0 0; cursor: pointer;
+  }
+  .value__num { align-self: start; padding-top: 6px; }
+  .value__toggle {
+    grid-area: toggle; display: inline-flex; align-items: center; gap: 8px; min-height: var(--tap-min);
+    padding: 0 0 0 8px; border: 0; background: none; color: var(--fg-muted); font: 500 var(--fs-label)/1 var(--font-ui);
+  }
+  .value:not(.is-open) .value__body { display: none; }
+  .value__body { font-size: .9375rem; }
+  .values__title { font-size: var(--fs-d1); }
+
+  #close .scene__pan { gap: var(--space-m); }
+  .close__title { font-size: min(var(--fs-statement), 9svh); line-height: 1; }
+  .close__action { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .close__action .link { align-self: center; }
+  .close__action .btn { width: 100%; }
+}
+.value__plus { position: relative; width: 12px; height: 12px; }
+.value__plus::before, .value__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; }
+.value__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
+.value__toggle[aria-expanded="true"] .value__plus::after { transform: rotate(0deg); }
+html.rm .value__plus::after { transition: none; }

@@ -1,0 +1,10 @@
+/* Our Story (story.html): the page's stylesheet, one file per section in the original rule
+   order (the cascade depends on it). _page.css holds the shared scene frame; _bands.css the
+   laptop-short, tablet and phone bands, which mix sections and must stay last. */
+@import "../sections/story/_page.css";
+@import "../sections/story/top/top.css";
+@import "../sections/story/beginning/beginning.css";
+@import "../sections/story/logo/logo.css";
+@import "../sections/story/values/values.css";
+@import "../sections/story/close/close.css";
+@import "../sections/story/_bands.css";

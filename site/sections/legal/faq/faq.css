@@ -1,0 +1,52 @@
+/* 6. L6 · Q&A: hairline question rows; one answer opens under its question, 3 per page - */
+.legal-faq .qa { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; width: 100%; max-width: 46rem; }
+.qa__q {
+  display: grid; grid-template-columns: var(--clause-num) minmax(0, 1fr) 14px; align-items: baseline; column-gap: var(--space-s);
+  width: 100%; min-height: 56px; padding: var(--space-s) 0; border: 0; border-top: 1px solid var(--line);
+  background: none; color: var(--fg); text-align: left; letter-spacing: 0;
+}
+.qa__n { align-self: baseline; font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--accent); }
+.qa__text { font: 400 min(var(--fs-d2), 2.25rem, 5.4cqh)/1.15 var(--font-display); letter-spacing: var(--track-display); text-wrap: balance; }
+.qa__plus { position: relative; align-self: center; width: 14px; height: 14px; color: var(--accent); }
+.qa__plus::before, .qa__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; background: currentColor; }
+.qa__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
+.qa__q[aria-expanded="true"] .qa__plus::after { transform: rotate(0deg); }
+.qa__q:is(:hover, :focus-visible) .qa__text { color: var(--accent); }
+.qa__panel { padding: 0 0 var(--space-m) calc(var(--clause-num) + var(--space-s)); font-size: var(--doc-fs); line-height: 1.6; }
+.qa__panel a { color: var(--accent); font-weight: 600; }
+.qa__track { display: grid; gap: var(--space-s); }
+.qa__track p { max-width: 62ch; }
+.qa__pager { min-height: 48px; border-top: 1px solid var(--line); }
+.qa__pager .pager__btn, .legal-faq .qa__bar .link { padding-inline: 4px; border: 0; background: none; color: var(--fg); }
+.qa__pager .pager__btn[aria-disabled="true"] { color: var(--fg-muted); opacity: .5; cursor: default; }
+.qa__bar { align-items: center; min-height: 48px; border-bottom: 1px solid var(--line); }
+.qa__bar .link { min-height: var(--tap-min); font: 600 var(--fs-ui-min)/1 var(--font-ui); }
+
+/* Before ui-tabs runs (and with no JS) the questions show and the answers wait; with no JS
+   at all the answers show in one column under their own headings. */
+html.js .legal-faq .qa:not(.is-drill) > .tabs__list { display: block; }
+html.js .legal-faq .qa:not(.is-drill) .qa__panels { display: none; }
+html:not(.js) .legal-faq .qa__panel { padding-left: 0; }
+
+/* Side by side (≥ 760): the list and the panels share one row grid (subgrid), so each answer
+   opens under its question (drill semantics: a button that expands a labelled region). */
+@media (min-width: 760px) {
+  .legal-faq .qa.is-drill { grid-template-rows: repeat(12, auto) auto; }
+  .legal-faq .qa.is-drill > .tabs__list, .legal-faq .qa.is-drill > .qa__panels {
+    display: grid; grid-column: 1; grid-row: 1 / 13; grid-template-rows: subgrid;
+  }
+  .legal-faq .qa.is-drill > .qa__panels { pointer-events: none; }
+  .legal-faq .qa__panel { pointer-events: auto; }
+  .legal-faq .qa.is-drill > .qa__bar { display: none; }
+  .legal-faq .qa__q:nth-child(1) { grid-row: 1; }  .legal-faq .qa__panel:nth-child(1) { grid-row: 2; }
+  .legal-faq .qa__q:nth-child(2) { grid-row: 3; }  .legal-faq .qa__panel:nth-child(2) { grid-row: 4; }
+  .legal-faq .qa__q:nth-child(3) { grid-row: 5; }  .legal-faq .qa__panel:nth-child(3) { grid-row: 6; }
+  .legal-faq .qa__q:nth-child(4) { grid-row: 7; }  .legal-faq .qa__panel:nth-child(4) { grid-row: 8; }
+  .legal-faq .qa__q:nth-child(5) { grid-row: 9; }  .legal-faq .qa__panel:nth-child(5) { grid-row: 10; }
+  .legal-faq .qa__q:nth-child(6) { grid-row: 11; } .legal-faq .qa__panel:nth-child(6) { grid-row: 12; }
+  .legal-faq .qa.is-drill > .qa__pager { grid-row: 13; }
+  /* The question is the visible heading here; the panel's h3 stays for screen readers. */
+  .legal-faq .qa__title {
+    position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+}

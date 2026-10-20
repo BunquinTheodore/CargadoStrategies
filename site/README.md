@@ -2,23 +2,23 @@
 
 A static website: plain HTML, CSS and JavaScript modules, with no server code.
 
-- `site/` is the readable source. It runs as it is: GSAP 3.12.5 loads from a public CDN at a fixed version (Lenis 1.1.13 loads lazily, on mouse and trackpad only) and the fonts from Google Fonts. Round 5 removed ScrollTrigger and three.js: the globe is a 2D dot canvas.
+- `site/` is the readable source. It runs unbundled through `serve.mjs` (which assembles each page from its sections): GSAP 3.12.5 loads from a public CDN at a fixed version (Lenis 1.1.13 loads lazily, on mouse and trackpad only) and the fonts from Google Fonts. Round 5 removed ScrollTrigger and three.js: the globe is a 2D dot canvas.
 - `dist/` is the production copy made by `npm run build`: the same site bundled, minified and self-hosted for speed. **Upload `dist/`, not `site/`.**
 
 Fonts: Manrope 400/500/600 (body) and Poppins 500/600 (labels and buttons), with Tinos 400 and italic downloaded only where the system Times New Roman (display type) is missing.
 
-Colour palette: black and gold (ink `#0B0B0C`, gold `#C9A24A` / `#D4AF37`, ivory `#F5F0E6`, dark gold `#7A5C12` for gold text on light backgrounds). All tokens live at the top of `assets/css/base.css` (see *Design system* below).
+Colour palette: black and gold (ink `#0B0B0C`, gold `#C9A24A` / `#D4AF37`, ivory `#F5F0E6`, dark gold `#7A5C12` for gold text on light backgrounds). All tokens live at the top of `core/design/base.css` (see *Design system* below).
 
 ---
 
 ## Run it locally
 
-The pages use JavaScript modules, so open them through a local web server, not by double-clicking the file.
+The pages use JavaScript modules, and each page file is a thin shell whose sections are pulled in from `sections/` (see *Pages*). Open them through the project's own server, not by double-clicking the file and not with `python -m http.server`: those would show the bare `<!-- @section … -->` markers instead of the sections.
 
-Source, as written (no install needed):
+Source, as written (Node.js 18 or newer, no install needed). In `C:\Cargado Strategies`:
 
 ```bash
-python -m http.server 8000 --directory "C:\Cargado Strategies\site"
+npm run dev          # node serve.mjs site 8000
 ```
 
 Then open <http://localhost:8000/>. Stop the server with `Ctrl+C`.
@@ -51,7 +51,7 @@ What the build does (`build.mjs`). It empties `dist/` and fills it again; the fo
 - **HTML**: CDN and Google Fonts tags replaced by the built files, `modulepreload` hints, canonical link, Open Graph and Twitter tags, `theme-color`, minified inline script and style, comments removed. The scene wrappers the film engine needs are written into the HTML, so the browser does not rebuild the opening scene after first paint.
 - **Extras**: `robots.txt`, `sitemap.xml`, `favicon.svg` and `_headers` (caching rules for Netlify and Cloudflare Pages).
 
-Adding a page: copy the `<head>` of an existing page exactly (the build recognises those tags and replaces them), then add the page to `PAGES` at the top of `build.mjs`. The build stops with a clear message if a page still references a CDN or an unbuilt asset.
+Adding a page: copy the `<head>` of an existing page exactly (the build recognises those tags and replaces them), add `pages/<page>.js` and `pages/<page>.css`, then add the page to `PAGES` at the top of `build.mjs`. The build stops with a clear message if a page still references a CDN or an unbuilt asset.
 
 ### Deploy
 
@@ -63,7 +63,7 @@ Upload the **contents** of `dist/` to any static host (Netlify, Cloudflare Pages
 
 Netlify and Cloudflare Pages read these rules from `dist/_headers`. On Apache, put the same in an `.htaccess` (`mod_expires` / `mod_headers` + `mod_deflate` or `mod_brotli`); on nginx, use `expires`/`add_header` and `gzip_static`/`brotli`.
 
-The source in `site/` still works on any host too, just slower (CDN scripts and Google Fonts, nothing minified).
+Do not upload `site/`: its page files are shells that only `serve.mjs` and the build assemble, so an ordinary host would serve them without their sections.
 
 ### Lighthouse scores, Round 5 (lab, 2026-10-20)
 
@@ -165,7 +165,14 @@ To see the plain, motion-free version of any page, turn on "reduce motion" in th
 
 Useful deep links: `services.html#finder`, `services.html#<category-slug>` (for example `services.html#legal`), `legal.html#disclosure`, `#privacy`, `#terms`, `#conduct`, `#faq`. Home's `#faq` opens the FAQ dialog.
 
-Other files: `assets/css/base.css` (shared styles), `assets/css/<page>.css`, `assets/js/config.js` (everything the founder edits), `assets/js/<page>.js` and helpers, `assets/data/` (map of Canada and the city list for the finder). `ENGINE.md` explains the scroll-film engine for developers.
+How a page is put together: each `*.html` file above holds the `<head>`, the header, the WhatsApp sheet and one marker per section, such as `<!-- @section home/hero -->`. The marker is replaced by the exact contents of `sections/home/hero/hero.html`. `serve.mjs` does this when it serves `site/`, and `npm run build` does it for `dist/` (both use `tools/lib/assemble.mjs`). **To change a section's text, edit its file in `sections/<page>/<name>/<name>.html`**, not the page file.
+
+Other files:
+- `core/`: the shared engine and components. `core/engine/` (the scroll film, globe, sound, splash), `core/ui/` (dialogs, steppers, pagers, tabs, accordions), `core/chrome/` (header, menu, footer, WhatsApp messages and sheet), `core/design/` (the shared stylesheets), `core/main.js` (start-up) and `core/Section.js`.
+- `sections/<page>/<name>/`: each scene's markup (`<name>.html`), styles (`<name>.css`) and behaviour (`<Name>.js`, when it has any). Each `sections/<page>/CLAUDE.md` lists that page's scenes.
+- `pages/<page>.js` and `pages/<page>.css`: each page's entry. The CSS file is a list of the section stylesheets in cascade order.
+- `assets/js/config.js`: everything the founder edits. `assets/data/`: the map of Canada and the city list for the finder.
+- `ENGINE.md` explains the scroll-film engine for developers. `../CLAUDE.md` and `core/CLAUDE.md` are the developer and agent guides.
 
 ---
 
@@ -176,14 +183,14 @@ Three stylesheets load on every page, in this order, before the page's own CSS: 
 - **Fields.** A scene's `data-field` is `ink` (the stage), `bone` (the reading room) or `gold` (at most once per page, finished as metal). Each field sets the colour roles (`--bg`, `--fg`, `--fg-muted`, `--accent`, `--line`, buttons, inputs, row flood, focus, header). Text contrast is at least 4.5:1, and 3:1 for large type, on all three.
 - **Type.** `.t-mega`, `.t-statement`, `.t-d1`, `.t-d2`, `.t-quote` (Times), `.t-lead` and body (Manrope), `.eyebrow` and every control label (Poppins). Nothing visible is smaller than 14 px (`--fs-label`); reading and fine-print lines use `--fs-note` (16 px, 15 on phones).
 - **Modes** (set on `<html>` before first paint): `film` (mouse and trackpad: one fixed stage, each scene cut in), `touch-cut` (phones and tablets: native scroll snap, transparent scenes over one fixed `.fields` layer) and `rm` (flow: reduced motion, no JS, or the safety fallback; each scene paints its own field). `data-tier` (A, B, C) scales the decoration; Legal is tier C.
-- **Components** (`ui.css` + `assets/js/ui-*.js`): index rows (`.row`, `.row--quote`), doors (`.doors > .door`), the strike list, the steps strip, paper (`.paper`, one framed element per scene), fine print (`.fineprint`, at most one per scene), tabs and switches (`ui-tabs.js`), pagers (`ui-pager.js`), steppers (`ui-stepper.js`), dialogs (`ui-dialog.js`), exclusive accordions (`ui-accordion.js`), the focus helper (`ui-focus.js`), the globe placement (`globe-fit.js`) and the WhatsApp sheet (`.sheet`). Their APIs are in `plan/round5/api.md` §17.
+- **Components** (`core/design/ui.css` + `core/ui/ui-*.js`): index rows (`.row`, `.row--quote`), doors (`.doors > .door`), the strike list, the steps strip, paper (`.paper`, one framed element per scene), fine print (`.fineprint`, at most one per scene), tabs and switches (`ui-tabs.js`), pagers (`ui-pager.js`), steppers (`ui-stepper.js`), dialogs (`ui-dialog.js`), exclusive accordions (`ui-accordion.js`), the focus helper (`ui-focus.js`), the globe placement (`globe-fit.js`) and the WhatsApp sheet (`.sheet`). Their APIs are in `plan/round5/api.md` §17.
 - **Chrome** (`chrome.js`): the header is written into every page's HTML and wired by the script; the phone menu is a native dialog; the `#credits` scene's footer carries the contact row, the links, the fine print, the tagline (once per page) and the **Sound** and **Motion** switches. *Motion: Reduced* is remembered (`localStorage`) and reloads the page in the calm flow mode, keeping the scene.
 
 ---
 
 ## What the founder must supply
 
-Nothing on the site invents people, partners, reviews, numbers or licence numbers. Every fact that still needs confirming is shown on the page as a `[bracket]` with a dotted underline. Add `?review=1` to any page address to see them all as tinted boxes, together with the hidden proof slots (numbers, rating, quotes, founding count, founder photo, video), which otherwise stay hidden until their setting in `config.js` is filled in. Search the HTML files for `class="ph"` to find each one, replace the bracket with the real text, and remove the `<span class="ph">…</span>` wrapper.
+Nothing on the site invents people, partners, reviews, numbers or licence numbers. Every fact that still needs confirming is shown on the page as a `[bracket]` with a dotted underline. Add `?review=1` to any page address to see them all as tinted boxes, together with the hidden proof slots (numbers, rating, quotes, founding count, founder photo, video), which otherwise stay hidden until their setting in `config.js` is filled in. Search the section files (`sections/**/*.html`) and the page files for `class="ph"` to find each one, replace the bracket with the real text, and remove the `<span class="ph">…</span>` wrapper.
 
 ### 1. Settings in `assets/js/config.js`
 
@@ -199,7 +206,7 @@ Nothing on the site invents people, partners, reviews, numbers or licence number
 
 - **Insurance** (founder's business): `[insurance company]`, `[company name]`, `[licence #]`, `[regulator]` on the home and services pages, and in the legal disclosure.
 - **Business strategy** and **outsourcing**: `[company name]`, offer prices `[$x]` / `[$y]`, the guarantee wording, `[Role 1–4]` and `[what this role takes off your plate]`.
-- **Legal page**: `[date]` (updated), `[privacy officer name and email]`, `[Retention period.]`, `[province]` (governing law), cookie and analytics tools, entity names and licence numbers. The whole legal page must be reviewed by a lawyer in Canada before launch; the "Draft" banner (`<div class="legal-draft">` near the top of `legal.html`) stays until then.
+- **Legal page**: `[date]` (updated), `[privacy officer name and email]`, `[Retention period.]`, `[province]` (governing law), cookie and analytics tools, entity names and licence numbers. The whole legal page must be reviewed by a lawyer in Canada before launch; the "Draft" banner (`<aside class="legal-draft">` near the top of `legal.html`) and the draft fine print in `sections/legal/contents/contents.html` stay until then.
 
 ### 3. Numbers and promises
 
@@ -260,7 +267,7 @@ Add an entry to `CATEGORIES` in `assets/js/config.js`:
 
 The new category shows up by itself in the home page service tiles, the finder's "What do you need?" list, the Services category rail, the inquiry form and the partner application form. Its deep link `services.html#<slug>` works straight away. Do not use a slug that is already a scene id on the Services page (`intro`, `finder`, `categories`, `inquiry`, `close`, `ours-insurance`, `ours-strategy`, `ours-outsourcing`).
 
-For a category with `ownership: 'founder'` or `'both'`, also add its offer and credential line to `FOUNDER_OFFERS` in `assets/js/services-data.js` and `FOUNDER_LINES` in `assets/js/services-categories.js` (with `[bracket]` placeholders until the details are confirmed).
+For a category with `ownership: 'founder'` or `'both'`, also add its offer and credential line to `FOUNDER_OFFERS` in `sections/services/services-data.js` and `FOUNDER_LINES` in `sections/services/categories-dialog/services-categories.js` (with `[bracket]` placeholders until the details are confirmed).
 
 ---
 

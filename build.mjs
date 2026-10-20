@@ -43,6 +43,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { checkConfig } from './tools/check-config.mjs';
 import { buildKerning } from './tools/build-kerning.mjs';
 import { splitHtml } from './tools/build-splits.mjs';
+import { readAssembled } from './tools/lib/assemble.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'site');
@@ -58,20 +59,23 @@ const SITE_NAME = 'Cargado Strategies';
 const LOCALE = 'en_CA';
 const TARGET = ['es2022', 'chrome90', 'firefox90', 'safari15']; // page modules use top-level await
 
-/** Page file → entry module and page stylesheet (in site/assets). */
+/** Page file → entry module and page stylesheet (paths in site/). */
 const PAGES = [
-  { html: 'index.html', js: 'home.js', css: 'home.css', priority: '1.0' },
-  { html: 'services.html', js: 'services.js', css: 'services.css', priority: '0.9' },
-  { html: 'partners.html', js: 'partners.js', css: 'partners.css', priority: '0.8' },
-  { html: 'story.html', js: 'story.js', css: 'story.css', priority: '0.7' },
-  { html: 'legal.html', js: 'legal.js', css: 'legal.css', priority: '0.4' },
+  { html: 'index.html', js: 'pages/home.js', css: 'pages/home.css', priority: '1.0' },
+  { html: 'services.html', js: 'pages/services.js', css: 'pages/services.css', priority: '0.9' },
+  { html: 'partners.html', js: 'pages/partners.js', css: 'pages/partners.css', priority: '0.8' },
+  { html: 'story.html', js: 'pages/story.js', css: 'pages/story.css', priority: '0.7' },
+  { html: 'legal.html', js: 'pages/legal.js', css: 'pages/legal.css', priority: '0.4' },
 ];
-const SHARED_CSS = ['base.css', 'fx.css', 'ui.css', 'visual.css'];
+/** Shared stylesheets (paths in site/), before the page's own. */
+const SHARED_CSS = ['core/design/base.css', 'core/design/fx.css', 'core/design/ui.css', 'core/design/visual.css'];
+/** Source folders (in site/) whose modules the build reads; every page's modules live under one of them. */
+const JS_DIRS = ['core', 'assets/js', 'pages', 'sections'];
 /** Source modules the legal page must never load (DIRECTION §12: no dotglobe, stars or cursor). */
 const LEGAL_EXCLUDES = ['dotglobe.js', 'dotglobe-draw.js', 'dotglobe-points.js', 'layers.js', 'cursor.js'];
 const LEGAL_PAGE = 'legal.html';
 /** main.js imports this module only on pages with #splash; there the build also starts it from the head (splashBoot). */
-const SPLASH_MODULE = 'splash.js';
+const SPLASH_MODULE = 'core/engine/splash.js';
 const SPLASH_BOOT = 'splash-boot';
 const SPLASH_MARK = /\bid="splash"/;
 /** Images referenced from CSS (the brushed metal tile, posters) are hashed into assets/img/. */
@@ -96,11 +100,13 @@ const STRIP_HEAD = [
   /\s*<link rel="preload" as="style" href="https:\/\/fonts\.googleapis\.com[^>]*>/g,
   /\s*<noscript><link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*><\/noscript>/g,
   /\s*<link rel="stylesheet" href="https:\/\/fonts\.googleapis\.com[^>]*>/g,
-  /\s*<link rel="stylesheet" href="assets\/css\/[^"]+\.css">/g,
+  /\s*<link rel="stylesheet" href="(?:assets\/css|core|pages|sections)\/[^"]+\.css">/g,
   /\s*<script defer src="https:\/\/cdn\.jsdelivr\.net[^>]*><\/script>/g,
-  /\s*<link rel="modulepreload" href="assets\/js\/[^"]+">/g,
-  /\s*<script type="module" src="assets\/js\/[^"]+"><\/script>/g,
+  /\s*<link rel="modulepreload" href="(?:assets\/js|core|pages|sections)\/[^"]+">/g,
+  /\s*<script type="module" src="(?:assets\/js|core|pages|sections)\/[^"]+"><\/script>/g,
 ];
+/** Source references that must not survive into dist/ (all replaced by STRIP_HEAD). */
+const SOURCE_REFS = /https:\/\/(cdn\.jsdelivr\.net|fonts\.googleapis\.com|fonts\.gstatic\.com)|assets\/(css|js)\/|(?:href|src)="(?:core|pages|sections)\//g;
 
 /* ---------- JavaScript ---------- */
 
@@ -122,13 +128,19 @@ Object.assign(window, { gsap });
 
 /** True while some source module still reads the ScrollTrigger global (comments ignored). */
 async function usesScrollTrigger() {
-  const dir = join(SRC, ASSETS, 'js');
-  const files = (await readdir(dir)).filter((f) => f.endsWith('.js'));
-  const sources = await Promise.all(files.map((f) => readFile(join(dir, f), 'utf8')));
+  const dirs = JS_DIRS.map((d) => join(SRC, d)).filter((d) => existsSync(d));
+  const files = (await Promise.all(dirs.map((d) => readdir(d, { recursive: true }))))
+    .flatMap((names, i) => names.filter((f) => f.endsWith('.js')).map((f) => join(dirs[i], f)));
+  const sources = await Promise.all(files.map((f) => readFile(f, 'utf8')));
   return sources.some((s) => /\bScrollTrigger\b/.test(s.replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*/g, '')));
 }
 
 const pageEntryName = (page) => basename(page.js, '.js');
+
+/** Any module under JS_DIRS (site/core, site/assets/js, …). */
+const SOURCE_MODULE = new RegExp(`site[\\\\/](?:${JS_DIRS.map((d) => d.replace('/', '[\\\\/]')).join('|')})[\\\\/].+\\.js$`);
+/** True when `path` (absolute or an esbuild entryPoint) is the site/ module `file`. */
+const isSource = (path, file) => path.replace(/\\/g, '/').endsWith(`site/${file}`);
 
 /**
  * The page entry waits for the first paint (the HTML, the splash and the hero
@@ -195,16 +207,17 @@ function sitePlugin({ legacyVendor }) {
       b.onResolve({ filter: /^virtual:/ }, (args) => ({ path: args.path, namespace: 'virtual' }));
       b.onLoad({ filter: /.*/, namespace: 'vendor' }, () => ({ contents: vendorGlobals(legacyVendor), resolveDir: ROOT, loader: 'js' }));
       b.onLoad({ filter: new RegExp(`^virtual:${SPLASH_BOOT}$`), namespace: 'virtual' }, () => {
-        const file = join(SRC, ASSETS, 'js', SPLASH_MODULE).replace(/\\/g, '/');
+        const file = join(SRC, SPLASH_MODULE).replace(/\\/g, '/');
         return { contents: splashBootEntry(file), resolveDir: ROOT, loader: 'js' };
       });
       b.onLoad({ filter: /^virtual:page\//, namespace: 'virtual' }, (args) => {
-        const file = join(SRC, ASSETS, 'js', `${args.path.split('/')[1]}.js`).replace(/\\/g, '/');
+        const page = PAGES.find((p) => pageEntryName(p) === args.path.split('/')[1]);
+        const file = join(SRC, page.js).replace(/\\/g, '/');
         return { contents: pageEntry(file), resolveDir: ROOT, loader: 'js' };
       });
-      b.onLoad({ filter: /site[\\/]assets[\\/]js[\\/].+\.js$/ }, async (args) => {
+      b.onLoad({ filter: SOURCE_MODULE }, async (args) => {
         const source = await readFile(args.path, 'utf8');
-        const once = basename(args.path) === SPLASH_MODULE ? splashOnce(source, args.path) : source;
+        const once = isSource(args.path, SPLASH_MODULE) ? splashOnce(source, args.path) : source;
         return { contents: rewriteDynamicImports(once, args.path), loader: 'js' };
       });
     },
@@ -269,11 +282,11 @@ function preloadList(metafile, entryPath) {
 
 /** Output path of the chunk built for a source module (a dynamic import's target). */
 const chunkFor = (metafile, file) => Object.entries(metafile.outputs)
-  .find(([, o]) => o.entryPoint?.replace(/\\/g, '/').endsWith(`site/${ASSETS}/js/${file}`))?.[0];
+  .find(([, o]) => o.entryPoint && isSource(o.entryPoint, file))?.[0];
 
 /** Pages whose source HTML has #splash (main.js awaits import('./splash.js') there); never legal. */
 async function splashPages() {
-  const sources = await Promise.all(PAGES.map((p) => readFile(join(SRC, p.html), 'utf8')));
+  const sources = PAGES.map((p) => readAssembled(join(SRC, p.html)));
   return new Set(PAGES.filter((p, i) => p.html !== LEGAL_PAGE && SPLASH_MARK.test(sources[i])).map((p) => p.html));
 }
 
@@ -323,16 +336,30 @@ const preloadFonts = () => FONTS.flatMap(({ pkg, preload }) => preload.map((w) =
 
 /** SHARED_CSS files that exist (a missing one is reported: stage 2 adds ui.css and visual.css). */
 function sharedCss() {
-  const present = SHARED_CSS.filter((f) => existsSync(join(SRC, ASSETS, 'css', f)));
+  const present = SHARED_CSS.filter((f) => existsSync(join(SRC, f)));
   const missing = SHARED_CSS.filter((f) => !present.includes(f));
   if (missing.length) process.stdout.write(`warning: shared CSS not found, skipped: ${missing.join(', ')}\n`);
   return present;
 }
 
+/** An `@import "x";` line: pages/<page>.css lists its section stylesheets this way. */
+const CSS_IMPORT = /^@import\s+(?:url\()?["']([^"']+)["']\)?\s*;[^\n]*\n?/gm;
+
+/** The file with every @import replaced by the imported file (resolved from the importing file, recursively). */
+async function inlineCss(file) {
+  const src = await readFile(file, 'utf8');
+  const subs = await Promise.all([...src.matchAll(CSS_IMPORT)].map((m) => inlineCss(join(dirname(file), m[1]))));
+  let i = 0;
+  return src.replace(CSS_IMPORT, () => subs[i++]);
+}
+
 async function cssBundle(name, files, prefix = '') {
-  const parts = await Promise.all(files.map((f) => readFile(join(SRC, ASSETS, 'css', f), 'utf8')));
+  /* One stdin with one resolveDir (site/core/design): url() paths in every file must
+     resolve from there too (core/design/*.css use ../../assets/img/; section CSS has none). @import lists are inlined first: after the shared CSS in
+     the joined stdin, an @import would be invalid and left unbundled. */
+  const parts = await Promise.all(files.map((f) => inlineCss(join(SRC, f))));
   const result = await build({
-    stdin: { contents: `${prefix}\n${parts.join('\n')}`, loader: 'css', resolveDir: join(SRC, ASSETS, 'css') },
+    stdin: { contents: `${prefix}\n${parts.join('\n')}`, loader: 'css', resolveDir: join(SRC, 'core', 'design') },
     outdir: join(OUT, ASSETS),
     entryNames: `${name}-[hash]`,
     bundle: true,
@@ -357,7 +384,7 @@ async function buildCss() {
   const shared = sharedCss();
   const faces = fontFaces();
   const pages = {};
-  for (const p of PAGES) pages[p.html] = await cssBundle(basename(p.css, '.css'), [...shared, p.css], faces);
+  for (const p of PAGES) pages[p.html] = await cssBundle(basename(p.css, '.css'),[...shared, p.css], faces);
   return { pages };
 }
 
@@ -456,7 +483,7 @@ function wrapScenePans(html) {
 
 function transformHtml(source, page, js, css) {
   let html = wrapScenePans(STRIP_HEAD.reduce((acc, re) => acc.replace(re, ''), source));
-  const leftovers = html.match(/https:\/\/(cdn\.jsdelivr\.net|fonts\.googleapis\.com|fonts\.gstatic\.com)|assets\/(css|js)\//g);
+  const leftovers = html.match(SOURCE_REFS);
   if (leftovers) throw new Error(`${page.html}: unreplaced source references: ${[...new Set(leftovers)].join(', ')}`);
   html = html.replace(/<!--(?!\[if)[\s\S]*?-->/g, '').replace(/\n\s*\n+/g, '\n');
   if (!/name="theme-color"/.test(html)) html = html.replace('</title>', '</title>\n  <meta name="theme-color" content="#0B0B0C">');
@@ -499,7 +526,7 @@ async function founderBaker() {
 async function buildHtml(jsMap, css) {
   const bakeFounder = await founderBaker();
   await Promise.all(PAGES.map(async (page) => {
-    const source = bakeFounder(await minifyInline(await readFile(join(SRC, page.html), 'utf8')));
+    const source = bakeFounder(await minifyInline(readAssembled(join(SRC, page.html))));
     const built = transformHtml(source, page, jsMap[page.html], css.pages[page.html]);
     const { html, warnings } = splitHtml(built);
     warnings.forEach((w) => process.stdout.write(`warning: ${page.html} ${w}\n`));
@@ -544,7 +571,7 @@ const HOST_HEADERS = `/assets/*
  * page would load a module DIRECTION §12 keeps off it.
  */
 async function writeBuildMeta(metafile, pageMap) {
-  const srcRel = (p) => relative(join(SRC, ASSETS, 'js'), resolve(ROOT, p)).replace(/\\/g, '/');
+  const srcRel = (p) => relative(SRC, resolve(ROOT, p)).replace(/\\/g, '/');
   const pages = Object.fromEntries(PAGES.map((page) => {
     const { path, preload, early } = pageMap[page.html];
     const files = [path, ...preload, ...early];

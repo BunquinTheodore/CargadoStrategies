@@ -1,0 +1,5 @@
+/* 8. FAQ dialog (C26 skin from ui.css): four answers, one open at a time --------------------- */
+.faq__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.faq__list { gap: 0; }
+.faq .acc__body p { font-size: var(--fs-body); line-height: var(--lh-body); }
+.faq__more { margin: 0; }

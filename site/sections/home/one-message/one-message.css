@@ -1,0 +1,17 @@
+/* 3. H2 · One message: strikes, the monument and the steps strip as one centred group, which
+   starts a full --space-xl under the header (no first line tucked under it) ------------------ */
+#one-message .scene__pan { justify-content: center; gap: var(--space-xl); padding-top: var(--space-xl); }
+.one__head { display: grid; gap: var(--space-m); justify-items: start; }
+.one__strike { max-width: 60%; }
+.one__strike > li { font-size: min(var(--fs-quote), 5.4cqh); }
+/* Wide: the eyebrow holds cols 1-6 and the strikes cols 7-12, so the monument below has a
+   counterweight on the right instead of an empty upper-right quarter. */
+@media (min-width: 1200px) and (min-height: 761px) {
+  .one__head { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-col); align-items: start; }
+  .one__head > .eyebrow { grid-column: 1 / 7; grid-row: 1; }
+  .one__strike { grid-column: 7 / -1; grid-row: 1; max-width: none; }
+}
+/* The monument at ≈ 12vw (cols 1-9 to 1-11), capped by the height; margin-bottom keeps the "g" descender of
+   Message off the steps hairline (F4). */
+.one__title { margin-bottom: .18em; font-size: min(12vw, 21svh, 12rem); }
+.one__steps .steps__n { font-size: min(var(--fs-num), 9cqh); }

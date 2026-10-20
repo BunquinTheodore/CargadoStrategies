@@ -70,16 +70,16 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
-  <link rel="stylesheet" href="assets/css/base.css">
-  <link rel="stylesheet" href="assets/css/fx.css">
-  <link rel="stylesheet" href="assets/css/ui.css">
-  <link rel="stylesheet" href="assets/css/visual.css">
-  <link rel="stylesheet" href="assets/css/story.css">
+  <link rel="stylesheet" href="core/design/base.css">
+  <link rel="stylesheet" href="core/design/fx.css">
+  <link rel="stylesheet" href="core/design/ui.css">
+  <link rel="stylesheet" href="core/design/visual.css">
+  <link rel="stylesheet" href="pages/story.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <link rel="modulepreload" href="assets/js/main.js">
-  <link rel="modulepreload" href="assets/js/film.js">
-  <link rel="modulepreload" href="assets/js/chrome.js">
-  <script type="module" src="assets/js/story.js"></script>
+  <link rel="modulepreload" href="core/main.js">
+  <link rel="modulepreload" href="core/engine/film.js">
+  <link rel="modulepreload" href="core/chrome/chrome.js">
+  <script type="module" src="pages/story.js"></script>
 </head>
 <body data-page="story">
   <!-- splash (2c): plan/round5/snippets/splash.html. Shared node (2b). -->
@@ -117,129 +117,22 @@
       <!-- Draft story: the founder confirms every word before publication. Review mode (?review=1) shows the note on #top. -->
 
       <!-- T1 · Top · ink · O: her sentence on the left, her (typographic) portrait on the right ------- -->
-      <section class="scene" id="top" data-field="ink" data-archetype="O" data-title="Our Story"
-               aria-labelledby="top-title" style="--kx: 30%; --ky: 62%">
-        <div class="scene__inner">
-          <div class="top__portrait" data-group="body">
-            <figure class="portrait top__photo" data-when="FOUNDER_PHOTO" data-founder-photo>
-              <figcaption class="top__photo-ph"><span class="ph">[Founder photo]</span></figcaption>
-            </figure>
-            <figure class="tportrait top__tportrait" data-reveal="fade" data-delay="0.2">
-              <svg class="tportrait__mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/></svg>
-              <figcaption>
-                <span class="tportrait__name"><span class="ph" data-founder-full>[First name] [Last name]</span></span>
-                <span class="tportrait__quote" data-when="REVIEW_NOTES"><span class="ph">[One or two sentences about the founder's background and what led her here.]</span></span>
-                <span class="tportrait__sign" data-when="FOUNDER_SIGNATURE" data-founder-signature><span class="ph">[Signature]</span></span>
-              </figcaption>
-            </figure>
-          </div>
-          <div class="top__copy" data-group="head">
-            <p class="eyebrow">Our Story</p>
-            <h1 id="top-title" class="t-statement top__title" data-reveal="words" data-delay="0">I Started Cargado So Good People Wouldn’t Have to Search <em>Alone</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h1>
-            <span class="rule" aria-hidden="true"></span>
-            <p class="top__by" data-reveal="fade" data-delay="0.2"><span class="ph" data-founder-full>[First name] [Last name]</span>, founder</p>
-            <p class="fineprint top__draft" data-when="REVIEW_NOTES"><span class="ph">[Draft story. The founder confirms every word before publication.]</span></p>
-          </div>
-        </div>
-      </section>
+      <!-- @section story/top -->
 
       <!-- T2 · Beginning · bone · M: one place, not five ------------------------------------------------ -->
-      <section class="scene" id="beginning" data-alias="founder" data-field="bone" data-archetype="M"
-               data-iris="stop" data-title="Where It Began" aria-labelledby="beginning-title">
-        <div class="scene__inner">
-          <div class="begin__head" data-group="head">
-            <p class="eyebrow">Where It Began</p>
-            <h2 id="beginning-title" class="t-mega begin__title" data-reveal="words" data-delay="0">One Place. Not <em>Five</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-            <span class="rule" aria-hidden="true"></span>
-          </div>
-          <div class="begin__body" data-group="body" data-reveal="fade" data-delay="0.15">
-            <p>In <span class="ph">[year]</span>, a friend in <span class="ph">[city]</span> spent three weeks calling offices to find a mortgage broker who would call her back. I knew <span class="ph">[n]</span> good professionals who would have answered that same day.</p>
-            <figure class="begin__quote" data-when="QUOTES">
-              <blockquote><p><span class="ph">“[Real client quote about finding the right person]”</span></p></blockquote>
-              <figcaption><span class="ph">[name]</span> · <span class="ph">[city]</span></figcaption>
-            </figure>
-          </div>
-        </div>
-      </section>
+      <!-- @section story/beginning -->
 
       <!-- T3 · Logo · ink · stage · W5: the globe collapses into the C ring, the W draws inside it ---- -->
-      <section class="scene" id="logo" data-field="ink" data-archetype="stage" data-iris="stop" data-globe-mode="ring" data-out-hold
-               data-title="The Logo" aria-labelledby="logo-title" style="--kx: 50%; --ky: 48%">
-        <div class="scene__inner">
-          <div class="logo__grid">
-            <h2 id="logo-title" class="eyebrow logo__eyebrow" data-group="head">The Story Behind the Logo</h2>
-            <p class="logo__line logo__line--w" data-reveal="fade" data-delay="0"><span class="logo__lead">W Stands for</span> <em class="logo__word">Wealth.</em></p>
-            <div class="logo__mono" aria-hidden="true">
-              <div class="logo__core" data-globe-anchor data-fit-ignore></div>
-              <svg class="logo__part logo__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="square"/></svg>
-              <svg class="logo__part logo__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="miter" stroke-linecap="square"/></svg>
-            </div>
-            <p class="logo__line logo__line--c" data-reveal="fade" data-delay="0.1"><span class="logo__lead">C Stands for</span> <em class="logo__word">Cargado.</em></p>
-            <div class="logo__notes" data-group="body" data-reveal="fade" data-delay="0.3">
-              <p class="logo__how"><span class="ph">[How the logo came about, in the founder's words.]</span></p>
-              <p class="logo__ref">Mark 11:24</p>
-              <p class="logo__faith" data-when="REVIEW_NOTES"><span class="ph">[Optional, in the founder's words: one sentence on faith.]</span></p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <!-- @section story/logo -->
 
       <!-- T4 · Values · ink · R: three things never traded; phones open one body at a time ------------ -->
-      <section class="scene" id="values" data-alias="network" data-field="ink" data-archetype="R"
-               data-title="What I Will Never Trade" aria-labelledby="values-title" style="--kx: 24%; --ky: 30%">
-        <div class="scene__inner">
-          <div class="values__head" data-group="head">
-            <h2 id="values-title" class="t-d1 values__title" data-reveal="words" data-delay="0">What I Will Never Trade for a <em>Referral</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-          </div>
-          <ol class="values__rows" data-group="body" data-reveal="stagger" data-delay="0.1">
-            <li class="value is-open">
-              <span class="value__num num-outline" aria-hidden="true">01</span>
-              <h3 class="value__title">People Before Transactions</h3>
-              <button class="value__toggle" type="button" aria-expanded="true" aria-controls="value-1-body">Details<span class="visually-hidden"> for People Before Transactions</span> <span class="value__plus" aria-hidden="true"></span></button>
-              <p class="value__body" id="value-1-body">An introduction costs you nothing, and you decide what happens next.</p>
-            </li>
-            <li class="value">
-              <span class="value__num num-outline" aria-hidden="true">02</span>
-              <h3 class="value__title">Say How You Are Paid</h3>
-              <button class="value__toggle" type="button" aria-expanded="false" aria-controls="value-2-body">Details<span class="visually-hidden"> for Say How You Are Paid</span> <span class="value__plus" aria-hidden="true"></span></button>
-              <p class="value__body" id="value-2-body" data-compliance>We say how we are paid. Cargado Strategies may receive a commission when an introduction becomes a client, and we tell you up front.</p>
-            </li>
-            <li class="value">
-              <span class="value__num num-outline" aria-hidden="true">03</span>
-              <h3 class="value__title">Grow Slowly, with Care</h3>
-              <button class="value__toggle" type="button" aria-expanded="false" aria-controls="value-3-body">Details<span class="visually-hidden"> for Grow Slowly, with Care</span> <span class="value__plus" aria-hidden="true"></span></button>
-              <p class="value__body" id="value-3-body">The Cargado team reviews and approves every partner before they are listed.</p>
-            </li>
-          </ol>
-          <p class="fineprint values__fine" data-group="action" data-compliance data-reveal="fade" data-delay="0.3"><strong>Independent partners.</strong> Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission when a referral becomes a client.</p>
-        </div>
-      </section>
+      <!-- @section story/values -->
 
       <!-- T5 · Close · ink · M · W5: the medallion bookend -------------------------------------------- -->
-      <section class="scene" id="close" data-alias="talk" data-field="ink" data-archetype="M" data-globe-mode="medallion"
-               data-title="Tell Me What You Need" aria-labelledby="close-title">
-        <div class="scene__inner">
-          <div class="close__mark">
-            <div class="medallion close__medallion" aria-hidden="true"></div>
-            <span class="avatar close__avatar" data-when="FOUNDER_PHOTO" data-founder-photo aria-hidden="true"></span>
-          </div>
-          <h2 id="close-title" class="t-statement close__title" data-group="head" data-reveal="words" data-delay="0">Tell Me What You Need. I’ll Find Someone <em>Good</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
-          <div class="close__action" data-group="action" data-reveal="fade" data-delay="0.15">
-            <a class="btn btn--primary" data-wa-sheet data-context="story" data-founder-cta
-               href="https://wa.me/12048692508" target="_blank" rel="noopener"><span data-cta-label>Get My Introduction</span> <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
-            <a class="link" href="partners.html">For Professionals <span aria-hidden="true">→</span></a>
-          </div>
-        </div>
-      </section>
+      <!-- @section story/close -->
 
       <!-- Credits: the same on every page (R4 shared.md §5.4, DIRECTION §6.4). Shared node (2b). -->
-      <section class="scene scene--credits" id="credits" data-field="ink" data-archetype="credits"
-               data-pose="0,0.35,-1,0.25,2.4,0.7" data-title="Contact and Legal" aria-label="Contact and legal">
-        <div class="scene__inner"><div class="scene__pan">
-          <div class="globe-anchor globe-anchor--credits" data-globe-anchor aria-hidden="true"></div>
-          <div data-footer></div>
-        </div></div>
-      </section>
+      <!-- @section story/credits -->
 
     </main>
     <div class="iris" aria-hidden="true"></div>

@@ -1,0 +1,10 @@
+/* 8. Dialogs (C26 skin from ui.css): "Compare All" and the questions ------------------------ */
+.dialog__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.tiers-dialog__intro, .pfaq .acc__body p { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body, 1.5); }
+.tiers-dialog__ticks { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-l); margin: 0; padding: 0; list-style: none; font: 500 var(--fs-note)/1.4 var(--font-body); }
+.tiers-dialog__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.tiers-dialog__tier { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-s) var(--space-m) 0 0; }
+.tiers-dialog__tier + .tiers-dialog__tier { padding-left: var(--space-m); border-left: 1px solid var(--line); }
+.tiers-dialog__name { margin: 0; font: 600 var(--fs-d4)/1.25 var(--font-body); }
+.tiers-dialog__price { margin: 0; font: 400 1.75rem/1.15 var(--font-display); }
+.tiers-dialog__tier ul { display: grid; gap: 4px; margin: var(--space-2xs) 0 0; padding: 0; list-style: none; font-size: var(--fs-note); line-height: 1.45; }

@@ -1,0 +1,9 @@
+/* 2. S1 · Intro: the head top-left, four index rows full width, the legend under them ------- */
+#intro :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-l); }
+.intro__head { max-width: 62%; }
+.intro__title { font-size: min(var(--fs-d1), 9cqh); }
+.intro__rows .row { min-height: min(var(--row-pitch), 13cqh); }
+.intro__rows .row__title { font-size: min(calc(var(--fs-d2) * 1.2), 5.8cqh); }   /* an index set large: the rows are the scene */
+.intro__rows .row__meta { font: 500 var(--fs-note)/1.3 var(--font-ui); }
+.intro__legend { max-width: 62ch; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
+.intro__legend strong { color: var(--fg); font-weight: 600; }

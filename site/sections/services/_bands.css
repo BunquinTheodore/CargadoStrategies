@@ -1,0 +1,149 @@
+/* Services (services.html): the size bands for every scene, last in pages/services.css so they
+   keep their original place after all the scene rules. */
+
+/* 11. Bands ----------------------------------------------------------------------------------- */
+/* Laptop-short (≥ 760 wide, ≤ 760 tall): rows at 64 px, the caps tighten. */
+@media (min-width: 760px) and (max-height: 760px) {
+  .intro__rows .row { min-height: 64px; }
+  .ins__portrait { --tportrait-h: min(54svh, 32vw); }
+  .strat__title { font-size: min(var(--fs-mega), 18svh); }
+  .incl__row { min-height: 52px; }
+  .panel .ghost { font-size: min(var(--fs-ghost), 20svh); }
+  .finder__globe { bottom: auto; height: 64svh; top: calc(50% - 32svh); }
+  .concierge { gap: var(--space-s); }
+  .closing__title { font-size: min(var(--fs-statement), 11svh); }
+}
+
+/* Up to 900 px tall the categories dialog drops its lead and type tags, so a category with partners fits. */
+@media (min-width: 760px) and (max-height: 900px) {
+  .cats__lead, .cats__tags { display: none; }
+}
+
+/* Phone (< 760) and tablet portrait: objects become top bands, CTAs go full width. */
+@media (max-width: 759px), (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #ours-insurance :is(.scene__pan, html.rm .scene__inner) { display: flex; flex-direction: column; gap: var(--space-s); }
+  .ins__object { flex: 1 1 30svh; max-height: 30svh; min-height: 0; container-type: size; }
+  .ins__portrait { --tportrait-h: min(100cqh, 70vw); min-height: 0; height: 100%; }   /* the ring never outgrows its band */
+  .ins__copy { flex: 0 0 auto; gap: var(--space-l); padding-bottom: 0; }   /* the portrait band gives way, never the copy */
+  .ins__title { max-width: none; }
+  #finder:not(.is-finder) :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-start; }
+  #finder:not(.is-finder) .finder__globe {
+    position: relative; inset: auto; width: auto; height: auto; margin: 0 0 24px;
+    flex: 1 1 32svh; min-height: 8svh; max-height: 32svh;
+  }
+  .finder__copy { width: auto; flex: 0 1 auto; justify-content: flex-end; padding-bottom: 0; gap: var(--space-m); }
+  .intro__head { max-width: none; }
+  #inquiry :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); row-gap: var(--space-m); align-items: stretch; }
+  .inq__title { max-width: none; }
+  .inq__paper { min-height: 0; align-self: start; }
+  /* the finder: Map · Results tabs beside the always-visible form */
+  .finder { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); grid-template-areas: "controls" "tabs" "panel"; }
+  .finder__map, .results { grid-area: panel; }
+  .finder__form { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-s); align-items: start; }
+}
+
+/* Below 1280 px wide the inquiry paper keeps the 640 px of the spec, so the headline keeps its column. */
+@media (min-width: 760px) and (max-width: 1279px) and (min-aspect-ratio: 1/1) {
+  #inquiry :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 4fr) minmax(0, 640px); }
+}
+
+/* The finder between 760 and 1279 px wide, or short: Map · Results tabs beside the form. */
+@media (min-width: 760px) and (max-width: 1279px), (min-width: 760px) and (max-height: 760px) {
+  .finder { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "controls tabs" "controls panel"; }
+  .finder__map, .results { grid-area: panel; }
+}
+
+/* Phone only. */
+@media (max-width: 759px) {
+  .intro__title { font-size: clamp(2.25rem, 10.5vw, 2.75rem); }
+  #intro :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
+  .intro__rows .row:where(a) { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "num title meta arrow"; min-height: 64px; }
+  .intro__rows .row__title { font-size: max(1.75rem, var(--fs-d2)); }   /* Times never under 28 px */
+  .ins__copy { gap: var(--space-m); }
+  .ins__head { gap: var(--space-xs); }
+  .ins__promise, .strat__for, .strat__promise { font-size: 1.0625rem; }
+  .ctas { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .ctas .btn, .strat__action .btn, .out__action .btn, .concierge__go { width: 100%; }
+  .ctas .link { align-self: center; }
+  .ins__action, .strat__action, .out__action, .concierge { justify-items: stretch; }
+  #ours-strategy :is(.scene__pan, html.rm .scene__inner) { justify-content: center; padding-bottom: 0; }
+  .strat__title { font-size: clamp(2.75rem, min(16vw, 9svh), 4.5rem); line-height: .95; max-width: none; }
+  .incl__row { min-height: 56px; padding-inline: 8px; }
+  .incl__row { grid-template-columns: 3.2ch minmax(0, 1fr); }
+  .incl__item { font-size: 1.0625rem; }
+  .incl__fix { display: none; }   /* phones: titles only (§7.2 S4) */
+  /* S5: a 2 × 2 grid of titles; a tap opens one panel's line (an exclusive accordion) */
+  #ours-outsourcing :is(.scene__pan, html.rm .scene__inner) { justify-content: center; }
+  .out__title { font-size: clamp(2.5rem, 12vw, 3.25rem); line-height: 1; }
+  .out__action { flex-direction: column; align-items: stretch; gap: var(--space-xs); }
+  .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; flex: 0 1 auto; height: auto; min-height: 0; border-top: 1px solid rgba(11,11,12,.55); }
+  .panel { grid-row: auto; grid-template-rows: auto auto; align-content: start; padding: 28px var(--space-s) var(--space-s) 0; }
+  .panel:nth-child(even) { padding-left: var(--space-s); }
+  .panel + .panel { border-left: 0; }
+  .panel:nth-child(even) { border-left: 1px solid rgba(11,11,12,.55); }
+  .panel:nth-child(n + 3) { border-top: 1px solid rgba(11,11,12,.55); }
+  .panel .ghost { display: none; }
+  /* Item titles in Manrope (DIRECTION §4.1): a bracketed role fits half a 360 px screen. */
+  .panel__title { grid-row: 1; font-size: var(--fs-d4); }
+  .panel__line { grid-row: 2; }
+  /* The whole panel is the toggle; its plus sits in the corner above the title. */
+  .panel__toggle {
+    position: absolute; inset: 0; display: grid; place-items: start end; padding: 10px 6px 0 0;
+    border: 0; background: none; color: var(--fg);
+  }
+  html.js .panel:not(.is-open) .panel__line { display: none; }
+  .panel__plus { position: relative; width: 12px; height: 12px; }
+  .panel__plus::before, .panel__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; }
+  .panel__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
+  .panel__toggle[aria-expanded="true"] .panel__plus::after { transform: rotate(0deg); }
+  /* S6 */
+  .finder__head { gap: var(--space-xs); }
+  .concierge { gap: var(--space-s); }
+  .concierge__fields { gap: var(--space-xs); }
+  @media (max-width: 479px) { .concierge__fields { grid-template-columns: minmax(0, 1fr); } }   /* "Choose a service" never clips */
+  .finder__action { padding-bottom: 4px; }
+  /* the finder: Search · Map · Results tabs, one panel at a time */
+  .finder { grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "tabs" "panel"; }
+  .finder__controls, .finder__map, .results { grid-area: panel; }
+  .finder__form { grid-template-columns: minmax(0, 1fr); }
+  #finder.is-finder .finder__action .fineprint { margin-top: 0; }
+  /* With the live finder the head is one line, so the tool and the full fine print keep their air. */
+  #finder.is-finder .finder__title { font-size: max(1.75rem, min(var(--fs-d1), 8vw)); white-space: nowrap; }
+  #finder.is-finder .finder__head .rule { display: none; }
+  #finder.is-finder .finder { max-height: 46cqh; }
+  /* S7 */
+  #inquiry :is(.scene__pan, html.rm .scene__inner) { grid-template-rows: auto auto; align-content: center; }   /* the paper sits mid-screen, not under the header */
+  #inquiry[data-step]:not([data-step="1"]) .inq__title { display: none; }
+  .inq-form .stepper__nav .btn { flex: 1 1 auto; }
+  .inq-form { gap: var(--space-s); }
+  .inq-grid { grid-template-columns: minmax(0, 1fr); }
+  .inq-form .textarea { height: 76px; }
+  /* S8 */
+  #close :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
+  .closing__title { font-size: var(--fs-statement); line-height: 1; }
+  .closing__action { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .closing__action .link { align-self: center; }
+  /* dialogs: the categories rail OR one category (a drill), the profile facts one per line */
+  .cats__body { grid-template-columns: minmax(0, 1fr); }
+  .cats.is-detail .cats__rail, .cats.is-detail .cats__lead { display: none; }
+  .cats:not(.is-detail) .cats__detail { display: none; }
+  .cats.is-detail .cats__back { display: inline-flex; justify-self: start; }
+  .cats__tags { display: none; }
+  /* a category with partners fits the 92svh sheet at 360 × 740 */
+  .cats .dialog__panel { gap: var(--space-xs); padding-top: var(--space-s); }
+  .cats__partner { padding-block: 4px; }
+  .cats__cta { margin-top: 0; --btn-h: 44px; min-height: 44px; }
+  .profile__facts { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .profile__facts > div { display: flex; flex-wrap: wrap; gap: 0 .4em; }
+}
+
+/* Tablet portrait: the copy columns of S2 and the inquiry go full width (phone composition). */
+@media (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  .ins__copy { gap: var(--space-l); }
+  /* S5: four columns are too narrow for a bracketed role in Times; two rows of two, ghosts smaller. */
+  .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr) auto auto); }
+  .panel:nth-child(3) { border-left: 0; }
+  .panel:nth-child(n + 3) { border-top: 1px solid rgba(11,11,12,.55); }
+  .panel .ghost { font-size: min(var(--fs-ghost), 13svh); }
+  .finder__copy { gap: var(--space-l); }
+}

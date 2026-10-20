@@ -284,3 +284,27 @@ Plain meaning:
 - Reviews: `plan/round5/review-a11y.md`, `review-compliance.md`, `review-engine-devices.md`, `review-performance.md`
 - Baselines: `plan/round5/baseline-r5-fit.txt`, `baseline-r5-lighthouse.json`, `compliance-baseline.json`, `compliance-moves.json`
 - **Final audit (stage 7): `plan/round5/final-audit.txt`**
+
+# Restructure (2026-10-20): a pure refactor for faster agent work
+
+**Goal.** Nothing a visitor gets changes: the copy, behaviour, look and performance are all the same. The code is reorganised so that each scene can be found and edited on its own.
+
+**Layout.**
+- `site/*.html` are thin shells with one `<!-- @section <page>/<name> -->` marker per scene or dialog.
+- `site/sections/<page>/<name>/` holds the exact original markup (`<name>.html`), the rules only that section uses (`<name>.css`) and a `Section` subclass (`<Name>.js`) when the section has behaviour. Page-level CSS is in `_page.css` and the `_bands.css` files.
+- `site/pages/<page>.js|css` are the entries. The CSS is an `@import` list in the original rule order.
+- `site/core/` holds the shared code: `engine/`, `ui/`, `chrome/`, `design/`, `lib/`, `main.js`, and `Section.js` (lifecycle `mount`/`enter`/`leave`/`cut`/`destroy`, wired to the film's `landed` and `cut` events by `mountSections`).
+- `site/assets/js/` keeps only `config.js`.
+
+**Assembly.** `tools/lib/assemble.mjs` expands the markers byte for byte. `serve.mjs` assembles `.html` on the fly when it serves `site/`. `build.mjs`, build-kerning, build-splits and golden-diff read assembled HTML.
+
+**Verified** (`plan/restructure/verify.md`):
+- `tools/lib/golden-diff.mjs`: the assembled site HTML is identical to the pre-refactor golden (commit 28cbc51, `plan/restructure/golden/`, gitignored). The dist HTML and CSS are identical. Only minified JS names differ.
+- Console-check is clean, and compliance-diff shows 0 missing / 0 altered.
+- Seek-test and fit-audit are unchanged from the Round 5 baseline.
+
+**Docs.**
+- Agent guide: `CLAUDE.md` (root).
+- Contracts: `site/core/CLAUDE.md`.
+- Per page: `site/sections/<page>/CLAUDE.md`.
+- Paths in `plan/` documents written before this date are the old ones (`assets/js/*`, `assets/css/*`).

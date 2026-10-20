@@ -1,0 +1,22 @@
+/* 8. S7 · Inquiry: the headline beside a 640 px paper; Back and Next close the paper -------- */
+#inquiry :is(.scene__pan, html.rm .scene__inner) { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 700px); column-gap: var(--gap-col); align-items: center; justify-content: space-between; }
+.inq__title { align-self: center; font-size: min(var(--fs-d1), 9cqh); max-width: 10ch; }
+.inq__paper { display: flex; flex-direction: column; min-height: min(100%, 30rem); max-height: 100%; }
+.inq-form { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--space-s); }
+.inq-form .stepper__status { flex-wrap: wrap; row-gap: 4px; }
+.inq-form .stepper__errors { flex: 1 1 100%; }
+.inq-form .stepper__steps { display: grid; gap: var(--space-m); }
+.inq-form .stepper__step { display: grid; gap: var(--space-s); align-content: start; }
+.inq-form .stepper__title { margin-bottom: 0; font: 600 1.25rem/1.3 var(--font-body); }   /* under the scene head, never beside it */
+/* From 760 px a step is a page of two fieldsets: the page's first title names it. */
+.inq-form[data-mode="page"] :is([data-step="reach"], [data-step="send"]) > legend { display: none; }
+.inq-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s) var(--space-m); align-items: start; }
+.inq-reach { border: 0; padding: 0; margin: 0; }
+.inq-reach .chips { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+.inq-form .textarea { min-height: 0; height: clamp(64px, 9svh, 112px); resize: none; }
+.inq-form .stepper__nav { margin-top: auto; }
+.inq__notice { margin: 0; }
+.inq-success { display: grid; gap: var(--space-m); align-content: center; justify-items: start; flex: 1 1 auto; }
+.inq-success:focus { outline: none; }
+.inq-success__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.inq-success__text, .inq-success__retry { font-size: var(--fs-note); line-height: var(--lh-note); }

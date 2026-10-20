@@ -1,0 +1,15 @@
+/* 7. H6 · Close: a centred monument under the medallion, two rows side by side -------------- */
+#close .scene__pan { align-items: center; justify-content: center; gap: var(--space-l); text-align: center; }
+.closing__medallion { flex: none; }
+.closing__title { font-size: min(var(--fs-statement), 10.5svh); max-width: 16ch; }
+.closing__action { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-xs) var(--space-l); }
+.closing__rows { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap-col); text-align: left; }
+/* Each row stacks its meta under the title (as on phones): the title keeps one line and never
+   runs into the meta, whatever the column width. */
+.closing__rows .row {
+  grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "title arrow" "meta arrow"; row-gap: 2px;
+  border-bottom: 1px solid var(--line); min-height: min(var(--row-pitch), 12cqh);
+}
+.closing__rows .row__title { grid-area: title; font-size: var(--fs-d2); white-space: nowrap; }
+.closing__rows .row__meta { grid-area: meta; } .closing__rows .row__arrow { grid-area: arrow; }
+.closing__rows .row__meta .ph { white-space: nowrap; }

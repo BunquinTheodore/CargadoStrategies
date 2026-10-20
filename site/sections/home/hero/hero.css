@@ -1,0 +1,39 @@
+/* 2. H1 · Hero: text in cols 1-7 bottom-anchored, the globe bleeding off the right ---------- */
+#hero .scene__pan { justify-content: flex-end; }
+.hero__globe {
+  --g: min(78svh, 58vw);
+  position: absolute; top: calc(50% - var(--g) / 2); right: calc((100% - 100vw) / 2 - .12 * var(--g));
+  width: var(--g); height: var(--g); /* no transform: dotglobe measures the box without transforms */
+}
+.hero__copy {
+  position: relative; display: flex; flex-direction: column; gap: var(--group-gap);
+  width: min(58.4%, 52rem); padding-bottom: clamp(8px, 5cqh, 64px);
+}
+.hero__title { font-size: min(var(--fs-statement), 12.5svh); max-width: 12ch; }
+/* One line from 380 px whatever the font: the Poppins fallback sets wider and wrapped it to two
+   lines until Poppins loaded, shifting the hero copy (Lighthouse mobile CLS 0.13). Below 380 it
+   always breaks at the middot (§9 phone). */
+@media (min-width: 380px) { #hero .eyebrow { white-space: nowrap; } }
+.hero__lead { max-width: 40ch; }
+.hero__action { display: grid; gap: var(--space-m); justify-items: start; }
+.hero__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
+.hero__trust { max-width: 52ch; }
+/* One line where it fits (≥ 1280); a set break before "Replies" where it does not, so no middot
+   is left hanging at a line end (the separator becomes the break). */
+@media (min-width: 1024px) { .hero__trust { max-width: none; } }
+@media (min-width: 760px) and (max-width: 1279px) and (min-aspect-ratio: 1/1) {
+  .hero__sep--trust { display: block; height: 0; visibility: hidden; }
+}
+.nw { white-space: nowrap; }
+.hero__next { position: absolute; right: 0; bottom: var(--scene-pad-bottom); }
+/* The CTA sheen: once, on the first landing only (Hero.js adds .is-sheen, ≤ 900 ms). The band
+   runs inside its own clipped span, so the button itself never clips its label. */
+.hero__cta { position: relative; }
+.hero__sheen { position: absolute; inset: 0; overflow: clip; pointer-events: none; border-radius: inherit; }
+.hero__sheen::after { content: ""; position: absolute; inset: 0; background: var(--metal-sheen); transform: translateX(-101%); }
+.hero__cta.is-sheen .hero__sheen::after { animation: cta-sheen .9s var(--ease-inout) both; }
+@keyframes cta-sheen { from { transform: translateX(-101%); } to { transform: translateX(101%); } }
+html.rm .hero__sheen { display: none; }
+/* C19 proof slots: hidden until config holds real numbers (review mode shows them). */
+.proof { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-l); font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); }
+.proof__n { color: var(--fg); }

@@ -1,0 +1,61 @@
+/* 5. H4 · Founder: the head in cols 1-8, three metal doors fill the rest (≥ 58% of the height).
+   The group is centred, so the bare metal splits above the head and under the doors (G12). */
+#founder .scene__pan { justify-content: center; gap: var(--space-l); }
+.founder__head { max-width: 66.6%; width: fit-content; }
+.founder__title { font-size: min(var(--fs-d1), 8cqh); }
+.founder__avatar { width: 40px; height: 40px; }
+/* Founder photo slots (pages/home.js fills them from FOUNDER_PHOTO; hidden while it is empty). */
+.avatar { display: block; overflow: clip; border-radius: 50%; border: 1px solid var(--line-strong); }
+.avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.hero__avatar { float: left; width: 60px; height: 60px; margin: .15em .9em .2em 0; }
+.founder__sig { display: block; height: 32px; }   /* FOUNDER_SIGNATURE, only while there is no photo */
+.founder__sig img { display: block; height: 100%; width: auto; }
+.founder__quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-col); }
+.founder__quote blockquote { margin: 0; font: italic 400 1.25rem/1.3 var(--font-display); }
+.founder__quote figcaption { font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); }
+/* Head and doors sit together at the bottom (no dead band between them); the §4.2 breathing
+   room is the band above the eyebrow. */
+.founder__doors { flex: 0 1 62%; min-height: 58%; }
+.founder__doors .door { padding-block: clamp(12px, 3cqh, 32px); }
+.door__title { font-size: var(--fs-d2); line-height: var(--lh-d2); }
+/* Side by side (≥ 760), the doors share one row grid (subgrid): a spacer, then title, quote,
+   offer and the fine print + CTA, so "Protect. / Plan. / Delegate." share a baseline however
+   long each door's fine print is. The widen-on-focus moves from flex-grow (fx.css) to the
+   column track, same 1 → 1.5 and the same 350 ms curve. */
+@media (min-width: 760px) {
+  .founder__doors {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) repeat(4, auto);
+    transition: grid-template-columns var(--dur-door) cubic-bezier(.215,.61,.355,1);
+  }
+  /* One stretched column (ui.css's flex-end would pack the auto column right, so each door
+     started at its own inset), and the row pulled out by the door's inline padding (ui.css
+     .door: clamp(16px, 2vw, 32px)) so door 1's text stands on the headline's column. */
+  .founder__doors { margin-inline: calc(-1 * clamp(16px, 2vw, 32px)); }
+  .founder__doors .door {
+    grid-row: 1 / -1; display: grid; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr);
+    justify-content: stretch; row-gap: var(--space-s); align-content: end;
+  }
+  .founder__doors .door > * { grid-column: 1; }   /* one column: the ghost shares the title's cell */
+  .founder__doors .door__title { grid-row: 2; }
+  .founder__doors .door__q { grid-row: 3; align-self: start; }
+  .founder__doors .door__offer { grid-row: 4; align-self: start; }
+  .founder__doors .door__more { grid-row: 5; align-self: end; }
+  /* The ghost numeral is an item of the spacer and title rows, its foot on the title's floor at
+     the right: it rises into the band above the short title and never sits under any text (the
+     spacer row is minmax(0, 1fr), so the glyph never sizes it). */
+  .founder__doors .ghost {
+    position: relative; inset: auto; grid-row: 1 / 3; align-self: end; justify-self: end; margin-right: -.06em;
+    font-size: min(var(--fs-ghost), 24svh); line-height: .74;
+  }
+  .founder__doors:has(> .door:nth-child(1):is(:hover, :focus-within)) { grid-template-columns: 1.5fr 1fr 1fr; }
+  .founder__doors:has(> .door:nth-child(2):is(:hover, :focus-within)) { grid-template-columns: 1fr 1.5fr 1fr; }
+  .founder__doors:has(> .door:nth-child(3):is(:hover, :focus-within)) { grid-template-columns: 1fr 1fr 1.5fr; }
+  html.rm .founder__doors { transition: none; }
+}
+/* The quote sits a step under the d2 title, so the title leads (Times never under 28 px). */
+.founder__doors .door__q { font-size: max(1.75rem, min(calc(var(--fs-d2) * .78), 4cqh)); }
+.door__cta { white-space: normal; text-wrap: balance; padding-inline: 1.1em; }
+.door__plus { position: relative; width: 12px; height: 12px; }
+.door__plus::before, .door__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; }
+.door__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
+.door__toggle[aria-expanded="true"] .door__plus::after { transform: rotate(0deg); }

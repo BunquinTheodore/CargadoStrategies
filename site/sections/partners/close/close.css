@@ -1,0 +1,12 @@
+/* 7. P6 · Close: the small medallion, head and action on the left (5), four rows right (7) --- */
+#close .scene__pan {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: calc(2 * var(--gap-col));
+  align-items: center; align-content: center;
+}
+.close__side { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-l); }
+.close__medallion { flex: none; position: relative; z-index: 1; }   /* painted last, so nothing is promoted to sit above it */
+.close__title { font-size: min(var(--fs-d1), 8.5cqh); max-width: 12ch; }
+.close__action { display: grid; gap: var(--space-s); justify-items: start; }
+.close__wa { max-width: 34ch; padding-block: 10px; }
+.close__rows .row { min-height: min(var(--row-pitch), 15cqh); }
+.close__rows .row__title { font-size: var(--fs-d2); }

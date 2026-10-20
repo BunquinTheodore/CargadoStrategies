@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Cargado Strategies — home.css (index.html, DIRECTION §7.1 H1-H7)
+   The page stylesheet: its parts in the original rule order (cascade order is
+   the file order, so never reorder these imports).
+   1 shared scene frame · 2 H1 hero (O, W1) · 3 H2 one message (M, W2)
+   4 H3 situations (R) · 5 H4 founder doors (D, W3) · 6 H5 find (O, W4)
+   7 H6 close (M, W5) · 8 FAQ dialog (faq-dialog.css: #close opens it)
+   9 bands: laptop-short, tablet portrait, phone (_bands.css: they mix every scene)
+   Shared mechanics (rows, doors, strike, steps, medallion, dialog) live in
+   ui.css, fx.css and visual.css; these files only place and size them.
+   ========================================================================== */
+@import "../sections/home/_page.css";
+@import "../sections/home/hero/hero.css";
+@import "../sections/home/one-message/one-message.css";
+@import "../sections/home/situations/situations.css";
+@import "../sections/home/founder/founder.css";
+@import "../sections/home/find/find.css";
+@import "../sections/home/close/close.css";
+@import "../sections/home/faq-dialog/faq-dialog.css";
+@import "../sections/home/_bands.css";

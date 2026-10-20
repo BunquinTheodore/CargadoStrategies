@@ -1,0 +1,15 @@
+/* Services (services.html): page-level rules every scene shares; first in pages/services.css. */
+
+/* 1. Every Services pan fills its scene box, so groups can anchor top and bottom. Flow mode
+   (reduced motion) has no pan: the scene's inner box takes the same layout. */
+body[data-page="services"] .scene:not(.scene--credits) :is(.scene__pan, html.rm .scene__inner) {
+  margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
+  display: flex; flex-direction: column;
+}
+html.rm body[data-page="services"] .scene:not(.scene--credits) > .scene__inner {
+  height: auto; margin: 0; padding-block: var(--scene-pad-top) var(--scene-pad-bottom);
+  padding-inline: max(var(--page-pad), (100% - var(--max-w)) / 2);
+}
+.intro__head, .ins__head, .strat__head, .incl__head, .out__head, .finder__head { display: grid; gap: var(--space-s); justify-items: start; }
+.ins__head .rule, .intro__head .rule, .strat__head .rule, .incl__head .rule, .finder__head .rule { margin-top: var(--space-xs); }
+.offer-line { font: 600 var(--fs-note)/1.4 var(--font-body); color: var(--fg); }

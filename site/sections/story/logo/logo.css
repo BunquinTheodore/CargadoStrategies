@@ -1,0 +1,27 @@
+/* 4. T3 · Logo: W line | the mark | C line (today's composition, the judges' best frame) ----- */
+#logo .scene__pan { justify-content: center; }
+#logo { --mono: min(54svh, 36vw, 560px); }
+.logo__grid {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); grid-template-rows: auto 1fr 1fr auto;
+  column-gap: var(--space-xl); row-gap: var(--space-m); align-items: center;
+}
+.logo__eyebrow { grid-column: 1 / -1; grid-row: 1; justify-self: center; text-align: center; }
+.logo__line { margin: 0; font-family: var(--font-display); font-weight: 400; line-height: 1; }
+.logo__lead { display: block; font-size: var(--fs-d2); line-height: var(--lh-d2); }
+.logo__word { display: block; font-size: var(--fs-d1); line-height: 1.02; letter-spacing: var(--track-display); color: var(--accent); }
+.logo__line--w { grid-column: 1; grid-row: 2; justify-self: end; align-self: start; text-align: right; }
+.logo__line--c { grid-column: 3; grid-row: 3; justify-self: start; align-self: end; }
+.logo__mono { position: relative; grid-column: 2; grid-row: 2 / span 2; width: var(--mono); aspect-ratio: 1; color: var(--accent); }
+/* The globe's anchor: dotglobe inscribes its ring at 19/24 × 0.94 of the box's half-size, so a box
+   1/0.94 larger than the mark lays the dots on the drawn C. No transform (dotglobe measures it). */
+.logo__core { position: absolute; inset: -3.2%; pointer-events: none; }
+.logo__part { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.logo__part path { stroke-dasharray: 100; }   /* pathLength="100": Logo.js draws them on the cut */
+/* While the dot-globe is live its points become the C (W5), so the drawn C stands down; with the
+   posters (tier C, reduced motion, flow) the drawn C is the mark (ring mode has no poster). */
+.stage:has(> #globe:not([hidden])) .logo__c { visibility: hidden; }
+.logo__notes { grid-column: 1 / -1; grid-row: 4; display: grid; justify-items: center; gap: var(--space-2xs); text-align: center; }
+.logo__how { margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); max-width: 52ch; }
+.logo__ref { margin: 0; font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); }   /* a reference only, never quoted */
+.logo__faith { margin: 0; font-size: var(--fs-note); color: var(--fg-muted); }
+

@@ -1,0 +1,10 @@
+/* 4. S3 · The clean-up: one mega monument bottom-left across all 12 columns; who it is for, the promise
+   (the risk reversal sits by the CTA) and the CTA under it */
+#ours-strategy :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-end; gap: var(--space-l); padding-bottom: clamp(8px, 4cqh, 56px); }
+.strat__title { font-size: min(var(--fs-mega), 21cqh); max-width: none; text-wrap: balance; }
+.strat__body { display: grid; gap: var(--space-2xs); }
+.strat__for, .strat__promise { max-width: 64ch; font-size: var(--fs-lead); line-height: 1.5; }
+.strat__promise { color: var(--fg-muted); }
+@media (min-width: 760px) and (max-width: 1099px) { .strat__title { font-size: min(var(--fs-mega), 15cqh); } }   /* 3 lines at tablet widths: keep the air */
+.strat__spots { font: 600 var(--fs-note)/1.4 var(--font-body); color: var(--accent); }
+.strat__action { display: grid; gap: var(--space-m); justify-items: start; }

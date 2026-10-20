@@ -430,7 +430,7 @@ async function main() {
     const { send } = api;
     const fixtureState = fixture ? { served: false } : null;
     const rules = [filmHook(HOOK)];
-    if (!opts.now) rules.push({ pattern: '*/assets/css/base.css*', test: /\/base\.css(\?|$)/, rewrite: (u, b) => `${b}\n:root{--bottom-h:0px !important}\n` });
+    if (!opts.now) rules.push({ pattern: '*/base.css*', test: /\/base\.css(\?|$)/, rewrite: (u, b) => `${b}\n:root{--bottom-h:0px !important}\n` });
     if (fixture) {
       rules.push({
         pattern: '*/assets/js/config.js*', test: /\/config\.js(\?|$)/,

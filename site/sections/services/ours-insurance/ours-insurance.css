@@ -1,0 +1,13 @@
+/* 3. S2 · Insurance: the portrait on the left (5 cols), the copy on the right (7 cols) ------- */
+#ours-insurance :is(.scene__pan, html.rm .scene__inner) { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--gap-col); }
+.ins__object { position: relative; min-height: 0; display: grid; place-items: center; }
+.ins__portrait { --tportrait-h: min(64svh, 34vw); width: 100%; }
+.ins__photo { width: min(100%, 48svh); }
+.ins__portrait .tportrait__mark path + path { stroke-opacity: .6; }   /* the W stays behind the name (as Story) */
+.ins__object:has(.ins__photo[data-when-on]) .ins__portrait { display: none; }
+.ins__copy { display: flex; flex-direction: column; justify-content: flex-end; gap: var(--group-gap); min-height: 0; padding-bottom: clamp(8px, 4cqh, 56px); }
+.ins__title { font-size: min(var(--fs-d1), 8.5cqh); max-width: 16ch; }
+.ins__body { display: grid; gap: var(--space-s); }
+.ins__promise { max-width: 46ch; font-size: var(--fs-lead); line-height: 1.5; }
+.ins__action { display: grid; gap: var(--space-m); justify-items: start; }
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }

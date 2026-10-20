@@ -1,0 +1,5 @@
+/* 9. S8 · Close: a centred monument under the medallion -------------------------------------- */
+#close :is(.scene__pan, html.rm .scene__inner) { align-items: center; justify-content: center; gap: var(--space-l); text-align: center; }
+.closing__medallion { flex: none; }
+.closing__title { font-size: min(var(--fs-statement), 12svh); max-width: 14ch; }
+.closing__action { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-xs) var(--space-l); }

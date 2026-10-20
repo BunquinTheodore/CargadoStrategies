@@ -1,0 +1,103 @@
+/* 9. Bands ---------------------------------------------------------------------------------- */
+/* Laptop-short (≥ 760 wide, ≤ 760 tall): the strikes go 2 × 2 and the caps tighten. */
+@media (min-width: 760px) and (max-height: 760px) {
+  .hero__globe { --g: min(70svh, 52vw); }
+  .one__strike { display: grid; grid-template-columns: repeat(2, max-content); column-gap: var(--space-xl); max-width: none; }
+  .one__title { font-size: min(var(--fs-mega), 18svh); }
+  /* the hero clears the header: a smaller H1 cap and the trust line on one line */
+  .hero__title { font-size: min(var(--fs-statement), 11svh); }
+  .hero__trust { max-width: none; }
+  .founder__doors .ghost { font-size: min(var(--fs-ghost), 20svh); }
+  .sit__rows .row:where(a) {
+    grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "num title arrow" "num meta arrow";
+    min-height: 64px; row-gap: 2px;
+  }
+  .sit__rows .row__num { grid-area: num; } .sit__rows .row__title { grid-area: title; }
+  .sit__rows .row__meta { grid-area: meta; } .sit__rows .row__arrow { grid-area: arrow; }
+  /* the close breathes: a step smaller statement, a wider gap between medallion, words, CTA and rows */
+  .closing__title { font-size: min(var(--fs-statement), 10svh); }
+  #close .scene__pan { gap: var(--space-xl); }
+  .find__map { bottom: auto; height: 64svh; top: calc(50% - 32svh); }
+}
+
+/* Phone (< 760) and tablet portrait: the object is a top band, the text under it, CTA last. */
+@media (max-width: 759px), (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #hero .scene__pan, #find .scene__pan { justify-content: flex-start; }
+  .hero__globe, .find__map {
+    position: relative; inset: auto; width: auto; height: auto; margin: 0;
+    flex: 1 1 34svh; min-height: 8svh; max-height: 34svh;
+  }
+  .find__map { flex-basis: 36svh; max-height: 36svh; }
+  .find__cap { top: var(--scene-pad-top); bottom: auto; }
+  .hero__copy, .find__copy { width: auto; flex: 0 1 auto; justify-content: flex-end; padding-bottom: 0; gap: var(--space-l); }
+  .hero__action, .find__action { margin-top: auto; }
+  .hero__ctas { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .hero__cta, .find__action .btn { width: 100%; }
+  .hero__alt { align-self: center; }
+  .hero__action, .find__action { justify-items: stretch; }
+  .hero__next { display: none; }
+  .one__strike { max-width: none; }
+  .sit__head, .founder__head { max-width: none; }
+  .founder__doors .ghost { font-size: min(var(--fs-ghost), 13svh); }   /* narrow doors: clear of "Delegate." */
+  .sit__rows .row:where(a) {
+    grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "num title arrow" "num meta arrow"; row-gap: 2px;
+  }
+  .sit__rows .row__num { grid-area: num; } .sit__rows .row__title { grid-area: title; }
+  .sit__rows .row__meta { grid-area: meta; } .sit__rows .row__arrow { grid-area: arrow; }
+}
+
+/* Phone only. */
+@media (max-width: 759px) {
+  .hero__copy, .find__copy { gap: var(--space-s); }
+  .hero__head, .find__head { gap: var(--space-xs); }
+  .hero__lead { font-size: 1.0625rem; line-height: 1.5; }
+  .find__body { font-size: 1.0625rem; line-height: 1.5; }
+  /* the map label sits on the anchor's floor: keep it clear of the eyebrow (G5) */
+  .find__map { margin-bottom: var(--space-m); }
+  .hero__title { max-width: none; }
+  /* the globe never drops under 30svh: on short phones (≤ 780 tall) the head rises over the
+     sphere's lower rim instead of shrinking it to a dot */
+  .hero__globe { min-height: min(30svh, 214px); }
+  @media (max-height: 780px) { .hero__globe { margin-bottom: -15svh; } .hero__head { position: relative; } }
+  /* the eyebrow takes two lines below 380 px: break at the middot instead of hanging it */
+  @media (max-width: 379px) { .hero__sep { display: block; height: 0; visibility: hidden; } }
+  /* one tight centred group: the strikes 32 px over the monument (2 lines), the steps 48 px
+     under it. Sized so each search keeps one line down to 360 px (fx.css strikes every line). */
+  /* the action group (steps, link, doors, CTA) anchors to the bottom thumb zone; the spare splits
+     above the head and above that group, so no dead band is left under the last line */
+  #one-message .scene__pan, #situations .scene__pan, #founder .scene__pan, #close .scene__pan { justify-content: flex-start; }
+  .one__head, .sit__head, .founder__head, .closing__medallion { margin-top: auto; }
+  .one__steps, .sit__rows, .founder__doors, .closing__action { margin-top: auto; }
+  #one-message .scene__pan { gap: 0; }
+  .one__strike > li { font-size: min(1.75rem, 7.2vw); }
+  .one__head { margin-bottom: 32px; }
+  .one__title { margin-bottom: 48px; font-size: clamp(3.5rem, min(23vw, 11svh), 6rem); line-height: .9; }
+  .one__steps .steps__n { font-size: var(--fs-row-num); }
+  .one__steps > li { min-height: 56px; align-content: center; }
+  /* the head, the rows at a 72-104 px pitch and the link right under them, on the floor */
+  #situations .scene__pan { gap: var(--space-m); }
+  .sit__rows .row { min-height: clamp(64px, 11.5svh, 104px); padding-block: 6px; }
+  .sit__rows .row__title { font-size: 1.5rem; }
+  .sit__rows .row:where(a):not(:hover, :focus-visible) { column-gap: 12px; padding-inline: 12px; }   /* each tag on one line down to 360 px */
+  /* a .link's 12 px hit padding is inline, so it hangs below the line box: leave room for it */
+  .sit__more, .find__action { padding-bottom: 12px; }
+  .founder__title { font-size: var(--fs-d1); }
+  /* head and doors at their own heights, the doors on the floor (thumb zone); closed doors keep
+     a 14svh floor so the stack reads as three panels, not three lines */
+  .founder__doors { flex: 0 1 auto; min-height: 0; }
+  #founder .scene__pan { gap: var(--space-s); }
+  .founder__doors .door { flex: 0 0 auto; min-height: 14svh; position: relative; padding-block: var(--space-xs); justify-content: center; }
+  .founder__doors .door__q { font-size: 1.5rem; }
+  .founder__doors .ghost { display: none; }
+  .door__toggle { position: absolute; top: 0; right: 0; padding-inline: 8px 0; }
+  .door__cta { width: 100%; }
+  #close .scene__pan { gap: var(--space-m); }
+  /* the brand's closing line is a step over the 36 px d1 heads (44 px; 9svh caps it on short phones) */
+  .closing__title { font-size: min(var(--fs-statement), 9svh); line-height: 1; }
+  .closing__action { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .closing__action .link { align-self: center; }
+  .closing__action .btn { width: 100%; }
+  .closing__rows { grid-template-columns: 1fr; margin-top: var(--space-s); }
+  .closing__rows .row { min-height: 56px; }
+  .closing__rows .row + .row, .closing__rows li + li .row { border-top: 0; }
+}

@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Cargado Strategies — pages/partners.css (partners.html, DIRECTION §7.4 P1-P7)
+   1 shared scene frame · 2 P1 hero (O, W4 reversed) · 3 P2 how (R)
+   4 P3 tiers (D) · 5 P4 founding (M, gold) · 6 P5 apply (P, stepper)
+   7 P6 close (R + medallion) · 8 dialogs · 9 bands: laptop-short, tablet portrait, phone
+   Shared mechanics (rows, tabs, stepper, paper, dialog, medallion) live in
+   core/design (ui.css, fx.css, visual.css); the files below only place and size them.
+   ========================================================================== */
+
+/* The page stylesheet is this list, in the original rule order (the build inlines it into one bundle). */
+@import "../sections/partners/_page.css";
+@import "../sections/partners/hero/hero.css";
+@import "../sections/partners/how/how.css";
+@import "../sections/partners/tiers/tiers.css";
+@import "../sections/partners/founding/founding.css";
+@import "../sections/partners/apply/apply.css";
+@import "../sections/partners/close/close.css";
+@import "../sections/partners/tiers-dialog/tiers-dialog.css";
+@import "../sections/partners/partner-faq/partner-faq.css";
+@import "../sections/partners/_page-bands.css";

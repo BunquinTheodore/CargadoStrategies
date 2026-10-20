@@ -6,7 +6,7 @@
  *   <span class="rv-mask"><span class="rv-word">word</span></span>
  * and the element gets data-split="1". Whitespace between words is kept as is, nested inline
  * markup (em, a, .ph, .stop, .visually-hidden) is kept, and only ordinary whitespace breaks
- * words (&nbsp; keeps two words together): exactly what site/assets/js/film-split.js does in
+ * words (&nbsp; keeps two words together): exactly what site/core/engine/film-split.js does in
  * the browser, so the dev server (runtime split) and dist (build split) render the same.
  *
  *   node tools/build-splits.mjs [dir=dist]     (build.mjs calls splitHtml() itself)
@@ -14,6 +14,7 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { isSiteDir } from './lib/assemble.mjs';
 
 const OPEN = /<([a-z][a-z0-9]*)\b([^>]*\sdata-reveal="(?:words|lines|chars)"[^>]*)>/gi;
 const WHITESPACE = /([ \t\n\r]+)/;
@@ -75,6 +76,7 @@ export function splitHtml(html) {
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const dir = resolve(dirname(fileURLToPath(import.meta.url)), '..', process.argv[2] || 'dist');
+  if (isSiteDir(dir)) throw new Error('build-splits: run it on a built folder (dist), not site/: writing back would replace the section markers');
   const files = (await readdir(dir)).filter((f) => f.endsWith('.html'));
   for (const f of files) {
     const { html, count, warnings } = splitHtml(await readFile(join(dir, f), 'utf8'));

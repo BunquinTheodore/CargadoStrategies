@@ -6,11 +6,16 @@
  *
  *   node serve.mjs dist 8231      # the production build
  *   node serve.mjs site 8230      # the readable source
+ *
+ * Serving site/, .html responses are assembled on the fly (section markers
+ * expanded by tools/lib/assemble.mjs), so the source pages load whole.
  */
+import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import { brotliCompressSync, gzipSync, constants as zlib } from 'node:zlib';
+import { assemble, isSiteDir } from './tools/lib/assemble.mjs';
 
 const HOST = '127.0.0.1';
 const DEFAULT_PORT = 8231;
@@ -40,7 +45,8 @@ const COMPRESSIBLE = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '
 
 const root = resolve(process.argv[2] || 'dist');
 const port = Number(process.argv[3]) || DEFAULT_PORT;
-const cache = new Map(); // path + encoding → compressed body
+const assembles = isSiteDir(root); // site/ pages are shells with section markers
+const cache = new Map(); // path + content hash + encoding → compressed body
 
 function cacheControl(path) {
   if (HASHED_FILE.test(path) || path.includes(`${sep}fonts${sep}`)) return `public, max-age=${ONE_YEAR_S}, immutable`;
@@ -76,10 +82,10 @@ async function respond(req, res) {
     return;
   }
   const ext = extname(path).toLowerCase();
-  const raw = await readFile(path);
+  const file = await readFile(path);
+  const raw = assembles && ext === '.html' ? Buffer.from(assemble(file.toString('utf8'), { siteDir: root, label: path }), 'utf8') : file;
   const encoding = COMPRESSIBLE.has(ext) && raw.length >= COMPRESS_MIN_BYTES ? pickEncoding(req.headers['accept-encoding']) : null;
-  const { mtimeMs } = await stat(path);
-  const key = `${path}|${mtimeMs}|${encoding}`;
+  const key = `${path}|${createHash('sha1').update(raw).digest('hex')}|${encoding}`; // partials change without the shell's mtime
   const body = encoding ? cache.get(key) || cache.set(key, compress(raw, encoding)).get(key) : raw;
   const headers = {
     'Content-Type': TYPES[ext] || 'application/octet-stream',

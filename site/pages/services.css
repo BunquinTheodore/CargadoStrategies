@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Cargado Strategies — pages/services.css (services.html, DIRECTION §7.2 S1-S9)
+   1 shared scene frame · 2 S1 intro (R) · 3 S2 insurance (O) · 4 S3 the
+   clean-up (M) · 5 S4 what you get (R) · 6 S5 outsourcing (D, gold)
+   7 S6 concierge / finder (O, W4) · 8 S7 inquiry (P) · 9 S8 close (M, W5)
+   10 categories and profile dialogs · 11 bands: laptop-short, tablet
+   portrait, phone
+   Shared mechanics (rows, paper, stepper, pager, tabs, dialog, medallion,
+   portrait) live in core/design (ui.css, fx.css, visual.css); the files below
+   only place and size them inside services.html.
+   ========================================================================== */
+
+/* The page stylesheet is this list, in the original rule order (the build inlines it into one bundle). */
+@import "../sections/services/_page.css";
+@import "../sections/services/intro/intro.css";
+@import "../sections/services/ours-insurance/ours-insurance.css";
+@import "../sections/services/ours-strategy/ours-strategy.css";
+@import "../sections/services/ours-includes/ours-includes.css";
+@import "../sections/services/ours-outsourcing/ours-outsourcing.css";
+@import "../sections/services/finder/finder.css";
+@import "../sections/services/inquiry/inquiry.css";
+@import "../sections/services/close/close.css";
+@import "../sections/services/categories-dialog/categories-dialog.css";
+@import "../sections/services/profile-dialog/profile-dialog.css";
+@import "../sections/services/_bands.css";

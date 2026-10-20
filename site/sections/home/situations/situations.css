@@ -1,0 +1,8 @@
+/* 4. H3 · Situations: the head top-left, four quote rows full width, the link under them ----- */
+#situations .scene__pan { justify-content: center; gap: var(--space-l); }
+.sit__head { max-width: 34%; }
+.sit__rows .row { min-height: min(var(--row-pitch), 15cqh); }
+/* each tag takes its own width (not 30ch), flush to the arrow, so every quote keeps one line on wide screens */
+.sit__rows .row:where(a) { grid-template-columns: auto minmax(0, 1fr) max-content auto; }
+.sit__rows .row__title { font-size: min(var(--fs-quote), 5.2cqh, 2.875rem); }   /* row 03 keeps one line at 1920 */
+.sit__more { margin: 0; width: fit-content; }
