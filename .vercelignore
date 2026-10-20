@@ -1,0 +1,5 @@
+plan/
+Cargado-*
+*.pdf
+dist/
+node_modules/

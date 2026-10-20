@@ -542,6 +542,7 @@ async function writeExtras() {
   await writeFile(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
   await cp(join(SRC, 'favicon.svg'), join(OUT, 'favicon.svg'));
+  await cp(join(SRC, '404.html'), join(OUT, '404.html')); // standalone, served by the host for unknown URLs
   await writeFile(join(OUT, '_headers'), HOST_HEADERS);
   const imgDir = join(SRC, ASSETS, 'img');
   if (existsSync(imgDir)) await cp(imgDir, join(OUT, ASSETS, 'img'), { recursive: true }); // HTML and JS references (sprite, posters)
@@ -551,7 +552,7 @@ async function writeExtras() {
   await Promise.all(json.map((f) => cp(join(dataDir, f), join(OUT, ASSETS, 'data', f))));
 }
 
-/** Netlify / Cloudflare Pages header rules (other hosts: see README). */
+/** Netlify / Cloudflare Pages header rules (Vercel reads vercel.json instead; other hosts: see README). */
 const HOST_HEADERS = `/assets/*
   Cache-Control: public, max-age=31536000, immutable
 /*.html
