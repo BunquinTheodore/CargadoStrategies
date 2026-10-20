@@ -6,8 +6,7 @@ Entry `pages/legal.js` (plus `pages/legal-fx.js`, its own chunk), styles `pages/
 
 | # | id | field · archetype | Partial / class | What it does |
 |---|---|---|---|---|
-| (shell) | `.legal-draft` | band | in `legal.html`, not a section | The persistent C38 draft notice under the header. `pages/legal.js` publishes its height as `--banner-h`. It stays until counsel signs off |
-| L1 | `contents` | bone · R | `contents/` | The five documents as index rows, with the draft notice as fine print |
+| L1 | `contents` | bone · R | `contents/` | The five documents as index rows, with a short general-information note as fine print |
 | L2 | `disclosure` | bone · P | `disclosure/` · `Disclosure.js` | Professional disclosure, a paged reader (`LegalDoc`) |
 | L3 | `privacy` | bone · P | `privacy/` · `Privacy.js` | Privacy policy, paged (CR06, CR07, CR10) |
 | L4 | `terms` | bone · P | `terms/` · `Terms.js` | Terms of use, paged |
@@ -30,4 +29,4 @@ Page-level files: `_page.css` (first), `_documents.css` (rules shared by L2-L5, 
 - Fit flow: #7 `credits` spare 21 < 24 at 360x740. Film and touch are clean.
 - Always run with the counsel-length stand-in: `node tools/fit-audit.mjs <url> legal.html --states=tools/fit-states/legal.mjs --ph-repeat=3` (also `--flow` and `--touch`).
 - Perf: initial JS gzip 51.3 KB against the legal budget of 40 KB (FAIL). Never add imports to legal's entry path. Keep heavy modules dynamic.
-- Owner and lawyer content: `[date]`, privacy officer, retention period, governing `[province]`, cookie and analytics tools, entity names and licence numbers.
+- Final copy (owner, 2026-10-20): no draft markers and no bracket placeholders. The privacy contact (Lee Holgado, the email) is written into `privacy/privacy.html`; update it there if it changes.

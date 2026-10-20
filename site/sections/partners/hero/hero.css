@@ -11,6 +11,8 @@
 }
 .hero__title { font-size: min(var(--fs-statement), 12.5svh); max-width: 12ch; }
 .hero__body { display: grid; gap: var(--space-m); }
-.hero__lead { max-width: 46ch; }
+.hero__lead { max-width: 54ch; text-wrap: balance; }   /* even line lengths, no short last line (owner, 2026-10-20) */
 .hero__hook { margin: 0; font: italic 400 clamp(1.375rem, calc(1rem + 1.1 * var(--u)), 2rem)/1.25 var(--font-display); color: var(--fg); max-width: 34ch; }
 .hero__hook .ph { font-style: normal; }
+/* The CTA and the founding hook on one row (owner, 2026-10-20); phones stack them (the CTA is full width). */
+.hero__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-l); }

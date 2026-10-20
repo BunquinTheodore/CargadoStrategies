@@ -19,6 +19,7 @@
     "shoot": "node tools/shoot.mjs --vp=review"
   },
   "devDependencies": {
+    "@fontsource/josefin-sans": "5.1.0",
     "@fontsource/manrope": "5.1.0",
     "@fontsource/poppins": "5.1.0",
     "@fontsource/tinos": "5.1.0",

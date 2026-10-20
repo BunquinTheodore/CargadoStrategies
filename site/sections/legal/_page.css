@@ -6,28 +6,7 @@ body[data-page="legal"] {
   --clause-num: 2.5rem;
   --legal-title: min(var(--fs-d1), 3.5rem, 8cqh);
 }
-/* The band height reaches the engine's :root tokens (R4 legal §3.2); legal.js writes the
-   measured value on <html>, these defaults hold the boxes right before it runs. */
-:root:has(body[data-page="legal"]) { --banner-h: 32px; }
-@media (max-width: 759px) { :root:has(body[data-page="legal"]) { --banner-h: 50px; } }
-
-/* 2. Draft band (C38): 14 px, ink on champagne, the full wording always visible -------- */
-.legal-draft {
-  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: calc(var(--z-header) - 1);
-  padding: 6px var(--page-pad); background: var(--c-champagne); color: var(--c-black);
-  border-bottom: 1px solid rgba(11,11,12,.15); pointer-events: none;
-}
-.legal-draft__text {
-  max-width: var(--max-w); margin: 0 auto; text-align: center; text-wrap: balance;
-  font: 500 var(--fs-label)/1.4 var(--font-ui); letter-spacing: .01em;
-}
-.legal-draft__tag {
-  display: inline-block; margin-right: .6em; padding: 0 .55em; border-radius: 999px;
-  background: var(--c-black); color: var(--c-champagne); font-weight: 600; line-height: 1.45;
-}
-html.nav-open .legal-draft { visibility: hidden; }
-
-/* 3. Every legal pan fills its scene box, so groups can anchor top and bottom --------- */
+/* 2. Every legal pan fills its scene box, so groups can anchor top and bottom --------- */
 body[data-page="legal"] .scene:not(.scene--credits) .scene__pan {
   margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
   display: flex; flex-direction: column; padding-top: max(var(--scene-pad-top), var(--space-l));
@@ -39,6 +18,5 @@ body[data-page="legal"] .scene:not(.scene--credits) .scene__pan {
 .legal-head .rule { margin-block: var(--space-2xs); }
 .legal-title { font-size: var(--legal-title); line-height: var(--lh-d1); max-width: 12ch; }
 .legal-aside { max-width: 34ch; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
-.legal-aside .ph { display: inline-block; }     /* a bracket wraps as one piece */
 .legal-head__action { margin-top: var(--space-2xs); }
 

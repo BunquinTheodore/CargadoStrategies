@@ -15,7 +15,8 @@
       var FALLBACK_MS = 8000;
       var mm = function (q) { return !!(window.matchMedia && matchMedia(q).matches); };
       var pref = null;
-      try { pref = localStorage.getItem('cs-motion'); } catch (e) { /* storage blocked: OS setting only */ }
+      /* No motion or sound switches (owner, 2026-10-20): forget choices made with the old footer switches. */
+      try { localStorage.removeItem('cs-motion'); localStorage.removeItem('cs-sound'); } catch (e) { /* storage blocked: nothing stored */ }
       var rm = pref === 'reduced' || pref === 'full' ? pref === 'reduced' : mm('(prefers-reduced-motion: reduce)');
       var coarse = mm('(pointer: coarse)') && !mm('(hover: hover) and (pointer: fine)');
       var mode = rm ? 'flow' : coarse ? 'touch-cut' : 'cut';
@@ -67,9 +68,9 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
        Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
   <link rel="stylesheet" href="core/design/base.css">
   <link rel="stylesheet" href="core/design/fx.css">
   <link rel="stylesheet" href="core/design/ui.css">
@@ -101,7 +102,7 @@
   <a class="skip-link" href="#content">Skip to Content</a>
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="Cargado Strategies, home"><svg class="monogram" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/></svg><span class="brand__word">Cargado Strategies</span></a>
-    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="services.html" aria-current="page">Services</a></li><li><a class="site-nav__link" href="story.html">Our Story</a></li><li><a class="site-nav__link" href="partners.html">For Professionals</a></li></ul></nav>
+    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="index.html">Home</a></li><li><a class="site-nav__link" href="services.html" aria-current="page">Services</a></li><li><a class="site-nav__link" href="story.html">Story</a></li><li><a class="site-nav__link" href="partners.html">For Professionals</a></li></ul></nav>
     <a class="btn btn--primary btn--sm site-header__wa" href="https://wa.me/12048692508?text=Hi%20Cargado%20Strategies%2C%0AI'm%20on%20the%20Services%20page%20of%20your%20website.%0AWhat%20I%20need%20help%20with%3A%20%E2%80%A6%0AMy%20city%20and%20province%20(so%20you%20can%20introduce%20me%20to%20someone%20close%20to%20me)%3A%20%E2%80%A6" target="_blank" rel="noopener" data-wa-sheet data-context="services"
        aria-label="Message Us on WhatsApp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><path d="M9.2 8.2c.3-.6.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .6-.2 1.3-.8 1.6-.6.4-1.5.5-2.6.1-1.7-.6-3.4-2.1-4.3-3.8-.6-1.1-.7-2.2-.4-3Z" fill="currentColor"/></svg><span class="btn__label">WhatsApp</span></a>
     <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">

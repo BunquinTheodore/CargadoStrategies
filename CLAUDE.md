@@ -14,7 +14,15 @@ Read this first on every task. Deeper contracts: `site/core/CLAUDE.md` (engine, 
 - **Colour: black and gold only. No blue anywhere.** Fields are `ink`, `bone` and `gold`, with gold at most once per page (none on story and legal). Tokens live at the top of `site/core/design/base.css`.
 - **Type:** display is the Times New Roman stack (Tinos fallback), written in **Title Case in the markup** (never `text-transform`). Body is Manrope and UI labels are Poppins. **14 px floor** for any visible text (`--fs-label`), and reading lines use `--fs-note`.
 - **One scroll = one section, and every section fits one screen** at all 9 contract viewports, in cut, touch-cut and flow modes (`tools/fit-audit.mjs`).
-- **Compliance copy survives word for word**: notices, hints, fine print, the legal draft notice, FAQ answers, the `[bracket]` placeholders and "We only message from +1 (204) 869 2508". `tools/compliance-diff.mjs` must report **0 missing / 0 altered**. Only the moves listed in `plan/round5/compliance-moves.json` are allowed.
+- **Compliance copy survives word for word**: the notices, hints, fine print, FAQ answers and `[bracket]` placeholders recorded in `plan/round5/compliance-baseline.json`. `tools/compliance-diff.mjs` must report **0 missing / 0 altered**. Only the moves listed in `plan/round5/compliance-moves.json` are allowed.
+- **Owner decisions (2026-10-20), do not re-add:**
+  - No footer fine print, and no "We only message from" line. The Story "Independent partners" notice and the Partners "Commission terms" notice are gone too.
+  - The Legal page is final, with no draft markers.
+  - No Sound or Motion switches; the site always runs with full motion and sound on.
+  - Buttons are round frosted glass (`.btn` in base.css).
+  - The nav is centred and includes Home.
+  - Footer contact shows WhatsApp, the email address, the Facebook page name and the address, with no Call item.
+  - A `.rule[data-rule-fit]` runs to the end of its heading's last line (`core/lib/fit-rule.js`).
 - **Owner content lives in `site/assets/js/config.js`**: founder Lee Holgado, phone **+1 (204) 869 2508 (the only number)**, the email, the Winnipeg address (1210 Chamberlain Ave, R2X 1E7), the Facebook page (the URL is still a placeholder), categories, partners and the proof slots. Do not hardcode these elsewhere; read them from config.
 - **Never invent** partners, people, photos, stats, ratings, testimonials, quotes or licence numbers. Unconfirmed facts stay as `<span class="ph">[bracket]</span>`. Proof slots stay hidden through `[data-when="KEY"]` until config fills them. `PARTNERS` is empty, so the site shows "Partner spot available".
 - **The repo is public.** `Cargado-Strategies-Proposal-SRS*.pdf` and `Cargado-Wireframes.html` stay gitignored and are never committed or quoted wholesale. The golden copies under `plan/restructure/golden/` and `after-core/` are gitignored too.

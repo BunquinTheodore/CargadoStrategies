@@ -18,6 +18,7 @@ import { waLink } from '../../../core/chrome/whatsapp.js';
 import { createStepper } from '../../../core/ui/ui-stepper.js';
 import { OURS, PARTNER_ONLY } from '../services-data.js';
 import { titleCase } from '../../../core/lib/text-case.js';
+import { sendInquiry } from '../../../core/lib/send-inquiry.js';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_DIGITS_MIN = 7;
@@ -78,6 +79,20 @@ function inquiryText(d, form) {
     `Please contact me by: ${CONTACT_LABELS[d.contact] || CONTACT_LABELS.whatsapp}`,
     'I agree that you may use these details to answer my inquiry and share them with the partner you introduce me to.',
   ].filter(Boolean).join('\n');
+}
+
+/** The owner's email copy (api/inquiry.js), sent beside the hand-off. */
+function emailCopy(d, form) {
+  sendInquiry('inquiry', {
+    Name: d.name,
+    Email: d.email,
+    Phone: d.phone,
+    Service: categoryName(form, d.category),
+    City: d.city,
+    Message: d.description,
+    'Preferred contact': CONTACT_LABELS[d.contact] || CONTACT_LABELS.whatsapp,
+    Consent: d.consent ? 'Yes' : 'No',
+  });
 }
 
 function handoff(d, form) {
@@ -151,6 +166,7 @@ export function initInquiry({ panel, film, sound }) {
       if (data.website) return showSuccess(data.name || 'you', null); // honeypot: no hand-off
       const link = handoff(data, form);
       window.open(link.href, '_blank', 'noopener');
+      emailCopy(data, form);
       return showSuccess(data.name, link);
     },
   });

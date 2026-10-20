@@ -29,6 +29,7 @@ import { openDialog, closeDialog } from '../ui/ui-dialog.js';
 import { createStepper } from '../ui/ui-stepper.js';
 import { buildIntro, waLink, pageMessage } from './whatsapp.js';
 import { PHONE, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, FOUNDER_NAME, categoryBySlug } from '../../assets/js/config.js';
+import { sendInquiry } from '../lib/send-inquiry.js';
 
 const CITY_KEY = 'cs-city';
 const HASH = '#wa-sheet';
@@ -142,6 +143,19 @@ function renderChips(box, name) {
     <label class="chip sheet__chip"><input type="radio" name="${name}" value="${slug}">
       <span class="chip__label">${label}</span>${founder ? `<span class="chip__tag">From ${founderName()}</span>` : ''}
     </label>`).join('');
+}
+
+/**
+ * The owner's email copy (api/inquiry.js) of a WhatsApp opening: 'introduction' for the
+ * steps' "Open WhatsApp" (with the written message), 'contact' for the direct link.
+ */
+function emailCopy(kind, { need, city, context }) {
+  sendInquiry(kind, {
+    Service: needLabel(need),
+    City: city,
+    'Opened from': context,
+    Message: kind === 'introduction' ? buildIntro({ need, city, context }) : '',
+  });
 }
 
 /** The message as lines (no innerHTML: the city is visitor text). */
@@ -293,10 +307,15 @@ export function initWaSheet({ film, sfx, dialog = document.getElementById('wa-sh
 
   form.addEventListener('input', sync);
   form.addEventListener('change', sync);
-  ui.go.addEventListener('click', () => opened());
+  ui.go.addEventListener('click', () => {
+    opened();
+    emailCopy('introduction', intro());
+  });
   /* The direct link opens WhatsApp with the opener's own message; no need, the city as typed so far. */
   parts.direct?.addEventListener('click', () => {
-    opened({ need: '', city: city(), context: state.context });
+    const detail = { need: '', city: city(), context: state.context };
+    opened(detail);
+    emailCopy('contact', detail);
     api.close();
   });
   /* A pointer tap on a chip is the answer: go straight to the city. Keyboard arrows only select. */

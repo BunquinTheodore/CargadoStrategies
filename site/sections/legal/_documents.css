@@ -29,6 +29,5 @@
 }
 .clauses p { grid-column: 2; max-width: var(--measure-legal); }
 .clause__title { grid-column: 2; margin-bottom: 2px; font: 600 var(--fs-d4)/1.3 var(--font-body); letter-spacing: 0; }
-.clauses .ph { white-space: normal; }
 /* Snug (set by the reader only when it saves a page): tighter rhythm, the same type size. */
 .legal-reader.is-snug { --clause-pad: max(6px, calc(clamp(10px, 1.6svh, 18px) * .55)); --doc-lh: 1.55; }

@@ -8,7 +8,6 @@
   .ins__portrait { --tportrait-h: min(54svh, 32vw); }
   .strat__title { font-size: min(var(--fs-mega), 18svh); }
   .incl__row { min-height: 52px; }
-  .panel .ghost { font-size: min(var(--fs-ghost), 20svh); }
   .finder__globe { bottom: auto; height: 64svh; top: calc(50% - 32svh); }
   .concierge { gap: var(--space-s); }
   .closing__title { font-size: min(var(--fs-statement), 11svh); }
@@ -72,36 +71,20 @@
   .incl__row { grid-template-columns: 3.2ch minmax(0, 1fr); }
   .incl__item { font-size: 1.0625rem; }
   .incl__fix { display: none; }   /* phones: titles only (§7.2 S4) */
-  /* S5: a 2 × 2 grid of titles; a tap opens one panel's line (an exclusive accordion) */
-  #ours-outsourcing :is(.scene__pan, html.rm .scene__inner) { justify-content: center; }
-  .out__title { font-size: clamp(2.5rem, 12vw, 3.25rem); line-height: 1; }
-  .out__action { flex-direction: column; align-items: stretch; gap: var(--space-xs); }
-  .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; flex: 0 1 auto; height: auto; min-height: 0; border-top: 1px solid rgba(11,11,12,.55); }
-  .panel { grid-row: auto; grid-template-rows: auto auto; align-content: start; padding: 28px var(--space-s) var(--space-s) 0; }
-  .panel:nth-child(even) { padding-left: var(--space-s); }
-  .panel + .panel { border-left: 0; }
-  .panel:nth-child(even) { border-left: 1px solid rgba(11,11,12,.55); }
-  .panel:nth-child(n + 3) { border-top: 1px solid rgba(11,11,12,.55); }
-  .panel .ghost { display: none; }
-  /* Item titles in Manrope (DIRECTION §4.1): a bracketed role fits half a 360 px screen. */
-  .panel__title { grid-row: 1; font-size: var(--fs-d4); }
-  .panel__line { grid-row: 2; }
-  /* The whole panel is the toggle; its plus sits in the corner above the title. */
-  .panel__toggle {
-    position: absolute; inset: 0; display: grid; place-items: start end; padding: 10px 6px 0 0;
-    border: 0; background: none; color: var(--fg);
-  }
-  html.js .panel:not(.is-open) .panel__line { display: none; }
-  .panel__plus { position: relative; width: 12px; height: 12px; }
-  .panel__plus::before, .panel__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; background: currentColor; }
-  .panel__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
-  .panel__toggle[aria-expanded="true"] .panel__plus::after { transform: rotate(0deg); }
+  /* S5: its phone accordion lives in ours-outsourcing/ours-outsourcing.css */
   /* S6 */
   .finder__head { gap: var(--space-xs); }
   .concierge { gap: var(--space-s); }
   .concierge__fields { gap: var(--space-xs); }
   @media (max-width: 479px) { .concierge__fields { grid-template-columns: minmax(0, 1fr); } }   /* "Choose a service" never clips */
   .finder__action { padding-bottom: 4px; }
+  /* short phones: the concierge head sets on one line and drops its rule, so the map of Canada
+     keeps a readable band above it instead of a clipped sliver */
+  @media (max-height: 780px) {
+    #finder:not(.is-finder) .finder__title { font-size: max(1.75rem, min(var(--fs-d1), 8vw)); white-space: nowrap; }
+    #finder:not(.is-finder) .finder__head .rule { display: none; }
+    #finder:not(.is-finder) .finder__globe { min-height: 18svh; margin-bottom: var(--space-s); }
+  }
   /* the finder: Search · Map · Results tabs, one panel at a time */
   .finder { grid-template-rows: auto minmax(0, 1fr); grid-template-areas: "tabs" "panel"; }
   .finder__controls, .finder__map, .results { grid-area: panel; }
@@ -140,10 +123,10 @@
 /* Tablet portrait: the copy columns of S2 and the inquiry go full width (phone composition). */
 @media (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
   .ins__copy { gap: var(--space-l); }
-  /* S5: four columns are too narrow for a bracketed role in Times; two rows of two, ghosts smaller. */
-  .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr) auto auto); }
-  .panel:nth-child(3) { border-left: 0; }
-  .panel:nth-child(n + 3) { border-top: 1px solid rgba(11,11,12,.55); }
-  .panel .ghost { font-size: min(var(--fs-ghost), 13svh); }
   .finder__copy { gap: var(--space-l); }
+}
+/* Wide screens (≥ 1280, 3:2 and wider): Canada fills its side (owner, 2026-10-20). Last in the
+   cascade, so it wins over the laptop-short height cap above. */
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
+  #finder:not(.is-finder) .finder__globe { top: 3%; bottom: auto; height: 92%; left: 44%; right: 0; }
 }

@@ -11,8 +11,8 @@
  * moves. It then dispatches `cs:splash-aperture` ({ x, y, r }) on document,
  * so dotglobe draws its limb on the same frame and fires the hero arc, and
  * the ring fades out (80 ms). `cs:splash-done` follows when the splash is
- * gone (also after a skip). Total ≤ 1.1 s from the mark's first frame (500 +
- * 340 + 60 = 900 ms), and CAP_MS enforces it: whatever is still running then
+ * gone (also after a skip). Total ≤ 2.1 s from the mark's first frame (1500 +
+ * 340 + 60 = 1900 ms), and CAP_MS enforces it: whatever is still running then
  * fades in SKIP_MS. A script that arrives too late for the match cut fades the
  * splash at once. done() records the User Timing measure `cs-splash`.
  *
@@ -33,16 +33,16 @@
 
 const SESSION_KEY = 'cs-splash';
 const MEASURE = 'cs-splash'; // User Timing: the mark's first frame to splash-done (perf-gate reads it)
-const MATCH_AT_MS = 500; // after the mark starts: the C (0-380), W (240-480) and sheen (220-580) are CSS
+const MATCH_AT_MS = 1500; // ≈ 1 s longer hold on the drawn mark (owner, 2026-10-20). After the mark starts: the C (0-380), W (240-480) and sheen (220-580) are CSS
 const MATCH_MS = 340;
 const RING_FADE_MS = 60;
-const CAP_MS = 1000; // W1: the splash is done by 1.1 s from its first frame, whatever happens (+ SKIP_MS fade)
+const CAP_MS = 2000; // W1: the splash is done by 2.1 s from its first frame, whatever happens (+ SKIP_MS fade)
 const LATE_MS = 120; // a script arriving this long after MATCH_AT_MS skips the match cut
 const W_FADE_MS = 160;
 const SKIP_MS = 150;
-const RM_HOLD_MS = 300;
+const RM_HOLD_MS = 1300;
 const RM_FADE_MS = 200;
-const CSS_FALLBACK_MS = 1000; // visual.css fades the splash by itself from here (keep in sync)
+const CSS_FALLBACK_MS = 2000; // visual.css fades the splash by itself from here (keep in sync)
 const MARK = Object.freeze({ cx: 24, cy: 24, r: 19, size: 48 }); // the C ring inside the 48-unit mark
 const GLOBE_FILL = 0.94; // the globe's radius as a share of its anchor's half-size
 const MIN_ANCHOR_PX = 24;

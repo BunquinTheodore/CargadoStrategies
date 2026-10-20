@@ -1,5 +1,5 @@
-/* 8. Flow mode (reduced motion): the same boxes; anchors clear the header and the band -- */
-html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(var(--header-h) + var(--banner-h) + var(--space-m)); }
+/* 8. Flow mode (reduced motion): the same boxes; anchors clear the header ---------------- */
+html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(var(--header-h) + var(--space-m)); }
 
 /* 9. Bands ------------------------------------------------------------------------------ */
 /* Landscape from 760 px: the document head in cols 1-4, the paper in cols 6-12 (5-12 below
@@ -32,7 +32,6 @@ html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(va
 
 @media (max-width: 759px) {
   body[data-page="legal"] { --clause-num: 1.75rem; --doc-lh: 1.6; --legal-title: 2rem; }
-  .legal-draft { padding-block: 4px; }
   .legal-head { gap: var(--space-xs); }
   .legal-head .rule { display: none; }
   .legal-aside { font-size: var(--fs-note); }
@@ -75,6 +74,8 @@ html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(va
   /* L7: one group at monument size, the statement over the middle, the CTA in the thumb zone. */
   body[data-page="legal"] .scene.legal-close .scene__pan { gap: clamp(32px, 9cqh, 88px); padding-top: 4cqh; }
   .close__title { font-size: clamp(2.75rem, min(14vw, 8svh), 4rem); }
+  .close__action { align-self: stretch; }
+  .close__action .btn { width: 100%; }   /* the CTA full width, as on the other pages' closes */
 }
 /* Short phones (360×740 and similar): the contents eyebrow repeats the index, so it steps out
    (R4 legal §4 scene 0); the notice never shrinks. */

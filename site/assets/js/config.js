@@ -87,7 +87,7 @@ export const FOUNDER_SIGNATURE = '';
 export const FINDER_MIN_PARTNERS = 3;
 
 /** The footer and menu "Sound" and "Motion" switches (C37). */
-export const FOOTER_SWITCHES = true;
+export const FOOTER_SWITCHES = false;
 
 /**
  * TODO(founder): real proof numbers only, e.g.

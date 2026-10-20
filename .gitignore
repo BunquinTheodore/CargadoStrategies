@@ -19,3 +19,4 @@ plan/round5/final-audit-raw/*.png
 plan/round5/make_report.py
 .vercel/
 .env*.local
+plan/restructure/shots-*/

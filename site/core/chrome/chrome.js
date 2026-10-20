@@ -56,7 +56,7 @@ const ARROW = '<span class="btn__arrow" aria-hidden="true">→</span>';
 /** Header links (≤ 6 marks with the monogram, wordmark and WhatsApp). */
 export const HEADER_NAV = Object.freeze([
   { key: 'services', label: 'Services', href: 'services.html' },
-  { key: 'story', label: 'Our Story', href: 'story.html' },
+  { key: 'story', label: 'Story', href: 'story.html' },
   { key: 'partners', label: 'For Professionals', href: 'partners.html' },
 ]);
 /** Menu and footer pages. */
@@ -78,7 +78,7 @@ const sheetAttrs = (page) => `data-wa-sheet data-context="${escapeHtml(page)}"`;
 
 /** The header's inner HTML (also written into each page's HTML, so it paints with the page). */
 export function headerHTML(page = 'home') {
-  const links = HEADER_NAV.map(({ key, label, href }) =>
+  const links = [{ key: 'home', label: 'Home', href: 'index.html' }, ...HEADER_NAV].map(({ key, label, href }) =>
     `<li><a class="site-nav__link" href="${href}"${current(key, page)}>${titleCase(label)}</a></li>`).join('');
   return `
   <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${MONOGRAM}<span class="brand__word">${SITE_NAME}</span></a>
@@ -94,13 +94,12 @@ export function headerHTML(page = 'home') {
 
 function contactItems(page) {
   const email = CONTACT_EMAIL
-    ? `<a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${ICONS.mail}<span>Email</span></a>`
+    ? `<a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${ICONS.mail}<span><span class="visually-hidden">Email: </span><span class="site-footer__email">${escapeHtml(CONTACT_EMAIL)}</span></span></a>`
     : `<span>${ICONS.mail}<span><span class="visually-hidden">Email: </span><span class="ph">${escapeHtml(CONTACT_EMAIL_LABEL)}</span></span></span>`;
   return [
     `<a href="${pageLink(page)}" ${NEW_TAB} ${sheetAttrs(page)}>${ICONS.whatsapp}<span>WhatsApp <span class="site-footer__num num">${PHONE.display}</span></span>${NEW_TAB_NOTE}</a>`,
-    `<a href="tel:${PHONE.e164}">${ICONS.phone}<span>Call<span class="visually-hidden"> ${PHONE.display}</span></span></a>`,
     email,
-    `<a href="${FACEBOOK_URL}" ${NEW_TAB}>${ICONS.facebook}<span>Facebook<span class="visually-hidden">: ${escapeHtml(FACEBOOK_PAGE_NAME)}</span></span>${NEW_TAB_NOTE}</a>`,
+    `<a href="${FACEBOOK_URL}" ${NEW_TAB}>${ICONS.facebook}<span><span class="visually-hidden">Facebook: </span>${escapeHtml(FACEBOOK_PAGE_NAME)}</span>${NEW_TAB_NOTE}</a>`,
     `<a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(ADDRESS_LINE)}" ${NEW_TAB}>${ICONS.pin}<span>${escapeHtml(ADDRESS_LINE)}</span>${NEW_TAB_NOTE}</a>`,
   ].map((item) => `<li>${item}</li>`).join('');
 }
@@ -226,19 +225,11 @@ export function footer({ page = document.body.dataset.page || 'home' } = {}) {
       ${MONOGRAM}
       <p class="site-footer__name">${SITE_NAME}</p>
       <p class="site-footer__tagline">${TAGLINE}</p>
+      <p class="site-footer__copy">© ${new Date().getFullYear()} ${SITE_NAME}</p>
     </div>
     <nav class="site-footer__contact" aria-label="Contact"><ul class="site-footer__icons">${contactItems(page)}</ul></nav>
     <nav class="site-footer__nav" aria-label="Footer"><ul class="site-footer__links">${links}</ul></nav>
-    <div class="site-footer__fine fineprint" data-compliance>
-      <p>Partners are independent businesses, each responsible for their own licence and advice.
-        ${SITE_NAME} does not give regulated advice through this website and may receive a commission when a referral becomes a client.</p>
-      <p>Strategy and coaching only, not licensed accounting, tax or investment advice.</p>
-      <p>We only message from ${PHONE.display}.</p>
-    </div>
-    <div class="site-footer__end">
-      ${switchesHTML()}
-      <p class="site-footer__copy">© ${new Date().getFullYear()} ${SITE_NAME}</p>
-    </div>
+    ${FOOTER_SWITCHES === false ? '' : `<div class="site-footer__end">${switchesHTML()}</div>`}
   </footer>`;
 }
 

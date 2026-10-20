@@ -13,5 +13,4 @@
 .value__title { grid-area: title; margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); text-wrap: balance; }
 .value__body { grid-area: body; margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
 .value__toggle { display: none; }
-.values__fine { margin: 0; }
 

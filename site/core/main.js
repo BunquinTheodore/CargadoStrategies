@@ -21,6 +21,7 @@ import { initChrome } from './chrome/chrome.js';
 import { initFilm } from './engine/film.js';
 import { onIdle, finePointer } from './engine/perf.js';
 import { prefersReducedMotion } from './engine/motion-pref.js';
+import { fitRules } from './lib/fit-rule.js';
 /* Re-exported so the build keeps Section.js in the engine chunk (every page reaches main.js):
    imported only by the pages and legal-fx.js, it became one more modulepreloaded chunk. */
 export { Section, mountSections } from './Section.js';
@@ -156,6 +157,7 @@ export function boot({ page = document.body.dataset.page || 'home' } = {}) {
   const film = initFilm({ root: document });
   sampleTier(film.ready);
   chrome.onMenuToggle((open) => (open ? film.stop('menu') : film.start('menu')));
+  fitRules({ film }); // .rule[data-rule-fit]: the rule runs to the end of its heading's last line
 
   const sheet = sheetHub({ film });
   const legal = page === 'legal';

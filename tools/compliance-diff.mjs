@@ -43,7 +43,8 @@ const HOOK = '__complianceFilm';
 const READY_TIMEOUT_MS = 8000;
 const SETTLE_MS = 1500;
 const ALTERED_OVERLAP = 0.6;
-const REQUIRED_NEW = ['We only message from +1 (204) 869 2508'];
+/** Lines every page must carry. Empty: the owner removed the footer's "We only message from" line (2026-10-20). */
+const REQUIRED_NEW = [];
 /** DIRECTION §10 ledger: spec-speak "replaced by the copy in §7". */
 const RETIRED = [
   'The rail does the disclosure', 'Each section says whether', 'named as hers and shown separately',

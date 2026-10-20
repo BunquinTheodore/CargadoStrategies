@@ -46,7 +46,7 @@ const B = {
   perf: [90, 95], a11y: [100, 100], bp: [95, 95], seo: [95, 95],
   lcp: [2000, 1000], tbt: [150, 50], cls: [0.02, 0.02], inp: [150, 100],
   jsInitialKb: 70, jsLegalKb: 40, cssKb: 28, tileKb: 6, scriptKb: [70, 110], fonts: 5, homeKb: [300, 380],
-  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 1100,
+  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 2100,
 };
 
 const cli = parseArgs();

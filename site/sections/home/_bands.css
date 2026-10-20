@@ -28,14 +28,12 @@
     flex: 1 1 34svh; min-height: 8svh; max-height: 34svh;
   }
   .find__map { flex-basis: 36svh; max-height: 36svh; }
-  .find__cap { top: var(--scene-pad-top); bottom: auto; }
   .hero__copy, .find__copy { width: auto; flex: 0 1 auto; justify-content: flex-end; padding-bottom: 0; gap: var(--space-l); }
   .hero__action, .find__action { margin-top: auto; }
   .hero__ctas { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
   .hero__cta, .find__action .btn { width: 100%; }
   .hero__alt { align-self: center; }
   .hero__action, .find__action { justify-items: stretch; }
-  .hero__next { display: none; }
   .one__strike { max-width: none; }
   .sit__head, .founder__head { max-width: none; }
   .founder__doors .ghost { font-size: min(var(--fs-ghost), 13svh); }   /* narrow doors: clear of "Delegate." */
@@ -55,10 +53,13 @@
   /* the map label sits on the anchor's floor: keep it clear of the eyebrow (G5) */
   .find__map { margin-bottom: var(--space-m); }
   .hero__title { max-width: none; }
-  /* the globe never drops under 30svh: on short phones (≤ 780 tall) the head rises over the
-     sphere's lower rim instead of shrinking it to a dot */
+  /* the globe never drops under 30svh on tall phones. Short phones (≤ 780 tall) give it the
+     band left over (about 20svh) instead: text never sits on the sphere's dots */
   .hero__globe { min-height: min(30svh, 214px); }
-  @media (max-height: 780px) { .hero__globe { margin-bottom: -15svh; } .hero__head { position: relative; } }
+  @media (max-height: 780px) {
+    .hero__globe { min-height: 18svh; margin-bottom: var(--space-xs); }
+    .hero__lead { font-size: 1rem; line-height: 1.45; }
+  }
   /* the eyebrow takes two lines below 380 px: break at the middot instead of hanging it */
   @media (max-width: 379px) { .hero__sep { display: block; height: 0; visibility: hidden; } }
   /* one tight centred group: the strikes 32 px over the monument (2 lines), the steps 48 px
@@ -100,4 +101,15 @@
   .closing__rows { grid-template-columns: 1fr; margin-top: var(--space-s); }
   .closing__rows .row { min-height: 56px; }
   .closing__rows .row + .row, .closing__rows li + li .row { border-top: 0; }
+}
+/* Wide laptop-short (≥ 1280, 3:2 and wider, ≤ 760 tall; also 1080p screens at 125-150 % scaling):
+   the globe and the map fill their side instead of the cut-down laptop-short sizes above (owner,
+   2026-10-20). Last in the cascade, so it wins over the band. */
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) and (max-height: 760px) {
+  .hero__globe { --g: min(92svh, 60vw); }
+  .find__map { height: 88svh; top: calc(50% - 44svh); }
+}
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) and (max-height: 760px) {
+  .hero__copy { --tfs: min(var(--fs-statement), 11svh, 5.6vw); }
+  .hero__title { font-size: var(--tfs); }
 }

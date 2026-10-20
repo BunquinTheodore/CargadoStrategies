@@ -43,3 +43,5 @@
 .apply-success[hidden] { display: none; }
 .apply-success__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
 #apply-success-title:focus { outline: none; }
+/* Next and Send are raised to sit right under the right-hand column (Apply.js sets --next-raise). */
+.apply-form .stepper__nav :is([data-step-next], [data-step-send]) { translate: 0 var(--next-raise, 0px); }

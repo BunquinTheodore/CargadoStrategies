@@ -58,7 +58,6 @@
   .prow { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "num title" "meta meta"; row-gap: 2px; padding: 8px 4px 8px 0; min-height: 0; }
   .how__head { gap: var(--space-xs); }
   .prow__num { grid-area: num; } .prow__title { grid-area: title; } .prow__meta { grid-area: meta; font-size: var(--fs-note); line-height: 1.4; }
-  .how__fine { line-height: 1.45; }
   /* P3: tabs with swipe, one panel at a time (ui-tabs.js, fixedHeight) */
   #tiers .scene__pan { justify-content: center; gap: var(--space-m); }
   .tiers-wrap { flex: 0 0 auto; gap: var(--space-s); }
@@ -114,4 +113,9 @@
   .close__rows .row__title { font-size: max(var(--fs-d2), 1.75rem); }
   /* Dialogs: on phones the tabs already compare the tiers; the dialog keeps the terms. */
   .tiers-dialog__grid { display: none; }
+}
+/* Wide screens (≥ 1280, 3:2 and wider, any height): Canada fills its side (owner, 2026-10-20).
+   Last in the cascade, so it wins over the laptop-short cap above. */
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
+  .hero__map { --m: min(80svh, 45vw); left: 46%; }
 }

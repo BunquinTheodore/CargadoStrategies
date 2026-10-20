@@ -5,25 +5,14 @@
  * splash, globe, stars, grain, cursor ring or sound. The cuts are the engine's
  * own swaps and in-group fades; the page adds no choreography.
  *
- * Page-only behaviour:
- *  - the draft band reports its height as --banner-h on <html> (R4 legal §3.2),
- *    so every scene box starts below it;
- *  - legal-fx.js, its own chunk started at once, mounts the sections that page
- *    the four documents and run the Q&A (sections/legal/). Deep links that land
- *    before it has loaded wait for it.
+ * Page-only behaviour: legal-fx.js, its own chunk started at once, mounts the
+ * sections that page the four documents and run the Q&A (sections/legal/).
+ * Deep links that land before it has loaded wait for it.
  */
 import { boot } from '../core/main.js';
 import { buildIntro, waLink } from '../core/chrome/whatsapp.js';
 
 const PAGE = 'legal';
-
-/** Publish the band's height on <html>, where the engine's --scene-top resolves (it wraps on phones). */
-function trackBannerHeight(band) {
-  if (!band) return;
-  const apply = () => document.documentElement.style.setProperty('--banner-h', `${band.offsetHeight}px`);
-  apply();
-  new ResizeObserver(apply).observe(band);
-}
 
 /** The no-JS hrefs of the sheet triggers: the message the sheet would write. */
 function fillWhatsAppLinks() {
@@ -33,7 +22,6 @@ function fillWhatsAppLinks() {
   });
 }
 
-trackBannerHeight(document.querySelector('.legal-draft'));
 fillWhatsAppLinks();
 const ctx = boot({ page: PAGE });
 const { film } = ctx;

@@ -13,4 +13,3 @@
 .prow__num { font-size: var(--fs-row-num); }
 .prow__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
 .prow__meta { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body, 1.5); color: var(--fg-muted); max-width: 46ch; }
-.how__fine { margin: 0; }

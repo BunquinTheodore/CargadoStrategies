@@ -15,6 +15,7 @@ import { waLink } from '../../../core/chrome/whatsapp.js';
 import { escapeHtml } from '../../../core/chrome/chrome.js';
 import { createStepper } from '../../../core/ui/ui-stepper.js';
 import { focusInScene } from '../../../core/ui/ui-focus.js';
+import { sendInquiry } from '../../../core/lib/send-inquiry.js';
 
 /** Categories where a current licence is required to be listed (CR02). */
 const LICENCE_REQUIRED = new Set(['insurance', 'legal', 'mortgage', 'real-estate']);
@@ -135,6 +136,27 @@ function applicationText(v) {
     'I agree to follow the Partner Code of Conduct, and the details above are true.',
     'I agree that you may use these details to review my application.',
   ].join('\n');
+}
+
+/** The owner's email copy (api/inquiry.js), sent beside the hand-off. */
+function emailCopy(via, v) {
+  sendInquiry('application', {
+    'Business name': v.business,
+    'Legal entity': v.entity,
+    'Contact name': v.contact,
+    Email: v.email,
+    Phone: v.phone,
+    Service: serviceLabel(v),
+    Licence: licenceLabel(v),
+    City: v.city,
+    Province: v.province,
+    Tier: TIER_NAMES[v.tier] || 'Not sure yet',
+    References: v.references,
+    'About their work': v.about,
+    'Sent by': via === 'email' && CONTACT_EMAIL ? 'Email' : 'WhatsApp',
+    'Code of Conduct': v.conduct ? 'Agreed' : 'Not agreed',
+    Consent: v.consent ? 'Yes' : 'No',
+  });
 }
 
 function handOffLink(via, v) {
@@ -275,6 +297,7 @@ function submit({ form, success, via, stepper, focusTo, sfx }) {
     return;
   }
   const href = handOffLink(via, values);
+  emailCopy(via, values);
   if (href.startsWith('mailto:')) window.location.href = href;
   else window.open(href, '_blank', 'noopener');
   sfx?.play('success');

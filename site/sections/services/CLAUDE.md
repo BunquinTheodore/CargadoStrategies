@@ -31,7 +31,6 @@ Page-level files: `_page.css` (first), `_bands.css` (last), `services-data.js` (
 ## Known open issues (plan/round5/final-audit.txt)
 
 - Fit flow: #6 `inquiry` all-errors unit 3/3 overflows Y +25 / +161 / +623 at 1366, 1280 and 1024.
-- Fit touch: #4 `ours-outsourcing` Y +4..+5 (one element pokes out) at every viewport from 768 up.
 - Fit film with `--fixture=partners-max` (run on site/, not dist): #5 `finder`, where `#categories-dialog` overflows Y +11..+110 with spare < 24 at 8 of 9 viewports.
 - Run: `node tools/fit-audit.mjs <site-url> services.html --states=tools/fit-states/services.mjs --fixture=partners-max`.
 - Perf: mobile script transfer 89.2 KB (budget 70).

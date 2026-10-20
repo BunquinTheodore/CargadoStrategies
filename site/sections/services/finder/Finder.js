@@ -22,6 +22,9 @@ export class Finder extends Section {
     $('#finder-root').hidden = !FINDER_ON;
     // "Sorted by distance only. This list…" stands beside a list; the concierge shows none.
     $$('[data-list-note]', scene).forEach((el) => { el.hidden = !FINDER_ON; });
+    // With the concierge, "See All Nine Kinds of Help" sits on the CTA's row (owner, 2026-10-20).
+    const allHelp = $('.finder__action [data-categories-open]', scene);
+    if (!FINDER_ON && allHelp) $('.concierge__row', scene)?.append(allHelp);
     // The finder brings its own clickable map; the dot map plays with the concierge only.
     if (FINDER_ON) scene.dataset.globeMode = 'hidden';
   }

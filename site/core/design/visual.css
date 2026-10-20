@@ -22,7 +22,7 @@ html:not(.js) .splash,
   display: grid;
   place-items: center;
   pointer-events: none;
-  animation: splash-out 0.1s linear 1s forwards;
+  animation: splash-out 0.1s linear 2s forwards;
 }
 .splash-js .splash { animation: none; }
 .splash__bg {

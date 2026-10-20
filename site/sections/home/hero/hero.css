@@ -24,8 +24,18 @@
 @media (min-width: 760px) and (max-width: 1279px) and (min-aspect-ratio: 1/1) {
   .hero__sep--trust { display: block; height: 0; visibility: hidden; }
 }
+/* Wide, short screens (laptops and desktops at 16:9 and wider): the copy fills the field up to the
+   globe instead of leaving a dead band in the middle. The title sets on two lines ("The Right
+   Professional," / "Near You."), which frees the height to set it and the lead larger. */
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
+  .hero__globe { --g: min(96svh, 64vw); }
+  .hero__copy { width: min(72%, 76rem); }
+  .hero__copy { --tfs: min(var(--fs-statement), 14svh, 5.6vw); }
+  .hero__title { max-width: none; font-size: var(--tfs); }
+  /* the lead is as wide as the title's first line ("The Right Professional,"), set in balanced lines */
+  .hero__lead { max-width: calc(var(--tfs) * 9.2); text-wrap: balance; font-size: clamp(var(--fs-lead), 2.6svh, 1.625rem); }
+}
 .nw { white-space: nowrap; }
-.hero__next { position: absolute; right: 0; bottom: var(--scene-pad-bottom); }
 /* The CTA sheen: once, on the first landing only (Hero.js adds .is-sheen, ≤ 900 ms). The band
    runs inside its own clipped span, so the button itself never clips its label. */
 .hero__cta { position: relative; }
