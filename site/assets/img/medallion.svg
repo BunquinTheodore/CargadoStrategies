@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+  <!-- The C·W mark embossed in ink on the metal disk (C32): a 1 px highlight edge offset up-left, then the inset ink stroke. -->
+  <g stroke="rgba(255,240,200,.35)" transform="translate(-.45 -.45)">
+    <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
+    <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/>
+  </g>
+  <g stroke="rgba(11,11,12,.55)">
+    <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
+    <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/>
+  </g>
+</svg>

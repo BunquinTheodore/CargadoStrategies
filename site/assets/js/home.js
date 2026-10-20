@@ -1,122 +1,138 @@
 /**
- * Home page (index.html): 12 scenes on the shared film engine.
+ * Home page (index.html): 6 scenes + credits on the Round 5 cut engine
+ * (DIRECTION §7.1, H1-H7).
  *
- * Order (see ENGINE.md §2): render JS content first, then boot(), then
- * register film listeners in the same tick. Every extra tween below is added
- * to the master timeline in a `build` listener, so it is scrubbed and
- * reversible; only transform, opacity and clip-path are animated.
+ * Order (api.md §2): fill the copy that depends on config first, then boot(),
+ * then register the film listeners in the same tick. Choreography is appended
+ * to each cut timeline (home-tweens.js); sound is all automatic (sfx.js: the
+ * chapter breath, the click blip, the success chime), so Home adds none.
  */
 import { boot } from './main.js';
-import { CATEGORIES, VIDEO } from './config.js';
-import { categoryMessage, waLink } from './whatsapp.js';
-import { MONOGRAM, escapeHtml } from './chrome.js';
-import { titleCase } from './text-case.js';
-import { renderCanadaMap } from './home-map.js';
-import { NEEDS, needsMarkup } from './home-needs.js';
-import { yieldToMain } from './perf.js';
-import { initVideo } from './home-video.js';
-import { addSceneTweens } from './home-tweens.js';
-import { initHomeSounds } from './home-sfx.js';
+import { FOUNDER_LAST_NAME, FOUNDER_NAME, FOUNDER_PHOTO, FOUNDER_SIGNATURE, HERO_VARIANT } from './config.js';
+import { buildIntro, waLink } from './whatsapp.js';
+import { openDialog } from './ui-dialog.js';
+import { addCutTweens } from './home-tweens.js';
 
 const PAGE = 'home';
-const NEW_TAB = '_blank';
-
-const OWNERSHIP_LABEL = {
-  founder: 'From our founder',
-  partner: 'Partner network',
-  both: 'Founder + partners',
-};
-
-/** The founder's own services: the message asks about the service, not for an introduction. */
-const ASK_LINKS = [
-  { id: 'ask-insurance', category: 'Insurance · the family protection review' },
-  { id: 'ask-outsourcing', category: 'Outsourcing · a back-office team' },
-];
-const ASK_REQUEST = "I'd like to ask about this service.";
+const TRIAD_TITLE = 'Protect. Plan. <em>Delegate</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span>';
+const PHONE_QUERY = '(max-width: 759px)';
+const SHEEN_CLASS = 'is-sheen';
 
 const $ = (sel, root = document) => root.querySelector(sel);
-const pad2 = (n) => String(n).padStart(2, '0');
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-/* ---------- content rendered before boot ---------- */
+/* ---------- copy that depends on config (before the engine splits words) ---------- */
 
-/** Intro form choices (wireframe 5a, home-needs.js). The production build writes them into the HTML already. */
-function renderNeeds(holder) {
-  if (holder && !holder.querySelector('input[name="need"]')) holder.innerHTML = needsMarkup();
+/**
+ * The name goes into the first build-time word mask (dist pre-splits "[First name]" into two
+ * .rv-mask > .rv-word spans), so it rises with the rest of the heading; the second mask and the
+ * space between them go. Unsplit spans (source, fade reveals) just take the text.
+ */
+function writeFounderName(el) {
+  const [first, ...rest] = $$('.rv-word', el);
+  if (first) {
+    first.textContent = FOUNDER_NAME;
+    rest.forEach((word) => (word.closest('.rv-mask') || word).remove());
+    Array.from(el.childNodes).forEach((node) => {
+      if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) node.remove();
+    });
+  } else {
+    el.textContent = FOUNDER_NAME;
+  }
+  el.classList.remove('ph');
 }
 
-/** Tile layers lift by these depths (px) while the tile tilts toward the pointer. */
-const TILE_DEPTH = { name: 26, go: 44 };
-
-function renderTiles(list) {
-  list.innerHTML = CATEGORIES.map((c, i) => `
-    <li><a class="tile" href="services.html#${encodeURIComponent(c.slug)}" data-cursor-label="Open">
-      <span class="tile__n num">${pad2(i + 1)}</span>
-      <span class="tile__name" data-depth="${TILE_DEPTH.name}">${escapeHtml(titleCase(c.name))}</span>
-      <span class="tile__own ui">${OWNERSHIP_LABEL[c.ownership] || ''}</span>
-      <span class="tile__go" aria-hidden="true" data-depth="${TILE_DEPTH.go}">→</span>
-    </a></li>`).join('');
-}
-
-function renderContent() {
-  renderNeeds($('#intro-needs'));
-  renderTiles($('#service-tiles'));
-  const hub = renderCanadaMap($('#canada-map'));
-  if (hub) $('#find').dataset.mapHub = `${hub.x.toFixed(1)}% ${hub.y.toFixed(1)}%`;
-  const mark = $('[data-monogram]');
-  if (mark) mark.innerHTML = MONOGRAM;
-  return initVideo(VIDEO, {
-    media: $('#video-media'), ui: $('#video-ui'), cap: $('#video-cap'), status: $('#video-status'),
+function fillCopy() {
+  if (HERO_VARIANT === 'triad') {
+    const title = $('[data-hero-title]');
+    if (title) title.innerHTML = TRIAD_TITLE;
+  }
+  if (FOUNDER_NAME) $$('[data-founder-name]').forEach(writeFounderName);
+  // The founder's face beside her name ([data-when="FOUNDER_PHOTO"] slots); never a stand-in face.
+  if (FOUNDER_PHOTO) {
+    $$('[data-founder-photo]').forEach((slot) => {
+      const img = new Image();
+      img.src = FOUNDER_PHOTO;
+      img.alt = '';
+      img.decoding = 'async';
+      slot.replaceChildren(img);
+    });
+  }
+  // Her own signature mark stands in only while there is no photo (the owner's file, never drawn).
+  $$('[data-founder-signature]').forEach((slot) => {
+    if (!FOUNDER_SIGNATURE || FOUNDER_PHOTO) return void slot.remove();
+    const img = new Image();
+    img.src = FOUNDER_SIGNATURE;
+    img.alt = `${FOUNDER_NAME} ${FOUNDER_LAST_NAME}'s signature`;
+    img.decoding = 'async';
+    slot.replaceChildren(img);
   });
 }
 
-/* ---------- intro form → WhatsApp ---------- */
-
-function introMessage(form) {
-  const value = form.querySelector('input[name="need"]:checked')?.value;
-  const need = NEEDS.find((n) => n.value === value);
-  const city = form.elements.city.value.trim();
-  return categoryMessage({ category: need ? need.ask : '', city, page: PAGE });
+/** The no-JS hrefs of the sheet triggers: the message the sheet would write. */
+function fillWhatsAppLinks() {
+  $$('a[data-wa-sheet][href^="https://wa.me/"]').forEach((a) => {
+    const { need = '', context = PAGE } = a.dataset;
+    a.href = waLink(buildIntro({ need, context }));
+  });
 }
 
-function wireIntroForm(chrome) {
-  const form = $('#intro-form');
-  if (!form) return;
-  const targets = [$('#intro-go'), $('#how-go'), $('#close-go')].filter(Boolean);
-  const sync = () => {
-    const href = waLink(introMessage(form));
-    targets.forEach((a) => { a.href = href; });
-    chrome.setBar({ label: 'Get My Introduction', href });
-    return href;
+/* ---------- W3 doors on phones: an exclusive accordion, one open ---------- */
+
+function wireDoors(root) {
+  const doors = $$('.door', root);
+  if (!doors.length) return;
+  const phone = window.matchMedia(PHONE_QUERY);
+  const setOpen = (door) => {
+    doors.forEach((d) => {
+      const open = d === door;
+      d.classList.toggle('is-open', open);
+      $('.door__toggle', d)?.setAttribute('aria-expanded', String(open));
+    });
   };
-  form.addEventListener('input', sync);
-  form.addEventListener('change', sync);
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    window.open(sync(), NEW_TAB, 'noopener');
+  root.addEventListener('click', (event) => {
+    if (!phone.matches) return;
+    const door = event.target.closest('.door');
+    if (!door || door.classList.contains('is-open') || event.target.closest('a')) return;
+    setOpen(door);
   });
-  sync();
 }
 
-function wireAskLinks() {
-  ASK_LINKS.forEach(({ id, category }) => {
-    const link = document.getElementById(id);
-    if (!link) return;
-    link.href = waLink(categoryMessage({ category, page: PAGE, request: ASK_REQUEST }));
-    link.target = NEW_TAB;
-    link.rel = 'noopener';
+/* ---------- FAQ dialog (H6): #faq deep links open it through data-open ----------
+   The answers are one exclusive group through the native details[name="faq"]
+   (no script: the dialog sits outside every scene, so ui-accordion.js is not needed). */
+
+function wireFaq(film) {
+  const dialog = document.getElementById('faq-dialog');
+  if (!dialog) return;
+  $$('[data-faq-open]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      openDialog(dialog, { trigger: link, film });
+    });
+  });
+}
+
+/* ---------- W1: the hero CTA sheen, once, on the first landing ---------- */
+
+function sheenOnce(film) {
+  const cta = $('#hero .hero__cta');
+  if (!cta || film.mode === 'flow') return;
+  const off = film.on('landed', ({ id, cause }) => {
+    off();
+    if (id !== 'hero' || cause !== 'load') return;
+    cta.classList.add(SHEEN_CLASS);
+    cta.addEventListener('animationend', () => cta.classList.remove(SHEEN_CLASS), { once: true });
   });
 }
 
 /* ---------- start ---------- */
 
-const video = renderContent();
-await yieldToMain(); // the content above and the engine start below are two short tasks, not one long one
-const { film, chrome } = boot({ page: PAGE });
+fillCopy();
+fillWhatsAppLinks();
+const { film } = boot({ page: PAGE });
 
-film.on('build', addSceneTweens);
-film.on('scene', ({ id }) => {
-  if (id !== 'video') video.pause();
-});
-wireIntroForm(chrome);
-wireAskLinks();
-initHomeSounds();
+film.on('cut', addCutTweens);
+sheenOnce(film);
+wireDoors($('#founder .doors'));
+wireFaq(film);

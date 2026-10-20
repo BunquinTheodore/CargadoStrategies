@@ -1,0 +1,64 @@
+. index.html cut: 0 issue(s)
+. index.html cut review: 0 issue(s)
+. index.html touch: 0 issue(s)
+. index.html touch review: 0 issue(s)
+. index.html flow: 0 issue(s)
+. index.html flow review: 0 issue(s)
+. services.html cut: 0 issue(s)
+. services.html cut review: 0 issue(s)
+. services.html touch: 0 issue(s)
+. services.html touch review: 0 issue(s)
+. services.html flow: 0 issue(s)
+. services.html flow review: 0 issue(s)
+. story.html cut: 0 issue(s)
+. story.html cut review: 0 issue(s)
+. story.html touch: 0 issue(s)
+. story.html touch review: 0 issue(s)
+. story.html flow: 0 issue(s)
+. story.html flow review: 0 issue(s)
+. partners.html cut: 0 issue(s)
+. partners.html cut review: 0 issue(s)
+. partners.html touch: 0 issue(s)
+. partners.html touch review: 0 issue(s)
+. partners.html flow: 0 issue(s)
+. partners.html flow review: 0 issue(s)
+. legal.html cut: 0 issue(s)
+. legal.html cut review: 0 issue(s)
+. legal.html touch: 0 issue(s)
+. legal.html touch review: 0 issue(s)
+. legal.html flow: 0 issue(s)
+. legal.html flow review: 0 issue(s)
+Console check  2026-10-20T02:37:05.339Z  http://localhost:8541/
+
+ok   index.html cut [engine cut; scenes 7; dialogs faq-dialog (not opened: ?), wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   index.html cut ?review=1 [engine cut; scenes 7; dialogs faq-dialog (not opened: ?), wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   index.html touch [engine touch-cut; scenes 7; dialogs faq-dialog, wa-sheet, menu; steppers 0]
+ok   index.html touch ?review=1 [engine touch-cut; scenes 7; dialogs faq-dialog, wa-sheet, menu; steppers 0]
+ok   index.html flow [engine flow; scenes 7; dialogs faq-dialog, wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   index.html flow ?review=1 [engine flow; scenes 7; dialogs faq-dialog, wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   services.html cut [engine cut; scenes 9; dialogs categories-dialog (not opened: ?), profile-dialog (not opened: no trigger), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   services.html cut ?review=1 [engine cut; scenes 9; dialogs categories-dialog (not opened: ?), profile-dialog (not opened: no trigger), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   services.html touch [engine touch-cut; scenes 9; dialogs categories-dialog, profile-dialog (not opened: no trigger), wa-sheet, menu; steppers 1]
+ok   services.html touch ?review=1 [engine touch-cut; scenes 9; dialogs categories-dialog, profile-dialog (not opened: no trigger), wa-sheet, menu; steppers 1]
+ok   services.html flow [engine flow; scenes 9; dialogs categories-dialog, profile-dialog (not opened: no trigger), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   services.html flow ?review=1 [engine flow; scenes 9; dialogs categories-dialog, profile-dialog (not opened: no trigger), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   story.html cut [engine cut; scenes 6; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   story.html cut ?review=1 [engine cut; scenes 6; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   story.html touch [engine touch-cut; scenes 6; dialogs wa-sheet, menu; steppers 0]
+ok   story.html touch ?review=1 [engine touch-cut; scenes 6; dialogs wa-sheet, menu; steppers 0]
+ok   story.html flow [engine flow; scenes 6; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   story.html flow ?review=1 [engine flow; scenes 6; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   partners.html cut [engine cut; scenes 7; dialogs tiers-dialog (not opened: ?), partner-faq (not opened: ?), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   partners.html cut ?review=1 [engine cut; scenes 7; dialogs tiers-dialog (not opened: ?), partner-faq (not opened: ?), wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   partners.html touch [engine touch-cut; scenes 7; dialogs tiers-dialog, partner-faq, wa-sheet, menu; steppers 1]
+ok   partners.html touch ?review=1 [engine touch-cut; scenes 7; dialogs tiers-dialog, partner-faq, wa-sheet, menu; steppers 1]
+ok   partners.html flow [engine flow; scenes 7; dialogs tiers-dialog, partner-faq, wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   partners.html flow ?review=1 [engine flow; scenes 7; dialogs tiers-dialog, partner-faq, wa-sheet, menu (not opened: trigger not visible); steppers 1]
+ok   legal.html cut [engine cut; scenes 8; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   legal.html cut ?review=1 [engine cut; scenes 8; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   legal.html touch [engine touch-cut; scenes 8; dialogs wa-sheet, menu; steppers 0]
+ok   legal.html touch ?review=1 [engine touch-cut; scenes 8; dialogs wa-sheet, menu; steppers 0]
+ok   legal.html flow [engine flow; scenes 8; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+ok   legal.html flow ?review=1 [engine flow; scenes 8; dialogs wa-sheet, menu (not opened: trigger not visible); steppers 0]
+
+Clean: 0 errors and 0 warnings everywhere.

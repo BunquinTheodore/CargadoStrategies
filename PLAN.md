@@ -261,3 +261,26 @@ Plain meaning:
   4. cross-page review (a11y, compliance copy diff, interaction/SFX hooks still wired, reduced motion);
   5. fix;
   6. `npm run build` → dist, Lighthouse, final fit-audit table.
+
+# Round 5: Full Stop. (2026-10-18 to 2026-10-20)
+
+**Why.** The Round 5 judgement (`plan/round5/JUDGEMENT-REPORT.md`) scored the site 5.0 / 10: tasteful but "basic" (one recipe on every screen, no face, the globe on 30 of 42 screens) and "clogged" (about 130 words and 15 pieces of chrome per screen, 12 screens on Home).
+
+**The direction** (`plan/round5/DIRECTION.md`, the single source of truth; base `direction-portfolio-led.md` with grafts from `direction-clarity.md` and `direction-cinematic.md`):
+- **Concept.** Every chapter ends on one confident Times New Roman statement at poster scale; its gold full stop lands, then swells into the iris that opens the next chapter. Statement, then rest. Hairline rows replace boxes; giant outline numerals replace extra elements.
+- **Signature moments (W1-W6):** the match-cut splash (once per session, about 1 s), four searches struck, three doors in metal, the dot-globe coming down to Canada, the W/C bookend, and View Transitions between pages. Nothing else moves while one plays, and every autonomous animation stops within 5 s.
+- **Design system v2** (§3-§5): `ink` / `bone` / `gold` fields (gold at most once per page), a 14 px hard text floor, scene archetypes and `[data-group]` budgets, and a shared component set in `ui.css` and `assets/js/ui-*.js` (rows, doors, paper, fine print, tabs, pagers, steppers, dialogs, accordions, the WhatsApp sheet).
+- **Pages** (§7): Home 12 scenes to 6 plus credits, Services 8, Story 5, Partners 6, Legal 7 (calm on purpose), each ending in the shared close and credits.
+- **Engine** (§9): cuts, not scrubs; a native-snap touch-cut mode on coarse pointers; `dotglobe.js` (2D canvas) replaces three.js; ScrollTrigger removed from the source.
+- **Fixed constraints:** black and gold only, Times New Roman display in Title Case, Manrope body, Poppins UI, compliance copy word for word (only the §10 moves), `[bracket]` placeholders kept, and the Round 4 one-scene-one-screen contract.
+- **Acceptance** (§13, T1-T9): fit (with the R5 word, element, group, whitespace and archetype budgets), performance (Lighthouse ≥ 90 mobile, ≥ 95 desktop), console, compliance diff, seek (no dead air), motion and a11y, devices, an eight-lens re-judge (target ≥ 8) and the build.
+
+**Process** (`plan/round5/build-order.md`): preflight and baselines, removals, a five-agent foundation (engine, design system, visuals, sound/WhatsApp/config, tools), the Home vertical slice, the four-page rollout, review, fix, release.
+
+**Links:**
+- Spec: `plan/round5/DIRECTION.md` · public API: `plan/round5/api.md` · engine notes: `site/ENGINE.md`
+- Build order and ownership: `plan/round5/build-order.md` · cross-owner requests: `plan/round5/shared-requests.md`
+- Judgement and re-judges: `plan/round5/JUDGEMENT-REPORT.md`, `plan/round5/judge-*.md`, `plan/round5/rejudge-*.md`
+- Reviews: `plan/round5/review-a11y.md`, `review-compliance.md`, `review-engine-devices.md`, `review-performance.md`
+- Baselines: `plan/round5/baseline-r5-fit.txt`, `baseline-r5-lighthouse.json`, `compliance-baseline.json`, `compliance-moves.json`
+- **Final audit (stage 7): `plan/round5/final-audit.txt`**

@@ -1,0 +1,142 @@
+{
+  "generated": "2026-10-18",
+  "source": "fresh npm run build, dist/ served by node serve.mjs dist 8301 (Brotli/gzip, real cache headers)",
+  "tool": "Lighthouse 13.5.0 CLI (npx), headless Chrome, isolated --user-data-dir; mobile = default (simulated Moto G Power, slow 4G), desktop = --preset=desktop; one run each",
+  "units": {
+    "lcp": "ms",
+    "tbt": "ms",
+    "cls": "unitless"
+  },
+  "pages": {
+    "index.html": {
+      "mobile": {
+        "performance": 96,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 2028,
+        "tbt": 51,
+        "cls": 0.036,
+        "fcp": 1817,
+        "totalBytes": 258434,
+        "fetchTime": "2026-10-18T01:15:44.260Z"
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 379,
+        "tbt": 0,
+        "cls": 0.002,
+        "fcp": 376,
+        "totalBytes": 258434,
+        "fetchTime": "2026-10-18T01:16:02.941Z"
+      }
+    },
+    "services.html": {
+      "mobile": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 1599,
+        "tbt": 44,
+        "cls": 0,
+        "fcp": 1599,
+        "totalBytes": 261872,
+        "fetchTime": "2026-10-18T01:16:20.633Z"
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 379,
+        "tbt": 0,
+        "cls": 0,
+        "fcp": 379,
+        "totalBytes": 261872,
+        "fetchTime": "2026-10-18T01:16:37.238Z"
+      }
+    },
+    "story.html": {
+      "mobile": {
+        "performance": 92,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 1603,
+        "tbt": 294,
+        "cls": 0,
+        "fcp": 1589,
+        "totalBytes": 237042,
+        "fetchTime": "2026-10-18T01:16:57.139Z"
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 416,
+        "tbt": 0,
+        "cls": 0,
+        "fcp": 384,
+        "totalBytes": 237042,
+        "fetchTime": "2026-10-18T01:17:14.148Z"
+      }
+    },
+    "partners.html": {
+      "mobile": {
+        "performance": 98,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 1660,
+        "tbt": 69,
+        "cls": 0,
+        "fcp": 1660,
+        "totalBytes": 241750,
+        "fetchTime": "2026-10-18T01:17:30.853Z"
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 380,
+        "tbt": 9,
+        "cls": 0,
+        "fcp": 380,
+        "totalBytes": 241750,
+        "fetchTime": "2026-10-18T01:17:47.679Z"
+      }
+    },
+    "legal.html": {
+      "mobile": {
+        "performance": 93,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 1746,
+        "tbt": 263,
+        "cls": 0.006,
+        "fcp": 1734,
+        "totalBytes": 238486,
+        "fetchTime": "2026-10-18T01:18:05.228Z"
+      },
+      "desktop": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcp": 472,
+        "tbt": 0,
+        "cls": 0.003,
+        "fcp": 405,
+        "totalBytes": 238486,
+        "fetchTime": "2026-10-18T01:18:19.711Z"
+      }
+    }
+  }
+}

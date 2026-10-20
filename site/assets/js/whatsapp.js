@@ -5,10 +5,12 @@
  * category, asks for the service and the city/province, and says why the
  * city is needed. Nothing is sent until the visitor taps send in WhatsApp.
  */
-import { WHATSAPP_BASE, SITE_NAME, PAGE_NAMES } from './config.js';
+import { WHATSAPP_BASE, SITE_NAME, PAGE_NAMES, categoryBySlug } from './config.js';
 
 const GREETING = `Hi ${SITE_NAME},`;
 const INTRO_REQUEST = "I'd like an introduction.";
+const ASK_REQUEST = "I'd like to ask about this service.";
+const NOT_SURE = 'Not sure yet, can you help me work it out?';
 const CITY_REASON = '(so you can introduce me to someone close to me)';
 const BLANK = '…';
 
@@ -74,5 +76,25 @@ export function partnerQuestionMessage() {
   );
 }
 
-/** Convenience: full link for a page's floating button / bottom bar. */
+/** Sheet contexts that are scenes of a page, not pages: the message names the page. */
+const CONTEXT_PAGE = { founder: 'home', network: 'home' };
+
+/**
+ * Message for the WhatsApp sheet (C22) and the concierge (C40).
+ * `need` is a CATEGORIES slug or 'not-sure' (empty: the visitor skipped it).
+ * `context` is where the sheet was opened: a PAGE_NAMES key, or 'founder' /
+ * 'network' (Home scenes). From the founder's doors the message asks about
+ * her own service instead of asking for an introduction.
+ */
+export function buildIntro({ need = '', city = '', context = '' } = {}) {
+  const category = need === 'not-sure' ? NOT_SURE : categoryBySlug(need)?.name || '';
+  return categoryMessage({
+    category,
+    city: String(city).trim(),
+    page: CONTEXT_PAGE[context] || (PAGE_NAMES[context] ? context : ''),
+    request: context === 'founder' ? ASK_REQUEST : INTRO_REQUEST,
+  });
+}
+
+/** Convenience: full link for a page's header WhatsApp button and menu link (the no-JS fallback of the sheet). */
 export const pageLink = (page) => waLink(pageMessage(page));

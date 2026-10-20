@@ -1,137 +1,162 @@
 /**
- * Reveal hooks: [data-reveal="lines|chars|fade|stagger|scale"] and [data-decode].
+ * The in group of a cut (DIRECTION §4.4, §9.1; api.md §6).
  *
- * Each builder adds scrubbed, reversible tweens to the master timeline. All
- * tweens are fromTo with explicit values so seeking in any direction (deep
- * links, rebuilds, scrubbing backwards) always lands on the right state.
- * Only transform and opacity are animated. Staggers are capped so the last
- * line or child still lands by the scene's fully-in point (`end`).
- *
- * Round 3: textfx.autoKind upgrades the defaults (eyebrows decode, h1/h2
- * reveal by character), and fade/scale/stagger gain a little depth
- * (rotateX + translateZ) on fine pointers. Phones stay 2D (film.js).
+ * The Round 4 reveal hooks keep their names and now feed the "in" step of a
+ * played cut timeline, in DOM order, a nested hook skipped (the outer one
+ * wins):
+ *   .eyebrow                  mask slide inside its own box
+ *   [data-reveal="words"]     each word rises from its mask ("lines" and "chars" play as words)
+ *   .rule                     scaleX from the left
+ *   [data-reveal="fade"]      opacity and a 24 px rise (2D only)
+ *   [data-reveal="stagger"]   its children as fade, 60 ms apart
+ *   [data-reveal="scale"]     opacity and scale 0.96 → 1
+ *   .stop                     pops after the last word of its heading (back.out)
+ *   [data-frame]              an SVG hairline draws (stroke-dashoffset)
+ *   [data-reveal="none"]      excluded: shows with its scene
+ * data-delay="s" (0-0.6) moves an item to s seconds after the 'in' label.
+ * Every slot is clamped so the group lands by 'settled'. Only transform,
+ * opacity, clip-path and stroke-dashoffset are animated, all with fromTo, so
+ * a cut seeked to any point (T5) shows the right state.
  */
-import { splitWords, groupLines } from './film-split.js';
-import { autoKind, prepareChars, prepareDecode, charsIn, charsOut, decodeIn, decodeOut } from './textfx.js';
+import { splitWords } from './film-split.js';
+import { CUT, DUR, EASE } from './motion-tokens.js';
 
+export const IN_GROUP = '.eyebrow, [data-reveal], .rule, .stop, [data-frame]';
+const WORD_KINDS = new Set(['words', 'lines', 'chars']);
+const WORD_DUR = 0.5;
+const ITEM_DUR = 0.45;
+const RULE_DUR = 0.5;
+const WORDS_AFTER = 0.08; // the headline starts this long after the 'in' label (the eyebrow leads)
+const STOP_AFTER = 0.3; // the stop pops this long after its heading's last word starts (the word has landed)
+const MAX_DELAY = 0.6;
 const RISE_PX = 24;
-const OUT_RISE_PX = -24;
 const SCALE_FROM = 0.96;
-const SCALE_OUT = 0.98;
 const MASK_OFFSET = 110; // yPercent a word starts below its mask
-const LINE_STAGGER = 0.07; // share of the in-phase between lines
-const CHILD_STAGGER = 0.06; // share of the in-phase between stagger children
-const OUT_STAGGER = 0.03;
-const DEPTH = Object.freeze({ turn: 10, z: -60, outTurn: -8, outZ: -40, perspective: 900 });
+const EYEBROW_OFFSET = 100;
 
-const IN_EASE = 'power3.out';
-const OUT_EASE = 'power2.in';
+const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
-export const REVEAL_SELECTOR = '[data-reveal]';
-const DECODE_SELECTOR = '[data-decode]';
-
-const depthOn = () => window.matchMedia('(pointer: fine)').matches;
-
-/** Depth added to a from-state (in) or to-state (out); empty on coarse pointers. */
-function depth(phase) {
-  if (!depthOn()) return {};
-  return phase === 'in'
-    ? { rotationX: DEPTH.turn, z: DEPTH.z, transformPerspective: DEPTH.perspective }
-    : { rotationX: DEPTH.outTurn, z: DEPTH.outZ, transformPerspective: DEPTH.perspective };
-}
-const flat = () => (depthOn() ? { rotationX: 0, z: 0 } : {});
-
-/**
- * Reveal elements of a scene, skipping those nested inside another reveal.
- * [data-decode] elements are kept even when nested: decoding changes glyphs,
- * not transforms, so it never fights the parent's reveal.
- */
-export function revealTargets(sceneEl) {
-  return Array.from(sceneEl.querySelectorAll(`${REVEAL_SELECTOR}, ${DECODE_SELECTOR}`)).filter(
-    (el) => el.matches(DECODE_SELECTOR) || !el.parentElement.closest(REVEAL_SELECTOR),
-  );
-}
-
-/**
- * Prepare the DOM (word masks, character splits, decode cells) and measure
- * lines, without layout thrashing: every split (write) runs first, then every
- * line measurement (read), so the browser lays out once, not once per element.
- */
-export function prepareReveals(elements) {
-  const items = elements.map((el) => {
-    const kind = autoKind(el);
-    if (kind === 'chars') return { el, kind, chars: prepareChars(el) };
-    if (kind === 'decode') return { el, kind, decode: prepareDecode(el) };
-    if (kind === 'lines') splitWords(el);
-    return { el, kind };
-  });
-  items.forEach((item) => {
-    if (item.kind === 'lines') item.lines = groupLines(item.el);
-  });
-  return items;
-}
-
-function addLinesIn(tl, lines, { at, dur, stagger }) {
-  lines.forEach((words, i) => {
-    tl.fromTo(words, { yPercent: MASK_OFFSET }, { yPercent: 0, duration: dur, ease: IN_EASE }, at + i * stagger);
-  });
-}
-
-const inStates = {
-  fade: () => [{ opacity: 0, y: RISE_PX, ...depth('in') }, { opacity: 1, y: 0, ...flat() }],
-  scale: () => [{ opacity: 0, scale: SCALE_FROM, ...depth('in') }, { opacity: 1, scale: 1, ...flat() }],
-};
-
-/** Per-item stagger, shrunk when needed so `count` items starting at `at` all finish by `end`. */
-function cappedStagger(step, count, { at, dur, end }) {
-  if (count < 2 || !Number.isFinite(end)) return step;
-  return Math.min(step, Math.max(0, end - at - dur) / (count - 1));
-}
-
-/**
- * Scrubbed in-animation. `at`, `dur` and `end` (latest finish, the fully-in
- * point) are timeline seconds; `phase` is the scene in-phase length.
- */
-export function revealIn(tl, item, { at, dur, phase, end }) {
-  const { el, kind } = item;
-  if (kind === 'chars') return charsIn(tl, item.chars, { at, dur, phase, end });
-  if (kind === 'decode') return decodeIn(tl, item.decode, { at, phase, end });
-  if (kind === 'lines') {
-    const stagger = cappedStagger(phase * LINE_STAGGER, item.lines.length, { at, dur, end });
-    addLinesIn(tl, item.lines, { at, dur, stagger });
-    return undefined;
+function kindOf(el) {
+  if (el.hasAttribute('data-reveal')) {
+    const asked = el.dataset.reveal;
+    if (asked === 'none') return 'none';
+    if (WORD_KINDS.has(asked)) return 'words';
+    return asked === 'stagger' || asked === 'scale' ? asked : 'fade';
   }
-  if (kind === 'stagger') {
-    const kids = Array.from(el.children);
-    const stagger = cappedStagger(phase * CHILD_STAGGER, kids.length, { at, dur, end });
-    tl.fromTo(kids, { opacity: 0, y: RISE_PX, ...depth('in') },
-      { opacity: 1, y: 0, ...flat(), duration: dur, ease: IN_EASE, stagger }, at);
-    return undefined;
-  }
-  const [from, to] = (inStates[kind] || inStates.fade)();
-  tl.fromTo(el, from, { ...to, duration: dur, ease: IN_EASE }, at);
-  return undefined;
+  if (el.classList.contains('stop')) return 'stop';
+  if (el.hasAttribute('data-frame')) return 'frame';
+  return el.classList.contains('rule') ? 'rule' : 'eyebrow';
 }
 
-/** Scrubbed out-animation: fade, rise and tip back out; lines leave upwards. */
-export function revealOut(tl, item, { at, dur, phase }) {
-  const { el, kind } = item;
-  const common = { duration: dur, ease: OUT_EASE, immediateRender: false };
-  if (kind === 'chars') return charsOut(tl, item.chars, { at, dur, phase });
-  if (kind === 'decode') return decodeOut(tl, item.decode, { at, phase });
-  if (kind === 'lines') {
-    item.lines.forEach((words, i) => {
-      tl.fromTo(words, { yPercent: 0 }, { yPercent: -MASK_OFFSET, ...common }, at + i * phase * OUT_STAGGER);
+/** A hook inside another hook is skipped, except the stop, which always pops on its own. */
+function isOuter(el, sceneEl) {
+  const parent = el.parentElement?.closest(IN_GROUP);
+  if (!parent || !sceneEl.contains(parent)) return true;
+  if (!el.classList.contains('stop')) return false;
+  return !el.closest('[data-reveal="none"]');
+}
+
+function frameLength(el) {
+  try {
+    return Math.ceil(el.getTotalLength?.() || 0);
+  } catch {
+    return 0; // not rendered (display: none): nothing to draw
+  }
+}
+
+/**
+ * Collect and prepare a scene's in group: split headings into words, read
+ * frame lengths. Call on every build (layout may have changed).
+ */
+export function prepareInGroup(sceneEl) {
+  return Array.from(sceneEl.querySelectorAll(IN_GROUP))
+    .filter((el) => isOuter(el, sceneEl))
+    .map((el) => ({ el, kind: kindOf(el) }))
+    .filter((item) => item.kind !== 'none')
+    .map((item) => {
+      if (item.kind === 'words') item.words = splitWords(item.el);
+      if (item.kind === 'stagger') item.kids = Array.from(item.el.children);
+      if (item.kind === 'frame') item.length = frameLength(item.el);
+      if (item.kind === 'stop') item.heading = item.el.parentElement?.closest('[data-reveal]') || null;
+      return item;
     });
-    return undefined;
-  }
-  if (kind === 'stagger') {
-    const kids = Array.from(el.children);
-    tl.fromTo(kids, { opacity: 1, y: 0, ...flat() },
-      { opacity: 0, y: OUT_RISE_PX, ...depth('out'), stagger: phase * OUT_STAGGER, ...common }, at);
-    return undefined;
-  }
-  tl.fromTo(el, { opacity: 1, y: 0, scale: 1, ...flat() },
-    { opacity: 0, y: OUT_RISE_PX, scale: SCALE_OUT, ...depth('out'), ...common }, at);
-  return undefined;
+}
+
+/** The elements flow mode fades in (one per item; a heading fades as a whole). */
+export const flowTargets = (items) => items.flatMap((item) => (item.kind === 'stagger' ? item.kids : [item.el]));
+
+/** Stagger that fits `count` starts from `start` before `latest`, never above `step`. */
+const fitStagger = (step, count, start, latest) => (count < 2 ? 0 : Math.min(step, Math.max(0, latest - start) / (count - 1)));
+
+/**
+ * Append the in group to `tl`, starting at `at` (the 'in' label time) and
+ * landing by `settled`. `frameAt` (same-field cuts) is when [data-frame]
+ * starts drawing; null draws it with the group. `keepOpacity` (the first
+ * landing): "fade" items only rise, so text painted from the HTML is never
+ * hidden again. Adds the 'stop' label.
+ */
+export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity = false }) {
+  let cursor = at;
+  let stopAt = null;
+  let wordsEnd = null;
+  const lastWord = new Map();
+  const latest = (dur) => Math.max(at, settled - dur);
+  const slot = (item, natural, dur) => {
+    const delay = parseFloat(item.el.dataset.delay);
+    const t = Number.isFinite(delay) ? at + clamp(delay, 0, MAX_DELAY) : natural;
+    return clamp(t, at, latest(dur));
+  };
+  const fadeIn = (targets, from, start, extra = {}) => {
+    tl.fromTo(targets, from, { opacity: 1, y: 0, scale: 1, duration: ITEM_DUR, ease: EASE.stepIn, ...extra }, start);
+  };
+
+  items.forEach((item) => {
+    const { el, kind } = item;
+    if (kind === 'eyebrow') {
+      const start = slot(item, cursor, DUR.eyebrow);
+      tl.fromTo(el, { yPercent: EYEBROW_OFFSET, clipPath: 'inset(0% 0% 100% 0%)' },
+        { yPercent: 0, clipPath: 'inset(0% 0% 0% 0%)', duration: DUR.eyebrow, ease: EASE.stepIn, clearProps: 'clipPath' }, start);
+      cursor = start + CUT.itemStagger;
+    } else if (kind === 'words') {
+      if (!item.words.length) return;
+      const start = slot(item, Math.max(cursor, at + WORDS_AFTER), WORD_DUR);
+      const stagger = fitStagger(CUT.wordStagger, item.words.length, start, latest(WORD_DUR));
+      tl.fromTo(item.words, { yPercent: MASK_OFFSET },
+        { yPercent: 0, duration: WORD_DUR, ease: EASE.stepIn, stagger }, start);
+      const last = start + stagger * (item.words.length - 1);
+      lastWord.set(el, last);
+      wordsEnd = last + STOP_AFTER;
+      cursor = last + CUT.itemStagger;
+    } else if (kind === 'rule') {
+      const start = slot(item, cursor, RULE_DUR);
+      tl.fromTo(el, { scaleX: 0, transformOrigin: '0% 50%' },
+        { scaleX: 1, duration: RULE_DUR, ease: EASE.stepIn }, start);
+      cursor = start + CUT.itemStagger;
+    } else if (kind === 'fade' || kind === 'scale') {
+      const start = slot(item, cursor, ITEM_DUR);
+      if (kind === 'fade' && keepOpacity) {
+        tl.fromTo(el, { y: RISE_PX }, { y: 0, duration: ITEM_DUR, ease: EASE.stepIn }, start);
+      } else {
+        fadeIn(el, kind === 'fade' ? { opacity: 0, y: RISE_PX } : { opacity: 0, scale: SCALE_FROM }, start);
+      }
+      cursor = start + CUT.itemStagger;
+    } else if (kind === 'stagger') {
+      if (!item.kids.length) return;
+      const start = slot(item, cursor, ITEM_DUR);
+      const stagger = fitStagger(CUT.itemStagger, item.kids.length, start, latest(ITEM_DUR));
+      fadeIn(item.kids, { opacity: 0, y: RISE_PX }, start, { stagger });
+      cursor = start + stagger * (item.kids.length - 1) + CUT.itemStagger;
+    } else if (kind === 'stop') {
+      const anchor = lastWord.get(item.heading);
+      const start = clamp((anchor ?? cursor - CUT.itemStagger) + STOP_AFTER, at, latest(DUR.stop));
+      tl.fromTo(el, { scale: 0, transformOrigin: '50% 50%' },
+        { scale: 1, duration: DUR.stop, ease: EASE.stop }, start);
+      stopAt ??= start;
+    } else if (kind === 'frame' && item.length > 0) {
+      const start = clamp(frameAt ?? at, 0, latest(DUR.frame));
+      tl.fromTo(el, { strokeDasharray: item.length, strokeDashoffset: item.length },
+        { strokeDashoffset: 0, duration: DUR.frame, ease: EASE.same }, start);
+    }
+  });
+  tl.addLabel('stop', stopAt ?? clamp(wordsEnd ?? at, at, latest(DUR.stop)));
 }

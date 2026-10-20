@@ -1,139 +1,180 @@
 /**
- * Home page choreography added to the film's master timeline.
+ * Home page choreography appended to the engine's cut timelines (api.md §4.3).
  *
- * `addSceneTweens` is the `build` listener: it runs for every scene on every
- * (re)build and only adds fromTo tweens to `tl` (idempotent, scrubbed,
- * reversible). Positions are shares of the scene's in-phase or hold.
- * Only transform, opacity and clip-path are animated.
+ * `addCutTweens` is the film's 'cut' listener. It filters on the incoming
+ * scene, positions every tween by label (never by absolute time, so the same
+ * code runs in cut and touch-cut mode), uses fromTo with explicit end states
+ * (immediate landings jump straight to the end) and animates transform,
+ * opacity and two registered custom properties only. Nothing loops.
  *
- * Round 3 depth: on fine pointers the key pieces arrive in 3D (the video frame
- * swings in, the situations and service tiles flip down like cards, the
- * timeline and the map stand up from a table, the "With Cargado" panel comes
- * forward, the monogram turns to face the visitor). Phones stay 2D, like the
- * engine's own reveals. Every 3D tween targets an element no engine reveal
- * moves, so no two tweens fight over one transform.
+ *   #one-message  W2: four searches arrive 80 ms apart from the 'iris' label
+ *                 (a J-cut; 'in' on a swap), a bar wipes each one and the
+ *                 line dims; then, from just before the 'struck' label, "One
+ *                 Message" rises, its stop pops and the steps settle with its
+ *                 second word. The cut ends within 1.3 s.
+ *   #founder      W3: the doors are dealt in (y ±48 px, rotationY ±12°,
+ *                 perspective 1100, 70 ms apart, landing flat); phones rise in y.
+ *   #situations,  J-cuts: the engine's in group starts 0.12 s early, with the
+ *   #find         pan, inside the opening circle (T5: no bare field at 25%).
  *
- * Never put [data-depth] on an element tweened here: GSAP writes `translate:
- * none` inline on any element whose transform it animates, which cancels the
- * hover lift. The depth layers sit on wrappers (.compare__lift, .map__lift,
- * .story-mark__lift, .situation__arrow) instead.
+ * The hero (W1) and the close (W5) need nothing here: the engine plays the
+ * words and the stop, dotglobe plays the globe, the arc and the medallion.
  */
 
-const EASE_IN = 'power3.out';
-const EASE_SOFT = 'power2.inOut';
-const HERO_DRIFT_PX = -48; // the hero copy drifts up slightly while the visitor starts scrolling
-const STORY_TURN_DEG = 8;
-const MAP_CLIP_END = '78%';
-const PERSPECTIVE = { near: 900, mid: 1200, far: 1400 };
-const DEPTH = Object.freeze({
-  frame: { rotationY: -18, rotationX: 6, z: -120 },
-  row: { rotationX: -55, z: -60 },
-  panel: { rotationY: -14, z: 140 },
-  timeline: { rotationX: 38, z: -80 },
-  tile: { rotationX: -70 },
-  map: { rotationX: 52 },
-  mark: { rotationY: -75 },
+import { irisFades } from './iris.js';
+
+const STRIKE = Object.freeze({
+  arrive: 0.35, // each line rises into place
+  arriveStagger: 0.08,
+  rise: 18, // px
+  bar: 0.14, // each bar wipes from the left
+  barStagger: 0.05,
+  barAfter: 0.16, // the first bar starts this long after the first line arrives
+  panIn: 0.08, // the incoming pan's fade, as the engine's (cut.js PAN_IN_S), moved to the lead
 });
-const FLAT = { rotationX: 0, rotationY: 0, z: 0 };
-/* The timeline dot (15px plus its 6px halo) grows from its centre; 100% covers the halo. */
-const DOT_CLIP = { from: 'circle(0% at 50% 50%)', to: 'circle(100% at 50% 50%)' };
+/** The answer after the problem: "One Message", its stop and the steps overlap the last bar. */
+const ANSWER = Object.freeze({
+  lead: 0.12, // the first word starts this long before 'struck' (the last bar is mostly drawn)
+  wordDuration: 0.5,
+  wordStagger: 0.07,
+  maskOffset: 110, // yPercent, as the engine's word reveal (film-reveals.js)
+  stopAfter: 0.25, // after the last word starts (the stop lands by in + 1.0 s)
+  stopDuration: 0.24,
+  stepsAfter: 0.07, // after the first word: the steps start with the second
+  stepDuration: 0.45,
+  stepStagger: 0.06,
+  stepRise: 24,
+});
+const DEAL = Object.freeze({
+  y: 48,
+  rotationY: 12, // DIRECTION W3: at most 12° (the panel fix)
+  perspective: 1100,
+  duration: 0.6,
+  stagger: 0.07,
+  after: 0, // seconds after the 'in' label: the first door moves with the title (no bare metal)
+});
+const LEAD_IN_S = 0.12; // H3/H5: the in group starts this long before 'in' on a J-cut
+const ACTION = '[data-group="action"]'; // keeps its slot: its fine print would straddle the circle's edge
+const PHONE_QUERY = '(max-width: 759px)';
 
-const qs = (root, sel) => root.querySelector(sel);
 const qsa = (root, sel) => Array.from(root.querySelectorAll(sel));
-const depthOn = () => window.matchMedia('(pointer: fine)').matches;
-
-/** Timeline position at share `f` of the in-phase. */
-const inAt = (t, f) => t.inStart + t.inDur * f;
-const inLen = (t, f) => t.inDur * f;
-/** The hold: from fully in to the start of the out-phase. */
-const holdLen = (t) => Math.max(0.001, t.outStart - t.focusTime);
+const isPhone = () => window.matchMedia(PHONE_QUERY).matches;
+/** Lines that phones drop (.phone-hide) are left out, so the stagger has no gap. No layout reads. */
+const shown = (els) => (isPhone() ? els.filter((el) => !el.classList.contains('phone-hide')) : els);
 
 /**
- * A scrubbed 3D entrance: `from` depth (see DEPTH) to flat, around `origin`.
- * Does nothing on coarse pointers, so phones keep the plain 2D reveals.
+ * W2 is a J-cut: the strikes arrive from the 'iris' label, while the outgoing scene leaves, so
+ * no seek frame falls between the two scenes (§10.2, T5). The pan's fade moves with them. A swap
+ * (tier C, reduced motion) changes the field just before 'in', so there they keep the 'in' slot.
  */
-function depthIn(tl, targets, { from, origin, perspective = PERSPECTIVE.mid, at, dur, stagger = 0 }) {
-  if (!depthOn() || !targets || (Array.isArray(targets) && !targets.length)) return;
-  const flat = Object.fromEntries(Object.keys(from).map((key) => [key, FLAT[key]]));
-  tl.fromTo(targets,
-    { ...from, transformOrigin: origin, transformPerspective: perspective },
-    { ...flat, duration: dur, stagger, ease: EASE_IN }, at);
+function leadLabel(tl, el, { fieldChange, origin }) {
+  const { iris, in: inAt } = tl.labels;
+  if (iris === undefined || inAt === undefined || iris >= inAt || (fieldChange && irisFades(undefined, origin))) return 'in';
+  const pan = el.querySelector('.scene__pan');
+  if (pan) {
+    tl.getTweensOf(pan).forEach((tween) => tween.kill());
+    tl.fromTo(pan, { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: STRIKE.panIn, ease: 'none' }, 'iris');
+  }
+  return 'iris';
 }
 
-function hero(tl, el, t) {
-  const copy = qs(el, '.hero__copy');
-  if (!copy || !t.outDur) return;
-  tl.fromTo(copy, { y: 0 }, { y: HERO_DRIFT_PX, duration: t.outStart, ease: 'none' }, 0);
-}
-
-function video(tl, el, t) {
-  const clip = qs(el, '.vframe__clip');
-  const media = qs(el, '.vframe__media');
-  depthIn(tl, qs(el, '.vframe'), { from: DEPTH.frame, origin: '0% 50%', perspective: PERSPECTIVE.far, at: inAt(t, 0.2), dur: inLen(t, 0.75) });
-  tl.fromTo(clip, { clipPath: 'inset(14% 12% 14% 12%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: inLen(t, 0.7), ease: EASE_SOFT }, inAt(t, 0.25));
-  tl.fromTo(media, { scale: 1.18 }, { scale: 1, duration: inLen(t, 0.8), ease: EASE_IN }, inAt(t, 0.25));
-  tl.fromTo(qs(el, '.vframe__ui'), { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: inLen(t, 0.35), ease: EASE_IN }, inAt(t, 0.7));
-}
-
-function situations(tl, el, t) {
-  depthIn(tl, qsa(el, '.situation'), {
-    from: DEPTH.row, origin: '50% 0%', perspective: PERSPECTIVE.near, at: inAt(t, 0.35), dur: inLen(t, 0.4), stagger: inLen(t, 0.06),
+/**
+ * H3 and H5 as J-cuts too: when the pan leads from 'iris', the engine's in group (all but the
+ * action group) moves up by LEAD_IN_S, so the rows and the headline are drawn inside the opening
+ * circle (or over the leaving scene on a same-field cut) instead of on a bare field. Swaps keep
+ * the engine's slots.
+ */
+function leadInGroup(tl, el, event) {
+  if (leadLabel(tl, el, event) !== 'iris') return;
+  const pan = el.querySelector('.scene__pan');
+  const from = tl.labels.in - 0.001;
+  tl.getChildren(false, true, false).forEach((tween) => {
+    const targets = tween.targets();
+    if (tween.startTime() < from || targets.includes(pan) || !targets.every((t) => t instanceof Node && el.contains(t) && !t.closest?.(ACTION))) return;
+    tween.startTime(tween.startTime() - LEAD_IN_S);
   });
-  tl.fromTo(qsa(el, '.situation__go'), { xPercent: -120, opacity: 0 },
-    { xPercent: 0, opacity: 1, duration: inLen(t, 0.35), stagger: inLen(t, 0.06), ease: EASE_IN }, inAt(t, 0.55));
 }
 
-function compare(tl, el, t) {
-  const us = qs(el, '.compare__us');
-  depthIn(tl, us, { from: DEPTH.panel, origin: '0% 50%', at: inAt(t, 0.45), dur: inLen(t, 0.5) });
-  tl.fromTo(us, { clipPath: 'inset(0% 0% 0% 100%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: inLen(t, 0.5), ease: EASE_SOFT }, inAt(t, 0.45));
-  tl.fromTo(qsa(us, 'li'), { opacity: 0, x: 18 }, { opacity: 1, x: 0, duration: inLen(t, 0.3), stagger: inLen(t, 0.06), ease: EASE_IN }, inAt(t, 0.6));
-  tl.fromTo(qsa(el, '.compare__strike'), { scaleX: 0 }, { scaleX: 1, duration: inLen(t, 0.2), stagger: inLen(t, 0.06), ease: 'power1.inOut' }, inAt(t, 0.6));
+/** W2: the struck searches. The bar and the dim are --strike / --strike-dim (fx.css §4). */
+function strikeSearches(tl, el, dir, lead) {
+  const lines = shown(qsa(el, '.strike > li'));
+  if (!lines.length) return;
+  tl.fromTo(lines, { opacity: 0, y: STRIKE.rise * dir }, {
+    opacity: 1, y: 0, duration: STRIKE.arrive, ease: 'expo.out', stagger: STRIKE.arriveStagger,
+  }, lead);
+  tl.fromTo(lines, { '--strike': 0, '--strike-dim': 0 }, {
+    '--strike': 1, '--strike-dim': 1, duration: STRIKE.bar, ease: 'power2.inOut', stagger: STRIKE.barStagger,
+  }, `${lead}+=${STRIKE.barAfter}`);
+  const struck = STRIKE.barAfter + STRIKE.barStagger * (lines.length - 1) + STRIKE.bar;
+  tl.addLabel('struck', `${lead}+=${struck}`);
 }
 
-function process(tl, el, t) {
-  depthIn(tl, qs(el, '.process'), { from: DEPTH.timeline, origin: '50% 0%', at: inAt(t, 0.25), dur: inLen(t, 0.7) });
-  tl.fromTo(qs(el, '.process__line'), { scaleX: 0 }, { scaleX: 1, duration: inLen(t, 0.7), ease: EASE_SOFT }, inAt(t, 0.4));
-  // clip-path, not scale: a GSAP transform tween writes `translate: none` inline, which would
-  // cancel the dot's hover depth layer (fx.css lifts [data-depth] with the `translate` property).
-  tl.fromTo(qsa(el, '.process__dot'), { clipPath: DOT_CLIP.from }, { clipPath: DOT_CLIP.to, duration: inLen(t, 0.2), stagger: inLen(t, 0.18), ease: 'back.out(2)' }, inAt(t, 0.5));
+/**
+ * W2 order: the engine lands the monument and the steps with the rest of the in group; here
+ * they are taken off the engine's slots and replayed from 'answer', as the last bar finishes,
+ * so the answer never lands before the problem is crossed out. 'stop' moves with the stop.
+ */
+function landAnswer(tl, el) {
+  const words = qsa(el, '.one__title .rv-word');
+  const stop = el.querySelector('.one__title .stop');
+  const steps = qsa(el, '.one__steps > li');
+  [words, stop ? [stop] : [], steps].forEach((targets) => {
+    if (targets.length) tl.getTweensOf(targets).forEach((tween) => tween.kill());
+  });
+  const lastWord = ANSWER.wordStagger * Math.max(words.length - 1, 0);
+  tl.addLabel('answer', `struck-=${ANSWER.lead}`);
+  if (words.length) {
+    tl.fromTo(words, { yPercent: ANSWER.maskOffset }, {
+      yPercent: 0, duration: ANSWER.wordDuration, ease: 'expo.out', stagger: ANSWER.wordStagger,
+    }, 'answer');
+  }
+  if (stop) {
+    const at = `answer+=${lastWord + ANSWER.stopAfter}`;
+    tl.fromTo(stop, { scale: 0, transformOrigin: '50% 50%' }, {
+      scale: 1, duration: ANSWER.stopDuration, ease: 'back.out(3)',
+    }, at);
+    tl.addLabel('stop', at);
+  }
+  if (steps.length) {
+    tl.fromTo(steps, { opacity: 0, y: ANSWER.stepRise }, {
+      opacity: 1, y: 0, duration: ANSWER.stepDuration, ease: 'expo.out', stagger: ANSWER.stepStagger,
+    }, `answer+=${ANSWER.stepsAfter}`);
+  }
 }
 
-function services(tl, el, t) {
-  const tiles = qsa(el, '.tiles > li');
-  const turn = depthOn() ? { ...DEPTH.tile, transformOrigin: '50% 0%', transformPerspective: PERSPECTIVE.near } : {};
-  const flat = depthOn() ? { rotationX: 0 } : {};
-  tl.fromTo(tiles, { opacity: 0, y: 24, ...turn },
-    { opacity: 1, y: 0, ...flat, duration: inLen(t, 0.35), stagger: inLen(t, 0.035), ease: EASE_IN }, inAt(t, 0.45));
+/** W3: the doors are dealt in, alternating up and down, and land flat. */
+function dealDoors(tl, el) {
+  const doors = qsa(el, '.door');
+  if (!doors.length) return;
+  const flat = isPhone();
+  const from = flat
+    ? { opacity: 0, y: DEAL.y }
+    : {
+      opacity: 0,
+      y: (i) => (i % 2 ? DEAL.y : -DEAL.y),
+      rotationY: (i) => (i % 2 ? -DEAL.rotationY : DEAL.rotationY),
+      transformPerspective: DEAL.perspective,
+    };
+  const to = flat
+    ? { opacity: 1, y: 0 }
+    : { opacity: 1, y: 0, rotationY: 0, transformPerspective: DEAL.perspective };
+  tl.fromTo(doors, from, {
+    ...to, duration: DEAL.duration, ease: 'expo.out', stagger: DEAL.stagger, clearProps: 'transform',
+  }, `in+=${DEAL.after}`);
 }
 
-function founder(tl, el, t) {
-  tl.fromTo(qs(el, '.offer__rule'), { scaleX: 0 }, { scaleX: 1, duration: inLen(t, 0.5), ease: EASE_SOFT }, inAt(t, 0.55));
-}
+const CHOREOGRAPHY = {
+  'one-message': (event) => {
+    const { tl, toEl, dir } = event;
+    strikeSearches(tl, toEl, dir, leadLabel(tl, toEl, event));
+    if (tl.labels.struck !== undefined) landAnswer(tl, toEl);
+  },
+  founder: ({ tl, toEl }) => dealDoors(tl, toEl),
+  situations: (event) => leadInGroup(event.tl, event.toEl, event),
+  find: (event) => leadInGroup(event.tl, event.toEl, event),
+};
 
-function find(tl, el, t) {
-  const svg = qs(el, '.map__svg');
-  if (!svg) return;
-  const hub = el.dataset.mapHub || '50% 50%';
-  depthIn(tl, svg, { from: DEPTH.map, origin: '50% 100%', perspective: PERSPECTIVE.far, at: inAt(t, 0.25), dur: inLen(t, 0.75) });
-  tl.fromTo(svg, { clipPath: `circle(0% at ${hub})` }, { clipPath: `circle(${MAP_CLIP_END} at ${hub})`, duration: inLen(t, 0.8), ease: EASE_SOFT }, inAt(t, 0.3));
-  tl.fromTo(qsa(el, '.map__pin'), { scale: 0 }, { scale: 1, duration: inLen(t, 0.2), stagger: inLen(t, 0.025), ease: 'back.out(2.4)' }, inAt(t, 0.6));
-  tl.fromTo(qsa(el, '.map__ring'), { scale: 0.2, opacity: 0 }, { scale: 1, opacity: 1, duration: inLen(t, 0.35), stagger: inLen(t, 0.08), ease: EASE_IN }, inAt(t, 0.55));
-  tl.fromTo(qsa(el, '.map__label'), { opacity: 0 }, { opacity: 1, duration: inLen(t, 0.2), ease: 'none' }, inAt(t, 0.85));
-}
-
-function story(tl, el, t) {
-  const mark = qs(el, '.story-mark__svg');
-  depthIn(tl, mark, { from: DEPTH.mark, origin: '50% 50%', at: inAt(t, 0.3), dur: inLen(t, 0.7) });
-  tl.fromTo(mark, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: inLen(t, 0.6), ease: EASE_SOFT }, inAt(t, 0.3));
-  tl.fromTo(qsa(el, '.story-mark__letters span'), { yPercent: 110 }, { yPercent: 0, duration: inLen(t, 0.4), stagger: inLen(t, 0.08), ease: EASE_IN }, inAt(t, 0.5));
-  tl.fromTo(mark, { rotate: -STORY_TURN_DEG }, { rotate: 0, duration: inLen(t, 0.8) + holdLen(t), ease: 'none' }, inAt(t, 0.3));
-}
-
-const BUILDERS = { hero, video, situations, compare, 'how-it-works': process, founder, services, find, story };
-
-/** Film `build` listener. */
-export function addSceneTweens({ tl, sceneEl, timing }) {
-  const builder = BUILDERS[sceneEl.id];
-  if (builder) builder(tl, sceneEl, timing);
+/** Film 'cut' listener. */
+export function addCutTweens(event) {
+  CHOREOGRAPHY[event.toEl?.id]?.(event);
 }

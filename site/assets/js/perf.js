@@ -1,19 +1,21 @@
 /**
- * Device budget and scheduling helpers shared by the stage layers.
+ * Device budget and scheduling helpers shared by the engine and the layers.
  *
- * lowPower()   true on devices that should get the light versions of the
- *              decorative layers: Save-Data, ≤ 2 GB memory, ≤ 2 cores, or a
- *              coarse pointer on a small screen.
- * saveData()   the visitor asked to save data: skip the three.js download.
- * onIdle(cb)   run after first paint, when the main thread is idle.
- * createLoop() an rAF loop that sleeps while the tab is hidden and stops when
- *              its frame function reports there is nothing left to draw.
+ * lowPower()        Round 4 name, kept: true on tiers B and C (tier.js). New
+ *                   code reads tierConfig() instead.
+ * saveData()        the visitor asked to save data.
+ * onIdle(cb)        run after first paint, when the main thread is idle.
+ * createLoop()      an rAF loop that sleeps while the tab is hidden, when its
+ *                   frame function reports nothing left to draw, and (with
+ *                   idleMs) a fixed time after its last wake: the 5 s rule.
+ * onInputIdle(cb)   cb once no pointer, wheel, key, touch or landing has
+ *                   happened for 5 s; re-armed by the next input.
  */
+import { getTier } from './tier.js';
+import { DUR } from './motion-tokens.js';
 
-const LOW_MEMORY_GB = 2;
-const LOW_CORES = 2;
-const SMALL_SCREEN_PX = 900; // longest side of a phone-sized screen
 const IDLE_TIMEOUT_MS = 2500;
+const INPUT_EVENTS = ['pointermove', 'pointerdown', 'wheel', 'keydown', 'touchstart'];
 
 const connection = () => navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
 
@@ -21,22 +23,8 @@ export function saveData() {
   return !!connection()?.saveData;
 }
 
-function smallTouchScreen() {
-  const coarse = window.matchMedia('(pointer: coarse)').matches;
-  return coarse && Math.max(screen.width || 0, screen.height || 0) <= SMALL_SCREEN_PX;
-}
-
-let lowPowerCache = null;
-
 export function lowPower() {
-  if (lowPowerCache !== null) return lowPowerCache;
-  const memory = navigator.deviceMemory;
-  const cores = navigator.hardwareConcurrency;
-  lowPowerCache = saveData()
-    || (Number.isFinite(memory) && memory <= LOW_MEMORY_GB)
-    || (Number.isFinite(cores) && cores <= LOW_CORES)
-    || smallTouchScreen();
-  return lowPowerCache;
+  return getTier() !== 'A';
 }
 
 /**
@@ -95,25 +83,78 @@ export function onIdle(cb, timeout = IDLE_TIMEOUT_MS) {
 /**
  * rAF loop that never spins without work. `frame(now, dt)` returns true while
  * it still has something to animate; returning false parks the loop until
- * `wake()` is called (pointer move, scroll, field change …). Hidden tabs park
- * it too and wake it on return.
+ * `wake()` is called (pointer move, a cut, a field change …). Hidden tabs park
+ * it too and wake it on return. With `idleMs` (use DUR.idleStopMs) the loop
+ * also parks itself that long after the last wake(), whatever frame returns.
  */
-export function createLoop(frame) {
+export function createLoop(frame, { idleMs = 0 } = {}) {
   let id = 0;
   let last = 0;
+  let wokeAt = 0;
   const tick = (now) => {
     id = 0;
     if (document.hidden) return;
     const dt = last ? Math.min(0.1, (now - last) / 1000) : 1 / 60;
     last = now;
-    if (frame(now, dt)) id = requestAnimationFrame(tick);
+    const expired = idleMs > 0 && performance.now() - wokeAt >= idleMs;
+    if (frame(now, dt) && !expired) id = requestAnimationFrame(tick);
     else last = 0;
   };
   const wake = () => {
+    wokeAt = performance.now();
     if (!id && !document.hidden) id = requestAnimationFrame(tick);
+  };
+  const sleep = () => {
+    if (id) cancelAnimationFrame(id);
+    id = 0;
+    last = 0;
   };
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) wake();
   });
-  return { wake, get running() { return id !== 0; } };
+  return { wake, sleep, get running() { return id !== 0; } };
+}
+
+/* ---------- input idle (the 5 s rule, DIRECTION §2) ---------- */
+
+const idleWatchers = new Set();
+let lastActivity = performance.now();
+let inputHooked = false;
+
+function arm(watcher) {
+  if (watcher.timer) return;
+  const wait = Math.max(0, watcher.ms - (performance.now() - lastActivity));
+  watcher.timer = setTimeout(() => {
+    watcher.timer = 0;
+    const quiet = performance.now() - lastActivity;
+    if (quiet < watcher.ms) arm(watcher); // input arrived meanwhile: wait out the rest
+    else if (!watcher.fired) {
+      watcher.fired = true;
+      watcher.cb();
+    }
+  }, wait);
+}
+
+/** Record activity that is not a DOM input event (the engine calls it on every landing). */
+export function noteActivity() {
+  lastActivity = performance.now();
+  idleWatchers.forEach((watcher) => {
+    watcher.fired = false;
+    arm(watcher);
+  });
+}
+
+/** cb() once `ms` passes with no pointer, wheel, key, touch or landing; re-armed by the next one. Returns unsubscribe. */
+export function onInputIdle(cb, ms = DUR.idleStopMs) {
+  if (!inputHooked) {
+    inputHooked = true;
+    INPUT_EVENTS.forEach((type) => window.addEventListener(type, noteActivity, { passive: true, capture: true }));
+  }
+  const watcher = { cb, ms, timer: 0, fired: false };
+  idleWatchers.add(watcher);
+  arm(watcher);
+  return () => {
+    clearTimeout(watcher.timer);
+    idleWatchers.delete(watcher);
+  };
 }

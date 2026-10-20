@@ -25,12 +25,21 @@ export const WHATSAPP_BASE = `https://wa.me/${PHONE.whatsapp}`;
  */
 export const FACEBOOK_URL = 'https://www.facebook.com/';
 export const FACEBOOK_IS_PLACEHOLDER = true;
+/** The Facebook / Messenger page name (owner, 2026-10-18). The page URL is still to confirm. */
+export const FACEBOOK_PAGE_NAME = 'CarGado Wealth Strategies';
 
-/**
- * TODO(founder): company email on the Cargado domain (FR34). Leave empty until
- * it exists; forms then fall back to WhatsApp, and pages show the label below.
- */
-export const CONTACT_EMAIL = '';
+/** Business address (owner, 2026-10-18), shown in the footer and menu contact list. */
+export const ADDRESS = Object.freeze({
+  street: '1210 Chamberlain Ave',
+  city: 'Winnipeg',
+  province: 'MB',
+  postal: 'R2X 1E7',
+  country: 'Canada',
+});
+export const ADDRESS_LINE = `${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.province} ${ADDRESS.postal}`;
+
+/** Business email (owner, 2026-10-18). Empty = forms fall back to WhatsApp and pages show the label below. */
+export const CONTACT_EMAIL = 'malee.holgado@mygreatway.ca';
 export const CONTACT_EMAIL_LABEL = CONTACT_EMAIL || '[company email]';
 
 /**
@@ -43,6 +52,60 @@ export const VIDEO = Object.freeze({
   poster: '',
   source: 'stock',
 });
+
+/**
+ * Round 5 switches and proof slots. Every proof key below drives the
+ * [data-when="KEY"] slots (DIRECTION C19): a slot renders only while its value
+ * is truthy (or in review mode, ?review=1). Empty means "not real yet": use
+ * null / '' / false, never [] or {} (those are truthy). Never invent values.
+ */
+
+/** Home hero headline: 'network' ("The Right Professional, Near You.") or 'triad' ("Protect. Plan. Delegate."). */
+export const HERO_VARIANT = 'network';
+
+/** TODO(founder): the founder's first and last name. Empty = the [First name] / [Last name] placeholders. */
+export const FOUNDER_NAME = 'Lee';
+export const FOUNDER_LAST_NAME = 'Holgado';
+export const FOUNDER_NAME_LABEL = FOUNDER_NAME || '[First name]';
+
+/**
+ * TODO(founder): BLOCKING FOR LAUNCH. Lee's real portrait url (4:5, duotone,
+ * AVIF, e.g. 'assets/img/founder-800.avif'). It fills the Home hero and founder
+ * avatars and the Story portrait. Never a stock or generated stand-in face.
+ * Empty = the typographic portrait only.
+ */
+export const FOUNDER_PHOTO = '';
+
+/**
+ * TODO(founder): Lee's own signature mark (an SVG url she supplies), the H4
+ * fallback while FOUNDER_PHOTO is empty. Never a drawn or font-made imitation.
+ * Empty = hidden ([data-when="FOUNDER_SIGNATURE"]).
+ */
+export const FOUNDER_SIGNATURE = '';
+
+/** The Services finder shows once this many approved partners exist; below it, the concierge (C40). */
+export const FINDER_MIN_PARTNERS = 3;
+
+/** The footer and menu "Sound" and "Motion" switches (C37). */
+export const FOOTER_SWITCHES = true;
+
+/**
+ * TODO(founder): real proof numbers only, e.g.
+ * [{ value: '120', label: 'Introductions made' }, …]. null = hidden.
+ */
+export const STATS = null;
+
+/** TODO(founder): the real Facebook rating, e.g. { value: '4.9', count: 37, url: '…' }. null = hidden. */
+export const RATING = null;
+
+/** TODO(founder): real client quotes with permission, e.g. [{ text: '…', name: 'First name, City' }]. null = hidden. */
+export const QUOTES = null;
+
+/** TODO(founder): true once founding partner spots are live and the "[n] of [2] open" count is real. */
+export const FOUNDING_LIVE = false;
+
+/** The founder video url (from VIDEO above). Empty = no "Watch 1 Min" link and no video dialog. */
+export const VIDEO_URL = VIDEO.url;
 
 /** Main navigation, in order, in Title Case. `key` matches <body data-page="…">. */
 export const NAV = Object.freeze([

@@ -6,24 +6,32 @@
   <title>Services · Cargado Strategies</title>
   <meta name="description" content="Our founder's own insurance, business strategy and outsourcing services, plus a partner finder with a map of Canada: choose a service and your city to see independent partners sorted by distance.">
   <meta name="theme-color" content="#0B0B0C">
+  <meta name="view-transition" content="same-origin">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <script>
-    /* Film or flow mode before first paint; falls back to flow if the engine never starts. */
+    /* Mode (cut, touch-cut or flow) and tier before first paint; falls back to flow if the engine never starts. */
     (function (d) {
       var h = d.documentElement;
       var FALLBACK_MS = 8000;
-      var rm = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-      /* The visitor's "Pause animation" choice (assets/js/motion-pref.js). */
-      if (/[?&]motion=off(&|$)/.test(location.search)) rm = true;
-      try { if (localStorage.getItem('cs-motion') === 'off') rm = true; } catch (e) {}
-      h.classList.add('js', rm ? 'rm' : 'film');
+      var mm = function (q) { return !!(window.matchMedia && matchMedia(q).matches); };
+      var pref = null;
+      try { pref = localStorage.getItem('cs-motion'); } catch (e) { /* storage blocked: OS setting only */ }
+      var rm = pref === 'reduced' || pref === 'full' ? pref === 'reduced' : mm('(prefers-reduced-motion: reduce)');
+      var coarse = mm('(pointer: coarse)') && !mm('(hover: hover) and (pointer: fine)');
+      var mode = rm ? 'flow' : coarse ? 'touch-cut' : 'cut';
+      h.classList.add('js', mode === 'flow' ? 'rm' : mode === 'cut' ? 'film' : 'touch-cut');
+      h.setAttribute('data-mode', mode);
+      if (!h.hasAttribute('data-tier-lock')) {
+        var c = navigator.connection, mem = navigator.deviceMemory;
+        h.setAttribute('data-tier', (c && c.saveData) || (mem && mem <= 2) ? 'C' : coarse ? 'B' : 'A');
+      }
       /* If the site script never ran (a blocked or failed module), chrome.js drew no header:
          give the page a plain nav so every page stays reachable. */
       var rescueNav = function () {
         if (d.querySelector('.site-header, .nav-rescue')) return;
         var here = location.pathname.split('/').pop() || 'index.html';
         var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Our Story'],
-          ['partners.html', 'Become a Partner'], ['legal.html', 'Legal']];
+          ['partners.html', 'For Professionals'], ['legal.html', 'Legal']];
         var nav = d.createElement('nav');
         nav.className = 'nav-rescue';
         nav.setAttribute('aria-label', 'Main');
@@ -45,7 +53,7 @@
           if (h.classList.contains('film-ready')) return;
           if (d.visibilityState === 'hidden') return wait();
           /* film-fallback: film.js stands down if it is still building (film.js fallBackToFlow). */
-          h.classList.remove('film'); h.classList.add('rm', 'film-fallback');
+          h.classList.remove('film', 'touch-cut'); h.classList.add('rm', 'film-fallback'); h.setAttribute('data-mode', 'flow');
           rescueNav();
         }, FALLBACK_MS);
       };
@@ -59,338 +67,475 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
        Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@400;500;600&amp;family=Tinos:wght@400;700&amp;display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/fx.css">
+  <link rel="stylesheet" href="assets/css/ui.css">
+  <link rel="stylesheet" href="assets/css/visual.css">
   <link rel="stylesheet" href="assets/css/services.css">
   <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
   <link rel="modulepreload" href="assets/js/main.js">
   <link rel="modulepreload" href="assets/js/film.js">
   <link rel="modulepreload" href="assets/js/chrome.js">
   <script type="module" src="assets/js/services.js"></script>
-  <style id="splash-css">
-    /* Splash: paints with the HTML; assets/js/splash.js opens it, or it fades by itself at 2.6 s. */
-    html:not(.js) .splash { display: none; }
-    .splash { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; background: #0B0B0C; color: #D4AF37; pointer-events: none; animation: splash-out 0.5s ease 2.6s forwards; }
-    .splash-js .splash { animation: none; }
-    .splash__inner { display: grid; justify-items: center; gap: 18px; animation: splash-in 0.7s cubic-bezier(0.2, 0.7, 0.1, 1) both; }
-    .splash__mark { display: block; width: 76px; height: 76px; }
-    .splash__word { margin: 0; font: 400 1.5rem/1 "Times New Roman", Times, Tinos, serif; color: #F3ECDD; }
-    .splash__line { position: relative; display: block; width: 168px; height: 1px; overflow: hidden; background: rgba(243, 236, 221, 0.18); }
-    .splash__fill, .splash__line::after { position: absolute; inset: 0; background: #D4AF37; transform-origin: 0 50%; }
-    .splash__fill { transform: scaleX(0); animation: splash-load 1.9s cubic-bezier(0.2, 0.7, 0.1, 1) 0.1s forwards; }
-    .splash__line::after { content: ""; transform: scaleX(0); transition: transform 0.26s cubic-bezier(0.2, 0.7, 0.1, 1); }
-    .splash.is-leaving .splash__line::after { transform: scaleX(1); }
-    @keyframes splash-in { from { opacity: 0; transform: translateY(8px) scale(0.97); } }
-    @keyframes splash-load { to { transform: scaleX(0.86); } }
-    @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
-    @media (prefers-reduced-motion: reduce) {
-      .splash__inner, .splash__fill { animation: none; }
-      .splash__fill { transform: scaleX(0.86); }
-    }
-    /* The visitor's "Pause animation" (html.rm, set before first paint) is as calm as reduced motion. */
-    html.rm .splash__inner, html.rm .splash__fill { animation: none; }
-    html.rm .splash__fill { transform: scaleX(0.86); }
-  </style>
 </head>
 <body data-page="services">
-  <!-- Splash (decorative, aria-hidden, nothing focusable): CW monogram, wordmark, progress line. -->
+  <!-- splash (2c): plan/round5/snippets/splash.html. Shared node (2b). -->
+  <script>try{if(sessionStorage.getItem('cs-splash'))document.documentElement.classList.add('splash-skip')}catch(e){}</script>
   <div class="splash" id="splash" aria-hidden="true">
-    <div class="splash__inner">
-      <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
-        <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>
-        <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
-      </svg>
-      <p class="splash__word">Cargado Strategies</p>
-      <span class="splash__line"><span class="splash__fill"></span></span>
-    </div>
+    <div class="splash__bg"></div>
+    <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
+      <defs>
+        <linearGradient id="splash-sheen" x1="0" x2="1"><stop offset="0" stop-color="#FFF6D6" stop-opacity="0"/><stop offset=".5" stop-color="#FFF6D6" stop-opacity=".9"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/></linearGradient>
+        <mask id="splash-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48"><g fill="none" stroke="#fff" stroke-width="2.6"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/></g></mask>
+      </defs>
+      <path class="splash__c" pathLength="100" d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
+      <path class="splash__w" pathLength="100" d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/>
+      <g mask="url(#splash-mask)"><rect class="splash__sheen" x="-16" y="-12" width="14" height="72" fill="url(#splash-sheen)"/></g>
+    </svg>
   </div>
+  <!-- /splash -->
+  <!-- Shared chrome (2b): skip link and header, painted with the page; chrome.js wires them. -->
+  <a class="skip-link" href="#content">Skip to Content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Cargado Strategies, home"><svg class="monogram" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/></svg><span class="brand__word">Cargado Strategies</span></a>
+    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="services.html" aria-current="page">Services</a></li><li><a class="site-nav__link" href="story.html">Our Story</a></li><li><a class="site-nav__link" href="partners.html">For Professionals</a></li></ul></nav>
+    <a class="btn btn--primary btn--sm site-header__wa" href="https://wa.me/12048692508?text=Hi%20Cargado%20Strategies%2C%0AI'm%20on%20the%20Services%20page%20of%20your%20website.%0AWhat%20I%20need%20help%20with%3A%20%E2%80%A6%0AMy%20city%20and%20province%20(so%20you%20can%20introduce%20me%20to%20someone%20close%20to%20me)%3A%20%E2%80%A6" target="_blank" rel="noopener" data-wa-sheet data-context="services"
+       aria-label="Message Us on WhatsApp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><path d="M9.2 8.2c.3-.6.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .6-.2 1.3-.8 1.6-.6.4-1.5.5-2.6.1-1.7-.6-3.4-2.1-4.3-3.8-.6-1.1-.7-2.2-.4-3Z" fill="currentColor"/></svg><span class="btn__label">WhatsApp</span></a>
+    <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">
+      <span class="nav-toggle__label">Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span>
+    </button>
+  </header>
   <div class="stage">
-    <div class="fields"></div>
-    <canvas id="stars"></canvas>
-    <canvas id="gl"></canvas>
-    <div class="grain"></div>
-    <div class="hud"></div>
+    <div class="fields" aria-hidden="true" data-field="ink"></div>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <canvas id="globe" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
     <main class="scenes" id="content">
 
-      <!-- 1 · Intro + jump rail ------------------------------------------------ -->
-      <section class="scene" id="intro" data-field="ink" data-dur="5"
-               data-pose="1.55,0.05,0,0.05,0.2,1" data-title="Services" aria-labelledby="intro-title">
+      <!-- S1 · Intro · ink · R: her three services and the partner network, one row each ----------- -->
+      <section class="scene" id="intro" data-field="ink" data-archetype="R" data-title="Services"
+               aria-labelledby="intro-title" style="--kx: 22%; --ky: 30%">
         <div class="scene__inner">
-          <div class="grid">
-            <div class="span-7 stack stack-l">
-              <p class="eyebrow" data-reveal="fade">Services · across Canada</p>
-              <h1 id="intro-title" class="t-hero" data-reveal="lines">Everything in One&nbsp;Place.</h1>
-              <p class="t-lead" data-reveal="fade">Our founder's own three businesses, and a network of independent partners near you.
-                Each section says whether it's ours or a partner's.</p>
-              <ul class="ticks" data-reveal="stagger">
-                <li>Free introductions</li><li>Listed by distance, not by who pays</li><li>No obligation</li>
-              </ul>
-            </div>
+          <div class="intro__head" data-group="head">
+            <p class="eyebrow">Services</p>
+            <h1 id="intro-title" class="t-d1 intro__title" data-reveal="words" data-delay="0">Her Work, and the People She <em>Trusts</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h1>
+            <span class="rule" aria-hidden="true"></span>
           </div>
-          <nav class="jump-rail" aria-label="On this page" data-reveal="stagger">
-            <a class="jump-rail__item" href="#ours-insurance" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">01</span><span class="jump-rail__group" data-depth="14">Ours</span><span class="jump-rail__label" data-depth="22">Insurance</span></a>
-            <a class="jump-rail__item" href="#ours-strategy" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">02</span><span class="jump-rail__group" data-depth="14">Ours</span><span class="jump-rail__label" data-depth="22">Business Strategy</span></a>
-            <a class="jump-rail__item" href="#ours-outsourcing" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">03</span><span class="jump-rail__group" data-depth="14">Ours</span><span class="jump-rail__label" data-depth="22">Outsourcing</span></a>
-            <a class="jump-rail__item" href="#finder" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">04</span><span class="jump-rail__group" data-depth="14">Find</span><span class="jump-rail__label" data-depth="22">Partner Finder</span></a>
-            <a class="jump-rail__item" href="#categories" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">05</span><span class="jump-rail__group" data-depth="14">Partners</span><span class="jump-rail__label" data-depth="22">Every Category</span></a>
-            <a class="jump-rail__item" href="#inquiry" data-tilt data-cursor-label="Jump"><span class="jump-rail__n" data-depth="34">06</span><span class="jump-rail__group" data-depth="14">Ask</span><span class="jump-rail__label" data-depth="22">Send an&nbsp;Inquiry</span></a>
-          </nav>
+          <ul class="rows intro__rows" data-group="body" data-reveal="stagger" data-delay="0">
+            <li><a class="row" href="#ours-insurance"><span class="row__num num-outline">01</span><span class="row__title">Insurance</span><span class="row__meta">Ours</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="row" href="#ours-strategy"><span class="row__num num-outline">02</span><span class="row__title">Business Strategy</span><span class="row__meta">Ours</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="row" href="#ours-outsourcing"><span class="row__num num-outline">03</span><span class="row__title">Back-Office Team</span><span class="row__meta">Ours</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
+            <li><a class="row" href="#finder"><span class="row__num num-outline">04</span><span class="row__title">Nine Kinds of Help, Near You</span><span class="row__meta">Partners</span><span class="row__arrow" aria-hidden="true">→</span></a></li>
+          </ul>
+          <p class="intro__legend" data-group="action" data-reveal="fade" data-delay="0.06"><strong>Ours</strong> means <span class="ph" data-founder-name>[First name]</span> does it herself. <strong>Partners</strong> are independent local professionals.</p>
         </div>
       </section>
 
-      <!-- 2 · Founder: insurance ----------------------------------------------- -->
-      <section class="scene" id="ours-insurance" data-field="bone" data-dur="5" data-iris="78% 45%"
-               data-pose="-1.75,0,0,0.1,-0.5,0.82" data-title="Insurance · Ours" aria-labelledby="ins-title">
+      <!-- S2 · Insurance · bone · O: the typographic portrait, then her question ------------------ -->
+      <section class="scene" id="ours-insurance" data-alias="insurance" data-field="bone" data-archetype="O" data-iris="trigger"
+               data-title="Insurance" aria-labelledby="ins-title">
         <div class="scene__inner">
-          <div class="grid">
-            <div class="span-7 start-6 stack stack-l">
-              <div class="stack stack-s">
-                <p class="eyebrow" data-reveal="fade">From our founder · Insurance</p>
-                <h2 id="ins-title" data-reveal="lines">If Something Happens to&nbsp;You, Is Your Family&nbsp;OK?</h2>
-              </div>
-              <div class="panel-3d svc-panel stack" data-swing>
-                <h3 class="t-d4" data-reveal="chars" data-depth="40">The Family Protection Review</h3>
-                <div class="stack stack-s" data-reveal="fade" data-depth="22">
-                  <p class="num offer-meta">30 min · Insurance · Licence <span class="ph">[licence #]</span></p>
-                  <p class="measure">Our founder is a licensed agent of <span class="ph">[insurance company]</span>, a separate insurance company.
-                    In a 30-minute review she looks at the cover you already have and what your family would need if something happened to you.</p>
-                </div>
-                <div class="row" data-reveal="fade" data-depth="12">
-                  <a class="btn btn--primary" data-wa-category="insurance" href="#">Ask About Insurance on&nbsp;WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></a>
-                  <a class="btn btn--ghost" href="#inquiry" data-inquiry-category="insurance">Send an Inquiry</a>
-                </div>
-              </div>
-              <div class="stack stack-s" data-reveal="fade">
-                <p class="hint">Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
-                <p class="notice">This is our founder's own business. It is separate from the network of independent partners.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3 · Founder: business strategy (offer 4b) ---------------------------- -->
-      <section class="scene" id="ours-strategy" data-field="ink" data-dur="6" data-iris="18% 50%"
-               data-pose="2.4,1.2,-2,0.4,1.2,0" data-title="Business Strategy · Ours" aria-labelledby="strat-title">
-        <div class="scene__inner">
-          <div class="grid">
-            <div class="span-5 md-span-12 stack stack-l">
-              <div class="stack stack-s">
-                <p class="eyebrow" data-reveal="fade">From our founder · Finance and operations strategy</p>
-                <h2 id="strat-title" data-reveal="lines">The 30&#8209;Day Cash&#8209;Flow Clean&#8209;Up</h2>
-              </div>
-              <p class="t-lead" data-reveal="fade">For Canadian business owners who are busy but don't know where the money goes. In 30 days you'll know where every dollar goes,
-                and you'll have a plan to get <span class="ph">[5]</span> hours a week back.</p>
-              <dl class="cred" data-reveal="stagger">
-                <div><dt>Offered through</dt><dd><span class="ph">[company name]</span></dd></div>
-                <div><dt>Service</dt><dd>Finance and operations strategy</dd></div>
-              </dl>
-              <div class="stack stack-s" data-reveal="fade">
-                <div class="row">
-                  <a class="btn btn--primary" data-wa-fitcall href="#">Book a 15-Min Fit Call <span class="btn__arrow" aria-hidden="true">→</span></a>
-                  <a class="btn btn--ghost" href="#inquiry" data-inquiry-category="business-strategy">Send an Inquiry</a>
-                </div>
-                <p class="hint">Opens WhatsApp. Nothing is sent until you tap send.</p>
-              </div>
-              <p class="t-small muted" data-reveal="fade"><span class="ph">[Founder]</span> takes <span class="ph">[4]</span> new businesses a month so each one gets her full attention.
-                <strong class="accent"><span class="ph">[2]</span> spots open for <span class="ph">[month]</span>.</strong></p>
-              <p class="notice" data-reveal="fade"><strong>Strategy and coaching only.</strong> Not licensed accounting, tax or investment advice.</p>
-            </div>
-            <div class="span-7 start-6 md-span-12 stack stack-l">
-              <h3 class="t-d4" data-reveal="chars">What You Get</h3>
-              <ol class="offer-stack" data-reveal="stagger">
-                <li data-tilt><span class="offer-stack__n" data-depth="36">1</span><span class="offer-stack__what" data-depth="14"><strong>Money Map Session (90&nbsp;Min)</strong><span class="offer-stack__fix">Fixes: “I don't know where it goes”</span></span><span class="offer-stack__value" data-depth="24"><span class="ph">[value]</span></span></li>
-                <li data-tilt><span class="offer-stack__n" data-depth="36">2</span><span class="offer-stack__what" data-depth="14"><strong>Operations Walkthrough</strong><span class="offer-stack__fix">Fixes: “I'm the bottleneck for everything”</span></span><span class="offer-stack__value" data-depth="24"><span class="ph">[value]</span></span></li>
-                <li data-tilt><span class="offer-stack__n" data-depth="36">3</span><span class="offer-stack__what" data-depth="14"><strong>30-Day Action Plan, One Page</strong><span class="offer-stack__fix">Fixes: “I don't know what to do first”</span></span><span class="offer-stack__value" data-depth="24"><span class="ph">[value]</span></span></li>
-                <li data-tilt><span class="offer-stack__n" data-depth="36">4</span><span class="offer-stack__what" data-depth="14"><strong>Two Check-In Calls</strong><span class="offer-stack__fix">Fixes: “I'll start, then life happens”</span></span><span class="offer-stack__value" data-depth="24"><span class="ph">[value]</span></span></li>
-                <li class="offer-stack__bonus" data-tilt><span class="offer-stack__n" data-depth="36">+</span><span class="offer-stack__what" data-depth="14"><strong>Bonus · Intro to a Bookkeeper or Tax&nbsp;Pro</strong><span class="offer-stack__fix">Fixes: “Who do I hand this to?”</span></span><span class="offer-stack__value" data-depth="24"><span class="ph">[value]</span></span></li>
-              </ol>
-              <div class="offer-promise panel-3d" data-reveal="fade">
-                <p class="eyebrow" data-decode data-delay="0.2" data-depth="30">Our promise</p>
-                <p data-depth="16">If your plan doesn't give you at least <span class="ph">[3]</span> changes you can act on this month,
-                  <span class="ph">[we keep working with you at no cost / you get a full refund]</span>.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4 · Founder: outsourcing --------------------------------------------- -->
-      <section class="scene" id="ours-outsourcing" data-field="gold" data-dur="5" data-iris="88% 22%"
-               data-pose="1.65,-0.1,0,-0.1,0.9,0.92" data-title="Outsourcing · Ours" aria-labelledby="out-title">
-        <div class="scene__inner">
-          <div class="grid">
-            <div class="span-6 md-span-12 stack stack-l">
-              <div class="stack stack-s">
-                <p class="eyebrow" data-reveal="fade">From our founder · Outsourcing</p>
-                <h2 id="out-title" data-reveal="lines">Your Back-Office&nbsp;Team.</h2>
-              </div>
-              <p class="t-lead" data-reveal="fade">For owners who are doing everything themselves. Cargado Strategies supplies these roles itself,
-                so you can hand off the work that keeps you from running your business.</p>
-              <p class="num offer-meta" data-reveal="fade">Outsourcing · from <span class="ph">[$x]</span>/hr</p>
-              <ul class="roles" data-reveal="stagger" aria-label="Roles we supply">
-                <li data-tilt><span class="roles__n num" data-depth="34">01</span><span class="ph" data-depth="20">[Role 1]</span><span class="roles__what" data-depth="10"><span class="ph">[what this role takes off your plate]</span></span></li>
-                <li data-tilt><span class="roles__n num" data-depth="34">02</span><span class="ph" data-depth="20">[Role 2]</span><span class="roles__what" data-depth="10"><span class="ph">[what this role takes off your plate]</span></span></li>
-                <li data-tilt><span class="roles__n num" data-depth="34">03</span><span class="ph" data-depth="20">[Role 3]</span><span class="roles__what" data-depth="10"><span class="ph">[what this role takes off your plate]</span></span></li>
-                <li data-tilt><span class="roles__n num" data-depth="34">04</span><span class="ph" data-depth="20">[Role 4]</span><span class="roles__what" data-depth="10"><span class="ph">[what this role takes off your plate]</span></span></li>
-              </ul>
-              <div class="stack stack-s" data-reveal="fade">
-                <div class="row">
-                  <a class="btn btn--primary" data-wa-category="outsourcing" href="#">Ask About Outsourcing <span class="btn__arrow" aria-hidden="true">→</span></a>
-                  <a class="btn btn--ghost" href="#inquiry" data-inquiry-category="outsourcing">Send an Inquiry</a>
-                </div>
-                <p class="hint">Provided by Cargado Strategies itself, not by a partner. Nothing is sent until you tap send.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5 · Partner finder (FR25–FR31) ---------------------------------------- -->
-      <section class="scene" id="finder" data-field="ink" data-dur="7" data-iris="72% 48%"
-               data-pose="0.35,-0.2,-3,0.6,0.2,0" data-title="Partner Finder" aria-labelledby="finder-title">
-        <div class="scene__inner">
-          <div class="grid finder">
-            <div class="span-12 stack stack-s finder__head">
-              <p class="eyebrow" data-reveal="fade">Partner finder</p>
-              <h2 id="finder-title" data-reveal="lines">Find a Partner Near&nbsp;You.</h2>
-              <p class="t-small muted" data-reveal="fade">Choose what you need, then click a place on the map or search a city, province or postal code.</p>
-            </div>
-            <div class="span-3 md-span-6 stack stack-l finder__controls">
-              <form class="form finder__form panel-3d" id="finder-form" data-reveal="fade" novalidate>
-                <div class="form-row" data-depth="16">
-                  <label class="label" for="finder-category">1 · What do you need?</label>
-                  <select class="select" id="finder-category" name="category"></select>
-                </div>
-                <fieldset class="form-row" id="finder-types" data-depth="12" hidden>
-                  <legend class="label">Type</legend>
-                  <div class="chips chips--compact" id="finder-type-chips"></div>
-                </fieldset>
-                <div class="form-row" data-depth="16">
-                  <label class="label" for="finder-place" id="finder-place-label">2 · Where are you?</label>
-                  <div class="combo" id="finder-combo">
-                    <input class="input combo__input" id="finder-place" name="place" type="text" autocomplete="off"
-                           placeholder="City, province or postal code" role="combobox" aria-autocomplete="list"
-                           aria-expanded="false" aria-controls="finder-suggestions" aria-describedby="finder-place-hint finder-place-error">
-                    <button class="combo__go" type="submit" aria-label="Search this place" data-magnetic>
-                      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.6"/></svg>
-                    </button>
-                    <ul class="combo__list" id="finder-suggestions" role="listbox" aria-labelledby="finder-place-label" hidden></ul>
-                  </div>
-                  <p class="error" id="finder-place-error" aria-live="polite"></p>
-                  <p class="hint" id="finder-place-hint">We use your city or area only to sort partners by distance. It isn't stored on this website.</p>
-                </div>
-              </form>
-            </div>
-
-            <figure class="span-5 md-span-6 finder__map" data-reveal="scale">
-              <div class="map" id="finder-map" aria-describedby="finder-map-help" data-cursor-label="Pick">
-                <p class="map__loading t-small muted">Loading the map of Canada…</p>
-              </div>
-              <figcaption class="map__caption">
-                <span class="map__chosen num" id="finder-chosen">No place chosen yet</span>
-                <span class="t-xs muted" id="finder-map-help">Click your province or territory, or use Tab and Enter. The search box gives the same results.</span>
+          <div class="ins__object" aria-hidden="true" data-fit-ignore>
+            <figure class="portrait ins__photo" data-when="FOUNDER_PHOTO" data-founder-photo></figure>
+            <figure class="tportrait ins__portrait">
+              <svg class="tportrait__mark" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/></svg>
+              <figcaption>
+                <span class="tportrait__name"><span class="ph" data-founder-full>[First name] [Last name]</span></span>
+                <span class="tportrait__sign" data-when="FOUNDER_SIGNATURE" data-founder-signature><span class="ph">[signature]</span></span>
               </figcaption>
             </figure>
-
-            <div class="span-4 md-span-12 finder__side stack stack-l">
-              <section class="results" aria-labelledby="results-title" data-reveal="fade">
-                <h3 class="t-d4" id="results-title">Nearest Partners</h3>
-                <p class="results__status" id="finder-status" role="status" aria-live="polite"></p>
-                <div class="results__list" id="finder-results"></div>
-                <p class="notice results__notice"><strong>Sorted by distance only.</strong> This list is not a recommendation.
-                  Partners are independent businesses, each responsible for their own licence and advice.
-                  Cargado Strategies may receive a commission if you become their client. You never pay us.
-                  <span class="ph">[Wording to be confirmed by counsel]</span></p>
-              </section>
-              <section class="next-steps" aria-labelledby="next-title" data-reveal="stagger">
-                <h3 class="eyebrow" id="next-title" data-decode data-delay="0.2">What happens next</h3>
-                <ol class="next-steps__list">
-                  <li><span class="next-steps__when num">Now</span><span>WhatsApp opens with your message ready</span></li>
-                  <li><span class="next-steps__when num">Within <span class="ph">[24h]</span></span><span>We introduce you both</span></li>
-                  <li><span class="next-steps__when num">Day <span class="ph">[3]</span></span><span>We check in to see it went well</span></li>
-                </ol>
-                <ul class="ticks"><li>Free</li><li>No obligation</li></ul>
-              </section>
+          </div>
+          <div class="ins__copy">
+            <div class="ins__head" data-group="head">
+              <p class="eyebrow">From <span class="ph" data-founder-name>[First Name]</span> · Insurance</p>
+              <h2 id="ins-title" class="t-d1 ins__title" data-reveal="words" data-delay="0">If Something Happens to You, Is Your Family <em>OK</em>?</h2>
+              <span class="rule" aria-hidden="true"></span>
+            </div>
+            <div class="ins__body" data-group="body" data-reveal="fade" data-delay="0.05">
+              <p class="ins__promise">In a 30-minute review she looks at the cover you already have and what your family would need if something happened to you.</p>
+              <p class="offer-line">Family Protection Review · 30 min</p>
+            </div>
+            <div class="ins__action" data-group="action" data-reveal="fade" data-delay="0.22">
+              <div class="ctas">
+                <a class="btn btn--primary" data-wa-sheet data-need="insurance" data-context="founder"
+                   href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About Insurance <span class="btn__arrow" aria-hidden="true">→</span></a>
+                <a class="link" href="tel:+12048692508" data-wa-sheet="contact" data-need="insurance" data-context="founder">Book a Free 15-Min Call</a>
+              </div>
+              <p class="fineprint" data-compliance>This is our founder's own business. It is separate from the network of independent partners.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 6 · Categories: rail + detail (3b) ------------------------------------ -->
-      <section class="scene" id="categories" data-field="bone" data-dur="6" data-iris="40% 56%"
-               data-pose="0,0,-4,0.3,0.4,0" data-title="Every Category" aria-labelledby="cat-title">
+      <!-- S3 · Business strategy · bone · M: the offer as a mega monument, the promise by the CTA ----- -->
+      <section class="scene" id="ours-strategy" data-alias="business-strategy strategy" data-field="bone" data-archetype="M"
+               data-title="Business Strategy" aria-labelledby="strat-title">
         <div class="scene__inner">
-          <div class="grid cats">
-            <div class="span-4 md-span-12 stack stack-l">
-              <div class="stack stack-s">
-                <p class="eyebrow" data-reveal="fade">Every category</p>
-                <h2 id="cat-title" data-reveal="lines">Ours, and Our Partners&rsquo;.</h2>
-                <p class="t-small muted" data-reveal="fade">The rail does the disclosure: <strong>Ours</strong> is run by our founder,
-                  <strong>Partners</strong> are independent businesses.</p>
-              </div>
-              <nav class="cat-rail" id="cat-rail" aria-label="Service categories" data-reveal="fade"></nav>
+          <div class="strat__head" data-group="head">
+            <p class="eyebrow">From <span class="ph" data-founder-name>[First Name]</span> · Business Strategy</p>
+            <h2 id="strat-title" class="t-mega strat__title" data-reveal="words" data-delay="0">The <em>30&#8209;Day</em> Cash-Flow Clean-Up</h2>
+            <span class="rule" aria-hidden="true"></span>
+          </div>
+          <div class="strat__body" data-group="body" data-reveal="fade" data-delay="0.06">
+            <p class="strat__for">For business owners who are busy but don't know where the money goes.</p>
+            <p class="strat__promise">If your plan doesn't give you at least 3 changes you can act on this month, <span class="ph">[we keep working with you at no cost / you get a full refund]</span>.</p>
+            <p class="strat__spots">2 spots in <span class="ph">[month]</span></p>
+          </div>
+          <div class="strat__action" data-group="action" data-reveal="fade" data-delay="0.09">
+            <a class="btn btn--primary" data-wa-sheet data-need="business-strategy" data-context="founder"
+               href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About the Clean-Up <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <p class="fineprint" data-compliance><strong>Strategy and coaching only.</strong> Not licensed accounting, tax or investment advice.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- S4 · What you get · bone · R: five rows, each with the pain it fixes ------------------------- -->
+      <section class="scene" id="ours-includes" data-field="bone" data-archetype="R" data-title="What You Get"
+               aria-labelledby="incl-title">
+        <div class="scene__inner">
+          <div class="incl__head" data-group="head">
+            <h2 id="incl-title" class="t-d1 incl__title" data-reveal="words" data-delay="0">What You <em>Get</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+            <span class="rule" aria-hidden="true"></span>
+          </div>
+          <ol class="incl__rows" data-group="body" data-reveal="fade" data-delay="0">
+            <li class="incl__row"><span class="incl__num num-outline" aria-hidden="true">01</span><span class="incl__item">Money Map Session (90&nbsp;Min)</span><span class="incl__fix">Fixes: “I don't know where it goes”</span></li>
+            <li class="incl__row"><span class="incl__num num-outline" aria-hidden="true">02</span><span class="incl__item">Operations Walkthrough</span><span class="incl__fix">Fixes: “I'm the bottleneck for everything”</span></li>
+            <li class="incl__row"><span class="incl__num num-outline" aria-hidden="true">03</span><span class="incl__item">30-Day Action Plan, One Page</span><span class="incl__fix">Fixes: “I don't know what to do first”</span></li>
+            <li class="incl__row"><span class="incl__num num-outline" aria-hidden="true">04</span><span class="incl__item">Two Check-In Calls</span><span class="incl__fix">Fixes: “I'll start, then life happens”</span></li>
+            <li class="incl__row"><span class="incl__num num-outline" aria-hidden="true">05</span><span class="incl__item">Bonus · Intro to a Bookkeeper or Tax&nbsp;Pro</span><span class="incl__fix">Fixes: “Who do I hand this to?”</span></li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- S5 · Outsourcing · gold metal · D: four panels, the one gold field ----------------------- -->
+      <section class="scene" id="ours-outsourcing" data-alias="outsourcing" data-field="gold" data-archetype="D" data-iris="center"
+               data-title="Outsourcing" aria-labelledby="out-title">
+        <div class="scene__inner">
+          <div class="out__head" data-group="head">
+            <p class="eyebrow">From <span class="ph" data-founder-name>[First Name]</span> · Outsourcing</p>
+            <h2 id="out-title" class="t-d1 out__title" data-reveal="words" data-delay="0">Your Back-Office <em>Team</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+          </div>
+          <div class="panels out__panels" data-group="body" data-reveal="stagger" data-delay="0.06">
+            <article class="panel is-open" aria-labelledby="role-1">
+              <span class="ghost" aria-hidden="true">1</span>
+              <h3 class="panel__title" id="role-1"><span class="ph">[Bookkeeping]</span></h3>
+              <button class="panel__toggle" type="button" aria-expanded="true" aria-controls="role-1-line"><span class="visually-hidden">What the first role takes on</span><span class="panel__plus" aria-hidden="true"></span></button>
+              <p class="panel__line" id="role-1-line" data-when="REVIEW_NOTES"><span class="ph">[what this role takes off your plate]</span></p>
+            </article>
+            <article class="panel" aria-labelledby="role-2">
+              <span class="ghost" aria-hidden="true">2</span>
+              <h3 class="panel__title" id="role-2"><span class="ph">[Inbox and Calendar]</span></h3>
+              <button class="panel__toggle" type="button" aria-expanded="false" aria-controls="role-2-line"><span class="visually-hidden">What the second role takes on</span><span class="panel__plus" aria-hidden="true"></span></button>
+              <p class="panel__line" id="role-2-line" data-when="REVIEW_NOTES"><span class="ph">[what this role takes off your plate]</span></p>
+            </article>
+            <article class="panel" aria-labelledby="role-3">
+              <span class="ghost" aria-hidden="true">3</span>
+              <h3 class="panel__title" id="role-3"><span class="ph">[Social Media]</span></h3>
+              <button class="panel__toggle" type="button" aria-expanded="false" aria-controls="role-3-line"><span class="visually-hidden">What the third role takes on</span><span class="panel__plus" aria-hidden="true"></span></button>
+              <p class="panel__line" id="role-3-line" data-when="REVIEW_NOTES"><span class="ph">[what this role takes off your plate]</span></p>
+            </article>
+            <article class="panel" aria-labelledby="role-4">
+              <span class="ghost" aria-hidden="true">4</span>
+              <h3 class="panel__title" id="role-4"><span class="ph">[Customer Follow-Up]</span></h3>
+              <button class="panel__toggle" type="button" aria-expanded="false" aria-controls="role-4-line"><span class="visually-hidden">What the fourth role takes on</span><span class="panel__plus" aria-hidden="true"></span></button>
+              <p class="panel__line" id="role-4-line" data-when="REVIEW_NOTES"><span class="ph">[what this role takes off your plate]</span></p>
+            </article>
+          </div>
+          <!-- The action row, bottom-left (§4.2): the rate and the role lines show once real (or in review mode). -->
+          <div class="out__action" data-group="action" data-reveal="fade" data-delay="0.06">
+            <a class="btn btn--primary" data-wa-sheet data-need="outsourcing" data-context="founder"
+               href="https://wa.me/12048692508" target="_blank" rel="noopener">Ask About Outsourcing <span class="btn__arrow" aria-hidden="true">→</span></a>
+            <p class="out__rate" data-when="REVIEW_NOTES">From <span class="ph">[$x]</span>/hr</p>
+            <p class="fineprint" data-compliance>Provided by Cargado Strategies itself, not by a partner.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- S6 · Finder · ink · O → map · W4: the concierge until enough partners exist, then the finder -->
+      <section class="scene" id="finder" data-alias="categories manufacturing legal mortgage real-estate accounting-and-tax financial-planning"
+               data-open="categories-dialog:*" data-field="ink" data-archetype="O" data-iris="trigger" data-globe-mode="map"
+               data-pose="0.95,0.1,0,0,0,0" data-pose-sm="0,0,0,0,0,0" data-title="Who Does What"
+               aria-labelledby="finder-title" style="--kx: 22%; --ky: 60%">
+        <div class="scene__inner">
+          <div class="globe-anchor finder__globe" data-globe-anchor data-fit-ignore aria-hidden="true"></div>
+          <div class="finder__copy">
+            <div class="finder__head" data-group="head">
+              <h2 id="finder-title" class="t-d1 finder__title" data-reveal="words" data-delay="0">Who Does What, <em>Near&nbsp;You</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+              <span class="rule" aria-hidden="true"></span>
             </div>
-            <div class="span-7 start-6 md-span-12 cat-detail" id="cat-detail" data-reveal="fade" data-swing tabindex="-1" aria-labelledby="cat-detail-title"></div>
+            <!-- C40 concierge: a service and a city open the WhatsApp sheet with both filled in. -->
+            <form class="concierge" id="concierge" data-group="body" data-reveal="fade" data-delay="0" novalidate>
+              <div class="concierge__fields">
+                <div class="form-row">
+                  <label class="label" for="concierge-need">What do you need?</label>
+                  <select class="select" id="concierge-need" name="need"></select>
+                </div>
+                <div class="form-row">
+                  <label class="label" for="concierge-city">Your city</label>
+                  <input class="input" id="concierge-city" name="city" type="text" autocomplete="address-level2" maxlength="60" placeholder="e.g. Winnipeg">
+                </div>
+              </div>
+              <button type="submit" class="btn btn--primary concierge__go">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span></button>
+            </form>
+            <!-- C41 finder (R4 services.md §7): shown once PARTNERS.length >= FINDER_MIN_PARTNERS. -->
+            <div class="finder" id="finder-root" data-group="body" data-tabs hidden>
+              <div class="tabs__list finder__tabs">
+                <button class="tabs__tab" type="button" id="ft-search" aria-controls="fp-search">Search</button>
+                <button class="tabs__tab" type="button" id="ft-map" aria-controls="fp-map">Map</button>
+                <button class="tabs__tab" type="button" id="ft-results" aria-controls="fp-results">Results <span class="tabs__count num" id="finder-count" aria-hidden="true"></span></button>
+              </div>
+              <p class="visually-hidden" id="finder-live" role="status" aria-live="polite"></p>
+              <div class="tabs__panel finder__controls" id="fp-search">
+                <form class="finder__form" id="finder-form" novalidate>
+                  <div class="form-row">
+                    <label class="label" for="finder-category">What do you need?</label>
+                    <select class="select" id="finder-category" name="category"></select>
+                  </div>
+                  <div class="form-row" id="finder-types" hidden>
+                    <label class="label" for="finder-type">Type</label>
+                    <select class="select" id="finder-type" name="type"></select>
+                  </div>
+                  <div class="form-row">
+                    <label class="label" for="finder-place" id="finder-place-label">Where are you?</label>
+                    <div class="combo" id="finder-combo">
+                      <input class="input combo__input" id="finder-place" name="place" type="text" autocomplete="off"
+                             placeholder="City, province or postal code" role="combobox" aria-autocomplete="list"
+                             aria-expanded="false" aria-controls="finder-suggestions" aria-describedby="finder-place-hint finder-place-error">
+                      <button class="combo__go" type="submit" aria-label="Search this place">
+                        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="m15.5 15.5 5 5" stroke="currentColor" stroke-width="1.6"/></svg>
+                      </button>
+                      <ul class="combo__list" id="finder-suggestions" role="listbox" aria-labelledby="finder-place-label" hidden></ul>
+                    </div>
+                    <p class="error" id="finder-place-error" aria-live="polite"></p>
+                    <p class="hint" id="finder-place-hint" data-compliance>We use your city or area only to sort partners by distance. It isn't stored on this website.</p>
+                  </div>
+                </form>
+              </div>
+              <figure class="tabs__panel finder__map" id="fp-map">
+                <div class="map-box"><div class="map" id="finder-map" aria-describedby="finder-map-help"><p class="map__loading">Loading the map of Canada…</p></div></div>
+                <figcaption class="map__caption">
+                  <span class="map__chosen" id="finder-chosen">No place chosen yet</span>
+                  <span class="map__help visually-hidden" id="finder-map-help">Click your province or territory, or use the arrow keys and Enter. The search box gives the same results.</span>
+                </figcaption>
+              </figure>
+              <section class="tabs__panel results" id="fp-results" aria-labelledby="results-title" data-pager-root>
+                <h3 class="results__title" id="results-title" tabindex="-1">Nearest Partners</h3>
+                <p class="results__status" id="finder-status"></p>
+                <div class="results__list" id="finder-results"></div>
+                <nav class="pager" aria-label="More results" data-pager-bar hidden>
+                  <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="-1">Previous<span class="visually-hidden"> results</span></button>
+                  <p class="pager__status num"><span data-pager-current>1</span> of <span data-pager-total>1</span></p>
+                  <button class="btn btn--ghost btn--sm pager__btn" type="button" data-dir="1">Next<span class="visually-hidden"> results</span></button>
+                </nav>
+                <span class="visually-hidden" aria-live="polite" data-pager-live></span>
+              </section>
+            </div>
+            <div class="finder__action" data-group="action" data-reveal="fade" data-delay="0.09">
+              <a class="link" href="#categories" data-categories-open aria-haspopup="dialog" aria-controls="categories-dialog">See All Nine Kinds of Help <span aria-hidden="true">→</span></a>
+              <p class="fineprint" data-compliance><span data-list-note><strong>Sorted by distance only.</strong> This list is not a recommendation. </span>Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S7 · Inquiry · ink · P: a 3-step stepper on paper; its hairline frame draws on arrival ----- -->
+      <section class="scene" id="inquiry" data-field="ink" data-archetype="P" data-stars="dim" data-title="Tell Us What You Need"
+               aria-labelledby="inq-title" style="--kx: 18%; --ky: 40%">
+        <div class="scene__inner">
+          <h2 id="inq-title" class="t-d1 inq__title" data-group="head" data-reveal="words" data-delay="0">Tell Us What You <em>Need</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+          <div class="paper inq__paper" id="inquiry-panel" data-group="body" data-reveal="fade" data-delay="0.1">
+            <svg class="paper__frame" aria-hidden="true" focusable="false"><rect data-frame x=".5" y=".5"/></svg>
+            <form class="stepper inq-form" id="inquiry-form" novalidate aria-labelledby="inq-title">
+              <div class="stepper__status">
+                <span class="stepper__count" aria-hidden="true">Step 1 of 3 · Service and City</span>
+                <span class="stepper__bar"><span class="stepper__fill"></span></span>
+                <p class="stepper__errors" role="alert" hidden></p>
+              </div>
+              <div class="stepper__steps">
+                <fieldset class="stepper__step" data-step="need" data-page="1" data-step-name="Service and City" data-page-name="Service and City">
+                  <legend><h3 class="stepper__title" tabindex="-1">What You Need<span class="visually-hidden" data-step-of></span></h3></legend>
+                  <div class="inq-grid">
+                    <div class="form-row">
+                      <label class="label" for="inq-category">What do you need?</label>
+                      <select class="select" id="inq-category" name="category" aria-required="true" aria-describedby="inq-category-error"></select>
+                      <p class="error" id="inq-category-error"></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="inq-city">City or area</label>
+                      <input class="input" id="inq-city" name="city" autocomplete="address-level2" placeholder="e.g. Winnipeg, MB" aria-required="true" aria-describedby="inq-city-hint inq-city-error">
+                      <p class="hint" id="inq-city-hint">So we can introduce you to someone close to you.</p>
+                      <p class="error" id="inq-city-error"></p>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="stepper__step" data-step="name" data-page="2" data-step-name="Your Name" data-page-name="Your Details" hidden>
+                  <legend><h3 class="stepper__title" tabindex="-1">Your Details<span class="visually-hidden" data-step-of></span></h3></legend>
+                  <div class="inq-grid">
+                    <div class="form-row">
+                      <label class="label" for="inq-name">Your name</label>
+                      <input class="input" id="inq-name" name="name" autocomplete="name" aria-required="true" aria-describedby="inq-name-error">
+                      <p class="error" id="inq-name-error"></p>
+                    </div>
+                    <fieldset class="form-row inq-reach">
+                      <legend class="label">Best way to reach you</legend>
+                      <div class="chips">
+                        <label class="chip"><input type="radio" name="contact" value="whatsapp" checked>WhatsApp</label>
+                        <label class="chip"><input type="radio" name="contact" value="phone">Phone Call</label>
+                        <label class="chip"><input type="radio" name="contact" value="email">Email</label>
+                      </div>
+                    </fieldset>
+                  </div>
+                </fieldset>
+                <fieldset class="stepper__step" data-step="reach" data-page="2" data-step-name="Phone and Email" data-page-name="Your Details" hidden>
+                  <legend><h3 class="stepper__title" tabindex="-1">Phone and Email<span class="visually-hidden" data-step-of></span></h3></legend>
+                  <div class="inq-grid">
+                    <div class="form-row">
+                      <label class="label" for="inq-phone">Phone or WhatsApp number</label>
+                      <input class="input" id="inq-phone" name="phone" type="tel" autocomplete="tel" aria-describedby="inq-phone-error">
+                      <p class="error" id="inq-phone-error"></p>
+                    </div>
+                    <div class="form-row">
+                      <label class="label" for="inq-email">Email</label>
+                      <input class="input" id="inq-email" name="email" type="email" autocomplete="email" aria-describedby="inq-email-error">
+                      <p class="error" id="inq-email-error"></p>
+                    </div>
+                  </div>
+                </fieldset>
+                <fieldset class="stepper__step" data-step="message" data-page="3" data-step-name="Your Message" data-page-name="Message and Send" hidden>
+                  <legend><h3 class="stepper__title" tabindex="-1">Message and Send<span class="visually-hidden" data-step-of></span></h3></legend>
+                  <div class="form-row">
+                    <label class="label" for="inq-description">In a few words, what do you need?</label>
+                    <textarea class="textarea" id="inq-description" name="description" rows="2" maxlength="600" aria-describedby="inq-description-hint inq-description-error"></textarea>
+                    <p class="hint" id="inq-description-hint">Short is fine (up to 600 characters). Please leave out account numbers and health details.</p>
+                    <p class="error" id="inq-description-error"></p>
+                  </div>
+                </fieldset>
+                <fieldset class="stepper__step" data-step="send" data-page="3" data-step-name="Check and Send" data-page-name="Message and Send" hidden>
+                  <legend><h3 class="stepper__title" tabindex="-1">Check and Send<span class="visually-hidden" data-step-of></span></h3></legend>
+                  <div class="form-row">
+                    <label class="check"><input type="checkbox" id="inq-consent" name="consent" aria-required="true" aria-describedby="inq-consent-error">
+                      <span>I agree that Cargado Strategies may use these details to answer my inquiry and share them with the partner I am introduced to. See the <a href="legal.html#privacy">privacy policy</a>.</span></label>
+                    <p class="error" id="inq-consent-error"></p>
+                  </div>
+                  <p class="fineprint inq__notice" data-compliance>Partners are independent businesses. Cargado Strategies may receive a commission if you become a partner's client. You never pay us for an introduction.</p>
+                </fieldset>
+              </div>
+              <div class="hp" aria-hidden="true"><label for="inq-website">Leave this field empty</label><input id="inq-website" name="website" tabindex="-1" autocomplete="off"></div>
+              <div class="stepper__nav">
+                <button type="button" class="btn btn--ghost" data-step-back hidden>Back</button>
+                <button type="submit" class="btn btn--primary" data-step-next>Next <span class="btn__arrow" aria-hidden="true">→</span></button>
+                <button type="submit" class="btn btn--primary" data-step-send hidden>Send My Inquiry <span class="btn__arrow" aria-hidden="true">→</span></button>
+              </div>
+              <p class="stepper__send-hint hint" hidden>Opens WhatsApp with your inquiry written. Nothing is sent until you tap send.</p>
+            </form>
+            <div class="inq-success" id="inquiry-success" tabindex="-1" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- S8 · Close · ink · M · W5: the medallion bookend --------------------------------------------- -->
+      <section class="scene" id="close" data-field="ink" data-archetype="M" data-globe-mode="medallion"
+               data-title="Get My Introduction" aria-labelledby="close-title">
+        <div class="scene__inner">
+          <div class="medallion closing__medallion" aria-hidden="true"></div>
+          <h2 id="close-title" class="t-statement closing__title" data-group="head" data-reveal="words" data-delay="0">Ask Once. It’s <em>Handled</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span></h2>
+          <div class="closing__action" data-group="action" data-reveal="fade" data-delay="0.15">
+            <a class="btn btn--primary" data-wa-sheet data-context="services"
+               href="https://wa.me/12048692508" target="_blank" rel="noopener">Get My Introduction <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> on WhatsApp</span></a>
+            <a class="link" href="legal.html#faq">Questions? Read the Fine Print <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Credits: the same on every page (R4 shared.md §5.4, DIRECTION §6.4). Shared node (2b). -->
+      <section class="scene scene--credits" id="credits" data-field="ink" data-archetype="credits"
+               data-pose="0,0.35,-1,0.25,2.4,0.7" data-title="Contact and Legal" aria-label="Contact and legal">
+        <div class="scene__inner"><div class="scene__pan">
+          <div class="globe-anchor globe-anchor--credits" data-globe-anchor aria-hidden="true"></div>
+          <div data-footer></div>
+        </div></div>
+      </section>
+
+      <!-- Categories (S6 link, every category slug): the rail and one category's detail. -->
+      <dialog class="dialog cats" id="categories-dialog" aria-labelledby="cats-title">
+        <div class="dialog__panel">
+          <div class="dialog__head">
+            <h2 class="cats__title" id="cats-title">Nine Kinds of <em>Help</em></h2>
+            <button type="button" class="link-btn cats__back" data-cat-back>All Categories</button>
+            <button type="button" class="link dialog__close" data-dialog-close>Close</button>
+          </div>
+          <p class="cats__lead">Our founder's own three businesses, and a network of independent partners near you.</p>
+          <div class="cats__body">
+            <nav class="cats__rail" id="cat-rail" aria-label="Service categories"></nav>
+            <div class="cats__detail" id="cat-detail" tabindex="-1" aria-labelledby="cat-detail-title"></div>
           </div>
           <p class="visually-hidden" id="cat-announce" aria-live="polite"></p>
         </div>
-      </section>
+      </dialog>
 
-      <!-- 7 · Inquiry form (FR07, FR08) ----------------------------------------- -->
-      <section class="scene" id="inquiry" data-field="gold" data-dur="6" data-iris="16% 30%"
-               data-pose="0,0,-4,0.3,0.4,0" data-title="Send an Inquiry" aria-labelledby="inq-title">
-        <div class="scene__inner">
-          <div class="grid">
-            <div class="span-4 md-span-12 stack stack-l">
-              <div class="stack stack-s">
-                <p class="eyebrow" data-reveal="fade">Send an inquiry</p>
-                <h2 id="inq-title" data-reveal="lines">Tell Us What You&nbsp;Need.</h2>
-              </div>
-              <p class="t-lead" data-reveal="fade">One short form, read by a person. We reply the way you choose and introduce you to the right person,
-                usually within <span class="ph">[24 hours]</span>.</p>
-              <ol class="next-steps__list next-steps__list--compact" data-reveal="stagger" aria-label="What happens next">
-                <li><span class="next-steps__when num">Now</span><span>Your inquiry opens in WhatsApp, ready to send</span></li>
-                <li><span class="next-steps__when num">Within <span class="ph">[24h]</span></span><span>We introduce you both</span></li>
-                <li><span class="next-steps__when num">Day <span class="ph">[3]</span></span><span>We check in</span></li>
-              </ol>
-            </div>
-            <div class="span-7 start-6 md-span-12 inquiry-panel panel-3d" id="inquiry-panel" data-reveal="fade" data-swing></div>
+      <!-- Partner profile (R4 services.md §7.7): one dialog, filled from PARTNERS by the trigger. -->
+      <dialog class="dialog profile-dialog" id="profile-dialog" aria-labelledby="profile-title">
+        <div class="dialog__panel">
+          <div class="dialog__head">
+            <div class="profile__head"><p class="eyebrow">Partner profile</p><h2 class="profile__title" id="profile-title"></h2></div>
+            <button type="button" class="link dialog__close" data-dialog-close>Close</button>
           </div>
+          <div class="dialog__body profile__body" data-profile-body></div>
         </div>
-      </section>
-
-      <!-- 8 · Close + footer ---------------------------------------------------- -->
-      <section class="scene" id="close" data-field="ink" data-dur="5" data-iris="50% 100%"
-               data-pose="1.85,0.85,0,0.25,2.1,0.8" data-title="Close" aria-labelledby="close-title">
-        <div class="scene__inner">
-          <div class="stack stack-xl">
-            <div class="close stack stack-l">
-              <div class="stack">
-                <p class="eyebrow" data-reveal="fade">Not sure who you need?</p>
-                <h2 id="close-title" class="t-d1 close__title" data-reveal="lines">One Message. <span class="nowrap-md">The Right Person.</span> <span class="nowrap-md">Close to&nbsp;You.</span></h2>
-                <p class="t-lead muted" data-reveal="fade">Tell us what's going on and your city, and we'll work out who you need.</p>
-              </div>
-              <div class="stack stack-s" data-reveal="fade">
-                <div class="row">
-                  <a class="btn btn--primary btn--lg" data-wa href="#">Message Us on WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></a>
-                  <a class="btn btn--link" href="#finder">Back to the Finder <span class="btn__arrow" aria-hidden="true">→</span></a>
-                </div>
-                <p class="hint">Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
-              </div>
-            </div>
-            <div data-footer></div>
-          </div>
-        </div>
-      </section>
+      </dialog>
 
     </main>
+    <div class="iris" aria-hidden="true"></div>
   </div>
+  <!-- WhatsApp sheet (C22): 2d's snippet, plan/round5/snippets/wa-sheet.html. Shared node (2b). -->
+  <dialog class="sheet" id="wa-sheet" aria-labelledby="wa-sheet-title">
+    <div class="sheet__paper paper">
+      <div class="sheet__head">
+        <p class="sheet__title eyebrow" id="wa-sheet-title">Get My Introduction</p>
+        <p class="sheet__tag" data-sheet-tag hidden>From <span data-sheet-founder><span class="ph">[First name]</span></span></p>
+        <button type="button" class="link sheet__close" data-sheet-close>Close</button>
+      </div>
+      <form class="stepper sheet__form" novalidate>
+        <div class="stepper__status">
+          <span class="stepper__count" aria-hidden="true">Step 1 of 3 · What You Need</span>
+          <span class="stepper__bar"><span class="stepper__fill"></span></span>
+          <p class="stepper__errors" role="alert" hidden></p>
+        </div>
+        <div class="stepper__steps">
+          <fieldset class="stepper__step" data-step="need">
+            <legend><h3 class="stepper__title" tabindex="-1">What Do You Need?<span class="visually-hidden" data-step-of></span></h3></legend>
+            <div class="chips sheet__chips" data-sheet-needs></div>
+            <p class="sheet__note">No fee to you · No obligation</p>
+          </fieldset>
+          <fieldset class="stepper__step" data-step="city" hidden>
+            <legend><h3 class="stepper__title" tabindex="-1">Your City<span class="visually-hidden" data-step-of></span></h3></legend>
+            <label class="label" for="wa-city">City or town</label>
+            <input class="input" id="wa-city" name="city" type="text" placeholder="e.g. Winnipeg"
+                   autocomplete="address-level2" maxlength="60" aria-describedby="wa-city-why">
+            <p class="hint" id="wa-city-why">We ask for your city only so we can introduce you to someone close to you.</p>
+          </fieldset>
+          <div class="stepper__step" data-step="send" role="group" aria-labelledby="wa-send-title" hidden>
+            <h3 class="stepper__title" id="wa-send-title" tabindex="-1">Open WhatsApp<span class="visually-hidden" data-step-of></span></h3>
+            <p class="label">Your message</p>
+            <p class="sheet__message" data-sheet-message></p>
+          </div>
+        </div>
+        <div class="stepper__nav">
+          <button type="button" class="btn btn--ghost" data-step-back>Back</button>
+          <button type="submit" class="btn btn--primary" data-step-next>Next <span class="btn__arrow" aria-hidden="true">→</span></button>
+          <a class="btn btn--primary" data-step-send data-sheet-go data-sfx="none" href="https://wa.me/12048692508" target="_blank" rel="noopener" hidden>
+            Open WhatsApp <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </div>
+        <p class="stepper__send-hint hint" hidden>Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
+        <p class="sheet__contact" data-sheet-contact tabindex="-1" hidden>Rather call or email? <span data-sheet-phone>+1 (204) 869 2508</span> · <span data-sheet-email><span class="ph">[company email]</span></span></p>
+        <p class="sheet__done" data-sheet-done role="status"></p>
+      </form>
+    </div>
+  </dialog>
   <div class="scroll-spacer"></div>
 </body>
 </html>

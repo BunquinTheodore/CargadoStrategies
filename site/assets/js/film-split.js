@@ -1,14 +1,18 @@
 /**
- * Line splitter for [data-reveal="lines"] (no paid plugin).
+ * Word splitter for [data-reveal="words"] (alias "lines"; "chars" plays as
+ * words). No paid plugin.
  *
- * Every word is wrapped in a mask (overflow hidden) so it can slide up from
- * below its own baseline. Words are then grouped into visual lines by their
- * vertical position so a line moves as one unit. Nested inline elements
- * (links, <em>, .ph tokens) are preserved because only text nodes are wrapped.
+ * Every word is wrapped in a mask so it can rise from below its own baseline:
+ *   <span class="rv-mask"><span class="rv-word">word</span></span>
+ * and the element gets data-split="1". tools/build-splits.mjs (2e) writes the
+ * same markup into dist at build time, so there this runs as a no-op. Nested
+ * inline elements (links, <em>, .ph tokens) are kept because only text nodes
+ * are wrapped. Text inside the full stop (.stop) is never wrapped: the stop
+ * pops on its own (film-reveals.js).
  */
 
 const SPLIT_FLAG = 'split';
-const LINE_TOLERANCE_PX = 2;
+const NO_SPLIT = '.stop';
 /** Break only on ordinary whitespace so &nbsp; keeps words together. */
 const WHITESPACE = /([ \t\n\r]+)/;
 
@@ -36,32 +40,17 @@ function textNodesOf(el) {
   const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) {
-    if (walker.currentNode.textContent.trim()) nodes.push(walker.currentNode);
+    const node = walker.currentNode;
+    if (node.textContent.trim() && !node.parentElement.closest(NO_SPLIT)) nodes.push(node);
   }
   return nodes;
 }
 
-/** Wrap words once; safe to call repeatedly. */
+/** Wrap words once (safe to call again); returns the .rv-word elements in reading order. */
 export function splitWords(el) {
-  if (el.dataset[SPLIT_FLAG]) return;
-  textNodesOf(el).forEach(splitTextNode);
-  el.dataset[SPLIT_FLAG] = '1';
-}
-
-/**
- * Group the element's words into lines (arrays of .rv-word elements) using
- * their current layout. Call after fonts have loaded and on every rebuild.
- */
-export function groupLines(el) {
-  const lines = [];
-  let lastTop = -Infinity;
-  el.querySelectorAll('.rv-mask').forEach((mask) => {
-    const top = mask.getBoundingClientRect().top;
-    if (top > lastTop + LINE_TOLERANCE_PX) {
-      lines.push([]);
-      lastTop = top;
-    }
-    lines[lines.length - 1].push(mask.firstElementChild);
-  });
-  return lines;
+  if (!el.dataset[SPLIT_FLAG]) {
+    textNodesOf(el).forEach(splitTextNode);
+    el.dataset[SPLIT_FLAG] = '1';
+  }
+  return Array.from(el.querySelectorAll('.rv-word'));
 }

@@ -1,161 +1,225 @@
 /**
- * Site chrome: skip link, header + accessible mobile menu, floating WhatsApp
- * button (desktop/tablet), sticky phone action bar (<760px), footer builder
- * and the "Partner Spot Available" placeholder card builder.
+ * Site chrome (DIRECTION §6.2-§6.4, C2, C3, C19, C37): skip link, header,
+ * phone menu, credits footer, footer switches, proof slots and review mode.
  *
- * Every heading, title, button label and nav item it writes is Title Case
- * (titleCase from text-case.js). Round 3 adds the sound toggle
- * ([data-sound-toggle], wired by sfx.js) next to the "Pause animation" toggle.
+ *   const chrome = initChrome({ page });   // → { header, onMenuToggle(cb), closeMenu() }
+ *
+ * - The header is in every page's HTML (HTML-first, no layout shift); this
+ *   module wires it, and draws it only when a page has none.
+ * - Header: monogram + wordmark, Services · Our Story · For Professionals, and
+ *   one gold "WhatsApp" button that opens the sheet (data-wa-sheet; the real
+ *   wa.me href works without JS). Phones: monogram, WhatsApp icon, Menu.
+ * - Menu: a native <dialog> (focus trapped by showModal, Escape closes): the
+ *   pages as rows, then call, email, WhatsApp and Facebook, then the switches.
+ * - Footer ([data-footer] in #credits): contact row, link columns, the fine
+ *   print (verbatim), the tagline (once per page, here only), switches and ©.
+ * - Switches: "Sound: On / Off" (localStorage cs-sound, document `cs:sound`)
+ *   and "Motion: Full / Reduced" (setMotionPref reloads, keeping the hash).
+ * - [data-monogram] slots get the C·W mark; [data-when="KEY"] renders only when
+ *   config[KEY] is set or in review mode (?review=1, which also sets html.ph-loud).
+ *
+ * Every heading, title, button label and nav item it writes is Title Case.
  */
-import { NAV, FACEBOOK_URL, PHONE, TAGLINE, LEGAL_LINKS, SITE_NAME } from './config.js';
+import * as CONFIG from './config.js';
+import { FACEBOOK_URL, PHONE, TAGLINE, SITE_NAME, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, FOOTER_SWITCHES, FACEBOOK_PAGE_NAME, ADDRESS_LINE } from './config.js';
 import { pageLink, waLink } from './whatsapp.js';
 import { titleCase } from './text-case.js';
+import { prefersReducedMotion, setMotionPref } from './motion-pref.js';
 
 const NEW_TAB = 'target="_blank" rel="noopener"';
+const NEW_TAB_NOTE = '<span class="visually-hidden"> (opens in a new tab)</span>';
+const SOUND_KEY = 'cs-sound';
+const DESKTOP_NAV = '(min-width: 1024px)';
+const REVIEW_PARAM = 'review';
 
 export const escapeHtml = (value) =>
   String(value).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
 
 /** C and W monogram. Uses currentColor so it can sit on any field. */
-export const MONOGRAM = `
-<svg class="monogram" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-  <path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>
-  <path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>
-</svg>`;
+export const MONOGRAM = '<svg class="monogram" viewBox="0 0 48 48" aria-hidden="true" focusable="false">'
+  + '<path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>'
+  + '<path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/>'
+  + '</svg>';
 
-const ICON_WA = `
-<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-  <path d="M9.2 8.2c.3-.6.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .6-.2 1.3-.8 1.6-.6.4-1.5.5-2.6.1-1.7-.6-3.4-2.1-4.3-3.8-.6-1.1-.7-2.2-.4-3Z" fill="currentColor"/>
-</svg>`;
-
-const ICON_FB = `
-<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
-  <path d="M13.2 20.5v-6.7h2.2l.3-2.6h-2.5V9.6c0-.8.2-1.3 1.3-1.3h1.3V6c-.6-.1-1.3-.1-2-.1-2 0-3.3 1.2-3.3 3.4v1.9H8.3v2.6h2.2v6.7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-</svg>`;
-
-/** Speaker with waves (sound on) and with a cross (muted); CSS shows the one that fits aria-pressed. */
-const ICON_SOUND = `
-<svg class="icon sound-toggle__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-  <path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-  <path class="sound-toggle__on" d="M15.2 9.2a4 4 0 0 1 0 5.6M17.6 6.8a7.4 7.4 0 0 1 0 10.4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-  <path class="sound-toggle__off" d="m15.5 9.5 5 5m0-5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-</svg>`;
+const svg = (body) => `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${body}</svg>`;
+export const ICONS = Object.freeze({
+  whatsapp: svg('<path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><path d="M9.2 8.2c.3-.6.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .6-.2 1.3-.8 1.6-.6.4-1.5.5-2.6.1-1.7-.6-3.4-2.1-4.3-3.8-.6-1.1-.7-2.2-.4-3Z" fill="currentColor"/>'),
+  phone: svg('<path d="M6.6 3.5h2.6l1.3 4-1.9 1.3a11 11 0 0 0 6.6 6.6l1.3-1.9 4 1.3v2.6a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>'),
+  mail: svg('<rect x="3.5" y="5.5" width="17" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="m4 6.5 8 6.5 8-6.5" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>'),
+  facebook: svg('<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M13.2 20.5v-6.7h2.2l.3-2.6h-2.5V9.6c0-.8.2-1.3 1.3-1.3h1.3V6c-.6-.1-1.3-.1-2-.1-2 0-3.3 1.2-3.3 3.4v1.9H8.3v2.6h2.2v6.7" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/>'),
+  pin: svg('<path d="M12 20.5s-6-5.6-6-10.3a6 6 0 0 1 12 0c0 4.7-6 10.3-6 10.3Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><circle cx="12" cy="10.2" r="2.2" fill="none" stroke="currentColor" stroke-width="1.25"/>'),
+  close: svg('<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>'),
+});
 
 const ARROW = '<span class="btn__arrow" aria-hidden="true">→</span>';
 
+/** Header links (≤ 6 marks with the monogram, wordmark and WhatsApp). */
+export const HEADER_NAV = Object.freeze([
+  { key: 'services', label: 'Services', href: 'services.html' },
+  { key: 'story', label: 'Our Story', href: 'story.html' },
+  { key: 'partners', label: 'For Professionals', href: 'partners.html' },
+]);
+/** Menu and footer pages. */
+export const MENU_PAGES = Object.freeze([
+  { key: 'home', label: 'Home', href: 'index.html' },
+  ...HEADER_NAV,
+  { key: 'legal', label: 'Legal', href: 'legal.html' },
+]);
+const FOOTER_LINKS = Object.freeze([
+  ...HEADER_NAV,
+  { key: 'legal', label: 'Legal', href: 'legal.html' },
+  { key: 'privacy', label: 'Privacy', href: 'legal.html#privacy' },
+]);
+
+const current = (key, page) => (key === page ? ' aria-current="page"' : '');
+const sheetAttrs = (page) => `data-wa-sheet data-context="${escapeHtml(page)}"`;
+
 /* ---------- header ---------- */
 
-function navLinks(page) {
-  return NAV.map(({ key, label, href }) => {
-    const current = key === page ? ' aria-current="page"' : '';
-    return `<li><a class="site-nav__link" href="${href}"${current}>${titleCase(label)}</a></li>`;
-  }).join('');
-}
-
-/** "Pause animation" toggle; motion-toggle.js shows and wires it. `where`: 'bar' (header) or 'menu'. */
-function motionToggleHTML(where) {
-  return `<button class="motion-toggle motion-toggle--${where}" type="button" aria-pressed="false" data-motion-toggle hidden>
-    <span class="motion-toggle__icon" aria-hidden="true"></span><span class="motion-toggle__label">Pause Animation</span></button>`;
-}
-
-/** Sound effects on/off; sfx.js keeps aria-pressed (true = sound on) and the stored choice. */
-function soundToggleHTML(where) {
-  return `<button class="sound-toggle sound-toggle--${where}" type="button" aria-pressed="true" data-sound-toggle>
-    ${ICON_SOUND}<span class="sound-toggle__label">Sound Effects</span></button>`;
-}
-
-function headerHTML(page) {
-  const wa = pageLink(page);
+/** The header's inner HTML (also written into each page's HTML, so it paints with the page). */
+export function headerHTML(page = 'home') {
+  const links = HEADER_NAV.map(({ key, label, href }) =>
+    `<li><a class="site-nav__link" href="${href}"${current(key, page)}>${titleCase(label)}</a></li>`).join('');
   return `
-  <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">
-    ${MONOGRAM}<span class="brand__word">${SITE_NAME}</span>
-  </a>
-  <nav class="site-nav" id="site-nav" aria-label="Main">
-    <ul class="site-nav__list">${navLinks(page)}</ul>
-    <div class="site-nav__extra">
-      <a class="btn btn--primary btn--block" href="${wa}" ${NEW_TAB}>${ICON_WA}<span>Message Us on WhatsApp</span></a>
-      <a class="site-nav__fb" href="${FACEBOOK_URL}" ${NEW_TAB}>${ICON_FB}<span>Facebook<span class="visually-hidden"> (opens in a new tab)</span></span></a>
-      <div class="site-nav__toggles">${motionToggleHTML('menu')}${soundToggleHTML('menu')}</div>
-    </div>
-  </nav>
-  <div class="site-header__actions">
-    <a class="icon-link" href="${FACEBOOK_URL}" ${NEW_TAB} aria-label="${SITE_NAME} on Facebook (opens in a new tab)">${ICON_FB}</a>
-    <a class="btn btn--primary btn--sm" href="${wa}" ${NEW_TAB}>${ICON_WA}<span>WhatsApp</span><span class="visually-hidden"> (opens in a new tab)</span></a>
-  </div>
-  ${soundToggleHTML('bar')}
-  ${motionToggleHTML('bar')}
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+  <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${MONOGRAM}<span class="brand__word">${SITE_NAME}</span></a>
+  <nav class="site-nav" aria-label="Main"><ul class="site-nav__list">${links}</ul></nav>
+  <a class="btn btn--primary btn--sm site-header__wa" href="${pageLink(page)}" ${NEW_TAB} ${sheetAttrs(page)}
+     aria-label="Message Us on WhatsApp">${ICONS.whatsapp}<span class="btn__label">WhatsApp</span></a>
+  <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">
     <span class="nav-toggle__label">Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span>
   </button>`;
 }
 
-/** Everything the full-screen phone menu covers: made inert while it is open. */
-const BEHIND_MENU = '.skip, .stage, .wa-float-wrap, .phone-bar, .site-header > .brand, .site-header > .site-header__actions, .site-header > .motion-toggle, .site-header > .sound-toggle';
+/* ---------- contact items, switches ---------- */
 
-function setBehindMenu(inert) {
-  document.querySelectorAll(BEHIND_MENU).forEach((el) => { el.inert = inert; });
+function contactItems(page) {
+  const email = CONTACT_EMAIL
+    ? `<a href="mailto:${escapeHtml(CONTACT_EMAIL)}">${ICONS.mail}<span>Email</span></a>`
+    : `<span>${ICONS.mail}<span><span class="visually-hidden">Email: </span><span class="ph">${escapeHtml(CONTACT_EMAIL_LABEL)}</span></span></span>`;
+  return [
+    `<a href="${pageLink(page)}" ${NEW_TAB} ${sheetAttrs(page)}>${ICONS.whatsapp}<span>WhatsApp <span class="site-footer__num num">${PHONE.display}</span></span>${NEW_TAB_NOTE}</a>`,
+    `<a href="tel:${PHONE.e164}">${ICONS.phone}<span>Call<span class="visually-hidden"> ${PHONE.display}</span></span></a>`,
+    email,
+    `<a href="${FACEBOOK_URL}" ${NEW_TAB}>${ICONS.facebook}<span>Facebook<span class="visually-hidden">: ${escapeHtml(FACEBOOK_PAGE_NAME)}</span></span>${NEW_TAB_NOTE}</a>`,
+    `<a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(ADDRESS_LINE)}" ${NEW_TAB}>${ICONS.pin}<span>${escapeHtml(ADDRESS_LINE)}</span>${NEW_TAB_NOTE}</a>`,
+  ].map((item) => `<li>${item}</li>`).join('');
 }
 
-function createMenu(header, onToggle) {
-  const toggle = header.querySelector('.nav-toggle');
-  const nav = header.querySelector('.site-nav');
-  const label = toggle.querySelector('.nav-toggle__label');
-  let open = false;
+/** "Sound: On / Off" and "Motion: Full / Reduced" (C37). States are filled by syncSwitches(). */
+export function switchesHTML() {
+  if (FOOTER_SWITCHES === false) return '';
+  const btn = (kind, value, name, label) =>
+    `<button class="switches__btn" type="button" data-switch="${kind}" data-value="${value}" aria-pressed="false"><span class="visually-hidden">${name} </span>${label}</button>`;
+  return `
+  <div class="switches" role="group" aria-label="Preferences">
+    <p class="switches__row"><span class="switches__name" aria-hidden="true">Sound</span>${btn('sound', 'on', 'Sound', 'On')}<span class="switches__sep" aria-hidden="true">/</span>${btn('sound', 'off', 'Sound', 'Off')}</p>
+    <p class="switches__row"><span class="switches__name" aria-hidden="true">Motion</span>${btn('motion', 'full', 'Motion', 'Full')}<span class="switches__sep" aria-hidden="true">/</span>${btn('motion', 'reduced', 'Motion', 'Reduced')}</p>
+  </div>`;
+}
 
-  function set(next, { restoreFocus = true } = {}) {
-    if (next === open) return;
-    open = next;
-    toggle.setAttribute('aria-expanded', String(open));
-    label.textContent = open ? 'Close' : 'Menu';
-    nav.classList.toggle('is-open', open);
-    document.documentElement.classList.toggle('nav-open', open);
-    setBehindMenu(open);
-    onToggle(open);
-    if (open) nav.querySelector('a')?.focus();
-    else if (restoreFocus) toggle.focus();
+function soundOn() {
+  try {
+    return localStorage.getItem(SOUND_KEY) !== 'off';
+  } catch {
+    return true; // storage blocked: sound stays on for this page
   }
+}
 
-  toggle.addEventListener('click', () => set(!open));
-  nav.addEventListener('click', (e) => {
-    if (e.target.closest('a')) set(false, { restoreFocus: false });
+function setSound(on) {
+  try {
+    localStorage.setItem(SOUND_KEY, on ? 'on' : 'off');
+  } catch {
+    /* storage blocked: the choice lasts for this page only (sfx hears the event) */
+  }
+  document.dispatchEvent(new CustomEvent('cs:sound', { detail: { on } }));
+}
+
+function syncSwitches(scope = document) {
+  const states = { sound: soundOn() ? 'on' : 'off', motion: prefersReducedMotion() ? 'reduced' : 'full' };
+  scope.querySelectorAll('.switches__btn').forEach((b) => {
+    b.setAttribute('aria-pressed', String(states[b.dataset.switch] === b.dataset.value));
   });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && open) set(false);
+}
+
+function onSwitchClick(event) {
+  const btn = event.target.closest('.switches__btn');
+  if (!btn || btn.getAttribute('aria-pressed') === 'true') return;
+  if (btn.dataset.switch === 'sound') {
+    setSound(btn.dataset.value === 'on');
+    syncSwitches();
+  } else if (btn.dataset.switch === 'motion') {
+    if (!setMotionPref(btn.dataset.value)) syncSwitches();
+  }
+}
+
+/* ---------- menu (C3) ---------- */
+
+function menuHTML(page) {
+  const rows = MENU_PAGES.map(({ key, label, href }) =>
+    `<li><a class="row row--compact" href="${href}"${current(key, page)}><span class="row__title">${titleCase(label)}</span><span class="row__arrow" aria-hidden="true">→</span></a></li>`).join('');
+  return `
+  <div class="menu__bar">
+    <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${MONOGRAM}<span class="brand__word">${SITE_NAME}</span></a>
+    <button class="nav-toggle menu__close" type="button" data-menu-close>Close ${ICONS.close}</button>
+  </div>
+  <div class="menu__body">
+    <nav aria-label="Pages"><ul class="rows menu__rows">${rows}</ul></nav>
+    <div class="stack">
+      <ul class="menu__contact" aria-label="Contact">${contactItems(page)}</ul>
+      ${switchesHTML()}
+    </div>
+  </div>`;
+}
+
+function createMenu(header, page, onToggle) {
+  const toggle = header.querySelector('.nav-toggle');
+  if (!toggle) return { close() {}, isOpen: () => false };
+  const menu = document.createElement('dialog');
+  menu.className = 'menu';
+  menu.id = 'menu';
+  menu.dataset.field = 'ink';
+  menu.setAttribute('aria-label', 'Menu');
+  menu.innerHTML = menuHTML(page);
+  document.body.appendChild(menu);
+  let restoreFocus = true;
+
+  const set = (open) => {
+    toggle.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('nav-open', open);
+    onToggle(open);
+  };
+  function open() {
+    if (menu.open) return;
+    restoreFocus = true;
+    syncSwitches(menu);
+    menu.showModal();
+    set(true);
+  }
+  function close({ focus = true } = {}) {
+    if (!menu.open) return;
+    restoreFocus = focus;
+    menu.close();
+  }
+  menu.addEventListener('close', () => {
+    set(false);
+    if (restoreFocus) toggle.focus({ preventScroll: true });
   });
-  window.matchMedia('(min-width: 1024px)').addEventListener?.('change', (e) => {
-    if (e.matches) set(false, { restoreFocus: false });
+  toggle.addEventListener('click', open);
+  menu.addEventListener('click', (e) => {
+    if (e.target === menu || e.target.closest('[data-menu-close]')) close();
+    else if (e.target.closest('a')) close({ focus: false });   // a page link or the sheet trigger
   });
-  return { close: () => set(false, { restoreFocus: false }), isOpen: () => open };
+  menu.addEventListener('click', onSwitchClick);
+  window.matchMedia(DESKTOP_NAV).addEventListener('change', (e) => { if (e.matches) close({ focus: false }); });
+  return { close: () => close({ focus: false }), isOpen: () => menu.open };
 }
 
-/* ---------- WhatsApp float + phone bar ---------- */
+/* ---------- footer (credits, §6.4) ---------- */
 
-function floatHTML(page) {
-  return `<a class="wa-float" href="${pageLink(page)}" ${NEW_TAB}>
-    ${ICON_WA}<span class="wa-float__label">WhatsApp</span><span class="visually-hidden"> us (opens in a new tab)</span></a>`;
-}
-
-function barHTML(page) {
-  return `<a class="btn btn--primary btn--block phone-bar__action" href="${pageLink(page)}" ${NEW_TAB}>
-    ${ICON_WA}<span class="phone-bar__label">Message Us on WhatsApp</span>${ARROW}</a>`;
-}
-
-function mount(tag, className, html, where = 'append') {
-  const el = document.createElement(tag);
-  el.className = className;
-  el.innerHTML = html;
-  document.body[where](el);
-  return el;
-}
-
-/* ---------- footer + placeholder card ---------- */
-
-/** Footer HTML for a page's final scene (or use <div data-footer></div>). */
+/** The footer for a page's #credits scene (fills <div data-footer></div>). */
 export function footer({ page = document.body.dataset.page || 'home' } = {}) {
-  const legal = LEGAL_LINKS.filter((l) => l.id !== 'qa')
-    .map((l) => `<li><a href="legal.html#${l.id}">${titleCase(l.label)}</a></li>`).join('');
+  const links = FOOTER_LINKS.map(({ key, label, href }) =>
+    `<li><a href="${href}"${key === page ? ' aria-current="page"' : ''}>${titleCase(label)}</a></li>`).join('');
   return `
   <footer class="site-footer">
     <div class="site-footer__brand">
@@ -163,59 +227,61 @@ export function footer({ page = document.body.dataset.page || 'home' } = {}) {
       <p class="site-footer__name">${SITE_NAME}</p>
       <p class="site-footer__tagline">${TAGLINE}</p>
     </div>
-    <div class="site-footer__col site-footer__col--contact">
-      <p class="eyebrow">Contact</p>
-      <ul class="site-footer__links">
-        <li><a href="${pageLink(page)}" ${NEW_TAB}>WhatsApp ${PHONE.display}<span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a href="${FACEBOOK_URL}" ${NEW_TAB}>Facebook<span class="visually-hidden"> (opens in a new tab)</span></a></li>
-      </ul>
+    <nav class="site-footer__contact" aria-label="Contact"><ul class="site-footer__icons">${contactItems(page)}</ul></nav>
+    <nav class="site-footer__nav" aria-label="Footer"><ul class="site-footer__links">${links}</ul></nav>
+    <div class="site-footer__fine fineprint" data-compliance>
+      <p>Partners are independent businesses, each responsible for their own licence and advice.
+        ${SITE_NAME} does not give regulated advice through this website and may receive a commission when a referral becomes a client.</p>
+      <p>Strategy and coaching only, not licensed accounting, tax or investment advice.</p>
+      <p>We only message from ${PHONE.display}.</p>
     </div>
-    <div class="site-footer__col">
-      <p class="eyebrow">Company</p>
-      <ul class="site-footer__links">
-        <li><a href="services.html">Services</a></li><li><a href="story.html">Our Story</a></li>
-        <li><a href="partners.html">Become a Partner</a></li><li><a href="legal.html#qa">Q&amp;A</a></li>
-      </ul>
+    <div class="site-footer__end">
+      ${switchesHTML()}
+      <p class="site-footer__copy">© ${new Date().getFullYear()} ${SITE_NAME}</p>
     </div>
-    <div class="site-footer__col">
-      <p class="eyebrow">Legal</p>
-      <ul class="site-footer__links">${legal}</ul>
-    </div>
-    <p class="site-footer__notice">Partners are independent businesses, each responsible for their own licence and advice.
-      ${SITE_NAME} does not give regulated advice through this website and may receive a commission when a referral becomes a client.
-      <span class="ph">[Wording to be confirmed by counsel]</span></p>
-    <p class="site-footer__copy">© ${new Date().getFullYear()} ${SITE_NAME}</p>
   </footer>`;
 }
 
-const CARD_LEVEL = { min: 2, max: 6, fallback: 3 };
+/* ---------- placeholder card ---------- */
 
-/** A heading level 2–6 for the card title (3 unless the card sits under an h3). */
+const CARD_LEVEL = { min: 2, max: 6, fallback: 3 };
 function cardLevel(level) {
   const n = Number.parseInt(level, 10);
   return Number.isFinite(n) ? Math.min(CARD_LEVEL.max, Math.max(CARD_LEVEL.min, n)) : CARD_LEVEL.fallback;
 }
 
-/**
- * "Partner Spot Available" card (CR16, FR31). Never shows invented details.
- * `level` sets the title's heading level (default 3; use 4 under an h3).
- */
+/** "Partner Spot Available" card (CR16, FR31). Never shows invented details. */
 export function placeholderCard({ category = '', level = CARD_LEVEL.fallback } = {}) {
   const meta = category ? `${escapeHtml(category)} · no partner listed here yet` : 'No partner listed here yet';
   const h = `h${cardLevel(level)}`;
   return `
-  <article class="partner-card partner-card--placeholder" data-cursor-label="Join">
+  <article class="partner-card partner-card--placeholder">
     <div class="partner-card__avatar" aria-hidden="true"></div>
     <div class="partner-card__body">
       <${h} class="partner-card__title">Partner Spot Available</${h}>
       <p class="partner-card__meta">${meta}</p>
-      <a class="btn btn--link" href="partners.html">Become a Partner ${ARROW}</a>
+      <a class="link" href="partners.html">Apply to Join ${ARROW}</a>
     </div>
   </article>`;
 }
 
+/* ---------- slots ---------- */
+
+const reviewMode = () => new URLSearchParams(location.search).get(REVIEW_PARAM) === '1';
+const hasValue = (v) => (Array.isArray(v) ? v.length > 0 : v && typeof v === 'object' ? Object.keys(v).length > 0 : !!v);
+
+/** [data-when="KEY"]: shown only when config[KEY] is set, or in review mode. */
+export function renderWhen(scope = document, review = reviewMode()) {
+  scope.querySelectorAll('[data-when]').forEach((el) => {
+    const keys = el.dataset.when.split(/\s+/).filter(Boolean);
+    const on = review || keys.every((key) => hasValue(CONFIG[key]));
+    el.toggleAttribute('data-when-on', on);
+  });
+}
+
 function fillSlots(page) {
   document.querySelectorAll('[data-footer]').forEach((el) => { el.innerHTML = footer({ page }); });
+  document.querySelectorAll('[data-monogram]:empty').forEach((el) => { el.innerHTML = MONOGRAM; });
   document.querySelectorAll('[data-placeholder-card]').forEach((el) => {
     el.innerHTML = placeholderCard({ category: el.dataset.category || '', level: el.dataset.level });
   });
@@ -224,13 +290,11 @@ function fillSlots(page) {
     a.target = '_blank';
     a.rel = 'noopener';
   });
+  renderWhen(document);
+  syncSwitches(document);
 }
 
 /* ---------- skip link ---------- */
-
-function skipLinkHTML() {
-  return '<a class="skip-link" href="#content">Skip to Content</a>';
-}
 
 function wireSkipLink(link) {
   link.addEventListener('click', (e) => {
@@ -239,43 +303,61 @@ function wireSkipLink(link) {
     const target = scene?.querySelector('h1, h2') || scene;
     if (!target) return;
     if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
-    target.focus();
+    target.focus({ preventScroll: true });
   });
 }
 
 /* ---------- entry ---------- */
 
+function ensureHeader(page) {
+  let header = document.querySelector('header.site-header');
+  if (!header) {
+    header = document.createElement('header');
+    header.className = 'site-header';
+    header.innerHTML = headerHTML(page);
+    document.body.prepend(header);
+  }
+  let skip = document.querySelector('.skip-link');
+  if (!skip) {
+    skip = document.createElement('a');
+    skip.className = 'skip-link';
+    skip.href = '#content';
+    skip.textContent = 'Skip to Content';
+    document.body.prepend(skip);
+  }
+  wireSkipLink(skip);
+  mirrorHeaderField(header);
+  return header;
+}
+
+/* The engine writes the header field on <html data-hdr-field>; the CSS keys on the
+   header's own data-hdr so a cut restyles the header only, not the whole document. */
+function mirrorHeaderField(header) {
+  const html = document.documentElement;
+  const sync = () => {
+    const field = html.dataset.hdrField;
+    if (!field) header.removeAttribute('data-hdr');
+    else if (header.dataset.hdr !== field) header.dataset.hdr = field;
+  };
+  sync();
+  new MutationObserver(sync).observe(html, { attributes: true, attributeFilter: ['data-hdr-field'] });
+}
+
 /**
- * Inject the chrome. Returns { setBar, onMenuToggle, closeMenu }.
+ * Wire the chrome. Returns { header, onMenuToggle, closeMenu }.
  * `page` defaults to <body data-page>.
  */
 export function initChrome({ page = document.body.dataset.page || 'home' } = {}) {
+  if (reviewMode()) document.documentElement.classList.add('ph-loud');
   const menuListeners = new Set();
-  const skip = mount('div', 'skip', skipLinkHTML(), 'prepend');
-  wireSkipLink(skip.querySelector('a'));
-  const header = mount('header', 'site-header', headerHTML(page));
-  skip.after(header);
-  const menu = createMenu(header, (open) => menuListeners.forEach((cb) => cb(open)));
-  mount('div', 'wa-float-wrap', floatHTML(page));
-  const bar = mount('div', 'phone-bar', barHTML(page));
+  const header = ensureHeader(page);
+  const menu = createMenu(header, page, (open) => menuListeners.forEach((cb) => cb(open)));
   fillSlots(page);
+  document.addEventListener('click', (e) => { if (!e.target.closest('.menu')) onSwitchClick(e); });
+  window.addEventListener('storage', (e) => { if (e.key === SOUND_KEY) syncSwitches(); });
 
   return {
     header,
-    /**
-     * Change the phone bar's action, e.g. setBar({ label: 'Get my introduction', href }).
-     * newTab: false for a same-page link (e.g. '#apply'); true (the WhatsApp default) opens a new tab.
-     */
-    setBar({ label, href, newTab } = {}) {
-      const action = bar.querySelector('a');
-      if (href) action.href = href;
-      if (label) action.querySelector('.phone-bar__label').textContent = label;
-      if (newTab === true) Object.assign(action, { target: '_blank', rel: 'noopener' });
-      if (newTab === false) {
-        action.removeAttribute('target');
-        action.removeAttribute('rel');
-      }
-    },
     onMenuToggle(cb) {
       menuListeners.add(cb);
       return () => menuListeners.delete(cb);

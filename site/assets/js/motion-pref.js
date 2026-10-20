@@ -1,70 +1,47 @@
 /**
- * The visitor's own "pause animation" choice (WCAG 2.2.2). Paused means flow
- * mode: no film, no star field, no grain and a still globe, exactly as with
- * the operating system's reduced-motion setting.
- *
- * Kept in localStorage under STORAGE_KEY. If storage is blocked the choice
- * travels in the URL instead (?motion=off). The inline script in every page's
- * <head> reads both before first paint, so keep the key and value in sync.
+ * Motion preference: the operating system setting, overridden by the visitor's
+ * own choice from the footer switch (C37), stored in localStorage['cs-motion'].
+ * Reduced motion means flow mode: no cuts, crossfades of 200 ms, posters, no
+ * drift. The inline head script reads the same key before first paint, so the
+ * mode never flips after load.
  */
-const STORAGE_KEY = 'cs-motion';
-const PAUSED_VALUE = 'off';
-const QUERY_KEY = 'motion';
-const FOCUS_KEY = 'cs-motion-focus'; // sessionStorage: put focus back on the toggle after the reload
+export const REDUCE_QUERY = '(prefers-reduced-motion: reduce)';
+export const MOTION_KEY = 'cs-motion'; // 'full' | 'reduced'
 
-function readStorage(store, key) {
+const CHOICES = new Set(['full', 'reduced']);
+
+/** True when the operating system asks for reduced motion (the stored choice is ignored). */
+export function osReducedMotion() {
+  return window.matchMedia?.(REDUCE_QUERY).matches ?? false;
+}
+
+/** The stored choice: 'full', 'reduced', or null when unset or storage is blocked. */
+export function motionPref() {
   try {
-    return window[store].getItem(key);
+    const value = localStorage.getItem(MOTION_KEY);
+    return CHOICES.has(value) ? value : null;
   } catch {
-    return null;
+    return null; // private mode or blocked storage: the OS setting decides
   }
 }
 
-function writeStorage(store, key, value) {
-  try {
-    if (value === null) window[store].removeItem(key);
-    else window[store].setItem(key, value);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-const pausedInUrl = () => new URLSearchParams(location.search).get(QUERY_KEY) === PAUSED_VALUE;
-
-/** True when the visitor has paused the animation on this site. */
-export function motionPaused() {
-  return pausedInUrl() || readStorage('localStorage', STORAGE_KEY) === PAUSED_VALUE;
-}
-
-/** The URL to reload after a change: drops or adds ?motion=off, keeps the #scene. */
-function reloadUrl(paused, stored) {
-  const url = new URL(location.href);
-  if (paused && !stored) url.searchParams.set(QUERY_KEY, PAUSED_VALUE);
-  else url.searchParams.delete(QUERY_KEY);
-  return url.href;
+/** Reduced motion is on: a stored choice wins over the OS setting when it is set. */
+export function prefersReducedMotion() {
+  const pref = motionPref();
+  return pref ? pref === 'reduced' : osReducedMotion();
 }
 
 /**
- * Save the choice and reload into the matching mode, landing on `sceneId`.
- * The film and flow layouts differ too much to swap without a reload.
+ * Store the visitor's choice and reload (the mode is decided once per load),
+ * keeping the hash so they land on the scene they were reading.
  */
-export function applyMotionChoice(paused, { sceneId = '' } = {}) {
-  const stored = writeStorage('localStorage', STORAGE_KEY, paused ? PAUSED_VALUE : null);
-  writeStorage('sessionStorage', FOCUS_KEY, '1');
-  const url = new URL(reloadUrl(paused, stored));
-  if (sceneId) url.hash = sceneId;
-  location.replace(url.href);
-  if (url.pathname !== location.pathname || url.search !== location.search) return; // a full navigation
-  // Same document: only the #hash changed. The film's scroll position means nothing in the other
-  // mode, so stop the browser restoring it (set after replace(), which starts a fresh history entry).
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+export function setMotionPref(value) {
+  if (!CHOICES.has(value)) throw new TypeError(`setMotionPref: expected 'full' or 'reduced', got ${value}`);
+  try {
+    localStorage.setItem(MOTION_KEY, value);
+  } catch {
+    return false; // storage blocked: the choice cannot persist, so do not reload into the same mode
+  }
   location.reload();
-}
-
-/** True once after a toggle-triggered reload (and forgets it). */
-export function takeFocusReturn() {
-  const pending = readStorage('sessionStorage', FOCUS_KEY) === '1';
-  if (pending) writeStorage('sessionStorage', FOCUS_KEY, null);
-  return pending;
+  return true;
 }

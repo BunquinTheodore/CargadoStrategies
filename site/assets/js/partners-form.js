@@ -1,9 +1,11 @@
 /**
- * Partner application form (FR10): category + types from config, licence
- * rules, validation with clear errors, honeypot, hand-off to WhatsApp (or
- * email once CONTACT_EMAIL exists) and the "we review each one" success state.
- * Sounds go through the page's `sound(name, options)` (sfx.play): a pop when the
- * category changes, a soft falling two-note when answers need another look, a chime on success.
+ * Partner application (FR10, DIRECTION §7.4 P5): the R4 field list and rules
+ * in a ui-stepper (api.md §17.3). Four steps of at most four fields: Business ·
+ * Service and Licence · Area and References · Review, Code of Conduct and
+ * Send. From 760 px a step is one page; phones page through each step's
+ * short parts, and the count still reads "Step n of 4". Category and types come from
+ * config, licence rules (CR02), honeypot, the hand-off to WhatsApp (or email
+ * once CONTACT_EMAIL exists) and the "we review each one" success state.
  *
  * Nothing is stored or sent by the page itself: the visitor sends the
  * prefilled message from their own WhatsApp / email app.
@@ -11,6 +13,8 @@
 import { CATEGORIES, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, SITE_NAME, categoryBySlug } from './config.js';
 import { waLink } from './whatsapp.js';
 import { escapeHtml } from './chrome.js';
+import { createStepper } from './ui-stepper.js';
+import { focusInScene } from './ui-focus.js';
 
 /** Categories where a current licence is required to be listed (CR02). */
 const LICENCE_REQUIRED = new Set(['insurance', 'legal', 'mortgage', 'real-estate']);
@@ -21,20 +25,18 @@ const MIN_REFERENCES = 10;
 const MIN_ABOUT = 30;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ID_PREFIX = 'pa-';
-const ERROR_SOUND = { name: 'error' }; // the shared soft falling two-note: "look again"
-const silent = () => {};
+const PAGE_WHEN = '(min-width: 760px)';
 
 const filled = (value) => value.length > 0;
 const digitCount = (value) => value.replace(/\D/g, '').length;
 const needsLicence = (v) => LICENCE_REQUIRED.has(v.category);
 const categoryName = (slug) => (slug === OTHER_CATEGORY.slug ? 'Other' : categoryBySlug(slug)?.name || '');
 
-/** Validation rules, in form order. `message` may depend on the values. */
+/** Validation rules, in form order. `message` may depend on the values (R4 partners §3.8 wording). */
 const RULES = [
   { field: 'business', ok: (v) => filled(v.business), message: 'Enter your business name.' },
-  { field: 'entity', ok: (v) => filled(v.entity), message: 'Enter the legal entity name. If it is the same as your business name, enter that again.' },
+  { field: 'entity', ok: (v) => filled(v.entity), message: 'Enter the legal entity name, even if it is the same as your business name.' },
   { field: 'contact', ok: (v) => filled(v.contact), message: 'Enter the name of the person we should contact.' },
-  { field: 'email', ok: (v) => EMAIL_PATTERN.test(v.email), message: 'Enter an email address like name@example.com.' },
   { field: 'phone', ok: (v) => digitCount(v.phone) >= MIN_PHONE_DIGITS, message: `Enter a phone or WhatsApp number with at least ${MIN_PHONE_DIGITS} digits, including the area code.` },
   { field: 'category', ok: (v) => filled(v.category), message: 'Choose the service you offer.' },
   {
@@ -49,10 +51,11 @@ const RULES = [
   },
   { field: 'city', ok: (v) => filled(v.city), message: 'Enter the city or town you work from.' },
   { field: 'province', ok: (v) => filled(v.province), message: 'Choose your province or territory.' },
-  { field: 'references', ok: (v) => v.references.length >= MIN_REFERENCES, message: 'Add at least one professional reference: a name and how to reach them.' },
-  { field: 'about', ok: (v) => v.about.length >= MIN_ABOUT, message: `Tell us about your work in a sentence or two (at least ${MIN_ABOUT} characters).` },
-  { field: 'conduct', ok: (v) => v.conduct, message: 'Tick the box to agree to the Partner Code of Conduct. We only accept partners who follow it.' },
-  { field: 'consent', ok: (v) => v.consent, message: 'Tick the box so we can use these details to review your application.' },
+  { field: 'references', ok: (v) => v.references.length >= MIN_REFERENCES, message: 'Add at least one professional reference: a name and how to reach them. We contact them only to review your application.' },
+  { field: 'about', ok: (v) => v.about.length >= MIN_ABOUT, message: `Tell us about your work in two or three sentences (${MIN_ABOUT} characters or more): what you do, who you help, your languages.` },
+  { field: 'email', ok: (v) => EMAIL_PATTERN.test(v.email), message: 'Enter an email address like name@example.com.' },
+  { field: 'conduct', ok: (v) => v.conduct, message: 'Tick to agree to the Partner Code of Conduct.' },
+  { field: 'consent', ok: (v) => v.consent, message: 'Tick so we can use these details to review it.' },
 ];
 
 /* ---------- rendering ---------- */
@@ -163,91 +166,122 @@ function setFieldError(form, field, message) {
   error.hidden = !message;
 }
 
-function renderSummary(box, errors) {
-  if (!errors.length) {
-    box.hidden = true;
-    box.innerHTML = '';
-    return;
-  }
-  const noun = errors.length === 1 ? 'One answer needs' : `${errors.length} answers need`;
-  const items = errors
-    .map((e) => `<li><a href="#${ID_PREFIX}${e.field}" data-field="${e.field}">${escapeHtml(e.message)}</a></li>`)
-    .join('');
-  box.innerHTML = `<p class="apply-errors__title" id="apply-errors-title">${noun} a second look:</p>
-    <ul class="apply-errors__list">${items}</ul>`;
-  box.setAttribute('aria-labelledby', 'apply-errors-title');
-  box.hidden = false;
+/** The rules whose field sits inside the given step elements (the visible unit). */
+const rulesIn = (form, stepEls) => RULES.filter(({ field }) => {
+  const el = fieldEl(form, field);
+  return el && stepEls.some((step) => step.contains(el));
+});
+
+/* ---------- progress: always counted in the four logical steps ---------- */
+
+/**
+ * The visible count, the bar and each title's hidden ", step n of 4". In 'page' mode a unit is a
+ * whole step; in 'step' mode (phones) a unit is one part of a step, so it adds "1 of 2".
+ */
+function progressOf(form, unit, mode) {
+  const parts = Array.from(form.querySelectorAll('.stepper__steps > [data-step]'));
+  const pages = [...new Set(parts.map((s) => s.dataset.page))];
+  const first = mode === 'page' ? parts.find((s) => s.dataset.page === pages[unit]) : parts[unit];
+  const page = first?.dataset.page;
+  const siblings = parts.filter((s) => s.dataset.page === page);
+  const part = siblings.indexOf(first);
+  return {
+    step: pages.indexOf(page) + 1,
+    steps: pages.length,
+    name: first?.dataset.pageName || '',
+    part: mode === 'page' || siblings.length < 2 ? '' : `${part + 1} of ${siblings.length}`,
+    done: (pages.indexOf(page) + (mode === 'page' ? 1 : (part + 1) / siblings.length)) / pages.length,
+  };
+}
+
+const countLabel = (p) => [`Step ${p.step} of ${p.steps}`, p.name, p.part].filter(Boolean).join(' · ');
+
+function syncStepOf(form, { unit, mode }) {
+  const p = progressOf(form, unit, mode);
+  const text = `, step ${p.step} of ${p.steps}${p.part ? `, part ${p.part}` : ''}`;
+  form.style.setProperty('--step-progress', String(p.done));
+  form.querySelectorAll('.stepper__steps > [data-step]:not([hidden]) [data-step-of]').forEach((span) => {
+    span.textContent = text;
+  });
 }
 
 /* ---------- controller ---------- */
 
 /**
- * Wire the form. `focusTo(el, { afterLayout })` is supplied by the page: it
- * moves focus (and the film or page) to el, optionally waiting until the
- * layout has settled after a content change (the film rebuilds then).
- * `sound(name, options)` plays feedback (optional).
+ * Wire the form as a stepper. `film` is the engine (focus moves through
+ * focusInScene), `sfx` the boot() facade: the success chime is the only
+ * voice the form plays (DIRECTION §8; the click blip is automatic).
  */
-export function initPartnerForm({ form, success, focusTo, sound = silent }) {
-  const summary = form.querySelector('#apply-errors');
+export function initPartnerForm({ form, success, film, sfx }) {
   let attempted = false;
-  // Explicit aria-invalid="false" until a submit: Chrome otherwise reports the
+  const focusTo = (el, opts = {}) => focusInScene(el, { film, ...opts });
+  // Explicit aria-invalid="false" until a Next: Chrome otherwise reports the
   // empty required selects and checkboxes as "invalid" before anyone answers.
   RULES.forEach(({ field }) => setFieldError(form, field, ''));
 
-  const showErrors = (errors) => {
-    RULES.forEach(({ field }) => setFieldError(form, field, errors.find((e) => e.field === field)?.message));
-    renderSummary(summary, errors);
+  /** Errors of one unit: shown inline, returned for the stepper's status line and focus. */
+  const validateUnit = (stepEls) => {
+    attempted = true;
+    const rules = rulesIn(form, stepEls);
+    const errors = validate(readValues(form)).filter((e) => rules.some((r) => r.field === e.field));
+    rules.forEach(({ field }) => setFieldError(form, field, errors.find((e) => e.field === field)?.message));
+    return errors.map((e) => ({ ...e, field: fieldEl(form, e.field) }));
   };
 
+  const stepper = createStepper(form, {
+    pageWhen: PAGE_WHEN,
+    validateUnit,
+    film,
+    focusTo,
+    countText: ({ unit, mode }) => countLabel(progressOf(form, unit, mode)),
+    onStep: (state) => syncStepOf(form, state),
+    onSubmit: (via) => submit({ form, success, via: via === 'email' ? 'email' : 'whatsapp', stepper, focusTo, sfx }),
+  });
+
+  syncStepOf(form, stepper);
+
+  // Recheck as you type, once a Next has been tried: a field that becomes valid drops its error.
   const recheck = (name) => {
-    if (!attempted) return;
+    if (!attempted || !name) return;
     const errors = validate(readValues(form));
     const related = name === 'licence' || name === 'category' ? [name, 'licence', 'issuer'] : [name];
-    related.forEach((field) => setFieldError(form, field, errors.find((e) => e.field === field)?.message));
+    related.forEach((field) => {
+      if (errorEl(form, field)?.hidden && !errors.some((e) => e.field === field)) return;
+      setFieldError(form, field, errors.find((e) => e.field === field)?.message);
+    });
   };
 
   form.elements.category.addEventListener('change', (e) => {
     renderTypes(form, e.target.value);
     updateLicenceState(form, e.target.value);
-    sound('pop');
   });
   form.addEventListener('change', (e) => recheck(e.target.name));
   form.addEventListener('input', (e) => recheck(e.target.name));
-  summary.addEventListener('click', (e) => focusErrorField(e, form, focusTo));
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    attempted = true;
-    submit({ form, success, summary, via: e.submitter?.value || 'whatsapp', showErrors, focusTo, sound });
-  });
   success.querySelector('#apply-edit').addEventListener('click', () => {
     toggleSuccess(form, success, false);
+    stepper.showIndex();
+    stepper.go(0, { focus: false, cause: 'edit' });
     focusTo(fieldEl(form, 'business'), { afterLayout: true });
   });
   setupEmailOption(form);
+  return stepper;
 }
 
-function submit({ form, success, summary, via, showErrors, focusTo, sound }) {
+function submit({ form, success, via, stepper, focusTo, sfx }) {
   const values = readValues(form);
   if (values.website) {
     // Honeypot filled: almost certainly a bot. Pretend it worked, open nothing.
-    showSuccess({ form, success, via, href: '', focusTo });
-    return;
-  }
-  const errors = validate(values);
-  showErrors(errors);
-  if (errors.length) {
-    sound(ERROR_SOUND.name, ERROR_SOUND.options);
-    focusTo(summary, { afterLayout: true });
+    showSuccess({ form, success, via, href: '', stepper, focusTo });
     return;
   }
   const href = handOffLink(via, values);
   if (href.startsWith('mailto:')) window.location.href = href;
   else window.open(href, '_blank', 'noopener');
-  sound('success');
-  showSuccess({ form, success, via, href, focusTo });
+  sfx?.play('success');
+  showSuccess({ form, success, via, href, stepper, focusTo });
 }
 
-function showSuccess({ form, success, via, href, focusTo }) {
+function showSuccess({ form, success, via, href, stepper, focusTo }) {
   const email = via === 'email' && CONTACT_EMAIL;
   success.querySelector('[data-success-text]').textContent = email
     ? 'Your email app has opened with your application written out. Nothing is sent until you press send.'
@@ -255,6 +289,7 @@ function showSuccess({ form, success, via, href, focusTo }) {
   const retry = success.querySelector('[data-success-retry]');
   retry.hidden = !href;
   if (href) success.querySelector('#apply-success-link').href = href;
+  stepper.hideIndex();
   toggleSuccess(form, success, true);
   focusTo(success.querySelector('#apply-success-title'), { afterLayout: true });
 }
@@ -264,14 +299,6 @@ function toggleSuccess(form, success, done) {
   success.hidden = !done;
 }
 
-function focusErrorField(event, form, focusTo) {
-  const link = event.target.closest('a[data-field]');
-  if (!link) return;
-  event.preventDefault(); // keep the film's hash routing out of it
-  const field = fieldEl(form, link.dataset.field);
-  if (field) focusTo(field);
-}
-
 function setupEmailOption(form) {
   const hasEmail = Boolean(CONTACT_EMAIL);
   form.querySelectorAll('[data-email-only]').forEach((el) => { el.hidden = !hasEmail; });
@@ -279,10 +306,10 @@ function setupEmailOption(form) {
   form.querySelectorAll('[data-email-label]').forEach((el) => { el.textContent = CONTACT_EMAIL_LABEL; });
 }
 
-/** Preselect a tier (from the tier panels' "Apply for …" links). Returns true when the choice changed. */
+/** Preselect a tier (P3's choice, or ?tier=). Returns true when the choice changed. */
 export function selectTier(form, tier) {
-  const select = form.elements.tier;
-  if (!(tier in TIER_NAMES) || select.value === tier) return false;
+  const select = form?.elements.tier;
+  if (!select || !(tier in TIER_NAMES) || select.value === tier) return false;
   select.value = tier;
   return true;
 }

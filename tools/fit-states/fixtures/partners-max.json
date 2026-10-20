@@ -1,0 +1,130 @@
+{
+  "note": "fit-audit --fixture=partners-max: 5 test partners at every R4 services §7.7 cap (40-char business, 30-char contact, 24-char city, 40-char area, credential and issuer, 3 types, 3 languages, 140-char description). Served only by fit-audit through CDP; never copied into site/ (CR16). Not real businesses.",
+  "partners": [
+    {
+      "id": "fixture-max-1",
+      "business": "Fixture Business 1 Maxwidth Fixture Plac",
+      "name": "Fixture Contact 1 Maxwidth Fix",
+      "category": "insurance",
+      "types": [
+        "life",
+        "health",
+        "home"
+      ],
+      "city": "Winnipeg Maxwidth Fixtur",
+      "province": "MB",
+      "lat": 49.8951,
+      "lon": -97.1384,
+      "serviceArea": "Winnipeg and surrounding area Maxwidth F",
+      "credential": "Fixture credential number Maxwidth Fixtu",
+      "issuingBody": "Fixture issuing body name Maxwidth Fixtu",
+      "whatsapp": "12045550100",
+      "description": "Fixture description at the 140 character cap: one or two plain sentences about the practice, written to fill the whole field. Maxwidth Fixtu",
+      "languages": [
+        "en",
+        "fr",
+        "es"
+      ]
+    },
+    {
+      "id": "fixture-max-2",
+      "business": "Fixture Business 2 Maxwidth Fixture Plac",
+      "name": "Fixture Contact 2 Maxwidth Fix",
+      "category": "legal",
+      "types": [
+        "real-estate",
+        "family",
+        "immigration"
+      ],
+      "city": "Brandon Maxwidth Fixture",
+      "province": "MB",
+      "lat": 49.8485,
+      "lon": -99.95,
+      "serviceArea": "Brandon and surrounding area Maxwidth Fi",
+      "credential": "Fixture credential number Maxwidth Fixtu",
+      "issuingBody": "Fixture issuing body name Maxwidth Fixtu",
+      "whatsapp": "12045550100",
+      "description": "Fixture description at the 140 character cap: one or two plain sentences about the practice, written to fill the whole field. Maxwidth Fixtu",
+      "languages": [
+        "en",
+        "fr",
+        "es"
+      ]
+    },
+    {
+      "id": "fixture-max-3",
+      "business": "Fixture Business 3 Maxwidth Fixture Plac",
+      "name": "Fixture Contact 3 Maxwidth Fix",
+      "category": "insurance",
+      "types": [
+        "health",
+        "home",
+        "business"
+      ],
+      "city": "Steinbach Maxwidth Fixtu",
+      "province": "MB",
+      "lat": 49.5258,
+      "lon": -96.6845,
+      "serviceArea": "Steinbach and surrounding area Maxwidthx",
+      "credential": "Fixture credential number Maxwidth Fixtu",
+      "issuingBody": "Fixture issuing body name Maxwidth Fixtu",
+      "whatsapp": "12045550100",
+      "description": "Fixture description at the 140 character cap: one or two plain sentences about the practice, written to fill the whole field. Maxwidth Fixtu",
+      "languages": [
+        "en",
+        "fr",
+        "es"
+      ]
+    },
+    {
+      "id": "fixture-max-4",
+      "business": "Fixture Business 4 Maxwidth Fixture Plac",
+      "name": "Fixture Contact 4 Maxwidth Fix",
+      "category": "legal",
+      "types": [
+        "business",
+        "wills-and-estates",
+        "family"
+      ],
+      "city": "Selkirk Maxwidth Fixture",
+      "province": "MB",
+      "lat": 50.1437,
+      "lon": -96.8839,
+      "serviceArea": "Selkirk and surrounding area Maxwidth Fi",
+      "credential": "Fixture credential number Maxwidth Fixtu",
+      "issuingBody": "Fixture issuing body name Maxwidth Fixtu",
+      "whatsapp": "12045550100",
+      "description": "Fixture description at the 140 character cap: one or two plain sentences about the practice, written to fill the whole field. Maxwidth Fixtu",
+      "languages": [
+        "en",
+        "fr",
+        "es"
+      ]
+    },
+    {
+      "id": "fixture-max-5",
+      "business": "Fixture Business 5 Maxwidth Fixture Plac",
+      "name": "Fixture Contact 5 Maxwidth Fix",
+      "category": "manufacturing",
+      "types": [
+        "apparel",
+        "packaging",
+        "furniture"
+      ],
+      "city": "Portage la Prairie Maxwi",
+      "province": "MB",
+      "lat": 49.9728,
+      "lon": -98.2926,
+      "serviceArea": "Portage la Prairie and surrounding areax",
+      "credential": "Fixture credential number Maxwidth Fixtu",
+      "issuingBody": "Fixture issuing body name Maxwidth Fixtu",
+      "whatsapp": "12045550100",
+      "description": "Fixture description at the 140 character cap: one or two plain sentences about the practice, written to fill the whole field. Maxwidth Fixtu",
+      "languages": [
+        "en",
+        "fr",
+        "es"
+      ]
+    }
+  ]
+}

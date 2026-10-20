@@ -1,233 +1,288 @@
 /* ==========================================================================
-   Become a partner — page styles only (partners.html).
-   Colours always come from the field variables in base.css; the panel edge
-   and depth tints (--panel-edge, --panel-depth) come from fx.css.
-   Display type is Times New Roman in Title Case: no uppercase, no wide tracking.
+   Cargado Strategies — partners.css (partners.html, DIRECTION §7.4 P1-P7)
+   1 shared scene frame · 2 P1 hero (O, W4 reversed) · 3 P2 how (R)
+   4 P3 tiers (D) · 5 P4 founding (M, gold) · 6 P5 apply (P, stepper)
+   7 P6 close (R + medallion) · 8 dialogs · 9 bands: laptop-short, tablet portrait, phone
+   Shared mechanics (rows, tabs, stepper, paper, dialog, medallion) live in
+   ui.css, fx.css and visual.css; this file only places and sizes them.
    ========================================================================== */
 
-/* Offset edge + soft depth shadow shared by this page's layered panels (tiers,
-   ticket, form groups); .panel-3d (fx.css) uses the same recipe at full size. */
-:root { --pt-edge: 7px; }
-
-
-/* Hero ---------------------------------------------------------------------- */
-.pt-hero { max-width: 17ch; } /* size from .t-hero; &nbsp; groups in the markup break it into four phrases */
-.hero-honest { max-width: 52ch; }
-
-
-/* How it works: a perspective list of tilting rows -------------------------------- */
-.how__list { position: relative; transform-origin: 0 50%; }
-.how__guide {
-  position: absolute;
-  left: -14px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: var(--accent);
-  transform-origin: 50% 0;
+/* 1. Every Partners pan fills its scene box, so groups can anchor top and bottom. */
+body[data-page="partners"] .scene:not(.scene--credits) .scene__pan {
+  margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
+  display: flex; flex-direction: column;
 }
-.how__item { display: grid; gap: 6px; max-width: 46ch; }
-#how .list-num > li { grid-template-columns: 3.5rem 1fr; }
-#how .list-num__n { align-self: baseline; }
+.hero__head, .how__head, .tiers__head, .founding__head, .apply__head, .close__head { display: grid; gap: var(--space-s); justify-items: start; }
+.hero__head .rule, .apply__head .rule { margin-top: var(--space-xs); }
+.nw { white-space: nowrap; }
+
+/* 2. P1 · Hero: text in cols 1-7 bottom-anchored, Canada in cols 8-12 bleeding right ---------- */
+#hero .scene__pan { justify-content: flex-end; }
+.hero__map {
+  --m: min(64svh, 44vw);
+  position: absolute; top: calc(50% - var(--m) / 2); height: var(--m);
+  left: 60%; right: calc((100% - 100vw) / 2);
+}
+.hero__copy {
+  position: relative; display: flex; flex-direction: column; gap: var(--group-gap);
+  width: min(58.4%, 50rem); padding-bottom: clamp(8px, 5cqh, 64px);
+}
+.hero__title { font-size: min(var(--fs-statement), 12.5svh); max-width: 12ch; }
+.hero__body { display: grid; gap: var(--space-m); }
+.hero__lead { max-width: 46ch; }
+.hero__hook { margin: 0; font: italic 400 clamp(1.375rem, calc(1rem + 1.1 * var(--u)), 2rem)/1.25 var(--font-display); color: var(--fg); max-width: 34ch; }
+.hero__hook .ph { font-style: normal; }
+
+/* 3. P2 · How: the head top-left, three hairline rows, the notice under them ---------------- */
+#how .scene__pan { justify-content: center; gap: var(--space-l); }
+.how__head { max-width: 62%; }
+.how__title { font-size: min(var(--fs-d1), 8.5cqh); }
+/* Static index rows (C11 without the link): numeral · Times d2 title · Manrope meta. */
+.prows { display: grid; }
+.prow {
+  display: grid; grid-template-columns: 3ch minmax(0, 1fr) minmax(0, 1.15fr); column-gap: var(--gap-col);
+  align-items: baseline; min-height: min(var(--row-pitch), 14cqh); padding: var(--space-xs) 24px;
+  border-top: 1px solid var(--line); align-content: center;
+}
+.prow:last-child { border-bottom: 1px solid var(--line); }
+.prow__num { font-size: var(--fs-row-num); }
+.prow__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+.prow__meta { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body, 1.5); color: var(--fg-muted); max-width: 46ch; }
+.how__fine { margin: 0; }
+
+/* 4. P3 · Tiers: the head, three panels filling the rest, one Apply and "Compare All" ------- */
+#tiers .scene__pan { justify-content: flex-end; gap: var(--space-l); }
+.tiers__title { font-size: min(var(--fs-d1), 8cqh); }
+.tiers-wrap { flex: 0 1 58%; min-height: 0; display: grid; }
+/* Side by side (≥ 760) the panels share one row grid (subgrid): a spacer, then name, price and
+   lines, so the three prices sit on one baseline. One column per panel (slice lesson 11). */
+.tiers {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) repeat(3, auto);
+  min-height: min(46svh, 40cqh);
+}
+.tier {
+  position: relative; isolation: isolate; grid-row: 1 / -1;   /* no clip: a clipped panel over the stars costs a layer each */
+  display: grid; grid-template-rows: subgrid; grid-template-columns: minmax(0, 1fr); justify-content: stretch;
+  row-gap: var(--space-s); align-content: end; padding: var(--space-l) clamp(16px, 2vw, 32px);
+  border-top: 1px solid var(--line); cursor: pointer;
+  transition: background-color var(--dur-hover) var(--ease-out), box-shadow var(--dur-hover) var(--ease-out);
+}
+.tier + .tier { border-left: 1px solid var(--line); }
+.tier > * { grid-column: 1; }
+.tier:hover { background-color: rgba(243, 236, 221, .035); }
+.tier:has(.tier__pick:checked) { background-color: rgba(212, 175, 55, .07); box-shadow: inset 0 2px 0 var(--accent); }
+/* The outline numeral stands on the price's floor at the right, never under any text. */
+.tier .ghost {
+  position: relative; inset: auto; grid-row: 1 / 4; align-self: end; justify-self: end; margin-right: -.06em;
+  font-size: min(var(--fs-ghost), 24svh); line-height: .74;
+  color: transparent; -webkit-text-stroke: 1px var(--stroke-num);
+}
+/* The tier name is the panel's d2 heading; the radio is hidden, the gold top rule shows the pick. */
+.tier__title { grid-row: 2; margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.tier__name { display: inline-flex; align-items: center; min-height: var(--tap-min); width: fit-content; color: var(--fg); cursor: pointer; }
+.tier__pick { position: absolute; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.tier:has(.tier__pick:focus-visible) .tier__name { outline: var(--focus-w) solid var(--focus); outline-offset: var(--focus-off); }
+.tier__price { grid-row: 3; margin: 0; font: 400 1.75rem/1.2 var(--font-display); color: var(--fg-muted); }
+.tier__list { grid-row: 4; display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: var(--fs-note); line-height: 1.45; }
+.tiers__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
+
+/* 5. P4 · Founding (gold metal): the monument in cols 1-7, a large outline "2" holds cols 8-12 */
+#founding .scene__pan { justify-content: center; gap: var(--space-l); }
+.founding__mark {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%); margin-right: -.04em;
+  font: 400 min(66svh, 36vw)/.74 var(--font-display); letter-spacing: 0; pointer-events: none; user-select: none;
+  color: transparent; -webkit-text-stroke: 1.5px var(--stroke-num);
+}
+.founding__head { max-width: 62%; }
+.founding__title { font-size: min(var(--fs-statement), 14svh); max-width: 19ch; }
+.founding__body { display: grid; gap: var(--space-s); max-width: 48ch; }
+.founding__terms { margin: 0; font-size: var(--fs-lead); line-height: 1.55; }
+.founding__live { margin: 0; font: 500 var(--fs-label)/1.4 var(--font-ui); }
+
+/* 6. P5 · Apply: the head beside the paper; Back / Next close the paper, every step's errors
+   leave ≥ 40 px under it (G4) ------------------------------------------------------------------ */
+#apply .scene__pan { flex-direction: row; align-items: center; gap: calc(2 * var(--gap-col)); }
+.apply__head { flex: 1 1 0; min-width: 0; align-self: center; align-content: center; }
+.apply__title { font-size: min(var(--fs-d1), 9cqh); }
+.apply__paper { flex: 0 1 760px; min-width: 0; display: flex; flex-direction: column; }
+.apply-form { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; gap: var(--space-m); }
+.apply-form .stepper__steps {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-m) calc(1.5 * var(--gap-col)); align-content: start;
+}
+/* Steps stay in block flow (ui.css floats the legend); each child keeps the step gap. */
+.apply-form .stepper__step { --step-gap: var(--space-s); min-width: 0; }
+.apply-form .stepper__step > * + * { margin-top: var(--step-gap); }
+/* Step titles are form labels, not scene heads: Manrope 600, under the d1 "Apply to Join". */
+.apply-form .stepper__title { margin: 0 0 var(--step-gap); font: 600 1.1875rem/1.3 var(--font-body); letter-spacing: 0; }
+/* The last page: "Last Details" beside a wider "Code of Conduct", the notices across both under them;
+   its own title stays for screen readers (the page's first title takes the focus). */
+.apply-form .stepper__steps:has(> [data-step="7"]:not([hidden])) { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); row-gap: var(--space-xs); }
+.apply-form:has([data-step="7"]:not([hidden])) { gap: var(--space-xs); }   /* the tallest page keeps ≥ 40 px under it */
+.apply__send { grid-column: 1 / -1; }
+.apply__send .stepper__title {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+.apply-form [data-step-send] .btn__label { white-space: nowrap; }
+.apply-form .form-row { gap: 4px; }
+.apply-form .hint { max-width: none; }
+.apply-form .form-row:has(> [aria-invalid="true"]) > .hint { display: none; }   /* the error restates it */
+.apply-form .textarea { min-height: clamp(72px, 10svh, 112px); resize: none; }
+.apply__ask { margin: 0; font-size: var(--fs-lead); line-height: 1.5; max-width: 26ch; }
+.apply__types { border: 0; padding: 0; margin: 0; }
+.apply__terms { margin: 0; }
+.apply-form__opt { color: var(--fg-muted); font-weight: 400; }
+.apply-form .check a { padding-block: 12px; margin-block: -12px; }   /* ≥ 44 px tap target, no layout change */
+.apply-form .stepper__nav { margin-top: var(--space-2xs); }
+/* Last unit: the send note under the buttons, the email alternative beside it. */
+.apply__after { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xs) var(--space-m); }
+.apply__after:not(:has(> :not([hidden]))) { display: none; }
+.apply-form .stepper__alt { flex: none; display: flex; }
+.apply-form .stepper__alt[hidden], .apply-form .stepper__send-hint[hidden] { display: none; }
+.apply-form .stepper__send-hint { margin: 0; max-width: 44ch; }
+.apply-success { display: grid; gap: var(--space-m); justify-items: start; align-content: center; flex: 1 1 auto; }
+.apply-success[hidden] { display: none; }
+.apply-success__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+#apply-success-title:focus { outline: none; }
+
+/* 7. P6 · Close: the small medallion, head and action on the left (5), four rows right (7) --- */
+#close .scene__pan {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: calc(2 * var(--gap-col));
+  align-items: center; align-content: center;
+}
+.close__side { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-l); }
+.close__medallion { flex: none; position: relative; z-index: 1; }   /* painted last, so nothing is promoted to sit above it */
+.close__title { font-size: min(var(--fs-d1), 8.5cqh); max-width: 12ch; }
+.close__action { display: grid; gap: var(--space-s); justify-items: start; }
+.close__wa { max-width: 34ch; padding-block: 10px; }
+.close__rows .row { min-height: min(var(--row-pitch), 15cqh); }
+.close__rows .row__title { font-size: var(--fs-d2); }
+
+/* 8. Dialogs (C26 skin from ui.css): "Compare All" and the questions ------------------------ */
+.dialog__title { margin: 0; font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.tiers-dialog__intro, .pfaq .acc__body p { margin: 0; font-size: var(--fs-body); line-height: var(--lh-body, 1.5); }
+.tiers-dialog__ticks { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-l); margin: 0; padding: 0; list-style: none; font: 500 var(--fs-note)/1.4 var(--font-body); }
+.tiers-dialog__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.tiers-dialog__tier { display: grid; gap: var(--space-2xs); align-content: start; padding: var(--space-s) var(--space-m) 0 0; }
+.tiers-dialog__tier + .tiers-dialog__tier { padding-left: var(--space-m); border-left: 1px solid var(--line); }
+.tiers-dialog__name { margin: 0; font: 600 var(--fs-d4)/1.25 var(--font-body); }
+.tiers-dialog__price { margin: 0; font: 400 1.75rem/1.15 var(--font-display); }
+.tiers-dialog__tier ul { display: grid; gap: 4px; margin: var(--space-2xs) 0 0; padding: 0; list-style: none; font-size: var(--fs-note); line-height: 1.45; }
+.pfaq__list { gap: 0; }
+.pfaq .acc__body { display: grid; gap: var(--space-s); }
+.pfaq__ticks, .pfaq__steps { display: grid; gap: var(--space-2xs); margin: 0; padding-left: 1.25em; font-size: var(--fs-body); line-height: 1.5; }
+
+/* 9. Bands ---------------------------------------------------------------------------------- */
+/* Laptop-short (≥ 760 wide, ≤ 760 tall): the caps tighten, the paper's fields get closer. */
+@media (min-width: 760px) and (max-height: 760px) {
+  .hero__map { --m: min(56svh, 40vw); }
+  .hero__title { font-size: min(var(--fs-statement), 11svh); max-width: 15ch; }   /* two lines, clear of the header */
+  .founding__title { font-size: min(var(--fs-statement), 12svh); }
+  .founding__mark { font-size: min(60svh, 34vw); }
+  .tiers { min-height: min(46svh, 36cqh); }
+  .tier { padding-block: var(--space-m); }
+  .tier .ghost { font-size: min(var(--fs-ghost), 20svh); }
+  .apply__paper { padding-block: 16px; }
+  .apply-form { gap: var(--space-xs); }
+  .apply-form .stepper__step { --step-gap: var(--space-xs); }
+  .apply-form .input, .apply-form .select { min-height: var(--tap-min); padding-block: 6px; }
+  .apply-form .textarea { min-height: 56px; }
+  .apply-form .stepper__nav { margin-top: 0; }
+  .close__rows .row { min-height: 64px; }
+}
+
+/* Below 1000 px or portrait: the apply head sits over the paper. */
+@media (max-width: 999px), (max-aspect-ratio: 1/1) {
+  #apply .scene__pan { flex-direction: column; gap: var(--space-m); }
+  .apply__head { flex: none; align-self: stretch; }
+  .apply__head .rule { display: none; }
+  .apply__ask { max-width: 52ch; font-size: var(--fs-body); }
+  #apply .scene__pan { justify-content: center; align-items: stretch; }
+  .apply__paper { flex: 0 1 auto; min-height: 0; }
+}
+
+/* Phone (< 760) and tablet portrait: the object is a top band, the text under it, CTA last. */
+@media (max-width: 759px), (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #hero .scene__pan { justify-content: flex-start; }
+  .hero__map {
+    position: relative; inset: auto; width: auto; height: auto; margin: 0 0 var(--space-l);
+    flex: 1 1 30svh; min-height: 10svh; max-height: 30svh;
+  }
+  .hero__copy { width: auto; flex: 0 1 auto; padding-bottom: 0; gap: var(--space-l); }
+  .hero__action { margin-top: auto; }
+  .how__head { max-width: none; }
+  #close .scene__pan { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-l); }
+  .close__medallion { display: none; }
+}
+
+/* Phone only. */
 @media (max-width: 759px) {
-  #how .list-num > li { grid-template-columns: 2.5rem 1fr; }
-  .how__guide { left: -8px; } /* keep the line inside the 16px phone gutter, off the screen edge */
+  .hero__copy { gap: var(--space-m); }
+  .hero__head { gap: var(--space-xs); }
+  .hero__title { font-size: clamp(2.5rem, 11vw, 2.75rem); max-width: none; }
+  .hero__lead { font-size: 1.0625rem; line-height: 1.5; }
+  .hero__hook { font-size: 1.5rem; }
+  .close__title { max-width: none; }
+  .hero__cta, .tiers__action .btn, .founding__action .btn, .close__action .btn { width: 100%; }
+  /* P2: the head, three rows (meta under the title) and the notice, one centred group */
+  #how .scene__pan { gap: var(--space-m); }
+  .prow { grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "num title" "meta meta"; row-gap: 2px; padding: 8px 4px 8px 0; min-height: 0; }
+  .how__head { gap: var(--space-xs); }
+  .prow__num { grid-area: num; } .prow__title { grid-area: title; } .prow__meta { grid-area: meta; font-size: var(--fs-note); line-height: 1.4; }
+  .how__fine { line-height: 1.45; }
+  /* P3: tabs with swipe, one panel at a time (ui-tabs.js, fixedHeight) */
+  #tiers .scene__pan { justify-content: center; gap: var(--space-m); }
+  .tiers-wrap { flex: 0 0 auto; gap: var(--space-s); }
+  .tiers { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; min-height: 0; touch-action: pan-y pinch-zoom; }
+  .tier { grid-row: auto; grid-template-rows: none; align-content: start; padding: var(--space-s) 0 var(--space-s); border-top: 0; }
+  .tier + .tier { border-left: 0; }
+  .tier > * { grid-row: auto; }
+  .tier:has(.tier__pick:checked) { box-shadow: none; background: none; }
+  .tier .ghost, .tier__title { display: none; }   /* the tab names the tier and picks it */
+  .tiers__action { flex-direction: column; align-items: stretch; gap: 0; }
+  .tiers__action .link { align-self: center; }
+  /* P4: the "2" fills the top band; the statement, terms and CTA sit together in the lower part,
+     the CTA a fixed margin above the bottom edge (thumb zone) */
+  #founding .scene__pan { justify-content: flex-end; gap: var(--space-m); padding-bottom: var(--space-l); }
+  .founding__mark {
+    position: relative; top: auto; right: auto; transform: none; margin: 0;
+    flex: 1 1 0; min-height: 0; display: flex; align-items: center; justify-content: flex-end;
+    font-size: min(22cqh, 46vw); line-height: .74; -webkit-text-stroke-width: 1px;
+  }
+  .founding__head { max-width: none; }
+  .founding__action { margin-top: var(--space-xs); }
+  .founding__title { font-size: 2.5rem; line-height: 1.02; }
+  .founding__terms { font-size: 1.0625rem; line-height: 1.5; }
+  /* P5: the paper full width, one step per unit, Back and Next pinned */
+  #apply .scene__pan { gap: var(--space-s); }
+  .apply__head .eyebrow { display: none; }   /* the title says "Apply" */
+  #apply:has([data-step="1"][hidden]) .apply__ask { display: none; }   /* step 1's intro, as the spec has it */
+  .apply__title { font-size: var(--fs-d2); }
+  .apply__paper { padding: var(--space-s) 16px; }
+  .apply-form { gap: var(--space-xs); }
+  .apply-form .stepper__step { --step-gap: var(--space-xs); }
+  .apply-form .stepper__status { flex-wrap: wrap; row-gap: 4px; }
+  .apply-form .stepper__errors:not([hidden]) { flex-basis: 100%; order: 3; }
+  .apply-form .input, .apply-form .select { min-height: 48px; padding-block: 8px; }
+  .apply-form .stepper__steps { grid-template-columns: minmax(0, 1fr); }
+  .apply__send { grid-column: auto; }
+  .apply__send .stepper__title { position: static; width: auto; height: auto; margin: 0 0 var(--step-gap); overflow: visible; clip-path: none; white-space: normal; }
+  .apply-form .stepper__nav .btn { padding-inline: 14px; gap: 8px; }
+  .apply-form .stepper__nav [data-step-send] { flex: 1 1 auto; min-width: 0; justify-content: center; }
+  .apply__after { flex-direction: column; align-items: stretch; }
+  .apply-form .stepper__alt { justify-content: flex-end; }
+  .send__more { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap; border: 0; }   /* = .visually-hidden, phones only */
+  /* P6: the medallion hidden, the head, four rows, then the CTA and the link */
+  #close .scene__pan { row-gap: var(--space-s); }
+  .close__medallion { display: none; }
+  .close__side { display: contents; }
+  .close__head { order: 1; } .close__rows { order: 2; } .close__action { order: 3; }
+  .close__action { justify-items: stretch; gap: 0; }
+  .close__wa { justify-self: center; text-align: center; padding-block: 4px; }
+  .close__rows .row { min-height: 0; padding-block: 6px; }
+  .close__head .eyebrow { display: none; }   /* the title says it; room for the 28 px questions */
+  .close__rows .row__title { font-size: max(var(--fs-d2), 1.75rem); }
+  /* Dialogs: on phones the tabs already compare the tiers; the dialog keeps the terms. */
+  .tiers-dialog__grid { display: none; }
 }
-/* Depth layers inside a tilting card only lift when every wrapper keeps 3D. */
-.fx-tilt.has-depth :is(.how__item, .ask__list) { transform-style: preserve-3d; }
-
-
-/* Referral arrangement: three layered cards on a drawn line ------------------------- */
-.flow { position: relative; transform-origin: 50% 100%; }
-.flow__line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 7px;
-  height: 1px;
-  background: var(--line-strong);
-  transform-origin: 0 50%;
-}
-.flow__steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--gap-col);
-}
-.flow__step { position: relative; display: grid; grid-template-rows: 1fr; padding-top: var(--space-l); }
-.flow__card {
-  display: grid;
-  gap: var(--space-xs);
-  align-content: start;
-  padding: var(--space-m) var(--space-m) var(--space-l);
-}
-.flow__dot {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--btn-bg);
-  box-shadow: 0 0 0 4px var(--bg);
-}
-.flow__n { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.14em; color: var(--accent); }
-.flow__card p:last-child { max-width: 40ch; color: var(--fg-muted); }
-
-@media (max-width: 759px) {
-  .flow__line { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; transform-origin: 50% 0; }
-  .flow__steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-m); }
-  .flow__step { padding: 0 0 0 var(--space-l); }
-  .flow__card { padding: var(--space-m); }
-  .flow__dot { top: var(--space-m); }
-}
-
-
-/* Tiers: depth-stacked panels; the whole panel picks the tier ------------------------ */
-.tiers { display: grid; gap: var(--space-m); padding-right: var(--pt-edge); transform-origin: 100% 50%; }
-.tiers > .tier {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr);
-  grid-template-areas: "head list" "head pick";
-  gap: var(--space-xs) var(--gap-col);
-  padding: var(--space-m) var(--space-l);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow:
-    var(--pt-edge) var(--pt-edge) 0 -1px var(--bg),
-    var(--pt-edge) var(--pt-edge) 0 0 var(--panel-edge),
-    0 30px 60px -32px var(--panel-depth);
-}
-.tiers > .tier:first-child { border-top: 2px solid var(--accent); }
-/* Panels on ink sit on the solid field colour so the star layer never shows through them. */
-.tiers > .tier, .ask__panel { background: linear-gradient(var(--surface), var(--surface)), var(--bg); }
-.tiers > .tier.is-pickable { cursor: pointer; }
-.tier__head { grid-area: head; display: grid; gap: var(--space-xs); align-content: start; }
-.tier__name { font-size: var(--fs-d3); }
-.tier__price { font-size: 0.9375rem; font-weight: 500; }
-.tier__list { grid-area: list; display: grid; gap: 4px; font-size: var(--fs-small); color: var(--fg-muted); }
-.tier__list > li { padding-left: 1.1em; text-indent: -1.1em; }
-.tier__list > li::before { content: "\2014"; margin-right: 0.45em; color: var(--accent); }
-.tier__pick { grid-area: pick; justify-self: start; }
-
-@media (max-width: 759px) {
-  .tiers { gap: var(--space-s); }
-  .tiers > .tier { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "list" "pick"; padding: var(--space-m); }
-  .tier__head { grid-template-columns: auto 1fr; align-items: baseline; gap: var(--space-m); }
-}
-
-
-/* Founding partner offer: a ticket with an offset edge ------------------------------ */
-/* Two phrases: "The First [2] Partners" / "per Service, per City." Capped at 10vw so the
-   first phrase still fits one line at 360px (the d1 floor of 38px is a few px too wide there). */
-.founding__title { max-width: 19ch; font-size: min(var(--fs-d1), 10vw); }
-.ticket {
-  display: grid;
-  gap: 6px;
-  max-width: 34rem;
-  padding: var(--space-m) var(--space-l);
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow:
-    var(--pt-edge) var(--pt-edge) 0 -1px var(--bg),
-    var(--pt-edge) var(--pt-edge) 0 0 var(--panel-edge),
-    0 30px 60px -30px var(--panel-depth);
-  transform-origin: 0 50%;
-}
-.ticket__label { font-size: var(--fs-xs); font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fg-muted); }
-.ticket__value { font-size: 1rem; font-weight: 500; }
-.founding__why { max-width: 52ch; color: var(--fg-muted); }
-@media (max-width: 759px) { .ticket { padding: var(--space-m); } }
-
-
-/* What we ask: the list sits in a 3D panel, items stepping up in depth -------------- */
-.ask__panel { max-width: 46rem; padding-block: var(--space-2xs); transform-origin: 50% 100%; }
-.ask__list > li { position: relative; padding-left: 2.25rem; font-size: var(--fs-lead); }
-.ask__panel .ask__list > li:first-child { border-top: 0; }
-.ask__panel .ask__list > li:last-child { border-bottom: 0; }
-.ask__list > li::before {
-  content: "\2014";
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-}
-.ask__list a { color: var(--accent); text-underline-offset: 3px; }
-@media (max-width: 759px) { .ask__list > li { padding-left: 1.75rem; } }
-
-
-/* Application -------------------------------------------------------------------- */
-.apply__main { min-width: 0; }
-.apply-form { gap: var(--space-l); }
-/* Each group is a light panel that tilts (tilt pauses while a field inside is focused). */
-.apply-form__group {
-  display: grid;
-  gap: var(--space-m);
-  min-width: 0;
-  padding: var(--space-m) var(--space-l) var(--space-l);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface);
-  box-shadow: 0 26px 50px -34px var(--panel-depth);
-}
-/* Floated, the legend becomes an ordinary first row instead of cutting the border. */
-.apply-form__legend {
-  float: left;
-  width: 100%;
-  padding: 0;
-  font: 400 1.5rem/1.15 var(--font-display);
-  letter-spacing: var(--track-display);
-  text-wrap: balance;
-}
-.apply-form__grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-m) var(--gap-col);
-  align-items: start;
-}
-.apply-form__full { grid-column: 1 / -1; }
-.apply-form__opt { letter-spacing: 0.06em; text-transform: none; color: var(--fg-muted); font-weight: 400; }
-.apply-form__short { min-height: 96px; }
-.apply-form__agree { display: grid; gap: var(--space-s); }
-.apply-form__agree a, .apply-success a { color: var(--accent); text-underline-offset: 3px; }
-.apply-form .check { font-size: 0.9375rem; }
-@media (max-width: 759px) {
-  .apply-form__grid { grid-template-columns: minmax(0, 1fr); }
-  .apply-form__group { padding: var(--space-m) var(--space-m) var(--space-l); }
-  .apply-form__legend { font-size: 1.375rem; }
-}
-
-.apply-errors {
-  padding: var(--space-m);
-  border-left: 3px solid var(--error);
-  background: var(--surface);
-}
-.apply-errors:focus-visible { outline-offset: 2px; }
-.apply-errors__title { font: 600 0.9375rem/1.4 var(--font-ui); color: var(--error); }
-.apply-errors__list { display: grid; gap: 2px; margin-top: var(--space-xs); }
-.apply-errors__list a { display: inline-block; padding: 4px 0; color: var(--fg); font-size: var(--fs-small); text-underline-offset: 3px; }
-
-#apply .input, #apply .select, #apply .textarea, #apply input[type="checkbox"], .apply-errors, #apply-success-title {
-  scroll-margin-top: calc(var(--header-h) + var(--space-l)); /* flow mode: clear the fixed header */
-}
-#apply-success-title:focus { outline: none; } /* focused only to move screen readers here */
-#apply .list-num > li { grid-template-columns: 2.5rem 1fr; gap: var(--space-s); font-size: var(--fs-small); }
-.apply__aside { min-width: 0; }
-.apply__panel { padding: var(--space-l) var(--space-m); }
-.apply__panel .list-rule > li:first-child { border-top: 0; }
-.apply__panel .list-rule > li:last-child { border-bottom: 0; }
-.apply-success { max-width: 44rem; }
-
-
-/* Short leads (2-3 lines): balance them so no word or two is left alone on the last line. */
-#founding .t-lead, #close .t-lead { text-wrap: balance; }
-
-/* Reading measure for classed copy, which the shared class-less rule skips: on
-   stacked tablet layouts (760-1099px) these otherwise run to 100+ characters. */
-.scene__inner p.muted, .apply-form .hint { max-width: var(--measure); }
-
-
-
-/* Flow mode (reduced motion): keep the stacked page tidy ------------------------- */
-html:not(.film) .how__guide,
-html:not(.film) .flow__line { transform: none; }

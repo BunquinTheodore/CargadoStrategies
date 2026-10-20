@@ -1,0 +1,27 @@
+. story.html @ 1920x1080
+. story.html @ 1536x864
+. story.html @ 1440x900
+. story.html @ 1366x768
+. story.html @ 1280x720
+. story.html @ 1024x768
+. story.html @ 768x1024
+. story.html @ 390x844
+. story.html @ 360x740
+Fit audit  2026-10-20T01:57:21.290Z  http://localhost:8541/  mode: flow, Round 4 box, states tools/fit-states/story.mjs, runs 1
+Cells: failing scenes / scenes.
+
+page         1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+story.html          ok        ok        ok        ok        ok        ok        ok        ok        ok
+
+ok   story.html @ 1920x1080: 6 scenes, all fit [flow]
+ok   story.html @ 1536x864: 6 scenes, all fit [flow]
+ok   story.html @ 1440x900: 6 scenes, all fit [flow]
+ok   story.html @ 1366x768: 6 scenes, all fit [flow]
+ok   story.html @ 1280x720: 6 scenes, all fit [flow]
+ok   story.html @ 1024x768: 6 scenes, all fit [flow]
+ok   story.html @ 768x1024: 6 scenes, all fit [flow]
+ok   story.html @ 390x844: 6 scenes, all fit [flow]
+ok   story.html @ 360x740: 6 scenes, all fit [flow]
+
+Every scene fits at every viewport, and every budget holds.
+exit 0

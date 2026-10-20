@@ -8,7 +8,14 @@
     "build": "node build.mjs",
     "serve": "node serve.mjs dist 8231",
     "serve:src": "node serve.mjs site 8230",
-    "start": "npm run build && npm run serve"
+    "start": "npm run build && npm run serve",
+    "check:config": "node tools/check-config.mjs --fixture=partners-max",
+    "audit:fit": "node tools/fit-audit.mjs",
+    "audit:seek": "node tools/seek-test.mjs",
+    "audit:console": "node tools/console-check.mjs",
+    "audit:compliance": "npm run build && node tools/compliance-diff.mjs --dist",
+    "perf": "npm run build && node tools/perf-gate.mjs",
+    "shoot": "node tools/shoot.mjs --vp=review"
   },
   "devDependencies": {
     "@fontsource/manrope": "5.1.0",
@@ -16,7 +23,6 @@
     "@fontsource/tinos": "5.1.0",
     "esbuild": "0.24.0",
     "gsap": "3.12.5",
-    "lenis": "1.1.13",
-    "three": "0.160.0"
+    "lenis": "1.1.13"
   }
 }

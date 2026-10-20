@@ -1,366 +1,256 @@
 /* ==========================================================================
-   legal.css — Legal page only (legal.html). Builds on base.css + fx.css tokens.
-   Sections: 1 draft banner · 2 stage offset · 3 contents + 3D index cards
-   4 document scenes (heading column, ghost numeral) · 5 3D document stack
-   6 clauses · 7 Q&A (3D flip) · 8 close · 9 flow mode · 10 small screens
-   Colour always comes from the field variables (--fg, --accent, --line …).
-   Display type is Times New Roman at weight 400, Title Case as written.
+   Cargado Strategies — legal.css (legal.html, DIRECTION §7.5 L1-L8)
+   1 page tokens · 2 draft band (C38) · 3 shared scene frame · 4 L1 contents (R)
+   5 L2-L5 documents (P, paged reader) · 6 L6 Q&A (R: accordion; phones drill)
+   7 L7 close (M, medallion) · 8 flow mode · 9 bands: tablet portrait, phone, short phone
+   Calm on purpose: one bone field, no globe, stars, grain, cursor ring or
+   tilt. Shared mechanics (rows, paper, fine print, pager, tabs) live in
+   ui.css; this file only places and sizes them.
    ========================================================================== */
 
+/* 1. Page tokens ---------------------------------------------------------------- */
 body[data-page="legal"] {
-  --draft-h: 44px; /* set from the banner's real height (gap included) by legal.js */
-  --banner-h: var(--draft-h); /* base.css offsets scenes (film) and scroll targets (flow) by this */
-  --draft-gap: 8px; /* breathing room between the banner and scene content */
-  --legal-measure: 64ch;
-  --sheet-off: 10px; /* paper stack: how far each sheet sits behind the face (legal-fx.js reads it) */
-  --sheet-turn: 0.7deg;
-  --face-pad: clamp(20px, 2.4vw, 36px);
-  --fade-h: 44px; /* bottom fade inside a scrolling face */
+  --doc-fs: var(--fs-body);                     /* 17-18 px reading text (§7.5: 18 px / 1.7) */
+  --doc-lh: 1.7;
+  --clause-pad: clamp(10px, 1.6svh, 18px);
+  --clause-num: 2.5rem;
+  --legal-title: min(var(--fs-d1), 3.5rem, 8cqh);
 }
+/* The band height reaches the engine's :root tokens (R4 legal §3.2); legal.js writes the
+   measured value on <html>, these defaults hold the boxes right before it runs. */
+:root:has(body[data-page="legal"]) { --banner-h: 32px; }
+@media (max-width: 759px) { :root:has(body[data-page="legal"]) { --banner-h: 50px; } }
 
-/* The document face is a solid sheet so the paper behind it never shows through.
-   Ink lifts toward the text colour; bone and gold lift toward white (contrast rises). */
-.legal-doc[data-field="ink"] { --face: color-mix(in srgb, var(--bg) 95%, var(--fg)); }
-.legal-doc[data-field="bone"] { --face: color-mix(in srgb, var(--bg) 45%, #fff); }
-.legal-doc[data-field="gold"] { --face: color-mix(in srgb, var(--bg) 78%, #fff); }
-
-/* 1. Draft banner: fixed under the header on every scene ----------------------- */
+/* 2. Draft band (C38): 14 px, ink on champagne, the full wording always visible -------- */
 .legal-draft {
-  position: fixed;
-  top: var(--header-h);
-  left: 0;
-  right: 0;
-  z-index: 39;
-  padding: 0 var(--page-pad) var(--draft-gap);
-  pointer-events: none;
+  position: fixed; top: var(--header-h); left: 0; right: 0; z-index: calc(var(--z-header) - 1);
+  padding: 6px var(--page-pad); background: var(--c-champagne); color: var(--c-black);
+  border-bottom: 1px solid rgba(11,11,12,.15); pointer-events: none;
 }
 .legal-draft__text {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 4px 10px;
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 7px 14px;
-  border: 1px dashed var(--accent);
-  background: var(--bg);
-  color: var(--fg);
-  font: 500 0.6875rem/1.35 var(--font-ui);
-  letter-spacing: 0.14em;
-  text-align: center;
-  text-transform: uppercase;
+  max-width: var(--max-w); margin: 0 auto; text-align: center; text-wrap: balance;
+  font: 500 var(--fs-label)/1.4 var(--font-ui); letter-spacing: .01em;
 }
 .legal-draft__tag {
-  padding: 2px 8px;
-  background: var(--accent);
-  color: var(--bg);
-  font-weight: 600;
+  display: inline-block; margin-right: .6em; padding: 0 .55em; border-radius: 999px;
+  background: var(--c-black); color: var(--c-champagne); font-weight: 600; line-height: 1.45;
 }
 html.nav-open .legal-draft { visibility: hidden; }
 
-/* 2. Stage offset: base.css starts scenes below header + --banner-h ------------- */
-
-/* The shared scroll cue (layers.js) sits at the stage centre, which lands on an
-   index card's title at laptop heights (1366×768). On this page it runs down the
-   gutter between two cards instead. Gutter offset from the centre, for a row of
-   n equal cards: (W + gap) / n × k, with W the content width. */
-body[data-page="legal"] { --toc-w: min(100% - 2 * var(--page-pad), var(--max-w)); }
-@media (min-width: 1100px) {
-  body[data-page="legal"] .scroll-cue { left: calc(50% + (var(--toc-w) + var(--space-m)) / 10); } /* 5 cards: gutter 3|4 */
+/* 3. Every legal pan fills its scene box, so groups can anchor top and bottom --------- */
+body[data-page="legal"] .scene:not(.scene--credits) .scene__pan {
+  margin: 0 auto; flex: 1 1 auto; min-height: 0; height: 100%;
+  display: flex; flex-direction: column; padding-top: max(var(--scene-pad-top), var(--space-l));
 }
-@media (min-width: 760px) and (max-width: 1099px) {
-  body[data-page="legal"] .scroll-cue { left: calc(50% - (var(--toc-w) + var(--space-m)) / 6); } /* 3 cards: gutter 1|2 */
-}
-
-/* 3. Contents scene: hero + a perspective row of 3D index cards ------------------ */
-.legal-contents__title { line-height: 0.95; }
-.legal-contents .t-lead { max-width: 46ch; }
 .legal-meta {
-  font: 500 var(--fs-xs)/1.5 var(--font-ui);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
+  font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); letter-spacing: .01em;
 }
-.legal-meta .ph { text-transform: none; letter-spacing: 0.04em; }
+.legal-head { display: grid; gap: var(--space-s); justify-items: start; align-content: start; }
+.legal-head .rule { margin-block: var(--space-2xs); }
+.legal-title { font-size: var(--legal-title); line-height: var(--lh-d1); max-width: 12ch; }
+.legal-aside { max-width: 34ch; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
+.legal-aside .ph { display: inline-block; }     /* a bracket wraps as one piece */
+.legal-head__action { margin-top: var(--space-2xs); }
 
-.toc { margin-top: var(--space-xl); }
-.toc__list {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: var(--space-s) var(--space-m);
-  perspective: 1100px; /* the cards fold back in depth as the scene leaves (legal-fx.js) */
-}
-.toc__list > li { perspective: 900px; } /* tilt depth for each card */
-.toc__link {
-  position: relative;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: var(--space-xs);
-  height: 100%;
-  min-height: 44px;
-  padding: var(--space-m) var(--space-s) var(--space-s);
-  border-top: 1px solid var(--line-strong);
-  color: var(--fg);
-  text-decoration: none;
-  transform-style: preserve-3d;
-  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease);
-}
-.toc__n {
-  font: 500 0.8125rem/1 var(--font-ui);
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
-}
-.toc__name {
-  font: 400 clamp(1.25rem, 1.05rem + 0.45vw, 1.5rem)/1.12 var(--font-display);
-  letter-spacing: var(--track-display);
-  text-wrap: balance;
-}
-.toc__meta {
-  font: 500 var(--fs-xs)/1.3 var(--font-ui);
-  letter-spacing: 0.08em;
-  color: var(--fg-muted);
-}
-.toc__meta::after {
-  content: "\2192";
-  content: "\2192" / ""; /* decorative: kept out of the card's accessible name */
-  display: inline-block;
-  margin-left: 0.5em;
-  color: var(--accent);
-  transition: transform 0.25s var(--ease);
-}
-.toc__link:hover .toc__meta::after,
-.toc__link:focus-visible .toc__meta::after { transform: translateX(4px); }
-.toc__link:hover, .toc__link:focus-visible { border-top-color: var(--accent); background-color: var(--surface); }
-
-/* 4. Document scenes: heading column with a ghost chapter numeral ------------------- */
-.legal-grid { align-items: stretch; }
-.legal-head { position: relative; display: flex; flex-direction: column; gap: var(--space-s); align-self: start; }
-.legal-head--end { align-self: end; }
-.legal-title {
-  font-size: clamp(2rem, 1.15rem + 2.3vw, 3.375rem);
-  line-height: 1.04;
-  letter-spacing: var(--track-display);
-  max-width: 12ch; /* two balanced lines in the side column, never a lone word */
-}
-.legal-grid--stacked .legal-title { max-width: none; }
-.legal-rule {
-  display: block;
-  width: 64px;
-  height: 2px;
-  background: var(--accent);
-  transform-origin: 0 50%;
-}
-.legal-aside { font-size: var(--fs-small); color: var(--fg-muted); max-width: 44ch; }
-.legal-aside .ph { display: inline-block; } /* a bracket wraps as one piece, never leaving "email]" alone */
-
-/* Decorative outline numeral: the back layer of the heading's 3D stack (legal-fx.js
-   scrubs it in from depth). Stroke only, so it never competes with the title. */
-.legal-num {
-  display: block;
-  margin-bottom: calc(var(--space-xs) * -1);
-  font: 400 clamp(4.5rem, 2.2rem + 5.2vw, 8.5rem)/0.8 var(--font-display);
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 60%, transparent);
-  pointer-events: none;
-  user-select: none;
-  transform-origin: 0 60%;
-}
-/* Stacked heading (conduct): the numeral sits in the empty space to the right. */
-.legal-grid--stacked .legal-num {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  transform-origin: 100% 60%;
-}
-.legal-grid--stacked .legal-head { justify-self: start; padding-right: clamp(120px, 13vw, 220px); } /* numeral follows the title */
-
-/* 5. 3D document stack: the frame tilts (interact.js), two paper sheets sit behind
-   the face and spread in depth while it tilts, and fan out as the scene comes in. */
-.legal-panel {
-  position: relative;
-  align-self: center;
-  justify-self: start;
-  width: 100%;
-  max-width: calc(var(--legal-measure) + 2 * var(--face-pad) + 2.75rem);
-  margin-bottom: calc(var(--sheet-off) * 2); /* room for the fanned sheets */
-}
-.legal-sheet {
-  --lvl: 1;
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  transform: translate(calc(var(--sheet-off) * var(--lvl)), calc(var(--sheet-off) * var(--lvl))) rotate(calc(var(--sheet-turn) * var(--lvl)));
-  transform-origin: 0 0;
-  transform-style: preserve-3d; /* passes the paper's depth (data-depth) through to the tilting frame */
-}
-/* The paper is its own layer: GSAP fans the sheet (transform), interact.js lifts the paper (translate). */
-.legal-sheet__paper {
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--face, var(--bg));
-}
-.legal-sheet--2 { --lvl: 2; }
-.legal-sheet--2 .legal-sheet__paper { opacity: 0.6; }
-.legal-panel__face {
-  position: relative;
-  display: block;
-  padding: var(--space-xs) var(--face-pad) 0;
-  border: 1px solid var(--line-strong);
-  border-top: 2px solid var(--accent);
-  border-radius: var(--radius);
-  background: var(--face, var(--bg));
-  box-shadow: 0 40px 80px -40px var(--panel-depth, rgba(0, 0, 0, 0.3));
-}
-/* Bottom fade of a scrolling face, sticky so it stays at the visible edge. */
-.legal-panel__face::after {
-  content: "";
-  position: sticky;
-  bottom: 0;
-  display: block;
-  height: var(--fade-h);
-  margin-top: calc(var(--fade-h) * -1 + var(--space-l));
-  background: linear-gradient(to bottom, transparent, var(--face, var(--bg)));
-  pointer-events: none;
-}
-.legal-panel__face:focus-visible { outline-offset: 4px; }
-.legal-panel__action { position: relative; z-index: 1; margin: var(--space-m) 0 var(--space-xs); }
-
-/* Film mode: each document scene fills the space under the banner; the face
-   scrolls inside it (no pan), so the film never needs to move tall text. */
-html.film .legal-doc .scene__pan { height: 100%; display: flex; flex-direction: column; }
-html.film .legal-doc .legal-grid { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); }
-html.film .legal-doc .legal-grid--stacked { grid-template-rows: auto minmax(0, 1fr); }
-html.film .legal-doc .legal-panel {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  max-height: calc(100% - var(--sheet-off) * 2);
-}
-html.film .legal-doc .legal-panel__face { flex: 0 1 auto; min-height: 0; max-height: none; }
-.legal-grid--stacked .legal-panel { align-self: start; }
-@media (min-width: 760px) {
-  .legal-grid--mirror > * { grid-row: 1; }
+/* 4. L1 · Contents: the head, five index rows with large outline numerals, the notice -- */
+.legal-contents .scene__pan { justify-content: center; gap: var(--space-l); }
+.contents__head { display: grid; gap: var(--space-s); justify-items: start; width: fit-content; max-width: 100%; }
+.contents__title { font-size: min(var(--fs-d1), 10cqh); max-width: 18ch; }
+.contents__rows .row { min-height: min(var(--row-pitch), 11cqh); padding-block: 4px; }
+.contents__rows .row__num { min-width: 2.2ch; font-size: min(var(--fs-num), 7cqh); line-height: 1; }
+.contents__rows .row__title { font-size: min(var(--fs-d2), 6cqh); }
+.contents__fine { max-width: 76ch; }
+/* fx.css eases a row's padding-inline; on a cold load the stylesheet can land after a first
+   style pass, so the rows would ease in from 0 px, re-wrap their titles and shift the
+   centred index (mobile CLS 0.023). No easing until the engine is ready. */
+html:not(.film-ready) .contents__rows .row { transition: none; }
+@media (min-width: 760px) and (max-height: 880px) {              /* laptop (to 1536×864): a tighter index */
+  .legal-contents .scene__pan { gap: var(--space-m); }
+  .contents__rows .row { min-height: min(var(--row-pitch), 10cqh); }
+  .contents__title { font-size: min(var(--fs-d1), 9cqh); }
 }
 
-/* 6. Clauses ------------------------------------------------------------------------ */
-.clauses {
-  counter-reset: clause;
-  display: grid;
-  gap: 0;
+/* 5. L2-L5 · Documents: the head beside one paper; the text pages, never scrolls ------ */
+.legal-doc .scene__pan { gap: var(--group-gap); }
+.legal-paper {
+  display: flex; flex-direction: column; min-height: 0; max-height: 100%; width: 100%;
+  max-width: calc(var(--measure-legal) + 2 * clamp(20px, 3vw, 44px));
+  padding-bottom: clamp(8px, 1.5svh, 20px);
 }
+/* While the reader measures, the paper stretches to all the room it may use; at rest it is
+   as tall as its pages (ui-pager.js toggles .is-measuring for one synchronous pass). */
+.legal-paper:has(> .is-measuring) { flex-grow: 1; align-self: stretch; height: 100%; }
+.legal-reader { position: relative; z-index: 2; display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+.legal-reader > .pager__window { flex: 0 0 auto; overflow-clip-margin: 4px; }
+.legal-reader.is-measuring > .pager__window { flex: 1 1 auto; min-height: 0; }
+.legal-pager { flex: none; min-height: 48px; margin-top: var(--space-2xs); border-top: 1px solid var(--line); }
+.legal-pager .pager__btn { padding-inline: 4px; border: 0; background: none; color: var(--fg); }
+.legal-pager .pager__btn[aria-disabled="true"] { color: var(--fg-muted); opacity: .5; cursor: default; }
+.legal-pager .pager__status { font-variant-numeric: tabular-nums; }
+
+.clauses { display: grid; }
 .clauses > li {
-  counter-increment: clause;
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  column-gap: var(--space-s);
-  padding: var(--space-m) 0;
-  border-top: 1px solid var(--line);
-  font-size: 1rem;
-  line-height: 1.7;
+  display: grid; grid-template-columns: var(--clause-num) minmax(0, 1fr); column-gap: var(--space-s);
+  padding-block: var(--clause-pad); border-top: 1px solid var(--line);
+  font-size: var(--doc-fs); line-height: var(--doc-lh);
 }
-.clauses > li:first-child { border-top: 0; }
+.clauses > li:first-child, .clauses > li.is-page-first { border-top: 0; }
 .clauses > li::before {
-  content: counter(clause, decimal-leading-zero);
-  grid-row: span 2;
-  padding-top: 0.25em;
-  font: 500 0.8125rem/1.6 var(--font-ui);
-  letter-spacing: 0.1em;
-  color: var(--accent);
-  font-variant-numeric: tabular-nums;
+  content: attr(data-n); grid-row: span 2; padding-top: .3em;
+  font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--accent); font-variant-numeric: tabular-nums;
 }
-.clauses p { grid-column: 2; max-width: var(--legal-measure); }
-.clause__title {
-  grid-column: 2;
-  margin-bottom: var(--space-2xs);
-  font: 400 1.3125rem/1.25 var(--font-display);
-  letter-spacing: var(--track-display);
-}
-.legal-panel--wide { max-width: none; --sheet-turn: 0.2deg; } /* a wide sheet turns less, or its far corner drops */
-.clauses--two {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--space-xl);
-}
-.clauses--two > li:nth-child(2) { border-top: 0; }
-.legal-doc .scene__scroll .ph { white-space: normal; }
+.clauses p { grid-column: 2; max-width: var(--measure-legal); }
+.clause__title { grid-column: 2; margin-bottom: 2px; font: 600 var(--fs-d4)/1.3 var(--font-body); letter-spacing: 0; }
+.clauses .ph { white-space: normal; }
+/* Snug (set by the reader only when it saves a page): tighter rhythm, the same type size. */
+.legal-reader.is-snug { --clause-pad: max(6px, calc(clamp(10px, 1.6svh, 18px) * .55)); --doc-lh: 1.55; }
 
-/* 7. Q&A: answers flip down in 3D when opened (film mode, motion allowed) ------------- */
-.legal-panel__face--faq { padding-top: var(--space-2xs); }
-.legal-panel__face--faq .acc:first-of-type { border-top: 0; }
-.legal-panel__face--faq .acc:last-of-type { border-bottom: 0; }
-.legal-panel__face--faq .acc { perspective: 900px; }
-.legal-panel__face--faq .acc > summary { font: 400 1.3125rem/1.3 var(--font-display); letter-spacing: var(--track-display); } /* base.css balances it: no lone "Information?" on phones */
-.legal-panel__face--faq .acc__body { display: grid; gap: var(--space-s); color: var(--fg); line-height: 1.7; transform-origin: 50% 0; }
-.legal-panel__face--faq .acc__body a { color: var(--accent); font-weight: 600; }
-.legal-panel__face--faq .acc:last-of-type .acc__body { padding-bottom: var(--space-l); }
-@media (prefers-reduced-motion: no-preference) {
-  html.film .legal-panel__face--faq .acc[open] > .acc__body { animation: acc-flip 0.6s cubic-bezier(0.2, 0.75, 0.2, 1) both; }
+/* 6. L6 · Q&A: hairline question rows; one answer opens under its question, 3 per page - */
+.legal-faq .qa { display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; width: 100%; max-width: 46rem; }
+.qa__q {
+  display: grid; grid-template-columns: var(--clause-num) minmax(0, 1fr) 14px; align-items: baseline; column-gap: var(--space-s);
+  width: 100%; min-height: 56px; padding: var(--space-s) 0; border: 0; border-top: 1px solid var(--line);
+  background: none; color: var(--fg); text-align: left; letter-spacing: 0;
 }
-@keyframes acc-flip {
-  from { opacity: 0; transform: rotateX(-78deg) translateZ(-24px); }
-  to { opacity: 1; transform: none; }
+.qa__n { align-self: baseline; font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--accent); }
+.qa__text { font: 400 min(var(--fs-d2), 2.25rem, 5.4cqh)/1.15 var(--font-display); letter-spacing: var(--track-display); text-wrap: balance; }
+.qa__plus { position: relative; align-self: center; width: 14px; height: 14px; color: var(--accent); }
+.qa__plus::before, .qa__plus::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; background: currentColor; }
+.qa__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
+.qa__q[aria-expanded="true"] .qa__plus::after { transform: rotate(0deg); }
+.qa__q:is(:hover, :focus-visible) .qa__text { color: var(--accent); }
+.qa__panel { padding: 0 0 var(--space-m) calc(var(--clause-num) + var(--space-s)); font-size: var(--doc-fs); line-height: 1.6; }
+.qa__panel a { color: var(--accent); font-weight: 600; }
+.qa__track { display: grid; gap: var(--space-s); }
+.qa__track p { max-width: 62ch; }
+.qa__pager { min-height: 48px; border-top: 1px solid var(--line); }
+.qa__pager .pager__btn, .legal-faq .qa__bar .link { padding-inline: 4px; border: 0; background: none; color: var(--fg); }
+.qa__pager .pager__btn[aria-disabled="true"] { color: var(--fg-muted); opacity: .5; cursor: default; }
+.qa__bar { align-items: center; min-height: 48px; border-bottom: 1px solid var(--line); }
+.qa__bar .link { min-height: var(--tap-min); font: 600 var(--fs-ui-min)/1 var(--font-ui); }
+
+/* Before ui-tabs runs (and with no JS) the questions show and the answers wait; with no JS
+   at all the answers show in one column under their own headings. */
+html.js .legal-faq .qa:not(.is-drill) > .tabs__list { display: block; }
+html.js .legal-faq .qa:not(.is-drill) .qa__panels { display: none; }
+html:not(.js) .legal-faq .qa__panel { padding-left: 0; }
+
+/* Side by side (≥ 760): the list and the panels share one row grid (subgrid), so each answer
+   opens under its question (drill semantics: a button that expands a labelled region). */
+@media (min-width: 760px) {
+  .legal-faq .qa.is-drill { grid-template-rows: repeat(12, auto) auto; }
+  .legal-faq .qa.is-drill > .tabs__list, .legal-faq .qa.is-drill > .qa__panels {
+    display: grid; grid-column: 1; grid-row: 1 / 13; grid-template-rows: subgrid;
+  }
+  .legal-faq .qa.is-drill > .qa__panels { pointer-events: none; }
+  .legal-faq .qa__panel { pointer-events: auto; }
+  .legal-faq .qa.is-drill > .qa__bar { display: none; }
+  .legal-faq .qa__q:nth-child(1) { grid-row: 1; }  .legal-faq .qa__panel:nth-child(1) { grid-row: 2; }
+  .legal-faq .qa__q:nth-child(2) { grid-row: 3; }  .legal-faq .qa__panel:nth-child(2) { grid-row: 4; }
+  .legal-faq .qa__q:nth-child(3) { grid-row: 5; }  .legal-faq .qa__panel:nth-child(3) { grid-row: 6; }
+  .legal-faq .qa__q:nth-child(4) { grid-row: 7; }  .legal-faq .qa__panel:nth-child(4) { grid-row: 8; }
+  .legal-faq .qa__q:nth-child(5) { grid-row: 9; }  .legal-faq .qa__panel:nth-child(5) { grid-row: 10; }
+  .legal-faq .qa__q:nth-child(6) { grid-row: 11; } .legal-faq .qa__panel:nth-child(6) { grid-row: 12; }
+  .legal-faq .qa.is-drill > .qa__pager { grid-row: 13; }
+  /* The question is the visible heading here; the panel's h3 stays for screen readers. */
+  .legal-faq .qa__title {
+    position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
 }
 
-/* 8. Close ---------------------------------------------------------------------------- */
-.legal-close .row { gap: var(--space-s) var(--space-m); }
-
-/* 9. Flow mode (reduced motion): stacked sections under header + banner -------------- */
-/* The banner band is solid here, so the previous section never shows around it. */
-html:not(.film) .legal-draft { background: var(--bg); }
-html:not(.film) body[data-page="legal"] { --sheet-turn: 0deg; } /* full-height documents: a straight stack */
-html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(var(--header-h) + var(--draft-h) + var(--space-m)); }
-html:not(.film) .legal-head--end { align-self: start; }
-html:not(.film) .legal-panel__face::after { content: none; }
-html:not(.film) .legal-panel__face { padding-bottom: var(--space-s); }
-
-/* 10. Medium and small screens ----------------------------------------------------------- */
-@media (max-width: 1099px) {
-  .toc__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* 7. L7 · Close: a centred monument under the medallion, one statement and one CTA ---- */
+.legal-close .scene__pan {
+  align-items: center; justify-content: center; gap: var(--group-gap); text-align: center;
+  padding-bottom: max(var(--scene-pad-bottom), 8cqh);
 }
-/* Short laptop screens (1024×768, 1280×720): a tighter index so the opening scene fits without panning. */
-@media (min-width: 760px) and (max-height: 820px) {
-  .toc { margin-top: var(--space-m); }
-  .toc__link { padding-top: var(--space-s); }
+/* The W5 bookend, static: no globe flies into it on legal, so it rests with its glint parked off the disc. */
+.legal-close .close__medallion { --medallion-size: min(16svh, 18cqh); }
+.close__title { max-width: 10em; font-size: min(var(--fs-statement), 17cqh); }
+@media (min-width: 760px) { .close__title { text-wrap: wrap; } }   /* "Still Have a Question?" / "Ask Us." */
+.close__action { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-s) var(--space-l); }
+
+/* 8. Flow mode (reduced motion): the same boxes; anchors clear the header and the band -- */
+html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(var(--header-h) + var(--banner-h) + var(--space-m)); }
+
+/* 9. Bands ------------------------------------------------------------------------------ */
+/* Landscape from 760 px: the document head in cols 1-4, the paper in cols 6-12 (5-12 below
+   1280), both hung from the same top line. */
+@media (min-width: 760px) and (min-aspect-ratio: 1/1) {
+  body[data-page="legal"] .scene.legal-doc .scene__pan {
+    display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr);
+    column-gap: var(--gap-col); align-items: start;
+  }
+  .legal-doc .legal-head { grid-column: 1 / span 4; }
+  .legal-doc .legal-paper, .legal-faq .qa { grid-column: 6 / span 7; }
 }
+@media (min-width: 760px) and (max-width: 1279px) and (min-aspect-ratio: 1/1) {
+  .legal-doc .legal-paper, .legal-faq .qa { grid-column: 5 / span 8; }
+}
+/* Tablet portrait and phones: stacked; the paper takes the room under the head, with the
+   §4.2 breathing room kept below it. */
+@media (max-aspect-ratio: 1/1), (max-width: 759px) {
+  body[data-page="legal"] .scene.legal-doc .scene__pan { justify-content: flex-start; }
+  .legal-doc .legal-head { width: fit-content; max-width: 100%; }
+  .legal-title { max-width: none; }
+  .legal-paper { flex: 0 1 auto; max-height: 60cqh; max-width: none; }
+  .legal-paper:has(> .is-measuring) { flex-grow: 1; height: auto; }
+  .legal-faq .qa { max-width: none; }
+  #privacy .legal-aside { display: none; }      /* the same contact stays in clause 06 */
+}
+@media (min-width: 760px) and (max-aspect-ratio: 1/1) {
+  .legal-paper { max-height: 64cqh; }
+}
+
 @media (max-width: 759px) {
-  body[data-page="legal"] { --sheet-off: 6px; --sheet-turn: 0.5deg; --face-pad: 16px; --fade-h: 36px; }
-  .legal-draft__text { display: block; padding: 6px 10px; font-size: 0.625rem; letter-spacing: 0.06em; }
-  .legal-draft__tag { margin-right: 4px; padding: 1px 6px; }
-  .legal-num { display: none; }
-  .legal-grid--stacked .legal-head { padding-right: 0; }
-  .toc__meta { font-size: 0.6875rem; letter-spacing: 0.04em; }
-  .legal-contents .t-lead { font-size: 1rem; }
-  .toc { margin-top: var(--space-l); }
-  .toc__list { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
-  .toc__link {
-    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
-    grid-template-rows: none;
-    align-items: baseline;
-    padding: var(--space-s) var(--space-2xs);
-    border-top-color: var(--line);
-  }
-  .toc__name { font-size: 1.125rem; }
-  .legal-contents .notice { font-size: 0.75rem; }
+  body[data-page="legal"] { --clause-num: 1.75rem; --doc-lh: 1.6; --legal-title: 2rem; }
+  .legal-draft { padding-block: 4px; }
   .legal-head { gap: var(--space-xs); }
-  .legal-title { font-size: 2rem; max-width: none; }
-  .legal-aside { display: none; }
-  .clauses--two { grid-template-columns: minmax(0, 1fr); }
-  .clauses--two > li:nth-child(2) { border-top: 1px solid var(--line); }
-  .clauses > li { grid-template-columns: 2.25rem minmax(0, 1fr); padding: var(--space-s) 0; font-size: 0.9375rem; }
-  .clause__title { font-size: 1.1875rem; }
-  .legal-panel__face--faq .acc > summary { font-size: 1.1875rem; }
-  html.film .legal-doc .legal-grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-m);
-  }
-  /* Flex column: "end"/"start" would push the heading sideways, so stretch it to the gutter. */
-  html.film .legal-doc .legal-head { flex: none; align-self: stretch; }
-  html.film .legal-doc .legal-panel { flex: 0 1 auto; min-height: 0; align-self: stretch; width: calc(100% - var(--sheet-off) * 2); }
-  html:not(.film) .legal-panel { width: calc(100% - var(--sheet-off) * 2); }
+  .legal-head .rule { display: none; }
+  .legal-aside { font-size: var(--fs-note); }
+  .legal-paper { padding: 14px 14px 6px; max-height: 64cqh; }
+  body[data-page="legal"] .scene.legal-doc:not(.legal-faq) .scene__pan { justify-content: center; }
+  /* The clause number hangs in the first line, so the text gets the paper's full width. */
+  .clauses > li { display: block; }
+  .clauses > li::before { float: left; width: var(--clause-num); padding-top: .2em; }
+  .legal-pager .pager__btn { font-size: var(--fs-ui-min); }
+
+  /* L1: the index as compact rows (no meta), the title on two lines */
+  .legal-contents .scene__pan { gap: var(--space-m); }
+  .contents__title { font-size: 2rem; }
+  .contents__rows .row { min-height: 48px; padding-block: 2px; grid-template-areas: "num title arrow"; }
+  .contents__rows .row__num { font-size: 1.75rem; }
+  .contents__rows .row__title { font-size: 1.75rem; }
+  .contents__rows .row__meta { display: none; }
+
+  /* L6: drill mode. The list of questions; an open answer takes its place with a bar. */
+  body[data-page="legal"] .scene.legal-faq .scene__pan { justify-content: center; gap: var(--space-m); }
+  .legal-faq .qa { display: flex; flex-direction: column; max-height: 66cqh; }
+  .legal-faq .qa:has(.is-measuring) { flex-grow: 1; }
+  .legal-faq .qa > .tabs__list { display: grid; }
+  .legal-faq .qa.is-open > .tabs__list, .legal-faq .qa__pager { display: none; }
+  .qa__q { min-height: clamp(52px, 9cqh, 68px); padding-block: 6px; align-items: center; grid-template-columns: 1.75rem minmax(0, 1fr) 14px; column-gap: var(--space-xs); }
+  .qa__q:last-child { border-bottom: 1px solid var(--line); }
+  .qa__text { font: 600 var(--fs-d4)/1.3 var(--font-body); letter-spacing: 0; }
+  .qa__n { align-self: center; }
+  .qa__plus::after { transform: rotate(90deg); }
+  .qa__bar { flex: none; }
+  .legal-faq .qa.is-open .qa__panels { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+  .qa__panel { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; gap: var(--space-xs); padding: var(--space-s) 0 0; }
+  .qa__title { flex: none; font-size: var(--fs-d2); line-height: var(--lh-d2); }
+  .qa__title:focus { outline: none; }          /* programmatic focus target only (drill) */
+  .qa__body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; }
+  .qa__body > .pager__window { flex: 0 0 auto; }
+  .qa__body.is-measuring > .pager__window { flex: 1 1 auto; min-height: 0; }
+  .qa__body .legal-pager { margin-top: auto; }
+
+  /* L7: one group at monument size, the statement over the middle, the CTA in the thumb zone. */
+  body[data-page="legal"] .scene.legal-close .scene__pan { gap: clamp(32px, 9cqh, 88px); padding-top: 4cqh; }
+  .close__title { font-size: clamp(2.75rem, min(14vw, 8svh), 4rem); }
+}
+/* Short phones (360×740 and similar): the contents eyebrow repeats the index, so it steps out
+   (R4 legal §4 scene 0); the notice never shrinks. */
+@media (max-width: 759px) and (max-height: 760px) {
+  .legal-contents .contents__head > .eyebrow { display: none; }
+  .legal-paper { max-height: 58cqh; }
+  #conduct .legal-paper { max-height: 48cqh; }   /* its head carries the aside and the link */
 }

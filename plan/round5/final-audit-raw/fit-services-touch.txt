@@ -1,0 +1,35 @@
+. services.html @ 1920x1080
+. services.html @ 1536x864
+. services.html @ 1440x900
+. services.html @ 1366x768
+. services.html @ 1280x720
+. services.html @ 1024x768
+. services.html @ 768x1024
+. services.html @ 390x844
+. services.html @ 360x740
+Fit audit  2026-10-20T02:21:24.276Z  http://localhost:8541/  mode: touch-cut, activated, Round 4 box, states tools/fit-states/services.mjs, fixture partners-max, runs 2
+NOTE: the fixture was not served (config.js was never requested unbundled: run on site/, not dist/).
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+services.html         1/9       1/9       1/9       1/9       1/9       1/9       1/9        ok        ok
+
+FAIL services.html @ 1920x1080: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +5 (content 1009 / box 1080, spare 101) [D w15 e1 g3 empty 33%]
+FAIL services.html @ 1536x864: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +4 (content 808 / box 864, spare 80) [D w15 e1 g3 empty 26%]
+FAIL services.html @ 1440x900: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +5 (content 842 / box 900, spare 83) [D w15 e1 g3 empty 27%]
+FAIL services.html @ 1366x768: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +4 (content 716 / box 768, spare 74) [D w15 e1 g3 empty 25%]
+FAIL services.html @ 1280x720: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +5 (content 669 / box 720, spare 71) [D w15 e1 g3 empty 24%]
+FAIL services.html @ 1024x768: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +5 (content 717 / box 768, spare 73) [D w15 e1 g3 empty 26%]
+FAIL services.html @ 768x1024: 9 scenes, 1 fail
+  - #4 ours-outsourcing: Y +5 (content 957 / box 1024, spare 97) [D w15 e1 g3 empty 30%]
+ok   services.html @ 390x844: 9 scenes, all fit
+ok   services.html @ 360x740: 9 scenes, all fit
+
+7 failures (scene/viewport combinations plus page checks).
+exit 1

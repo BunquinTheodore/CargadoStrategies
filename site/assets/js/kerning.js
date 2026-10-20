@@ -1,83 +1,64 @@
 /**
- * Kerning for split text.
+ * Kerning for split text, from a precomputed table (DIRECTION §4.1).
  *
- * Letters split into inline-block spans (textfx.js heading characters) can
- * each move on their own, but the browser then shapes
- * every letter alone and the font's kerning pairs are lost: "You" opens into
- * "Y ou". kernWords() puts the kerning back as a margin on each letter after
- * the first in a word: the font's own kern for that pair, measured once on a
- * canvas and stored in em, so it holds at every font size and needs no
- * re-measure on resize.
+ * Letters split into inline-block spans lose the font's kerning pairs ("You"
+ * opens into "Y ou"). Round 5 splits headings by word, so the browser still
+ * kerns inside each word, and this module only matters for markup that splits
+ * letters on purpose (a [data-kern] element whose children are one letter each).
+ * The pairs are measured at build time by tools/build-kerning.mjs into
+ * assets/data/kern.json; nothing is measured at runtime (no canvas, no reads).
+ *
+ * kern.json (written by tools/build-kerning.mjs):
+ *   { "unit": "em", "font": "\"Times New Roman\", Times, Tinos, serif", "weight": 400,
+ *     "faces": { "normal": { "Yo": -0.0712, … }, "italic": { … } } }
+ * Only the display face (Times, weight 400) is in the table; a face key is the CSS font-style.
+ *
+ *   await applyKerning(document);   // every [data-kern] in scope
  */
 
-const MEASURE_PX = 100; // canvas font size; kerns are stored as a share of it (em)
+const TABLE_URL = new URL('../data/kern.json', import.meta.url);
 const MIN_KERN_EM = 0.002; // ignore rounding noise
-const kernCache = new Map();
-let canvasContext;
+let tablePromise = null;
 
-function context() {
-  if (canvasContext === undefined) {
-    canvasContext = document.createElement('canvas').getContext('2d');
-    if (canvasContext && 'fontKerning' in canvasContext) canvasContext.fontKerning = 'normal';
-  }
-  return canvasContext;
+/** The kern table, fetched once; an empty table when it is missing. */
+export function loadKernTable() {
+  tablePromise ||= fetch(TABLE_URL)
+    .then((res) => (res.ok ? res.json() : { faces: {} }))
+    .catch(() => ({ faces: {} }));
+  return tablePromise;
 }
 
-function fontOf(el) {
-  const style = getComputedStyle(el);
-  return {
-    font: `${style.fontStyle} ${style.fontWeight} ${MEASURE_PX}px ${style.fontFamily}`,
-    upper: style.textTransform === 'uppercase',
-    lower: style.textTransform === 'lowercase',
-  };
+const DISPLAY_FAMILY = /times|tinos/i;
+
+/** The table's pairs for an element's computed face, or null when it is not the display face. */
+export function pairsFor(style, table) {
+  if (!DISPLAY_FAMILY.test(style.fontFamily) || Number(style.fontWeight) !== (table?.weight ?? 400)) return null;
+  return table?.faces?.[style.fontStyle === 'normal' ? 'normal' : 'italic'] || null;
 }
 
-function cased(text, { upper, lower }) {
-  if (upper) return text.toUpperCase();
-  return lower ? text.toLowerCase() : text;
-}
-
-/** Canvas width of `text` in `font` (ctx.font already set), cached. */
-function widthOf(ctx, font, text) {
-  const key = `${font}|${text}`;
-  if (!kernCache.has(key)) kernCache.set(key, ctx.measureText(text).width);
-  return kernCache.get(key);
-}
-
-/** The kern between two letters in `font`, in em (negative = tighter). */
-function kernEm(ctx, font, pair) {
-  const [a, b] = Array.from(pair);
-  return (widthOf(ctx, font, pair) - widthOf(ctx, font, a) - widthOf(ctx, font, b)) / MEASURE_PX;
-}
-
-/** The margin each letter after the first needs, as [span, value] pairs (reads only). */
-function kernsOf(ctx, word, face) {
-  const letters = Array.from(word.children);
-  const kerns = [];
-  ctx.font = face.font;
-  for (let i = 1; i < letters.length; i += 1) {
-    const kern = kernEm(ctx, face.font, cased(letters[i - 1].textContent + letters[i].textContent, face));
-    if (Math.abs(kern) >= MIN_KERN_EM) kerns.push([letters[i], `${kern.toFixed(4)}em`]);
-  }
-  return kerns;
-}
-
-/**
- * Restore the font's kerning inside each word of single-letter spans. Run it
- * once the web fonts have loaded (a fallback face would give other pairs).
- * All styles are read first and all margins written after, so a batch of
- * words costs one style recalculation, not one per word.
- */
-export function kernWords(words) {
-  const ctx = context();
-  if (!ctx) return;
-  const list = Array.from(words).filter((word) => word.children.length > 1);
-  const byParent = new Map(); // words share their parent's font: one style read per parent
-  const faces = list.map((word) => {
-    const key = word.parentElement || word;
-    if (!byParent.has(key)) byParent.set(key, fontOf(word));
-    return byParent.get(key);
+/** Write each letter's left margin from the table. All styles are read before any write. */
+export function kernLetters(words, table) {
+  const jobs = Array.from(words).filter((w) => w.children.length > 1).map((word) => {
+    const style = getComputedStyle(word);
+    const pairs = pairsFor(style, table);
+    const upper = style.textTransform === 'uppercase';
+    return { word, pairs, upper };
+  }).filter((job) => job.pairs);
+  jobs.forEach(({ word, pairs, upper }) => {
+    const letters = Array.from(word.children);
+    for (let i = 1; i < letters.length; i += 1) {
+      let pair = letters[i - 1].textContent + letters[i].textContent;
+      if (upper) pair = pair.toUpperCase();
+      const kern = pairs[pair];
+      if (Number.isFinite(kern) && Math.abs(kern) >= MIN_KERN_EM) letters[i].style.marginLeft = `${kern}em`;
+    }
   });
-  const kerns = list.flatMap((word, i) => kernsOf(ctx, word, faces[i]));
-  kerns.forEach(([letter, margin]) => { letter.style.marginLeft = margin; });
+}
+
+/** Apply the table to every [data-kern] element in `scope`, once fonts have loaded. */
+export async function applyKerning(scope = document) {
+  const words = scope.querySelectorAll('[data-kern]');
+  if (!words.length) return;
+  const [table] = await Promise.all([loadKernTable(), document.fonts?.ready]);
+  kernLetters(words, table);
 }

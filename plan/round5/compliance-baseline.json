@@ -1,0 +1,1449 @@
+{
+  "note": "Sentences are deduplicated per section; count = occurrences in that section. keyCounts = total sentence hits per keyword on the page. \"We only message from\" has 0 hits on every page: the line does not exist yet (R5 adds it in C22).",
+  "generated": "2026-10-18T01:14:10.865Z",
+  "source": "http://127.0.0.1:8301/",
+  "method": "rendered DOM (headless Chrome, 1440x900, 4 s after load), textContent so hidden/closed content is included",
+  "pages": {
+    "index.html": {
+      "notice": [
+        {
+          "where": "section#find",
+          "text": "Sorted by distance only. Partners are independent, and a listing is not a recommendation. Cargado Strategies may receive a commission when a referral becomes a client."
+        }
+      ],
+      "hint": [
+        {
+          "where": "section#hero",
+          "text": "We ask for your city only so we can introduce you to someone close to you."
+        },
+        {
+          "where": "section#hero",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        },
+        {
+          "where": "section#close",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        }
+      ],
+      "offerFine": [
+        {
+          "where": "section#founder",
+          "text": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice."
+        },
+        {
+          "where": "section#founder",
+          "text": "Provided by Cargado Strategies itself."
+        }
+      ],
+      "legalDraft": [],
+      "fineprint": [],
+      "ph": [
+        {
+          "where": "section#hero",
+          "text": "[n]"
+        },
+        {
+          "where": "section#hero",
+          "text": "[n]"
+        },
+        {
+          "where": "section#hero",
+          "text": "[n]"
+        },
+        {
+          "where": "section#hero",
+          "text": "[rating]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[month]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[$x]"
+        },
+        {
+          "where": "section#founder",
+          "text": "“[Real client quote about the outcome]”"
+        },
+        {
+          "where": "section#founder",
+          "text": "[name]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[city]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[service]"
+        },
+        {
+          "where": "section#founder",
+          "text": "“[Real client quote about the speed]”"
+        },
+        {
+          "where": "section#founder",
+          "text": "[name]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[city]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[service]"
+        },
+        {
+          "where": "section#partners",
+          "text": "[to be confirmed]"
+        }
+      ],
+      "details": [
+        {
+          "where": "section#faq",
+          "question": "Why Is It Free for Me?",
+          "answer": "Partners may pay us a fee if you become their client. You never pay us for an introduction."
+        },
+        {
+          "where": "section#faq",
+          "question": "Do I Have to Hire Them?",
+          "answer": "No. You decide what happens next. Partners are independent businesses, and each one is responsible for their own licence and advice."
+        },
+        {
+          "where": "section#faq",
+          "question": "How Do You Choose Who to Show Me?",
+          "answer": "By distance only. We show the nearest partners for the service you need, closest first. No one pays to be listed higher, and a listing is not a recommendation or an endorsement."
+        },
+        {
+          "where": "section#faq",
+          "question": "What Happens to My Information?",
+          "answer": "We use it to answer you and connect you with a suitable partner. We ask for your city so we can find someone close to you. Cargado staff and the partner we connect you with see it, and we do not sell it. Read the privacy policy."
+        }
+      ],
+      "keyCounts": {
+        "commission": 2,
+        "independent": 5,
+        "coaching only": 1,
+        "not a recommendation": 2,
+        "tap send": 2,
+        "Provided by Cargado": 1,
+        "We only message from": 0,
+        "Mark 11:24": 0,
+        "Draft": 0,
+        "Connected by Purpose": 1
+      },
+      "sentences": [
+        {
+          "where": "section#hero",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "section#founder",
+          "el": "p.span-5.md-span-12.keep-md.muted",
+          "keys": [
+            "independent"
+          ],
+          "text": "Her own businesses, named as hers and shown separately from the independent partner network.",
+          "count": 1
+        },
+        {
+          "where": "section#founder",
+          "el": "p.offer__fine",
+          "keys": [
+            "coaching only"
+          ],
+          "text": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice.",
+          "count": 1
+        },
+        {
+          "where": "section#founder",
+          "el": "p.offer__fine",
+          "keys": [
+            "Provided by Cargado"
+          ],
+          "text": "Provided by Cargado Strategies itself.",
+          "count": 1
+        },
+        {
+          "where": "section#services",
+          "el": "p",
+          "keys": [
+            "independent"
+          ],
+          "text": "Each one says whether it’s our founder’s own business or an independent partner’s.",
+          "count": 1
+        },
+        {
+          "where": "section#find",
+          "el": "p.notice",
+          "keys": [
+            "independent",
+            "not a recommendation"
+          ],
+          "text": "Partners are independent, and a listing is not a recommendation.",
+          "count": 1
+        },
+        {
+          "where": "section#find",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission when a referral becomes a client.",
+          "count": 1
+        },
+        {
+          "where": "section#faq",
+          "el": "p",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, and each one is responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "section#faq",
+          "el": "p",
+          "keys": [
+            "not a recommendation"
+          ],
+          "text": "No one pays to be listed higher, and a listing is not a recommendation or an endorsement.",
+          "count": 1
+        },
+        {
+          "where": "section#close",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__tagline",
+          "keys": [
+            "Connected by Purpose"
+          ],
+          "text": "Connected by Purpose.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies does not give regulated advice through this website and may receive a commission when a referral becomes a client.",
+          "count": 1
+        }
+      ]
+    },
+    "services.html": {
+      "notice": [
+        {
+          "where": "section#ours-insurance",
+          "text": "This is our founder's own business. It is separate from the network of independent partners."
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "Strategy and coaching only. Not licensed accounting, tax or investment advice."
+        },
+        {
+          "where": "section",
+          "text": "Sorted by distance only. This list is not a recommendation. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us."
+        },
+        {
+          "where": "section#categories",
+          "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation. Cargado Strategies may receive a commission if you become their client."
+        },
+        {
+          "where": "section#inquiry",
+          "text": "Partners are independent businesses. Cargado Strategies may receive a commission if you become a partner's client. You never pay us for an introduction."
+        }
+      ],
+      "hint": [
+        {
+          "where": "section#ours-insurance",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "Opens WhatsApp. Nothing is sent until you tap send."
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "Provided by Cargado Strategies itself, not by a partner. Nothing is sent until you tap send."
+        },
+        {
+          "where": "section#finder",
+          "text": "We use your city or area only to sort partners by distance. It isn't stored on this website."
+        },
+        {
+          "where": "section#inquiry",
+          "text": "So we can introduce you to someone close to you."
+        },
+        {
+          "where": "section#inquiry",
+          "text": "Short is fine (up to 600 characters). Please leave out account numbers and health details."
+        },
+        {
+          "where": "section#inquiry",
+          "text": "Opens WhatsApp with your inquiry written. Nothing is sent until you tap send."
+        },
+        {
+          "where": "section#close",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        }
+      ],
+      "offerFine": [],
+      "legalDraft": [],
+      "fineprint": [],
+      "ph": [
+        {
+          "where": "section#ours-strategy",
+          "text": "[Founder]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[month]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[value]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[value]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[value]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[value]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[value]"
+        },
+        {
+          "where": "section#ours-strategy",
+          "text": "[we keep working with you at no cost / you get a full refund]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[$x]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[what this role takes off your plate]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[what this role takes off your plate]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[what this role takes off your plate]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[what this role takes off your plate]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[Role 1]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[Role 2]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[Role 3]"
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "text": "[Role 4]"
+        }
+      ],
+      "details": [],
+      "keyCounts": {
+        "commission": 4,
+        "independent": 8,
+        "coaching only": 1,
+        "not a recommendation": 2,
+        "tap send": 5,
+        "Provided by Cargado": 1,
+        "We only message from": 0,
+        "Mark 11:24": 0,
+        "Draft": 0,
+        "Connected by Purpose": 1
+      },
+      "sentences": [
+        {
+          "where": "section#intro",
+          "el": "p.t-lead",
+          "keys": [
+            "independent"
+          ],
+          "text": "Our founder's own three businesses, and a network of independent partners near you.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-insurance",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-insurance",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "It is separate from the network of independent partners.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-strategy",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-strategy",
+          "el": "p.notice",
+          "keys": [
+            "coaching only"
+          ],
+          "text": "Strategy and coaching only.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "el": "p.hint",
+          "keys": [
+            "Provided by Cargado"
+          ],
+          "text": "Provided by Cargado Strategies itself, not by a partner.",
+          "count": 1
+        },
+        {
+          "where": "section#ours-outsourcing",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "section",
+          "el": "p.notice.results__notice",
+          "keys": [
+            "not a recommendation"
+          ],
+          "text": "This list is not a recommendation.",
+          "count": 1
+        },
+        {
+          "where": "section",
+          "el": "p.notice.results__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "section",
+          "el": "p.notice.results__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission if you become their client.",
+          "count": 1
+        },
+        {
+          "where": "section#categories",
+          "el": "p.t-small.muted",
+          "keys": [
+            "independent"
+          ],
+          "text": "The rail does the disclosure: Ours is run by our founder, Partners are independent businesses.",
+          "count": 1
+        },
+        {
+          "where": "section#categories",
+          "el": "p.cat-detail__desc",
+          "keys": [
+            "independent"
+          ],
+          "text": "The founder is an agent of a separate insurance company, and independent partners can also be listed.",
+          "count": 1
+        },
+        {
+          "where": "section#categories",
+          "el": "p.notice",
+          "keys": [
+            "independent",
+            "not a recommendation"
+          ],
+          "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation.",
+          "count": 1
+        },
+        {
+          "where": "section#categories",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission if you become their client.",
+          "count": 1
+        },
+        {
+          "where": "section#inquiry",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses.",
+          "count": 1
+        },
+        {
+          "where": "section#inquiry",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission if you become a partner's client.",
+          "count": 1
+        },
+        {
+          "where": "section#inquiry",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "section#close",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__tagline",
+          "keys": [
+            "Connected by Purpose"
+          ],
+          "text": "Connected by Purpose.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies does not give regulated advice through this website and may receive a commission when a referral becomes a client.",
+          "count": 1
+        }
+      ]
+    },
+    "story.html": {
+      "notice": [
+        {
+          "where": "section#network",
+          "text": "Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission when a referral becomes a client."
+        }
+      ],
+      "hint": [
+        {
+          "where": "section#talk",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        }
+      ],
+      "offerFine": [],
+      "legalDraft": [],
+      "fineprint": [],
+      "ph": [
+        {
+          "where": "section#top",
+          "text": "[Draft story. The founder confirms every word before publication.]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[Founder photo]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[One or two sentences about the founder's background and what led her here.]"
+        },
+        {
+          "where": "section#founder",
+          "text": "[Signature]"
+        },
+        {
+          "where": "section#logo",
+          "text": "[How the logo came about, in the founder's words.]"
+        },
+        {
+          "where": "section#values",
+          "text": "[Optional, in the founder's words: one sentence on faith.]"
+        }
+      ],
+      "details": [],
+      "keyCounts": {
+        "commission": 4,
+        "independent": 4,
+        "coaching only": 0,
+        "not a recommendation": 0,
+        "tap send": 1,
+        "Provided by Cargado": 0,
+        "We only message from": 0,
+        "Mark 11:24": 1,
+        "Draft": 1,
+        "Connected by Purpose": 1
+      },
+      "sentences": [
+        {
+          "where": "section#top",
+          "el": "p.t-xs.muted.story-draft",
+          "keys": [
+            "Draft"
+          ],
+          "text": "[Draft story.",
+          "count": 1
+        },
+        {
+          "where": "section#logo",
+          "el": "p.story-ref.ui",
+          "keys": [
+            "Mark 11:24"
+          ],
+          "text": "Mark 11:24",
+          "count": 1
+        },
+        {
+          "where": "section#values",
+          "el": "li.story-value.fx-tilt.fx-rel.has-depth",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission when an introduction becomes a client, and we tell you up front.",
+          "count": 2
+        },
+        {
+          "where": "section#network",
+          "el": "h2.story-fit",
+          "keys": [
+            "independent"
+          ],
+          "text": "Behind the Website Is a Network of Independent Partners.Behind the Website Is a Network of Independent Partners.",
+          "count": 1
+        },
+        {
+          "where": "section#network",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Independent partners.",
+          "count": 1
+        },
+        {
+          "where": "section#network",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "section#network",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission when a referral becomes a client.",
+          "count": 1
+        },
+        {
+          "where": "section#talk",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__tagline",
+          "keys": [
+            "Connected by Purpose"
+          ],
+          "text": "Connected by Purpose.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies does not give regulated advice through this website and may receive a commission when a referral becomes a client.",
+          "count": 1
+        }
+      ]
+    },
+    "partners.html": {
+      "notice": [
+        {
+          "where": "section#arrangement",
+          "text": "Commission terms [to be confirmed by counsel]. Referral fees are restricted for some professions in some provinces, so terms are set for each profession and province before launch. Partners are independent businesses, each responsible for their own licence and advice."
+        },
+        {
+          "where": "section#tiers",
+          "text": "Membership covers listing and network tools only. It never buys introductions, referrals, a higher place in the list or our endorsement. Lists stay sorted by distance for every tier. [Tier names, fees and features to be confirmed]"
+        },
+        {
+          "where": "aside",
+          "text": "Commission. Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. [Commission terms to be confirmed by counsel]"
+        },
+        {
+          "where": "aside",
+          "text": "Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement."
+        }
+      ],
+      "hint": [
+        {
+          "where": "section#apply",
+          "text": "All fields are required unless marked optional."
+        },
+        {
+          "where": "section#apply",
+          "text": "As registered. Repeat the business name if it's the same."
+        },
+        {
+          "where": "section#apply",
+          "text": "Include the area code."
+        },
+        {
+          "where": "section#apply",
+          "text": "Required for insurance, legal, mortgage and real estate. We review it before approval [how we confirm it with the issuing body: to be confirmed]."
+        },
+        {
+          "where": "section#apply",
+          "text": "Lists are sorted by distance, so we use this to show you to people near you."
+        },
+        {
+          "where": "section#apply",
+          "text": "One or two names and how to reach them, such as a colleague or a long-standing client. We contact them only to review your application."
+        },
+        {
+          "where": "section#apply",
+          "text": "Two or three plain sentences: what you do, who you help and the languages you work in."
+        },
+        {
+          "where": "section#apply",
+          "text": "Opens WhatsApp with your application written out. Nothing is sent until you tap send. An email option will follow: [company email]."
+        },
+        {
+          "where": "section#close",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        }
+      ],
+      "offerFine": [],
+      "legalDraft": [],
+      "fineprint": [],
+      "ph": [
+        {
+          "where": "section#hero",
+          "text": "[terms to be confirmed]"
+        },
+        {
+          "where": "section#hero",
+          "text": "[confirm]"
+        },
+        {
+          "where": "section#arrangement",
+          "text": "[the agreed commission]"
+        },
+        {
+          "where": "section#arrangement",
+          "text": "[to be confirmed by counsel]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[Tier names, fees and features to be confirmed]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[No fee]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[terms]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[$ per month]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[Longer profile: languages, services, hours]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[Network tools, e.g. an introduction log]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[$ per month]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[More than one service area]"
+        },
+        {
+          "where": "section#tiers",
+          "text": "[Partner events and co-hosted workshops]"
+        },
+        {
+          "where": "section#founding",
+          "text": "[City]"
+        },
+        {
+          "where": "section#founding",
+          "text": "[service]"
+        },
+        {
+          "where": "section#founding",
+          "text": "[n] of [2]"
+        },
+        {
+          "where": "section#founding",
+          "text": "[live count]"
+        },
+        {
+          "where": "section#ask",
+          "text": "[process to be confirmed by the founder and counsel]"
+        },
+        {
+          "where": "section#apply",
+          "text": "[how we confirm it with the issuing body: to be confirmed]"
+        },
+        {
+          "where": "section#apply",
+          "text": "[company email]"
+        },
+        {
+          "where": "aside",
+          "text": "[process to be confirmed]"
+        },
+        {
+          "where": "aside",
+          "text": "[Commission terms to be confirmed by counsel]"
+        }
+      ],
+      "details": [],
+      "keyCounts": {
+        "commission": 11,
+        "independent": 4,
+        "coaching only": 0,
+        "not a recommendation": 0,
+        "tap send": 4,
+        "Provided by Cargado": 0,
+        "We only message from": 0,
+        "Mark 11:24": 0,
+        "Draft": 0,
+        "Connected by Purpose": 1
+      },
+      "sentences": [
+        {
+          "where": "section#hero",
+          "el": "p.t-lead",
+          "keys": [
+            "commission"
+          ],
+          "text": "Introductions cost nothing up front: you pay a commission only when one becomes your client [terms to be confirmed].",
+          "count": 1
+        },
+        {
+          "where": "section#arrangement",
+          "el": "p",
+          "keys": [
+            "commission"
+          ],
+          "text": "If they become your client, you pay [the agreed commission].",
+          "count": 1
+        },
+        {
+          "where": "section#arrangement",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Commission terms [to be confirmed by counsel].",
+          "count": 1
+        },
+        {
+          "where": "section#arrangement",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "section#tiers",
+          "el": "li",
+          "keys": [
+            "commission"
+          ],
+          "text": "Commission only when an introduction becomes your client [terms]",
+          "count": 1
+        },
+        {
+          "where": "section#tiers",
+          "el": "li.tier.is-pickable.fx-tilt.fx-rel.has-depth",
+          "keys": [
+            "commission"
+          ],
+          "text": "Community [No fee] Listing for your service area Partner profile with your licence and who issued it Commission only when an introduction becomes your client [terms] Apply for Community Apply for Community →",
+          "count": 1
+        },
+        {
+          "where": "section#founding",
+          "el": "p.t-lead",
+          "keys": [
+            "commission"
+          ],
+          "text": "They get [0% commission on the first client].",
+          "count": 1
+        },
+        {
+          "where": "section#apply",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 2
+        },
+        {
+          "where": "aside",
+          "el": "li",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "aside",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Commission.",
+          "count": 1
+        },
+        {
+          "where": "aside",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission when an introduction becomes your client.",
+          "count": 1
+        },
+        {
+          "where": "aside",
+          "el": "p.notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "[Commission terms to be confirmed by counsel]",
+          "count": 1
+        },
+        {
+          "where": "aside",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Independent partners.",
+          "count": 1
+        },
+        {
+          "where": "aside",
+          "el": "p.notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "section#close",
+          "el": "p.t-lead.muted",
+          "keys": [
+            "commission"
+          ],
+          "text": "Message us on WhatsApp about tiers, commission terms or spots in your area.",
+          "count": 1
+        },
+        {
+          "where": "section#close",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__tagline",
+          "keys": [
+            "Connected by Purpose"
+          ],
+          "text": "Connected by Purpose.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies does not give regulated advice through this website and may receive a commission when a referral becomes a client.",
+          "count": 1
+        }
+      ]
+    },
+    "legal.html": {
+      "notice": [
+        {
+          "where": "section#contents",
+          "text": "Draft for review. These pages are written to read as formal legal documents, but they are drafts and not legal advice. A lawyer in Canada must review and adjust every page, including the province and the privacy contact in [brackets], before the website goes live."
+        }
+      ],
+      "hint": [
+        {
+          "where": "section#close",
+          "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        }
+      ],
+      "offerFine": [],
+      "legalDraft": [
+        {
+          "where": "body",
+          "text": "Draft — to be reviewed by a lawyer in Canada before launch"
+        },
+        {
+          "where": "body",
+          "text": "Draft — to be reviewed by a lawyer in Canada before launch"
+        },
+        {
+          "where": "body",
+          "text": "Draft"
+        }
+      ],
+      "fineprint": [],
+      "ph": [
+        {
+          "where": "section#contents",
+          "text": "[brackets]"
+        },
+        {
+          "where": "section#contents",
+          "text": "[date]"
+        },
+        {
+          "where": "header",
+          "text": "[date]"
+        },
+        {
+          "where": "section#disclosure",
+          "text": "[Confirm entity names and licence numbers.]"
+        },
+        {
+          "where": "section#disclosure",
+          "text": "[Wording to be set by counsel.]"
+        },
+        {
+          "where": "header",
+          "text": "[date]"
+        },
+        {
+          "where": "header",
+          "text": "[privacy officer name and email]"
+        },
+        {
+          "where": "section#privacy",
+          "text": "[Retention period.]"
+        },
+        {
+          "where": "section#privacy",
+          "text": "[privacy officer name and email]"
+        },
+        {
+          "where": "section#privacy",
+          "text": "[List the tools once chosen.]"
+        },
+        {
+          "where": "header",
+          "text": "[date]"
+        },
+        {
+          "where": "section#terms",
+          "text": "[Counsel to adjust.]"
+        },
+        {
+          "where": "section#terms",
+          "text": "[province]"
+        },
+        {
+          "where": "header",
+          "text": "[date]"
+        },
+        {
+          "where": "section#conduct",
+          "text": "[number]"
+        },
+        {
+          "where": "header",
+          "text": "[date]"
+        },
+        {
+          "where": "section#faq",
+          "text": "[Wording to be set by counsel.]"
+        }
+      ],
+      "details": [
+        {
+          "where": "section#faq",
+          "question": "Why Is It Free for Me?",
+          "answer": "Partners may pay us a fee if you become their client. You never pay us for an introduction. Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form. [Wording to be set by counsel.]"
+        },
+        {
+          "where": "section#faq",
+          "question": "Do I Have to Hire Them?",
+          "answer": "No. You decide what happens next. An introduction does not create a professional relationship with Cargado Strategies or with the partner, and you are free to speak with anyone else."
+        },
+        {
+          "where": "section#faq",
+          "question": "How Are Partners Listed?",
+          "answer": "By distance only, closest first. A listing is not an endorsement or a recommendation. Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled. Partners are independent businesses. Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence."
+        },
+        {
+          "where": "section#faq",
+          "question": "What Happens to My Information?",
+          "answer": "We use your name, contact details, city or area and your message to answer you and connect you with a partner close to you. We ask for your city only to find someone near you. Cargado staff and the partner we connect you with see it, and we do not sell it. You may ask to see, correct or delete it at any time. Read the privacy policy."
+        },
+        {
+          "where": "section#faq",
+          "question": "Does Cargado Give Advice?",
+          "answer": "Not through this website. Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here. Advice comes from the partner you choose. The founder's own businesses (insurance, business strategy and outsourcing) are named as hers. Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+        },
+        {
+          "where": "section#faq",
+          "question": "How Do I Become a Partner?",
+          "answer": "Apply on the Become a Partner page with your business details, category, licence number and issuing body, and service area. The Cargado team reviews and approves each application, and every partner agrees to the code of conduct. Membership buys a listing and network tools only. It does not promise referrals or outcomes."
+        }
+      ],
+      "keyCounts": {
+        "commission": 4,
+        "independent": 5,
+        "coaching only": 1,
+        "not a recommendation": 0,
+        "tap send": 1,
+        "Provided by Cargado": 0,
+        "We only message from": 0,
+        "Mark 11:24": 0,
+        "Draft": 7,
+        "Connected by Purpose": 1
+      },
+      "sentences": [
+        {
+          "where": "body",
+          "el": "p.legal-draft__text",
+          "keys": [
+            "Draft"
+          ],
+          "text": "Draft — to be reviewed by a lawyer in Canada before launch",
+          "count": 1
+        },
+        {
+          "where": "section#contents",
+          "el": "p.notice",
+          "keys": [
+            "Draft"
+          ],
+          "text": "Draft for review.",
+          "count": 1
+        },
+        {
+          "where": "header",
+          "el": "p.legal-meta",
+          "keys": [
+            "Draft"
+          ],
+          "text": "Draft · Updated [date]",
+          "count": 5
+        },
+        {
+          "where": "section#disclosure",
+          "el": "p",
+          "keys": [
+            "independent"
+          ],
+          "text": "Cargado Strategies connects visitors with independent partners.",
+          "count": 1
+        },
+        {
+          "where": "section#disclosure",
+          "el": "p",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies may receive a commission from a partner when a referral becomes a client.",
+          "count": 1
+        },
+        {
+          "where": "section#terms",
+          "el": "h3.clause__title",
+          "keys": [
+            "independent"
+          ],
+          "text": "Independent Partners",
+          "count": 1
+        },
+        {
+          "where": "section#terms",
+          "el": "p",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent.",
+          "count": 1
+        },
+        {
+          "where": "section#conduct",
+          "el": "p",
+          "keys": [
+            "commission"
+          ],
+          "text": "Put clients before transactions, and explain any fee or commission before work begins.",
+          "count": 1
+        },
+        {
+          "where": "section#faq",
+          "el": "p",
+          "keys": [
+            "commission"
+          ],
+          "text": "Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form.",
+          "count": 1
+        },
+        {
+          "where": "section#faq",
+          "el": "p",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses.",
+          "count": 1
+        },
+        {
+          "where": "section#faq",
+          "el": "p",
+          "keys": [
+            "coaching only"
+          ],
+          "text": "Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice.",
+          "count": 1
+        },
+        {
+          "where": "section#close",
+          "el": "p.hint",
+          "keys": [
+            "tap send"
+          ],
+          "text": "Nothing is sent until you tap send.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__tagline",
+          "keys": [
+            "Connected by Purpose"
+          ],
+          "text": "Connected by Purpose.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "independent"
+          ],
+          "text": "Partners are independent businesses, each responsible for their own licence and advice.",
+          "count": 1
+        },
+        {
+          "where": "footer",
+          "el": "p.site-footer__notice",
+          "keys": [
+            "commission"
+          ],
+          "text": "Cargado Strategies does not give regulated advice through this website and may receive a commission when a referral becomes a client.",
+          "count": 1
+        }
+      ]
+    }
+  },
+  "filledPlaceholders": [
+    {
+      "text": "[Founder name]",
+      "value": "Lee Holgado",
+      "source": "owner, 2026-10-18",
+      "note": "filled via config.js FOUNDER_NAME / FOUNDER_LAST_NAME; no longer a placeholder"
+    },
+    {
+      "text": "[2]",
+      "value": "2",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[3]",
+      "value": "3",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[24h]",
+      "value": "24h",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[24 hours]",
+      "value": "24 hours",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[4]",
+      "value": "4",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[5]",
+      "value": "5",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[5 business days]",
+      "value": "5 business days",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[1 business day]",
+      "value": "1 business day",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[0% commission on the first client]",
+      "value": "0% commission on the first client",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to drop brackets around numbers; shown as plain text"
+    },
+    {
+      "text": "[Wording to be confirmed by counsel]",
+      "value": "(removed)",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to remove it everywhere"
+    },
+    {
+      "text": "[licence / registration]",
+      "value": "(removed)",
+      "source": "owner, 2026-10-18",
+      "note": "owner asked to remove the footer line"
+    },
+    {
+      "text": "[company name] · licence [#] · [regulator]",
+      "value": "(removed)",
+      "source": "owner, 2026-10-18",
+      "note": "owner removed the founder credential placeholders (insurance and strategy) everywhere"
+    }
+  ]
+}

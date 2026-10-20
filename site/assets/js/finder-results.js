@@ -3,15 +3,15 @@
  * chosen category and type, ranked by distance only. When none is close the
  * radius widens step by step up to all of Canada and says so; when none is
  * listed at all, a "Partner spot available" card and a WhatsApp request
- * button are shown. Returns plain { status, html } so the controller decides
- * where it goes.
+ * button are shown. Returns { status, slots }: each slot is one block the
+ * results pager places whole (R4 services.md §7.5), so no block is ever cut.
  */
 import { PARTNERS } from './config.js';
 import { distanceKm, formatKm } from './finder-geo.js';
 import { escapeHtml } from './chrome.js';
 import { waLink, categoryMessage } from './whatsapp.js';
 import { FOUNDER_OFFERS, FOUNDER_REQUEST, hasPartners, PAGE, subPlaceholderCard } from './services-data.js';
-import { profileMarkup, partnerTypeNames } from './partner-profile.js';
+import { profileTrigger, partnerTypeNames } from './partner-profile.js';
 import { titleCase } from './text-case.js';
 
 export const RADIUS_STEPS_KM = Object.freeze([25, 50, 100, 250, 500, 1000]);
@@ -52,19 +52,15 @@ function resultRow({ partner, km }, ctx) {
   const e = escapeHtml;
   const types = partnerTypeNames(ctx.category, partner);
   const meta = [partner.name, types, `${partner.city}, ${partner.province}`].filter(Boolean).map(e).join(' · ');
-  const cred = partner.credential
-    ? `Licence or credential: ${e(partner.credential)}${partner.issuingBody ? ` · issued by ${e(partner.issuingBody)}` : ''}`
-    : '';
   const distance = Number.isFinite(km) ? `<span class="result__km num">${formatKm(km)}</span>` : '';
   return `
-  <article class="result" data-tilt>
-    <div class="result__head" data-depth="26"><h4 class="result__name">${e(partner.business)}</h4>${distance}</div>
+  <article class="result">
+    <div class="result__head"><h4 class="result__name" tabindex="-1">${e(partner.business)}</h4>${distance}</div>
     <p class="result__meta">${meta}</p>
-    ${cred ? `<p class="result__cred">${cred}</p>` : ''}
-    <div class="row">
+    <p class="result__acts">
       <a class="btn btn--primary btn--sm" href="${introduceLink({ ...ctx, partner })}" ${NEW_TAB}>Introduce Me<span class="visually-hidden"> to ${e(partner.business)} on WhatsApp (opens in a new tab)</span></a>
-    </div>
-    ${profileMarkup(partner, ctx.category)}
+      ${profileTrigger(partner, ctx.category)}
+    </p>
   </article>`;
 }
 
@@ -76,9 +72,8 @@ function founderAskBlock({ category, place }) {
   return `
   <div class="results__ask">
     <p class="results__ask-title">Prefer to Ask First?</p>
-    <p class="t-small muted">Our founder answers questions about ${name} herself.</p>
-    <a class="btn btn--ghost btn--sm" href="${waLink(text)}" ${NEW_TAB}>Ask Our Founder on WhatsApp ${ARROW}<span class="visually-hidden"> about ${name} (opens in a new tab)</span></a>
-    <p class="hint">Nothing is sent until you tap send.</p>
+    <p class="results__ask-text">Our founder answers questions about ${name} herself.</p>
+    <a class="link" href="${waLink(text)}" ${NEW_TAB}>Ask Our Founder on WhatsApp ${ARROW}<span class="visually-hidden"> about ${name} (opens in a new tab)</span></a>
   </div>`;
 }
 
@@ -86,21 +81,21 @@ function founderBlock(category) {
   const offer = FOUNDER_OFFERS[category.slug];
   if (!offer) return '';
   return `
-  <div class="results__ours" data-tilt>
-    <p class="eyebrow">From our founder</p>
-    <p data-depth="18"><strong>${escapeHtml(offer.name)}</strong>. Our founder's own business, not a partner listing.</p>
-    <a class="btn btn--link" href="#${offer.scene}">${escapeHtml(titleCase(`See ${lower(offer.name)}`))} ${ARROW}</a>
+  <div class="results__ours">
+    <p class="results__ours-text"><strong>${escapeHtml(offer.name)}</strong>. Our founder's own business, not a partner listing.</p>
+    <a class="link" href="#${offer.scene}">${escapeHtml(titleCase(`See ${lower(offer.name)}`))} ${ARROW}</a>
   </div>`;
 }
 
 /* ---------- view ---------- */
 
+const ours = (category) => (FOUNDER_OFFERS[category.slug] ? [founderBlock(category)] : []);
+
 function emptyView(ctx, label) {
   const where = ctx.place ? ` near ${escapeHtml(ctx.place.label)}` : '';
   return {
     status: `No ${label} partner is listed yet${where}.`,
-    html: `${founderBlock(ctx.category)}
-      <div class="partner-list">${subPlaceholderCard(ctx.category.name)}</div>`,
+    slots: [...ours(ctx.category), subPlaceholderCard(ctx.category.name)],
   };
 }
 
@@ -115,29 +110,28 @@ function radiusStatus(radius, count, label, place) {
 
 function listView(ctx, pool, label) {
   if (!ctx.place) {
-    const rows = pool.map((partner) => resultRow({ partner, km: NaN }, ctx)).join('');
     return {
       status: `${plural(pool.length, `${label} partner`)} listed. Choose a place to sort them by distance.`,
-      html: `${founderBlock(ctx.category)}<div class="results__rows">${rows}</div>`,
+      slots: [...ours(ctx.category), ...pool.slice(0, MAX_RESULTS).map((partner) => resultRow({ partner, km: NaN }, ctx))],
     };
   }
   const { radius, items } = widenRadius(rankByDistance(pool, ctx.place));
   return {
     status: radiusStatus(radius, items.length, label, ctx.place),
-    html: `${founderBlock(ctx.category)}<div class="results__rows">${items.map((r) => resultRow(r, ctx)).join('')}</div>`,
+    slots: [...ours(ctx.category), ...items.map((r) => resultRow(r, ctx))],
   };
 }
 
-/** { status, html } for the current finder state { category, type, place }. */
+/** { status, slots } for the current finder state { category, type, place }. */
 export function resultsView({ category, type, place }) {
   if (!category) {
-    return { status: 'Choose what you need first. Then pick a place on the map or search for one.', html: '' };
+    return { status: 'Choose what you need first. Then pick a place on the map or search for one.', slots: [] };
   }
   const ctx = { category, type, place };
   if (!hasPartners(category)) {
     return {
       status: `${category.name} is our founder's own service, offered across Canada.`,
-      html: `${founderBlock(category)}${founderAskBlock(ctx)}`,
+      slots: [founderBlock(category), founderAskBlock(ctx)],
     };
   }
   const label = (type ? `${type.name} ${category.name}` : category.name).toLowerCase();

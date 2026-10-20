@@ -1,281 +1,115 @@
 /* ==========================================================================
-   Cargado Strategies — fx.css (Round 3 shared effects; loads after base.css)
-   1 text links · 2 text fx (chars, decode, roll) · 3 magnetic + press
-   4 tilt, sheen, depth · 5 3D panel · 6 inputs · 7 cursor ring morph
-   8 sound toggle · 9 globe fallback · 10 motion safety
-   Only transform / translate / rotate / scale / opacity / clip-path animate.
-   The splash's CSS is inline in every page <head> so it paints with no request.
+   Cargado Strategies — fx.css (Round 5: reveal masks and hover mechanics)
+   1 reveal masks · 2 row flood · 3 door widen and flood · 4 strike bar
+   5 magnetic hero CTA and the tier tilt · 6 cursor ring · 7 motion safety
+   Only transform, opacity and clip-path animate here, plus the door's
+   flex-grow (contained to its own row) and the row's padding (one row).
+   The offset plates, the 3D panel and every other tilt are gone (DIRECTION §4.4).
    ========================================================================== */
 
-/* Per-field tints for the sheen and the 3D panel. */
-[data-field="ink"], .on-ink {
-  --sheen: rgba(212, 175, 55, 0.16);
-  --panel-edge: rgba(212, 175, 55, 0.55);
-  --panel-depth: rgba(212, 175, 55, 0.16);
+/* 1. Reveal masks: each word rises from its own mask (film-split.js writes them;
+   tools/build-splits.mjs writes the same markup into dist). */
+/* The inline overhang keeps an italic accent's terminal (f, j, y) inside the mask. */
+.rv-mask, .w {
+  display: inline-block; overflow: clip; vertical-align: top;
+  padding: 0 .14em .08em .06em; margin: 0 -.14em -.08em -.06em;
 }
-[data-field="gold"], .on-gold {
-  --sheen: rgba(255, 255, 255, 0.3);
-  --panel-edge: rgba(11, 11, 12, 0.55);
-  --panel-depth: rgba(11, 11, 12, 0.3);
+.rv-word { display: inline-block; }
+html.is-cutting .scene.is-entering .rv-word { will-change: transform; }
+/* The eyebrow slides inside its own box. */
+.eyebrow { overflow: clip; }
+
+/* 2. Row flood (C11, C12): on hover or focus the row floods --row-flood in 220 ms,
+   from the edge the pointer came in by (interact.js writes --flood-from), and the
+   padding goes 24 → 46 px. The whole row is the target. */
+.row:where(a, button) { position: relative; isolation: isolate; contain: layout; transition: padding-inline .22s var(--ease-out), color .22s var(--ease-out); }
+.row:where(a, button)::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--row-flood);
+  transform: scaleY(0); transform-origin: var(--flood-from, 50% 100%); transition: transform .22s var(--ease-out);
 }
-[data-field="bone"], .on-bone {
-  --sheen: rgba(122, 92, 18, 0.1);
-  --panel-edge: rgba(122, 92, 18, 0.6);
-  --panel-depth: rgba(122, 92, 18, 0.26);
+.row:where(a, button):is(:hover, :focus-visible) {
+  --fg: var(--row-flood-fg); --fg-muted: var(--row-flood-fg); --accent: var(--row-flood-fg);
+  --stroke-num: color-mix(in srgb, var(--row-flood-fg) 55%, transparent);
+  color: var(--row-flood-fg); padding-inline: 46px;
+}
+.row:where(a, button):is(:hover, :focus-visible)::before { transform: scaleY(1); }
+.row:where(a, button):focus-visible { outline-offset: -2px; outline-color: var(--row-flood-fg); }
+.row__arrow { transition: transform var(--dur-hover) var(--ease-out); }
+.row:where(a, button):is(:hover, :focus-visible) .row__arrow { transform: translateX(6px); }
+@media (hover: none) { .row:where(a, button):hover { padding-inline: 24px; } }
+
+/* 3. Doors (W3): a door widens on hover or focus (flex-grow 1 → 1.5, 350 ms,
+   power3.out; contain: layout on the door row only), floods ink, and its type
+   turns ivory. The other doors stay gold. Phones stack them (ui.css). */
+@media (min-width: 760px) {
+  .doors { contain: layout; }
+  .door { transition: flex-grow var(--dur-door) cubic-bezier(.215,.61,.355,1), color var(--dur-door) var(--ease-out); }
+  .door::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; background: #0B0B0C;
+    opacity: 0; transition: opacity var(--dur-door) var(--ease-out);
+  }
+  .door:is(:hover, :focus-within) { flex-grow: 1.5; }
+  .door:is(:hover, :focus-within)::before { opacity: 1; }
+  .door:is(:hover, :focus-within) {
+    --fg: #F3ECDD; --fg-muted: var(--c-ivory-2nd); --accent: #D4AF37; --line: rgba(212,175,55,.22);
+    --line-strong: rgba(243,236,221,.42); --ghost: rgba(212,175,55,.14); --stroke-num: rgba(212,175,55,.40);
+    --btn-bg: #D4AF37; --btn-fg: #0B0B0C; --btn-arrow: #0B0B0C; --btn-hover-bg: #F3ECDD; --focus: #F3ECDD;
+    --ph-line: rgba(212,175,55,.6);
+    color: var(--fg);
+  }
 }
 
-/* Plain paragraphs keep a 55-70ch measure (zero specificity: page rules win). */
-:where(.scene p:not([class])) { max-width: var(--measure); }
+/* 4. Strike bar (W2, C14): GSAP tweens --strike (0 → 1) for the bar and --strike-dim
+   (0 → 1) for the text. The text dims as far as it can while it still reads at 3:1
+   (quote size is large text): --strike-floor per field, not the spec's flat 30%,
+   because T6 (contrast on every field) wins. */
+@property --strike { syntax: "<number>"; inherits: true; initial-value: 0; }   /* the s bar reads it */
+@property --strike-dim { syntax: "<number>"; inherits: true; initial-value: 0; }
+.strike { --strike-floor: .5; }
+[data-field="gold"] .strike { --strike-floor: .62; }
+/* The bar is the s's own background, cloned per line box, so a wrapped search is
+   struck on every line (one li::after left the second line bare). */
+.strike s {
+  text-decoration: none;   /* the text dims through its colour, so the bar keeps full accent */
+  color: color-mix(in srgb, var(--fg) calc(100% - (1 - var(--strike-floor)) * var(--strike-dim) * 100%), transparent);
+  background: linear-gradient(var(--accent), var(--accent)) 0 54% / calc(var(--strike) * 100%) max(2px, .07em) no-repeat;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.strike > li.is-struck { --strike: 1; --strike-dim: 1; }
 
-/* 1. Text links ---------------------------------------------------------------
-   One line under every text link, never two. Links in copy, labels, the footer,
-   notices and legal text rest on a faint native underline (so links never rely
-   on colour alone). On hover / focus that line hands over to an accent line at
-   the same offset, drawn in from the left; it retracts to the right on leave.
-   Text-styled buttons (.btn--link) have no resting line, only the accent line
-   under their label (the arrow is left out). The accent follows the field:
-   gold on ink, dark gold on bone, black on gold.
-   Opt in elsewhere with a.link; opt out with data-underline="none". */
-:root {
-  --link-offset: 0.24em; /* baseline → underline, shared by every link type */
-  --link-line: 1.5px; /* accent line thickness */
-  --link-descent: 0.3em; /* baseline → bottom of an inline link's box (Manrope / Poppins) */
-  --link-mid: 0.36em; /* middle of a one-line box → its baseline */
-  --link-arrow: 1.6em; /* a .btn__arrow plus the .btn gap */
-}
-:where(p, li, dd, dt, td, label, figcaption, blockquote, .notice, .hint, .acc__body) a:not([class]),
-a.link,
-.site-footer a {
-  position: relative;
-  color: inherit;
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-decoration-color: var(--line-strong);
-  text-underline-offset: var(--link-offset);
-}
-:where(p, li, dd, dt, td, label, figcaption, blockquote, .notice, .hint, .acc__body) a:not([class]):is(:hover, :focus-visible),
-a.link:is(:hover, :focus-visible),
-.site-footer a:is(:hover, :focus-visible) { text-decoration-color: transparent; }
-:where(p, li, dd, dt, td, label, figcaption, blockquote, .notice, .hint, .acc__body) a:not([class])::after,
-a.link::after,
-.site-footer a::after,
-.btn--link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  /* Inline links: measured from the bottom of the (last) line box. */
-  bottom: calc(var(--link-descent) - var(--link-offset) - var(--link-line));
-  height: var(--link-line);
-  background: var(--link-line-color, var(--accent));
-  transform: scaleX(0);
-  transform-origin: 100% 50%;
-  transition: transform 0.45s var(--ease);
-  pointer-events: none;
-}
-/* One-line boxes (footer list links, text buttons): measured from the box middle. */
-.site-footer__links a::after,
-.btn--link::after {
-  top: calc(50% + var(--link-mid) + var(--link-offset));
-  bottom: auto;
-}
-.btn--link { position: relative; }
-.btn--link:has(.btn__arrow)::after { right: var(--link-arrow); }
-:where(p, li, dd, dt, td, label, figcaption, blockquote, .notice, .hint, .acc__body) a:not([class]):is(:hover, :focus-visible)::after,
-a.link:is(:hover, :focus-visible)::after,
-.site-footer a:is(:hover, :focus-visible)::after,
-.btn--link:is(:hover, :focus-visible)::after {
-  transform: scaleX(1);
-  transform-origin: 0 50%;
-}
-a[data-underline="none"] { text-decoration: none; }
-a[data-underline="none"]::after { content: none; }
-
-/* 2. Text fx (textfx.js) --------------------------------------------------------- */
-.tx-vis { display: inline; }
-.tx-word { display: inline-block; white-space: nowrap; perspective: 600px; }
-.tx-char { display: inline-block; transform-origin: 50% 100%; backface-visibility: hidden; }
-/* Decode: the real character stays in place (no reflow); a glyph is painted over it. */
-.dc-c { position: relative; }
-.dc-c.is-off { opacity: 0; }
-.dc-c.is-g > span { opacity: 0; }
-.dc-c.is-g::after {
-  content: attr(data-g);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  text-align: center;
-  color: var(--accent);
-}
-/* Hover letter-roll: each letter rises to show its copy (a text-shadow one line below). */
-.roll, .roll__vis { display: inline; }
-.roll-w { display: inline-block; clip-path: inset(-0.16em -0.25em); --roll-d: 1.6em; }
-@supports (height: 1lh) { .roll-w { --roll-d: calc(1lh + 0.4em); } }
-.roll-c {
-  display: inline-block;
-  text-shadow: 0 var(--roll-d) currentColor;
-  transition: transform 0.55s var(--ease);
-  transition-delay: calc(var(--i, 0) * var(--roll-step, 14ms));
-}
-:is(a, button, [data-roll]):is(:hover, :focus-visible) .roll-c { transform: translateY(calc(-1 * var(--roll-d))); }
-
-/* 3. Magnetic pull, lift and press --------------------------------------------------
-   interact.js writes --mag-x/--mag-y; :hover rules set --lift. Both feed the CSS
-   translate property, which adds to GSAP's transform instead of replacing it. */
-.btn, .wa-float, .chip, .icon-link, .motion-toggle, .sound-toggle, .nav-toggle, [data-magnetic] {
-  translate: var(--mag-x, 0px) calc(var(--mag-y, 0px) + var(--lift, 0px));
-  transition: translate 0.6s cubic-bezier(0.22, 1.5, 0.36, 1), scale 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.is-magnet { transition-duration: 0.18s, 0.45s; }
-html.film .chip:active { scale: 0.93; transition-duration: 0.6s, 0.12s; }
-html.film .chip:has(input:checked), html.film .chip[aria-pressed="true"] { animation: chip-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
-@keyframes chip-pop { 0% { scale: 0.9; } 60% { scale: 1.06; } 100% { scale: 1; } }
-/* Touch: no hover physics, a short press instead. */
-@media (hover: none) {
-  .btn:active, .chip:active, .icon-link:active, .wa-float:active, .sound-toggle:active,
-  .motion-toggle:active, .nav-toggle:active, [data-press]:active { scale: 0.96; transition-duration: 0.6s, 0.1s; }
-  [data-press] { transition: scale 0.3s var(--ease); }
-}
-
-/* 4. Tilt, sheen and depth (interact.js) ------------------------------------------------ */
+/* 5. Magnetic pull (the hero CTA only, ≤ 6 px) and the Partners tier tilt (≤ 4°).
+   interact.js writes --mag-x/--mag-y into the CSS translate property, which adds to
+   (never fights) GSAP's transform. */
+[data-magnetic] { translate: var(--mag-x, 0px) var(--mag-y, 0px); transition: translate .5s cubic-bezier(.22,1.4,.36,1); }
+[data-magnetic].is-magnet { transition-duration: .18s; }
 .fx-rel { position: relative; }
-.fx-tilt { transition: rotate 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
-.fx-tilt.is-tilting { transition-duration: 0.2s; }
-.fx-tilt.has-depth { transform-style: preserve-3d; }
-.fx-tilt [data-depth] { transition: translate 0.6s var(--ease); }
-.fx-tilt.is-tilting [data-depth] { translate: 0 0 var(--depth, 24px); }
-.fx-sheen { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; }
-.fx-sheen__glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), var(--sheen, rgba(212, 175, 55, 0.16)), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.45s var(--ease);
-}
-.fx-tilt.is-tilting .fx-sheen__glow { opacity: 1; }
-
-/* 5. Shared 3D panel: a layered offset edge and a gold depth shadow. Usable by any
-   page (<div class="panel-3d">); it tilts automatically. Children may take
-   data-depth="px" to lift while it tilts. */
-.panel-3d {
-  position: relative;
-  padding: var(--space-l);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  background: var(--surface);
-  /* The offset edge (--panel-offset, base.css) takes no layout space; .stack adds it above a sibling. */
-  box-shadow:
-    var(--panel-offset) var(--panel-offset) 0 -1px var(--bg),
-    var(--panel-offset) var(--panel-offset) 0 0 var(--panel-edge, rgba(212, 175, 55, 0.55)),
-    0 36px 70px -32px var(--panel-depth, rgba(212, 175, 55, 0.16));
-}
-@media (max-width: 759px) { .panel-3d { padding: var(--space-m); } }
-
-/* 6. Inputs: a focus glow (set, not animated). */
-.input:focus-visible, .select:focus-visible, .textarea:focus-visible,
-.input:focus, .select:focus, .textarea:focus {
-  outline: 2px solid var(--focus);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--focus) 20%, transparent), 0 0 32px -6px color-mix(in srgb, var(--focus) 55%, transparent);
-}
-.input[aria-invalid="true"]:focus, .select[aria-invalid="true"]:focus, .textarea[aria-invalid="true"]:focus {
-  box-shadow: inset 0 0 0 1px var(--error), 0 0 0 5px color-mix(in srgb, var(--error) 22%, transparent);
+.fx-tilt { transition: rotate .8s cubic-bezier(.22,1,.36,1); }
+.fx-tilt.is-tilting { transition-duration: .2s; }
+@media (hover: none) {
+  .btn:active, .chip:active, .row:where(a, button):active { scale: .98; transition: scale .1s linear; }
 }
 
-/* 7. Cursor ring morph (cursor.js): grow over links, a bar over text inputs, a label over cards. */
-.cursor-ring::before { transition: transform 0.35s var(--ease), opacity 0.2s linear; }
-.cursor-ring::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;
-  height: 26px;
-  margin: -13px 0 0 -1px;
-  background: var(--accent);
-  opacity: 0;
-  transform: scaleY(0.3);
-  transition: transform 0.3s var(--ease), opacity 0.2s linear;
+/* 6. Cursor ring (C39): 32 px, 1.9× over links and rows, fine pointer only.
+   The native cursor stays. */
+.cursor-ring {
+  position: fixed; left: 0; top: 0; z-index: var(--z-cursor); width: 32px; height: 32px; margin: -16px 0 0 -16px;
+  pointer-events: none; opacity: 0; transition: opacity .2s linear;
 }
-.cursor-ring.is-text::before { transform: scale(0.3); opacity: 0; }
-.cursor-ring.is-text::after { transform: none; opacity: 1; }
-.cursor-ring.is-label::before { transform: scale(var(--ring-label-scale, 2.5)); } /* cursor.js fits it to the label */
-.cursor-ring__label {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  font: 600 10px/1 var(--font-ui);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--accent);
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.6);
-  transition: transform 0.3s var(--ease), opacity 0.2s linear;
+.cursor-ring::before {
+  content: ""; position: absolute; inset: 0; border: 1.5px solid var(--accent); border-radius: 50%;
+  transition: transform .25s var(--ease-out);
 }
-.cursor-ring.is-label .cursor-ring__label { opacity: 1; transform: translate(-50%, -50%); }
+.cursor-ring.is-visible { opacity: .9; }
+.cursor-ring.is-hover::before { transform: scale(1.9); }
+.cursor-ring.is-down::before { transform: scale(.85); }
+@media (hover: none), (pointer: coarse) { .cursor-ring { display: none; } }
 
-/* 8. Sound toggle (chrome.js renders it, sfx.js wires it): pressed = sound on. */
-.sound-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0;
-  background: none;
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  color: var(--fg);
-  font: 500 0.875rem var(--font-ui);
-}
-.sound-toggle[aria-pressed="false"] { border-style: dashed; }
-.sound-toggle[aria-pressed="true"] .sound-toggle__off,
-.sound-toggle[aria-pressed="false"] .sound-toggle__on { display: none; }
-.sound-toggle--bar .sound-toggle__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.sound-toggle--menu { justify-content: flex-start; padding: 0 18px; border-color: rgba(243, 236, 221, 0.42); }
-.site-nav__toggles { display: flex; flex-wrap: wrap; gap: var(--space-s); }
-@media (min-width: 760px) { .sound-toggle--menu { display: none !important; } }
-@media (max-width: 759px) { .sound-toggle--bar { display: none !important; } }
-
-/* 9. Static globe (globe-fallback.js): Save-Data, no WebGL. */
-.globe-fallback {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 2;
-  overflow: visible;
-  pointer-events: none;
-  color: var(--accent);
-  fill: none;
-  stroke: currentColor;
-  opacity: 0.55;
-  transform-origin: 50% 50%;
-}
-.globe-fallback * { stroke-width: 1px; vector-effect: non-scaling-stroke; }
-.globe-fallback .globe-fallback__dot { fill: currentColor; stroke: none; }
-html:not(.film) .globe-fallback {
-  left: auto;
-  right: 4vw;
-  z-index: 0;
-  width: min(36vw, 460px);
-  height: auto;
-  aspect-ratio: 1;
-  transform: translateY(-50%);
-  opacity: 0.35;
-}
-
-/* 10. Motion safety: none of the pointer physics in flow / reduced-motion mode. */
-html:not(.film) .fx-sheen { display: none; }
-html:not(.film) .roll-c { transform: none !important; text-shadow: none; }
-/* Forced colours (Windows High Contrast) drop text-shadow, the roll's incoming copy:
-   keep each letter in place so a hovered or focused label never goes blank. */
-@media (forced-colors: active) {
-  .roll-c { transform: none !important; transition: none; }
-}
+/* 7. Motion safety: no pointer physics, floods or widening without motion. */
 @media (prefers-reduced-motion: reduce) {
   .fx-tilt { rotate: none !important; }
-  .chip, .btn, .wa-float { translate: none !important; }
+  [data-magnetic] { translate: none !important; }
 }
+html.rm .fx-tilt { rotate: none !important; }
+html.rm [data-magnetic] { translate: none !important; }
+html.rm :is(.row:where(a, button), .door), html.rm .door::before, html.rm .row:where(a, button)::before { transition: none; }
+html:is(.rm, :not(.film)) .cursor-ring { display: none; }

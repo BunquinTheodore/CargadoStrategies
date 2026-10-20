@@ -1,79 +1,62 @@
 /**
- * Cursor physics (Round 3): magnetic controls and 3D tilt cards.
+ * Pointer physics, Round 5 (DIRECTION §4.4): only three survive.
  *
- * Magnetic: buttons, chips, icon buttons, the WhatsApp float and anything with
- * [data-magnetic] lean toward the pointer. Written to --mag-x/--mag-y, which
- * base.css feeds into the CSS `translate` property, so it adds to (never
- * fights) GSAP's `transform`.
+ * 1. Magnetic pull on the hero CTA only ([data-magnetic], ≤ 6 px). Written to
+ *    --mag-x/--mag-y, which fx.css feeds into the CSS `translate` property, so
+ *    it adds to (never fights) GSAP's `transform`.
+ * 2. Row flood helpers: a row floods from the edge the pointer came in by
+ *    (--flood-from on the row; fx.css §2 does the flood itself).
+ * 3. The Partners tier panels (.tier) tilt toward the pointer, ≤ 4°, desktop.
+ * The arrow nudge is pure CSS (base.css .btn__arrow, fx.css .row__arrow).
  *
- * Tilt: [data-tilt] and the card classes in TILT turn toward the pointer with
- * the CSS `rotate` property (axis + angle) under a perspective set on their
- * parent; [data-depth="px"] children lift by translateZ while tilting, and a
- * spotlight sheen follows the pointer through --mx/--my.
- *
- * GSAP 3.12 folds the CSS translate/rotate/scale properties into `transform`
- * and writes them inline as `none` on every element it tweens. That reset would
- * cancel the pull and the lift on a scroll-animated element, so it is lifted
- * while the effect runs and put back afterwards (see liftReset). Wrapping such
- * an element is still the cleaner choice (ENGINE.md §11).
- *
- * Fine pointers in film mode only. Touch gets pressed-state feedback in CSS;
- * reduced motion and the "Pause animation" flow mode get neither.
+ * GSAP 3.12 writes `translate`/`rotate` inline as `none` on every element it
+ * tweens; that reset is lifted while an effect runs and put back afterwards.
+ * Rects are read on pointerenter and cached per element until the next cut or
+ * resize (one pointer hub, cached rects: DIRECTION §12). Fine pointers in cut
+ * mode only; touch gets pressed states in CSS; flow mode and html.rm get none.
  */
-import { finePointer, onIdle } from './perf.js';
+import { finePointer } from './perf.js';
 
-const MAGNETIC = '[data-magnetic], .btn, .wa-float, .chip, .icon-link, .motion-toggle, .sound-toggle, .nav-toggle';
-const MAGNETIC_SKIP = '[data-magnetic="none"], .btn--block, .phone-bar *';
-const MAG_STRENGTH = 0.28; // share of the pointer's offset from the centre
-const MAG_MAX_PX = 10;
-const CHIP_STRENGTH = 0.18;
-export const TILT = '[data-tilt], .panel-3d, .partner-card, .tile, .tier, .ticket, .offer, .intro, .inquiry-panel, .legal-panel, .vframe';
+const MAGNETIC = '[data-magnetic]';
+const MAGNETIC_SKIP = '[data-magnetic="none"]';
+const MAG_STRENGTH = 0.2; // share of the pointer's offset from the centre
+const MAG_MAX_PX = 6;
+const ROW = '.row:is(a, button)';
+const TILT = '.tier';
 const TILT_SKIP = '[data-tilt="none"]';
-const TILT_MAX_DEG = 7;
+const TILT_MAX_DEG = 4;
 const TILT_MIN_DEG = 1.2;
-const TILT_REF_PX = 360; // cards this wide get the full angle; wider ones tilt less
+const TILT_REF_PX = 360; // panels this wide get the full angle; wider ones tilt less
 const PERSPECTIVE_PX = 1000;
-const DEFAULT_DEPTH_PX = 24;
+const WIDE_QUERY = '(min-width: 760px)';
 const TYPING = 'input:not([type="checkbox"]):not([type="radio"]), select, textarea';
-const GSAP_RESET = 'none'; // what GSAP writes inline on translate/rotate/scale of an element it transforms
-const MAGNET_PROPS = ['translate', 'scale'];
-const DEPTH_PROPS = ['translate'];
-const TILT_PROPS = ['rotate'];
+const GSAP_RESET = 'none';
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
 
 /* ---------- GSAP's inline reset ---------- */
 
-/** Remove GSAP's inline `none` from these properties while an effect needs them (cheap when absent). */
-function liftReset(el, props) {
-  props.forEach((prop) => {
-    if (el.style[prop] !== GSAP_RESET) return;
-    el.style.removeProperty(prop);
-    if (!el._fxReset) el._fxReset = new Set();
-    el._fxReset.add(prop);
-  });
+function liftReset(el, prop) {
+  if (el.style[prop] !== GSAP_RESET) return;
+  el.style.removeProperty(prop);
+  (el.csFxReset ||= new Set()).add(prop);
 }
-
-/** Put GSAP's reset back once the effect is over, so its view of the element never changes. */
 function restoreReset(el) {
-  if (!el._fxReset?.size) return;
-  el._fxReset.forEach((prop) => { el.style[prop] = GSAP_RESET; });
-  el._fxReset.clear();
+  if (!el.csFxReset?.size) return;
+  el.csFxReset.forEach((prop) => { el.style[prop] = GSAP_RESET; });
+  el.csFxReset.clear();
 }
 
-/* ---------- magnetic ---------- */
+/* ---------- 1 · magnetic ---------- */
 
-function magnetize(el, x, y) {
-  liftReset(el, MAGNET_PROPS);
-  const r = el.getBoundingClientRect();
-  const k = el.matches('.chip') ? CHIP_STRENGTH : MAG_STRENGTH;
-  const dx = clamp((x - (r.left + r.width / 2)) * k, -MAG_MAX_PX, MAG_MAX_PX);
-  const dy = clamp((y - (r.top + r.height / 2)) * k, -MAG_MAX_PX, MAG_MAX_PX);
+function magnetize(el, x, y, r) {
+  liftReset(el, 'translate');
+  const dx = clamp((x - (r.left + r.width / 2)) * MAG_STRENGTH, -MAG_MAX_PX, MAG_MAX_PX);
+  const dy = clamp((y - (r.top + r.height / 2)) * MAG_STRENGTH, -MAG_MAX_PX, MAG_MAX_PX);
   el.style.setProperty('--mag-x', `${dx.toFixed(1)}px`);
   el.style.setProperty('--mag-y', `${dy.toFixed(1)}px`);
   el.classList.add('is-magnet');
 }
-
 function releaseMagnet(el) {
   if (!el) return;
   el.style.removeProperty('--mag-x');
@@ -82,77 +65,66 @@ function releaseMagnet(el) {
   restoreReset(el);
 }
 
-/* ---------- tilt ---------- */
+/* ---------- 2 · row flood ---------- */
 
-function addSheen(el) {
-  const sheen = document.createElement('span');
-  sheen.className = 'fx-sheen';
-  sheen.setAttribute('aria-hidden', 'true');
-  sheen.innerHTML = '<span class="fx-sheen__glow"></span>';
-  el.appendChild(sheen);
+/** Flood from the edge nearest to where the pointer entered: top or bottom. */
+export function setFloodFrom(row, clientY) {
+  const r = row.getBoundingClientRect();
+  row.style.setProperty('--flood-from', clientY - r.top < r.height / 2 ? '50% 0%' : '50% 100%');
 }
 
-/** Once per card: classes, parent perspective, sheen layer, depth children. */
+/* ---------- 3 · tier tilt ---------- */
+
 function setupTilt(el) {
-  if (el._tilt) return;
-  el._tilt = true;
+  if (el.csTilt) return;
+  el.csTilt = true;
   el.classList.add('fx-tilt');
   if (getComputedStyle(el).position === 'static') el.classList.add('fx-rel');
   const parent = el.parentElement;
   if (parent && getComputedStyle(parent).perspective === 'none') parent.style.perspective = `${PERSPECTIVE_PX}px`;
-  el._depthLayers = Array.from(el.querySelectorAll('[data-depth]'));
-  el._depthLayers.forEach((d) => d.style.setProperty('--depth', `${parseFloat(d.dataset.depth) || DEFAULT_DEPTH_PX}px`));
-  el.classList.toggle('has-depth', el._depthLayers.length > 0);
-  addSheen(el);
 }
-
-/**
- * Set every card up when the browser is idle, not on its first hover: the
- * parent perspective then shapes the scroll reveals the same way from the start.
- * Cards rendered later are set up on their first hover.
- */
-function prepareTilts() {
-  document.querySelectorAll(TILT).forEach((el) => {
-    if (!el.matches(TILT_SKIP)) setupTilt(el);
-  });
-}
-
-function tilt(el, x, y) {
+function tilt(el, x, y, r) {
   setupTilt(el);
-  liftReset(el, TILT_PROPS);
-  el._depthLayers.forEach((d) => liftReset(d, DEPTH_PROPS));
-  const r = el.getBoundingClientRect();
+  liftReset(el, 'rotate');
   const nx = clamp((x - r.left) / r.width, 0, 1);
   const ny = clamp((y - r.top) / r.height, 0, 1);
   const max = clamp(TILT_MAX_DEG * (TILT_REF_PX / Math.max(1, r.width)), TILT_MIN_DEG, TILT_MAX_DEG);
   const typing = !!el.querySelector(`:is(${TYPING}):focus`);
-  const ax = typing ? 0 : (0.5 - ny) * 2 * max; // rotateX: top edge toward the viewer when the pointer is high
+  const ax = typing ? 0 : (0.5 - ny) * 2 * max;
   const ay = typing ? 0 : (nx - 0.5) * 2 * max;
   const angle = Math.hypot(ax, ay);
   el.style.rotate = angle > 0.01 ? `${ax.toFixed(3)} ${ay.toFixed(3)} 0 ${angle.toFixed(2)}deg` : '';
-  el.style.setProperty('--mx', `${(nx * 100).toFixed(1)}%`);
-  el.style.setProperty('--my', `${(ny * 100).toFixed(1)}%`);
   el.classList.add('is-tilting');
 }
-
 function releaseTilt(el) {
   if (!el) return;
   el.style.rotate = '';
   el.classList.remove('is-tilting');
   restoreReset(el);
-  el._depthLayers?.forEach(restoreReset);
 }
 
 /* ---------- entry ---------- */
 
 function pick(target, selector, skip) {
   const el = target?.closest?.(selector);
-  return el && !el.matches(skip) ? el : null;
+  return el && !(skip && el.matches(skip)) ? el : null;
 }
 
-export function initInteract({ film }) {
-  if (!film.enabled || !finePointer()) return;
+const motionAllowed = (film) => {
+  const h = document.documentElement;
+  const cut = typeof film?.mode === 'string' ? film.mode === 'cut' : !!film?.enabled;
+  return cut && finePointer() && !h.classList.contains('rm');
+};
+
+export function initInteract({ film } = {}) {
+  if (!motionAllowed(film)) return;
+  const wide = window.matchMedia(WIDE_QUERY);
   const live = { magnet: null, card: null };
+  let cache = new WeakMap();
+  const rect = (el) => {
+    if (!cache.has(el)) cache.set(el, el.getBoundingClientRect());
+    return cache.get(el);
+  };
   let pending = null;
   let frame = 0;
 
@@ -161,12 +133,12 @@ export function initInteract({ film }) {
     if (!pending) return;
     const { target, x, y } = pending;
     const magnet = pick(target, MAGNETIC, MAGNETIC_SKIP);
-    const card = pick(target, TILT, TILT_SKIP);
+    const card = wide.matches ? pick(target, TILT, TILT_SKIP) : null;
     if (magnet !== live.magnet) releaseMagnet(live.magnet);
     if (card !== live.card) releaseTilt(live.card);
     Object.assign(live, { magnet, card });
-    if (magnet) magnetize(magnet, x, y);
-    if (card) tilt(card, x, y);
+    if (magnet) magnetize(magnet, x, y, rect(magnet));
+    if (card) tilt(card, x, y, rect(card));
   }
 
   function releaseAll() {
@@ -174,15 +146,25 @@ export function initInteract({ film }) {
     releaseMagnet(live.magnet);
     releaseTilt(live.card);
     Object.assign(live, { magnet: null, card: null });
+    cache = new WeakMap();
   }
 
   document.addEventListener('pointermove', (e) => {
     if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+    if (!live.magnet && !live.card && !e.target?.closest?.(`${MAGNETIC}, ${TILT}`)) return;
     pending = { target: e.target, x: e.clientX, y: e.clientY };
     if (!frame) frame = requestAnimationFrame(update);
   }, { passive: true });
+  document.addEventListener('pointerover', (e) => {
+    const row = e.target?.closest?.(ROW);
+    if (row && !row.contains(e.relatedTarget)) setFloodFrom(row, e.clientY);
+    if (live.magnet || live.card) {
+      pending = { target: e.target, x: e.clientX, y: e.clientY };
+      if (!frame) frame = requestAnimationFrame(update);
+    }
+  }, { passive: true });
   document.documentElement.addEventListener('pointerleave', releaseAll);
   window.addEventListener('blur', releaseAll);
-  film.on('scene', releaseAll);
-  film.ready.then(() => onIdle(prepareTilts));
+  window.addEventListener('resize', releaseAll, { passive: true });
+  if (typeof film.on === 'function') film.on('cut', releaseAll);
 }

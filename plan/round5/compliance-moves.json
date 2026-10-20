@@ -1,0 +1,158 @@
+{
+  "source": "plan/round5/DIRECTION.md §10 \"Compliance moves (the complete list; nothing else may change wording)\", old text from compliance-baseline.json, specText from §6.5/§7",
+  "generated": "2026-10-18",
+  "moves": [
+    {
+      "n": 1,
+      "item": "Home finder notice",
+      "old": {
+        "page": "index.html",
+        "location": "section#find .notice",
+        "text": "Sorted by distance only. Partners are independent, and a listing is not a recommendation. Cargado Strategies may receive a commission when a referral becomes a client."
+      },
+      "new": {
+        "page": "index.html",
+        "location": "H5 #find .fineprint",
+        "wording": "verbatim",
+        "specText": "Partners are independent businesses, and a listing is not a recommendation. Cargado Strategies may receive a commission when a referral becomes a client. Details →"
+      },
+      "flag": "CONFLICT: §10 move 1 says verbatim, but the §7.1 H5 fine print drops the lead \"Sorted by distance only.\" and rewords \"Partners are independent,\" to \"Partners are independent businesses,\". Verbatim (§10, the fixed constraint) should win: keep the old text exactly; \"Details →\" is a link, not notice wording."
+    },
+    {
+      "n": 2,
+      "item": "Story #network notice",
+      "old": {
+        "page": "story.html",
+        "location": "section#network .notice",
+        "text": "Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission when a referral becomes a client."
+      },
+      "new": {
+        "page": "story.html",
+        "location": "T4 #values (alias network) fine print",
+        "wording": "verbatim",
+        "specText": "**Independent partners.** Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission when a referral becomes a client."
+      },
+      "keepStrongLead": "Independent partners."
+    },
+    {
+      "n": 3,
+      "item": "The two Partners #apply notices",
+      "old": {
+        "page": "partners.html",
+        "location": "section#apply aside.apply__aside .notice ×2 (in this order)",
+        "text": [
+          "Commission. Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. [Commission terms to be confirmed by counsel]",
+          "Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement."
+        ]
+      },
+      "new": {
+        "page": "partners.html",
+        "location": "P5 #apply final stepper step, one fine-print block",
+        "wording": "verbatim, both, in order",
+        "specText": "**Commission.** Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. [Commission terms to be confirmed by counsel] **Independent partners.** Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement."
+      },
+      "keepStrongLead": [
+        "Commission.",
+        "Independent partners."
+      ]
+    },
+    {
+      "n": 4,
+      "item": "Partners #arrangement notice",
+      "old": {
+        "page": "partners.html",
+        "location": "section#arrangement .notice",
+        "text": "Commission terms [to be confirmed by counsel]. Referral fees are restricted for some professions in some provinces, so terms are set for each profession and province before launch. Partners are independent businesses, each responsible for their own licence and advice."
+      },
+      "new": {
+        "page": "partners.html",
+        "location": "P2 #how (alias arrangement) fine print",
+        "wording": "verbatim",
+        "specText": "**Commission terms [to be confirmed by counsel].** Referral fees are restricted for some professions in some provinces, so terms are set for each profession and province before launch. Partners are independent businesses, each responsible for their own licence and advice."
+      },
+      "keepStrongLead": "Commission terms [to be confirmed by counsel]."
+    },
+    {
+      "n": 5,
+      "item": "Hero city hint and send note",
+      "old": {
+        "page": "index.html",
+        "location": "section#hero .hint ×2",
+        "text": [
+          "We ask for your city only so we can introduce you to someone close to you.",
+          "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+        ]
+      },
+      "new": {
+        "page": "all pages",
+        "location": "C22 #wa-sheet: step 2 hint (city) and step 3 under \"Open WhatsApp →\" (send note)",
+        "wording": "verbatim"
+      }
+    },
+    {
+      "n": 6,
+      "item": "Services outsourcing hint (split)",
+      "old": {
+        "page": "services.html",
+        "location": "section#ours-outsourcing .hint",
+        "text": "Provided by Cargado Strategies itself, not by a partner. Nothing is sent until you tap send."
+      },
+      "new": [
+        {
+          "page": "services.html",
+          "location": "S5 #ours-outsourcing fine print",
+          "wording": "Provided by Cargado Strategies itself, not by a partner."
+        },
+        {
+          "page": "services.html",
+          "location": "C22 #wa-sheet step 3",
+          "wording": "Nothing is sent until you tap send.",
+          "note": "C22 carries it inside \"Opens WhatsApp with your message written. Nothing is sent until you tap send.\""
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "item": "Home founder .offer__fine lines",
+      "old": {
+        "page": "index.html",
+        "location": "section#founder .offer__fine ×3",
+        "text": [
+          "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice.",
+          "Provided by Cargado Strategies itself."
+        ]
+      },
+      "new": {
+        "page": "index.html",
+        "location": "H4 #founder door fine print (01 Protect, 02 Plan, 03 Delegate)",
+        "wording": "verbatim",
+        "map": {
+          "02 Plan": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice.",
+          "03 Delegate": "Provided by Cargado Strategies itself."
+        }
+      }
+    },
+    {
+      "n": 8,
+      "item": "Legal draft band",
+      "old": {
+        "page": "legal.html",
+        "location": "div.legal-draft > p.legal-draft__text (band under the header)",
+        "text": "Draft — to be reviewed by a lawyer in Canada before launch",
+        "markup": "<span class=\"legal-draft__tag\">Draft</span> — to be reviewed by a lawyer in Canada before launch"
+      },
+      "new": {
+        "page": "legal.html",
+        "location": "C38 band under the header, 14 px, ink on #E9DCB8",
+        "wording": "verbatim; the dash is visually hidden",
+        "markup": "<span class=\"legal-draft__tag\">Draft</span><span class=\"visually-hidden\"> — </span>to be reviewed by a lawyer in Canada before launch"
+      },
+      "alsoStays": "The \"Draft for review.\" notice stays first in #contents (L1, as fine print)."
+    }
+  ],
+  "related": {
+    "sendNoteRule": "§10 ledger: \"Nothing is sent until you tap send.\" ×12 → once per page in C22 (step 3) and once under each form's send button (S7, P5). Baseline count of sentence hits: index 2, services 5, story 1, partners 4, legal 1 (13).",
+    "noticesToFineprint": "§10 ledger: boxed .notice callouts → one .fineprint per scene, wording unchanged, <strong> leads kept.",
+    "newLines": "\"We only message from +1 (204) 869 2508\" does not exist in the baseline DOM (0 hits); it is new R5 copy and must then survive word for word."
+  }
+}

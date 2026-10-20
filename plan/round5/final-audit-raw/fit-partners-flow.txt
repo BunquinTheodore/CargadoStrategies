@@ -1,0 +1,27 @@
+. partners.html @ 1920x1080
+. partners.html @ 1536x864
+. partners.html @ 1440x900
+. partners.html @ 1366x768
+. partners.html @ 1280x720
+. partners.html @ 1024x768
+. partners.html @ 768x1024
+. partners.html @ 390x844
+. partners.html @ 360x740
+Fit audit  2026-10-20T02:02:07.029Z  http://localhost:8541/  mode: flow, Round 4 box, states tools/fit-states/partners.mjs, runs 1
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+partners.html          ok        ok        ok        ok        ok        ok        ok        ok        ok
+
+ok   partners.html @ 1920x1080: 7 scenes, all fit [flow]
+ok   partners.html @ 1536x864: 7 scenes, all fit [flow]
+ok   partners.html @ 1440x900: 7 scenes, all fit [flow]
+ok   partners.html @ 1366x768: 7 scenes, all fit [flow]
+ok   partners.html @ 1280x720: 7 scenes, all fit [flow]
+ok   partners.html @ 1024x768: 7 scenes, all fit [flow]
+ok   partners.html @ 768x1024: 7 scenes, all fit [flow]
+ok   partners.html @ 390x844: 7 scenes, all fit [flow]
+ok   partners.html @ 360x740: 7 scenes, all fit [flow]
+
+Every scene fits at every viewport, and every budget holds.
+exit 0

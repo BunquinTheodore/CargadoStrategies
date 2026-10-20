@@ -1,0 +1,425 @@
+Round 5 baseline fit audit (Stage 0 preflight), 2026-10-18
+Source: site/ served by node serve.mjs site 8301; tool: node tools/fit-audit.mjs http://127.0.0.1:8301/ --vp=all [--flow]
+Viewports (all): 1920x1080 1536x864 1440x900 1366x768 1280x720 1024x768 768x1024 390x844 360x740; 5 pages x 9 = 45 page/viewport runs, 378 scene/viewport combinations per mode
+Summary: FILM 123 failing scene/viewport combinations (index 18, services 31, story 13, partners 25, legal 36; 3 of 45 runs all fit); FLOW 180 failing (index 27, services 50, story 18, partners 42, legal 43; 1 of 45 runs all fit)
+
+################ FILM (default mode) ################
+Fit audit  2026-10-18T01:11:21.511Z  http://127.0.0.1:8301/  mode: film, activated, Round 4 box
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+index.html             ok      1/12      1/12      1/12      2/12      1/12      1/12      4/12      7/12
+services.html          ok       2/8       1/8       3/8       4/8       5/8       3/8       6/8       7/8
+story.html             ok       1/7       1/7       1/7       3/7       1/7       1/7       2/7       3/7
+partners.html         1/8       2/8       2/8       3/8       4/8       3/8       1/8       4/8       5/8
+legal.html            2/7       3/7       3/7       3/7       5/7       5/7       4/7       5/7       6/7
+
+ok   index.html @ 1920x1080: 12 scenes, all fit
+FAIL index.html @ 1536x864: 12 scenes, 1 fail
+  - #11 close: Y +221 (content 1009 / box 788)
+FAIL index.html @ 1440x900: 12 scenes, 1 fail
+  - #11 close: Y +176 (content 1000 / box 824)
+FAIL index.html @ 1366x768: 12 scenes, 1 fail
+  - #11 close: Y +284 (content 976 / box 692)
+FAIL index.html @ 1280x720: 12 scenes, 2 fail
+  - #5 founder: Y +79 (content 723 / box 644)
+  - #11 close: Y +313 (content 957 / box 644)
+FAIL index.html @ 1024x768: 12 scenes, 1 fail
+  - #11 close: Y +224 (content 916 / box 692)
+FAIL index.html @ 768x1024: 12 scenes, 1 fail
+  - #7 find: Y +135 (content 1083 / box 948)
+FAIL index.html @ 390x844: 12 scenes, 4 fail
+  - #0 hero: Y +389 (content 1169 / box 780)
+  - #5 founder: Y +443 (content 1223 / box 780)
+  - #7 find: Y +89 (content 869 / box 780)
+  - #11 close: Y +473 (content 1253 / box 780)
+FAIL index.html @ 360x740: 12 scenes, 7 fail
+  - #0 hero: Y +535 (content 1211 / box 676)
+  - #3 compare: Y +105 (content 781 / box 676)
+  - #5 founder: Y +574 (content 1250 / box 676)
+  - #6 services: Y +108 (content 784 / box 676)
+  - #7 find: Y +213 (content 889 / box 676)
+  - #10 faq: Y +76 (content 552 / box 676)
+  - #11 close: Y +568 (content 1244 / box 676)
+ok   services.html @ 1920x1080: 8 scenes, all fit
+FAIL services.html @ 1536x864: 8 scenes, 2 fail
+  - #5 categories: Y +2 (content 790 / box 788)
+  - #7 close: Y +221 (content 1009 / box 788)
+FAIL services.html @ 1440x900: 8 scenes, 1 fail
+  - #7 close: Y +176 (content 1000 / box 824)
+FAIL services.html @ 1366x768: 8 scenes, 3 fail
+  - #5 categories: Y +223 (content 915 / box 692)
+  - #6 inquiry: Y +150 (content 842 / box 692)
+  - #7 close: Y +284 (content 976 / box 692)
+FAIL services.html @ 1280x720: 8 scenes, 4 fail
+  - #2 ours-strategy: Y +125 (content 769 / box 644)
+  - #5 categories: Y +292 (content 936 / box 644)
+  - #6 inquiry: Y +218 (content 862 / box 644)
+  - #7 close: Y +313 (content 957 / box 644)
+FAIL services.html @ 1024x768: 8 scenes, 5 fail
+  - #2 ours-strategy: Y +512 (content 1204 / box 692)
+  - #4 finder: Y +228 (content 920 / box 692)
+  - #5 categories: Y +623 (content 1315 / box 692)
+  - #6 inquiry: Y +499 (content 1191 / box 692)
+  - #7 close: Y +224 (content 916 / box 692)
+FAIL services.html @ 768x1024: 8 scenes, 3 fail
+  - #2 ours-strategy: Y +258 (content 1206 / box 948)
+  - #5 categories: Y +345 (content 1293 / box 948)
+  - #6 inquiry: Y +226 (content 1174 / box 948)
+FAIL services.html @ 390x844: 8 scenes, 6 fail
+  - #2 ours-strategy: Y +826 (content 1606 / box 780)
+  - #3 ours-outsourcing: Y +145 (content 925 / box 780)
+  - #4 finder: Y +574 (content 1354 / box 780)
+  - #5 categories: Y +825 (content 1605 / box 780)
+  - #6 inquiry: Y +743 (content 1523 / box 780)
+  - #7 close: Y +473 (content 1253 / box 780)
+FAIL services.html @ 360x740: 8 scenes, 7 fail
+  - #1 ours-insurance: Y +188 (content 864 / box 676)
+  - #2 ours-strategy: Y +951 (content 1627 / box 676)
+  - #3 ours-outsourcing: Y +249 (content 925 / box 676)
+  - #4 finder: Y +671 (content 1347 / box 676)
+  - #5 categories: Y +1000 (content 1676 / box 676)
+  - #6 inquiry: Y +912 (content 1588 / box 676)
+  - #7 close: Y +568 (content 1244 / box 676)
+ok   story.html @ 1920x1080: 7 scenes, all fit
+FAIL story.html @ 1536x864: 7 scenes, 1 fail
+  - #6 talk: Y +128 (content 916 / box 788)
+FAIL story.html @ 1440x900: 7 scenes, 1 fail
+  - #6 talk: Y +87 (content 911 / box 824)
+FAIL story.html @ 1366x768: 7 scenes, 1 fail
+  - #6 talk: Y +201 (content 893 / box 692)
+FAIL story.html @ 1280x720: 7 scenes, 3 fail
+  - #1 beginning: Y +96 (content 740 / box 644)
+  - #4 values: Y +80 (content 724 / box 644)
+  - #6 talk: Y +238 (content 882 / box 644)
+FAIL story.html @ 1024x768: 7 scenes, 1 fail
+  - #6 talk: Y +171 (content 863 / box 692)
+FAIL story.html @ 768x1024: 7 scenes, 1 fail
+  - #6 talk: Y +150 (content 1098 / box 948)
+FAIL story.html @ 390x844: 7 scenes, 2 fail
+  - #4 values: Y +164 (content 944 / box 780)
+  - #6 talk: Y +452 (content 1232 / box 780)
+FAIL story.html @ 360x740: 7 scenes, 3 fail
+  - #1 beginning: Y +94 (content 770 / box 676)
+  - #4 values: Y +268 (content 944 / box 676)
+  - #6 talk: Y +547 (content 1223 / box 676)
+FAIL partners.html @ 1920x1080: 8 scenes, 1 fail
+  - #6 apply: Y +1052 (content 2056 / box 1004)
+FAIL partners.html @ 1536x864: 8 scenes, 2 fail
+  - #6 apply: Y +1267 (content 2055 / box 788)
+  - #7 close: Y +137 (content 925 / box 788)
+FAIL partners.html @ 1440x900: 8 scenes, 2 fail
+  - #6 apply: Y +1229 (content 2053 / box 824)
+  - #7 close: Y +96 (content 920 / box 824)
+FAIL partners.html @ 1366x768: 8 scenes, 3 fail
+  - #0 hero: Y +114 (content 806 / box 692)
+  - #6 apply: Y +1374 (content 2066 / box 692)
+  - #7 close: Y +207 (content 899 / box 692)
+FAIL partners.html @ 1280x720: 8 scenes, 4 fail
+  - #0 hero: Y +145 (content 789 / box 644)
+  - #1 how: Y +53 (content 697 / box 644)
+  - #6 apply: Y +1442 (content 2086 / box 644)
+  - #7 close: Y +239 (content 883 / box 644)
+FAIL partners.html @ 1024x768: 8 scenes, 3 fail
+  - #3 tiers: Y +239 (content 931 / box 692)
+  - #6 apply: Y +1921 (content 2613 / box 692)
+  - #7 close: Y +97 (content 789 / box 692)
+FAIL partners.html @ 768x1024: 8 scenes, 1 fail
+  - #6 apply: Y +1703 (content 2651 / box 948)
+FAIL partners.html @ 390x844: 8 scenes, 4 fail
+  - #2 arrangement: Y +289 (content 1069 / box 780)
+  - #3 tiers: Y +384 (content 1164 / box 780)
+  - #6 apply: Y +2645 (content 3425 / box 780)
+  - #7 close: Y +434 (content 1214 / box 780)
+FAIL partners.html @ 360x740: 8 scenes, 5 fail
+  - #0 hero: Y +138 (content 814 / box 676)
+  - #2 arrangement: Y +444 (content 1120 / box 676)
+  - #3 tiers: Y +533 (content 1209 / box 676)
+  - #6 apply: Y +2790 (content 3466 / box 676)
+  - #7 close: Y +529 (content 1205 / box 676)
+FAIL legal.html @ 1920x1080: 7 scenes, 2 fail
+  - #2 privacy: scroll-y +103 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 961 / box 961)
+  - #6 close: Y +108 (content 1069 / box 961)
+FAIL legal.html @ 1536x864: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +319 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 745 / box 745)
+  - #3 terms: scroll-y +68 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 745 / box 745)
+  - #6 close: Y +295 (content 1040 / box 745)
+FAIL legal.html @ 1440x900: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +283 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 781 / box 781)
+  - #3 terms: scroll-y +32 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 781 / box 781)
+  - #6 close: Y +250 (content 1031 / box 781)
+FAIL legal.html @ 1366x768: 7 scenes, 3 fail
+  - #2 privacy: scroll-y +415 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 649 / box 649)
+  - #3 terms: scroll-y +164 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 649 / box 649)
+  - #6 close: Y +358 (content 1007 / box 649)
+FAIL legal.html @ 1280x720: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +98 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 601 / box 601)
+  - #2 privacy: scroll-y +463 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 601 / box 601)
+  - #3 terms: scroll-y +212 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 601 / box 601)
+  - #4 conduct: scroll-y +33 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 601 / box 601)
+  - #6 close: Y +387 (content 988 / box 601)
+FAIL legal.html @ 1024x768: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +159 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 649 / box 649)
+  - #2 privacy: scroll-y +469 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 649 / box 649)
+  - #3 terms: scroll-y +245 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 649 / box 649)
+  - #4 conduct: scroll-y +25 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 649 / box 649)
+  - #6 close: Y +297 (content 946 / box 649)
+FAIL legal.html @ 768x1024: 7 scenes, 4 fail
+  - #1 disclosure: scroll-y +66 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 905 / box 905)
+  - #2 privacy: scroll-y +376 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 905 / box 905)
+  - #3 terms: scroll-y +125 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 905 / box 905)
+  - #6 close: Y +96 (content 1001 / box 905)
+FAIL legal.html @ 390x844: 7 scenes, 5 fail
+  - #1 disclosure: scroll-y +299 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 731 / box 731)
+  - #2 privacy: scroll-y +545 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 731 / box 731)
+  - #3 terms: scroll-y +312 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 731 / box 731)
+  - #4 conduct: scroll-y +65 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 731 / box 731)
+  - #6 close: Y +548 (content 1279 / box 731)
+FAIL legal.html @ 360x740: 7 scenes, 6 fail
+  - #0 contents: Y +86 (content 713 / box 627)
+  - #1 disclosure: scroll-y +505 div.scene__scroll.legal-panel__face "Cargado Strategies connects " (content 627 / box 627)
+  - #2 privacy: scroll-y +675 div.scene__scroll.legal-panel__face "Information We CollectYour n" (content 627 / box 627)
+  - #3 terms: scroll-y +442 div.scene__scroll.legal-panel__face "General InformationThis webs" (content 627 / box 627)
+  - #4 conduct: scroll-y +194 div.scene__scroll.legal-panel__face "Describe your licence, crede" (content 627 / box 627)
+  - #6 close: Y +644 (content 1271 / box 627)
+
+123 scene/viewport combinations fail.
+
+################ FLOW (--flow, reduced-motion) ################
+Fit audit  2026-10-18T01:11:47.909Z  http://127.0.0.1:8301/  mode: flow, Round 4 box
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+index.html           1/12      3/12      2/12      4/12      4/12      2/12      1/12      4/12      6/12
+services.html         1/8       5/8       4/8       8/8       8/8       7/8       3/8       6/8       8/8
+story.html             ok       2/7       1/7       3/7       4/7       2/7       1/7       2/7       3/7
+partners.html         2/8       5/8       3/8       8/8       8/8       5/8       1/8       4/8       6/8
+legal.html            2/7       6/7       3/7       6/7       6/7       6/7       3/7       5/7       6/7
+
+FAIL index.html @ 1920x1080: 12 scenes, 1 fail [flow]
+  - #11 close: Y +45 (content 1125 / box 1080)
+FAIL index.html @ 1536x864: 12 scenes, 3 fail [flow]
+  - #5 founder: Y +16 (content 880 / box 864)
+  - #7 find: Y +101 (content 965 / box 864)
+  - #11 close: Y +247 (content 1111 / box 864)
+FAIL index.html @ 1440x900: 12 scenes, 2 fail [flow]
+  - #7 find: Y +45 (content 945 / box 900)
+  - #11 close: Y +182 (content 1082 / box 900)
+FAIL index.html @ 1366x768: 12 scenes, 4 fail [flow]
+  - #0 hero: Y +90 (content 858 / box 768)
+  - #5 founder: Y +115 (content 883 / box 768)
+  - #7 find: Y +81 (content 849 / box 768)
+  - #11 close: Y +288 (content 1056 / box 768)
+FAIL index.html @ 1280x720: 12 scenes, 4 fail [flow]
+  - #0 hero: Y +125 (content 845 / box 720)
+  - #5 founder: Y +137 (content 857 / box 720)
+  - #7 find: Y +66 (content 786 / box 720)
+  - #11 close: Y +306 (content 1026 / box 720)
+FAIL index.html @ 1024x768: 12 scenes, 2 fail [flow]
+  - #5 founder: Y +12 (content 780 / box 768)
+  - #11 close: Y +167 (content 935 / box 768)
+FAIL index.html @ 768x1024: 12 scenes, 1 fail [flow]
+  - #7 find: Y +102 (content 1126 / box 1024)
+FAIL index.html @ 390x844: 12 scenes, 4 fail [flow]
+  - #0 hero: Y +397 (content 1241 / box 844)
+  - #5 founder: Y +411 (content 1255 / box 844)
+  - #7 find: Y +57 (content 901 / box 844)
+  - #11 close: Y +365 (content 1209 / box 844)
+FAIL index.html @ 360x740: 12 scenes, 6 fail [flow]
+  - #0 hero: Y +543 (content 1283 / box 740)
+  - #3 compare: Y +73 (content 813 / box 740)
+  - #5 founder: Y +542 (content 1282 / box 740)
+  - #6 services: Y +76 (content 816 / box 740)
+  - #7 find: Y +181 (content 921 / box 740)
+  - #11 close: Y +470 (content 1210 / box 740)
+FAIL services.html @ 1920x1080: 8 scenes, 1 fail [flow]
+  - #7 close: Y +45 (content 1125 / box 1080)
+FAIL services.html @ 1536x864: 8 scenes, 5 fail [flow]
+  - #2 ours-strategy: Y +59 (content 923 / box 864)
+  - #4 finder: Y +70 (content 934 / box 864)
+  - #5 categories: Y +178 (content 1042 / box 864)
+  - #6 inquiry: Y +158 (content 1022 / box 864)
+  - #7 close: Y +247 (content 1111 / box 864)
+FAIL services.html @ 1440x900: 8 scenes, 4 fail [flow]
+  - #4 finder: Y +12 (content 912 / box 900)
+  - #5 categories: Y +125 (content 1025 / box 900)
+  - #6 inquiry: Y +105 (content 1005 / box 900)
+  - #7 close: Y +182 (content 1082 / box 900)
+FAIL services.html @ 1366x768: 8 scenes, 8 fail [flow]
+  - #0 intro: Y +15 (content 783 / box 768)
+  - #1 ours-insurance: Y +49 (content 817 / box 768)
+  - #2 ours-strategy: Y +136 (content 904 / box 768)
+  - #3 ours-outsourcing: Y +52 (content 820 / box 768)
+  - #4 finder: Y +124 (content 892 / box 768)
+  - #5 categories: Y +297 (content 1065 / box 768)
+  - #6 inquiry: Y +224 (content 992 / box 768)
+  - #7 close: Y +288 (content 1056 / box 768)
+FAIL services.html @ 1280x720: 8 scenes, 8 fail [flow]
+  - #0 intro: Y +38 (content 758 / box 720)
+  - #1 ours-insurance: Y +76 (content 796 / box 720)
+  - #2 ours-strategy: Y +183 (content 903 / box 720)
+  - #3 ours-outsourcing: Y +82 (content 802 / box 720)
+  - #4 finder: Y +125 (content 845 / box 720)
+  - #5 categories: Y +351 (content 1071 / box 720)
+  - #6 inquiry: Y +277 (content 997 / box 720)
+  - #7 close: Y +306 (content 1026 / box 720)
+FAIL services.html @ 1024x768: 8 scenes, 7 fail [flow]
+  - #0 intro: Y +49 (content 817 / box 768)
+  - #1 ours-insurance: Y +52 (content 820 / box 768)
+  - #2 ours-strategy: Y +524 (content 1292 / box 768)
+  - #4 finder: Y +240 (content 1008 / box 768)
+  - #5 categories: Y +635 (content 1403 / box 768)
+  - #6 inquiry: Y +512 (content 1280 / box 768)
+  - #7 close: Y +167 (content 935 / box 768)
+FAIL services.html @ 768x1024: 8 scenes, 3 fail [flow]
+  - #2 ours-strategy: Y +224 (content 1248 / box 1024)
+  - #5 categories: Y +311 (content 1335 / box 1024)
+  - #6 inquiry: Y +192 (content 1216 / box 1024)
+FAIL services.html @ 390x844: 8 scenes, 6 fail [flow]
+  - #2 ours-strategy: Y +794 (content 1638 / box 844)
+  - #3 ours-outsourcing: Y +113 (content 957 / box 844)
+  - #4 finder: Y +542 (content 1386 / box 844)
+  - #5 categories: Y +793 (content 1637 / box 844)
+  - #6 inquiry: Y +711 (content 1555 / box 844)
+  - #7 close: Y +365 (content 1209 / box 844)
+FAIL services.html @ 360x740: 8 scenes, 8 fail [flow]
+  - #0 intro: Y +61 (content 801 / box 740)
+  - #1 ours-insurance: Y +156 (content 896 / box 740)
+  - #2 ours-strategy: Y +919 (content 1659 / box 740)
+  - #3 ours-outsourcing: Y +217 (content 957 / box 740)
+  - #4 finder: Y +639 (content 1379 / box 740)
+  - #5 categories: Y +968 (content 1708 / box 740)
+  - #6 inquiry: Y +880 (content 1620 / box 740)
+  - #7 close: Y +470 (content 1210 / box 740)
+ok   story.html @ 1920x1080: 7 scenes, all fit [flow]
+FAIL story.html @ 1536x864: 7 scenes, 2 fail [flow]
+  - #1 beginning: Y +53 (content 917 / box 864)
+  - #6 talk: Y +154 (content 1018 / box 864)
+FAIL story.html @ 1440x900: 7 scenes, 1 fail [flow]
+  - #6 talk: Y +93 (content 993 / box 900)
+FAIL story.html @ 1366x768: 7 scenes, 3 fail [flow]
+  - #1 beginning: Y +137 (content 905 / box 768)
+  - #3 logo: Y +2 (content 770 / box 768)
+  - #6 talk: Y +206 (content 974 / box 768)
+FAIL story.html @ 1280x720: 7 scenes, 4 fail [flow]
+  - #1 beginning: Y +154 (content 874 / box 720)
+  - #3 logo: Y +8 (content 728 / box 720)
+  - #5 network: Y +11 (content 731 / box 720)
+  - #6 talk: Y +232 (content 952 / box 720)
+FAIL story.html @ 1024x768: 7 scenes, 2 fail [flow]
+  - #1 beginning: Y +35 (content 803 / box 768)
+  - #6 talk: Y +114 (content 882 / box 768)
+FAIL story.html @ 768x1024: 7 scenes, 1 fail [flow]
+  - #6 talk: Y +24 (content 1048 / box 1024)
+FAIL story.html @ 390x844: 7 scenes, 2 fail [flow]
+  - #4 values: Y +132 (content 976 / box 844)
+  - #6 talk: Y +344 (content 1188 / box 844)
+FAIL story.html @ 360x740: 7 scenes, 3 fail [flow]
+  - #1 beginning: Y +62 (content 802 / box 740)
+  - #4 values: Y +236 (content 976 / box 740)
+  - #6 talk: Y +449 (content 1189 / box 740)
+FAIL partners.html @ 1920x1080: 8 scenes, 2 fail [flow]
+  - #0 hero: Y +31 (content 1111 / box 1080)
+  - #6 apply: Y +1160 (content 2240 / box 1080)
+FAIL partners.html @ 1536x864: 8 scenes, 5 fail [flow]
+  - #0 hero: Y +167 (content 1031 / box 864)
+  - #1 how: Y +27 (content 891 / box 864)
+  - #4 founding: Y +30 (content 894 / box 864)
+  - #6 apply: Y +1372 (content 2236 / box 864)
+  - #7 close: Y +163 (content 1027 / box 864)
+FAIL partners.html @ 1440x900: 8 scenes, 3 fail [flow]
+  - #0 hero: Y +103 (content 1003 / box 900)
+  - #6 apply: Y +1316 (content 2216 / box 900)
+  - #7 close: Y +102 (content 1002 / box 900)
+FAIL partners.html @ 1366x768: 8 scenes, 8 fail [flow]
+  - #0 hero: Y +210 (content 978 / box 768)
+  - #1 how: Y +83 (content 851 / box 768)
+  - #2 arrangement: Y +75 (content 843 / box 768)
+  - #3 tiers: Y +49 (content 817 / box 768)
+  - #4 founding: Y +82 (content 850 / box 768)
+  - #5 ask: Y +3 (content 771 / box 768)
+  - #6 apply: Y +1448 (content 2216 / box 768)
+  - #7 close: Y +211 (content 979 / box 768)
+FAIL partners.html @ 1280x720: 8 scenes, 8 fail [flow]
+  - #0 hero: Y +228 (content 948 / box 720)
+  - #1 how: Y +111 (content 831 / box 720)
+  - #2 arrangement: Y +101 (content 821 / box 720)
+  - #3 tiers: Y +81 (content 801 / box 720)
+  - #4 founding: Y +108 (content 828 / box 720)
+  - #5 ask: Y +33 (content 753 / box 720)
+  - #6 apply: Y +1501 (content 2221 / box 720)
+  - #7 close: Y +233 (content 953 / box 720)
+FAIL partners.html @ 1024x768: 8 scenes, 5 fail [flow]
+  - #0 hero: Y +87 (content 855 / box 768)
+  - #2 arrangement: Y +12 (content 780 / box 768)
+  - #3 tiers: Y +251 (content 1019 / box 768)
+  - #6 apply: Y +1934 (content 2702 / box 768)
+  - #7 close: Y +41 (content 809 / box 768)
+FAIL partners.html @ 768x1024: 8 scenes, 1 fail [flow]
+  - #6 apply: Y +1670 (content 2694 / box 1024)
+FAIL partners.html @ 390x844: 8 scenes, 4 fail [flow]
+  - #2 arrangement: Y +257 (content 1101 / box 844)
+  - #3 tiers: Y +352 (content 1196 / box 844)
+  - #6 apply: Y +2613 (content 3457 / box 844)
+  - #7 close: Y +326 (content 1170 / box 844)
+FAIL partners.html @ 360x740: 8 scenes, 6 fail [flow]
+  - #0 hero: Y +146 (content 886 / box 740)
+  - #2 arrangement: Y +412 (content 1152 / box 740)
+  - #3 tiers: Y +501 (content 1241 / box 740)
+  - #5 ask: Y +30 (content 770 / box 740)
+  - #6 apply: Y +2758 (content 3498 / box 740)
+  - #7 close: Y +430 (content 1170 / box 740)
+FAIL legal.html @ 1920x1080: 7 scenes, 2 fail [flow]
+  - #2 privacy: Y +220 (content 1300 / box 1080)
+  - #6 close: Y +76 (content 1156 / box 1080)
+FAIL legal.html @ 1536x864: 7 scenes, 6 fail [flow]
+  - #0 contents: Y +14 (content 878 / box 864)
+  - #1 disclosure: Y +13 (content 877 / box 864)
+  - #2 privacy: Y +432 (content 1296 / box 864)
+  - #3 terms: Y +181 (content 1045 / box 864)
+  - #4 conduct: Y +10 (content 874 / box 864)
+  - #6 close: Y +278 (content 1142 / box 864)
+FAIL legal.html @ 1440x900: 7 scenes, 3 fail [flow]
+  - #2 privacy: Y +379 (content 1279 / box 900)
+  - #3 terms: Y +128 (content 1028 / box 900)
+  - #6 close: Y +213 (content 1113 / box 900)
+FAIL legal.html @ 1366x768: 7 scenes, 6 fail [flow]
+  - #0 contents: Y +21 (content 789 / box 768)
+  - #1 disclosure: Y +78 (content 846 / box 768)
+  - #2 privacy: Y +498 (content 1266 / box 768)
+  - #3 terms: Y +246 (content 1014 / box 768)
+  - #4 conduct: Y +71 (content 839 / box 768)
+  - #6 close: Y +319 (content 1087 / box 768)
+FAIL legal.html @ 1280x720: 7 scenes, 6 fail [flow]
+  - #0 contents: Y +52 (content 772 / box 720)
+  - #1 disclosure: Y +165 (content 885 / box 720)
+  - #2 privacy: Y +530 (content 1250 / box 720)
+  - #3 terms: Y +279 (content 999 / box 720)
+  - #4 conduct: Y +100 (content 820 / box 720)
+  - #6 close: Y +337 (content 1057 / box 720)
+FAIL legal.html @ 1024x768: 7 scenes, 6 fail [flow]
+  - #0 contents: Y +33 (content 801 / box 768)
+  - #1 disclosure: Y +180 (content 948 / box 768)
+  - #2 privacy: Y +491 (content 1259 / box 768)
+  - #3 terms: Y +266 (content 1034 / box 768)
+  - #4 conduct: Y +46 (content 814 / box 768)
+  - #6 close: Y +197 (content 965 / box 768)
+FAIL legal.html @ 768x1024: 7 scenes, 3 fail [flow]
+  - #1 disclosure: Y +41 (content 1065 / box 1024)
+  - #2 privacy: Y +352 (content 1376 / box 1024)
+  - #3 terms: Y +100 (content 1124 / box 1024)
+FAIL legal.html @ 390x844: 7 scenes, 5 fail [flow]
+  - #1 disclosure: Y +270 (content 1114 / box 844)
+  - #2 privacy: Y +516 (content 1360 / box 844)
+  - #3 terms: Y +283 (content 1127 / box 844)
+  - #4 conduct: Y +35 (content 879 / box 844)
+  - #6 close: Y +392 (content 1236 / box 844)
+FAIL legal.html @ 360x740: 7 scenes, 6 fail [flow]
+  - #0 contents: Y +94 (content 834 / box 740)
+  - #1 disclosure: Y +476 (content 1216 / box 740)
+  - #2 privacy: Y +645 (content 1385 / box 740)
+  - #3 terms: Y +412 (content 1152 / box 740)
+  - #4 conduct: Y +165 (content 905 / box 740)
+  - #6 close: Y +496 (content 1236 / box 740)
+
+180 scene/viewport combinations fail.

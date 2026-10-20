@@ -1,0 +1,27 @@
+. index.html @ 1920x1080
+. index.html @ 1536x864
+. index.html @ 1440x900
+. index.html @ 1366x768
+. index.html @ 1280x720
+. index.html @ 1024x768
+. index.html @ 768x1024
+. index.html @ 390x844
+. index.html @ 360x740
+Fit audit  2026-10-20T01:59:47.184Z  http://localhost:8541/  mode: cut, activated, Round 4 box, states tools/fit-states/home.mjs, runs 2
+Cells: failing scenes / scenes.
+
+page         1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+index.html          ok        ok        ok        ok        ok        ok        ok        ok        ok
+
+ok   index.html @ 1920x1080: 7 scenes, all fit
+ok   index.html @ 1536x864: 7 scenes, all fit
+ok   index.html @ 1440x900: 7 scenes, all fit
+ok   index.html @ 1366x768: 7 scenes, all fit
+ok   index.html @ 1280x720: 7 scenes, all fit
+ok   index.html @ 1024x768: 7 scenes, all fit
+ok   index.html @ 768x1024: 7 scenes, all fit
+ok   index.html @ 390x844: 7 scenes, all fit
+ok   index.html @ 360x740: 7 scenes, all fit
+
+Every scene fits at every viewport, and every budget holds.
+exit 0

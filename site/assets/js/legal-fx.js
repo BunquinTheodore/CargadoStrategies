@@ -1,147 +1,115 @@
 /**
- * Legal page: 3D scene choreography and panel feedback (Round 3).
+ * Legal page behaviour (DIRECTION §7.5; R4 legal §5.1-§5.2), loaded by legal.js as
+ * its own chunk.
  *
- * Scrubbed on the film timeline (build listeners, reversible, transform/opacity only):
- *  - addRuleDraw      the gold heading rule draws in, retracts on the way out;
- *  - addNumeralDepth  the ghost chapter numeral swings in from depth behind the heading;
- *  - addSheetFan      the two paper sheets behind each document fan out, collapse on exit;
- *  - addItemCascade   clauses / questions rise in one after another, in perspective;
- *  - addIndexFold     the contents cards fold back in depth as the opening scene leaves.
+ *  - The four documents (and, on phones, each Q&A answer) are measured paged
+ *    readers (ui-pager.js createPagedReader): the text pages, it never scrolls in
+ *    a box, and a deep link opens a document on its first page.
+ *  - The Q&A is one ui-tabs.js root in drill mode at every width. From 760 px
+ *    the questions and answers interleave in CSS, so it reads as an exclusive
+ *    accordion (a button that expands its labelled region), paged by height (all
+ *    six on tall screens, 4 or 3 on shorter ones), with the first answer on each page open at rest (no half-empty
+ *    sheet); a second click closes it and focus stays on the question.
+ *    On phones it is R4's drill: the list, then one answer in its place with
+ *    "All Questions" and "Next Question", focus on the answer's heading.
  *
- * Interaction (film mode): a soft tick while a document scrolls, a field tone when an
- * answer opens, and a "Scroll" cursor label on documents that scroll inside their box.
+ * Motion is the pager's own 24 px turn (nothing in flow mode). No sound.
  */
-import { sfx } from './sfx.js';
+import { createPager, initPagedReaders } from './ui-pager.js';
+import { createTabs } from './ui-tabs.js';
 
-const RULE = { at: 0.5, dur: 0.45, outDur: 0.5 }; // shares of the in/out phase
-const NUMERAL = { at: 0.2, dur: 0.6, outDur: 0.55, z: -320, turn: 38, outZ: 140, outTurn: 16, perspective: 700 };
-const SHEETS = { at: 0.55, dur: 0.4, outDur: 0.4 };
-const CASCADE = { at: 0.48, dur: 0.3, stagger: 0.05, rise: 18, turn: -14, perspective: 800 };
-const FOLD = { dur: 0.5, stagger: 0.06, turn: 55, z: -90 };
-const PANEL_TICK_PX = 110; // one tick per this much scroll inside a document
-const OVERFLOW_SLACK_PX = 8; // a face this much taller than its box counts as scrollable
-const SCROLL_LABEL = 'Scroll';
+const WIDE_QUERY = '(min-width: 760px)';
+/** Questions per page from 760 px, by viewport height (min height in px → count); first match wins. */
+const QUESTIONS_BY_HEIGHT = [[860, 6], [760, 4], [0, 3]];
 
-const depthOn = () => window.matchMedia('(pointer: fine)').matches;
-const cssPx = (el, name) => parseFloat(getComputedStyle(el).getPropertyValue(name)) || 0;
+const questionsPerPage = () => QUESTIONS_BY_HEIGHT.find(([min]) => window.innerHeight >= min)[1];
 
-/* ---------- scrubbed scene tweens ---------- */
+/** The Q&A: drill semantics everywhere, presented as a paged accordion from 760 px. */
+function initQa(root, { film }) {
+  const wide = window.matchMedia(WIDE_QUERY);
+  const list = root.querySelector('.tabs__list');
+  const questions = Array.from(list.querySelectorAll('.tabs__tab'));
+  const headings = Array.from(root.querySelectorAll('.qa__title'));
+  const refreshReach = () => film.refreshReach();
 
-export function addRuleDraw({ tl, sceneEl, timing }) {
-  const rule = sceneEl.querySelector('.legal-rule');
-  if (!rule) return;
-  if (timing.inDur) {
-    tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: timing.inDur * RULE.dur, ease: 'power2.out' },
-      timing.inStart + timing.inDur * RULE.at);
-  }
-  if (timing.outDur) {
-    tl.fromTo(rule, { scaleX: 1 }, { scaleX: 0, duration: timing.outDur * RULE.outDur, ease: 'power2.in', immediateRender: false },
-      timing.outStart);
-  }
-}
-
-export function addNumeralDepth({ tl, sceneEl, timing }) {
-  const numeral = sceneEl.querySelector('.legal-num');
-  if (!numeral || !timing.inDur) return;
-  const dir = sceneEl.querySelector('.legal-grid--mirror') ? -1 : 1;
-  const turn = depthOn() ? NUMERAL.turn * dir : 0;
-  tl.fromTo(numeral,
-    { opacity: 0, z: NUMERAL.z, rotationY: turn, transformPerspective: NUMERAL.perspective },
-    { opacity: 1, z: 0, rotationY: 0, duration: timing.inDur * NUMERAL.dur, ease: 'power3.out' },
-    timing.inStart + timing.inDur * NUMERAL.at);
-  if (timing.outDur) {
-    tl.fromTo(numeral, { opacity: 1, z: 0, rotationY: 0 },
-      { opacity: 0, z: NUMERAL.outZ, rotationY: depthOn() ? -NUMERAL.outTurn * dir : 0,
-        duration: timing.outDur * NUMERAL.outDur, ease: 'power2.in', immediateRender: false },
-      timing.outStart);
-  }
-}
-
-function sheetRest(sheet, level) {
-  const off = cssPx(sheet, '--sheet-off') * level;
-  return { x: off, y: off, rotation: cssPx(sheet, '--sheet-turn') * level };
-}
-
-export function addSheetFan({ tl, sceneEl, timing }) {
-  const sheets = Array.from(sceneEl.querySelectorAll('.legal-sheet'));
-  if (!sheets.length || !timing.inDur) return;
-  const flat = { x: 0, y: 0, rotation: 0 };
-  sheets.forEach((sheet) => {
-    const rest = sheetRest(sheet, sheet.classList.contains('legal-sheet--2') ? 2 : 1);
-    tl.fromTo(sheet, flat, { ...rest, duration: timing.inDur * SHEETS.dur, ease: 'power2.out' },
-      timing.inStart + timing.inDur * SHEETS.at);
-    if (timing.outDur) {
-      tl.fromTo(sheet, rest, { ...flat, duration: timing.outDur * SHEETS.outDur, ease: 'power2.in', immediateRender: false },
-        timing.outStart);
-    }
+  // Drill focuses an h3[tabindex="-1"] on open: wanted on phones, not where the question stays in view.
+  const setHeadingStops = () => headings.forEach((h) => {
+    if (wide.matches) h.removeAttribute('tabindex'); else h.setAttribute('tabindex', '-1');
   });
-}
+  setHeadingStops();
 
-export function addItemCascade({ tl, sceneEl, timing }) {
-  const face = sceneEl.querySelector('.legal-panel__face');
-  const items = face ? face.querySelectorAll(':scope > ol > li, :scope > details') : [];
-  if (!items.length || !timing.inDur) return;
-  const at = timing.inStart + timing.inDur * CASCADE.at;
-  const dur = timing.inDur * CASCADE.dur;
-  const room = Math.max(0, timing.focusTime - at - dur);
-  const stagger = items.length > 1 ? Math.min(timing.inDur * CASCADE.stagger, room / (items.length - 1)) : 0;
-  const turn = depthOn() ? CASCADE.turn : 0;
-  tl.fromTo(items,
-    { opacity: 0, y: CASCADE.rise, rotationX: turn, transformPerspective: CASCADE.perspective, transformOrigin: '50% 0%' },
-    { opacity: 1, y: 0, rotationX: 0, duration: dur, stagger, ease: 'power2.out' },
-    at);
-}
-
-export function addIndexFold({ tl, sceneEl, timing }) {
-  const cards = sceneEl.querySelectorAll('.toc__link');
-  if (!cards.length || !timing.outDur || !depthOn()) return;
-  tl.fromTo(cards, { rotationX: 0, z: 0 },
-    { rotationX: FOLD.turn, z: FOLD.z, transformOrigin: '50% 100%', duration: timing.outDur * FOLD.dur,
-      stagger: timing.outDur * FOLD.stagger, ease: 'power2.in', immediateRender: false },
-    timing.outStart);
-}
-
-/* ---------- interaction ---------- */
-
-const sceneIndex = (el) => Array.from(document.querySelectorAll('.scene')).indexOf(el.closest('.scene'));
-
-/** A soft tick per stretch of scrolling inside a document (the film's own tick stops there). */
-function tickOnScroll(face) {
-  let last = face.scrollTop;
-  let travel = 0;
-  face.addEventListener('scroll', () => {
-    travel += Math.abs(face.scrollTop - last);
-    last = face.scrollTop;
-    if (travel < PANEL_TICK_PX) return;
-    travel = 0;
-    sfx.play('tick', { index: sceneIndex(face) });
-  }, { passive: true });
-}
-
-/** "Scroll" cursor label on documents taller than their box (the wheel scrolls them, not the film). */
-function labelWhenScrollable(face) {
-  const update = () => {
-    if (face.scrollHeight - face.clientHeight > OVERFLOW_SLACK_PX) face.dataset.cursorLabel = SCROLL_LABEL;
-    else delete face.dataset.cursorLabel;
+  const tabs = createTabs(root, { inactive: 'drill', film, onModeChange: refreshReach });
+  const openQuestion = () => questions.find((q) => q.getAttribute('aria-expanded') === 'true');
+  /** Wide: when the page shows no answer, open its first question's (on load and after a turn). */
+  const openFirstShown = () => {
+    if (!wide.matches || openQuestion()) return;
+    const first = questions.find((q) => !q.hidden);
+    if (first) tabs.open(first.getAttribute('aria-controls'), { cause: 'auto' });
   };
-  update();
-  const observer = new ResizeObserver(update);
-  [face, ...face.children].forEach((el) => observer.observe(el)); // children: an answer opening grows the content
+
+  const pager = createPager(list, {
+    mode: 'static',
+    maxPerPage: () => (wide.matches ? questionsPerPage() : Infinity),
+    noun: 'questions',
+    status: 'page',
+    focusOnTurn: 'item',
+    film,
+    onRender: () => {
+      if (openQuestion()?.hidden) tabs.close({ cause: 'auto' });
+      openFirstShown();
+      refreshReach();
+    },
+  });
+
+  // Accordion toggle (wide): a click on the open question closes it before ui-tabs reopens it.
+  list.addEventListener('click', (event) => {
+    const question = event.target.closest('.tabs__tab');
+    if (!wide.matches || !question || question.getAttribute('aria-expanded') !== 'true') return;
+    event.stopPropagation();
+    tabs.close({ cause: event.detail === 0 ? 'key' : 'pointer' });
+  }, true);
+
+  wide.addEventListener('change', () => {
+    setHeadingStops();
+    pager.refresh();
+  });
+  let perPage = questionsPerPage();
+  window.addEventListener('resize', () => {
+    if (questionsPerPage() === perPage) return;
+    perPage = questionsPerPage();
+    pager.refresh();
+  });
+
+  return {
+    /** Open the answer that holds `el` (a #qa-… deep link), on its page of questions. */
+    reveal(el) {
+      const panel = el.closest('.qa__panel');
+      if (!panel) return false;
+      const index = questions.findIndex((q) => q.getAttribute('aria-controls') === panel.id);
+      if (index < 0) return false;
+      if (wide.matches) pager.goTo(Math.floor(index / questionsPerPage()));
+      tabs.open(panel.id, { cause: 'deeplink' });
+      return true;
+    },
+  };
 }
 
-/** A field-coloured tone when an answer opens (the summary's own click pop plays too). */
-function toneOnOpen(details) {
-  details.addEventListener('toggle', () => {
-    if (!details.open) return;
-    sfx.play('tone', { field: details.closest('[data-field]')?.dataset.field });
-  });
-}
+export function initLegal({ film }) {
+  const readers = initPagedReaders(document, { film });
+  const qaRoot = document.querySelector('#faq .qa');
+  const qa = qaRoot ? initQa(qaRoot, { film }) : null;
 
-export function initPanelFeedback({ film }) {
-  document.querySelectorAll('.legal-panel__face--faq details').forEach(toneOnOpen);
-  if (!film.enabled) return;
-  document.querySelectorAll('.legal-panel__face').forEach((face) => {
-    tickOnScroll(face);
-    labelWhenScrollable(face);
-  });
+  return {
+    /** Deep links: an answer opens; a clause turns to its page; a document link opens page 1. */
+    reveal({ el, scene }) {
+      if (!el) return;
+      if (qa?.reveal(el)) return;
+      const item = el.closest('[data-page-item]');
+      const root = (item || el).closest('[data-pager]');
+      if (item && root?.csPager) { root.csPager.reveal(el); return; }
+      scene?.querySelectorAll('.legal-reader[data-pager]').forEach((reader) => {
+        readers.get(reader)?.goTo(0, { animate: false, announce: false });
+      });
+    },
+  };
 }

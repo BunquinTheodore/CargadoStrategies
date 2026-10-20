@@ -1,5 +1,5 @@
 /**
- * Services page constants shared by the finder, the categories rail and the
+ * Services page constants shared by the finder, the categories dialog and the
  * inquiry form. The founder's own businesses (CR13) each have their own scene.
  */
 import { CATEGORIES } from './config.js';
@@ -7,9 +7,9 @@ import { placeholderCard } from './chrome.js';
 
 /** Category slug → the founder's own offer on this page (names are titles: Title Case). */
 export const FOUNDER_OFFERS = Object.freeze({
-  insurance: Object.freeze({ scene: 'ours-insurance', name: 'The Family Protection Review' }),
-  'business-strategy': Object.freeze({ scene: 'ours-strategy', name: 'The 30-Day Cash-Flow Clean-Up' }),
-  outsourcing: Object.freeze({ scene: 'ours-outsourcing', name: 'Your Back-Office Team' }),
+  insurance: Object.freeze({ scene: 'ours-insurance', name: 'Family Protection Review', cta: 'Ask About Insurance' }),
+  'business-strategy': Object.freeze({ scene: 'ours-strategy', name: 'The 30-Day Cash-Flow Clean-Up', cta: 'Ask About the Clean-Up' }),
+  outsourcing: Object.freeze({ scene: 'ours-outsourcing', name: 'Your Back-Office Team', cta: 'Ask About Outsourcing' }),
 });
 
 export const isOurs = (category) => category.ownership === 'founder' || category.ownership === 'both';
@@ -24,10 +24,13 @@ export const FOUNDER_REQUEST = "I'd like to ask about this service.";
 
 /**
  * The shared "Partner spot available" card (chrome.js) titles itself with an h3.
- * On this page it sits under an h3 (category card, finder results), so its
+ * On this page it sits under an h3 (category detail, finder results), so its
  * title steps down to an h4 to keep the heading outline in order.
  */
 export const subPlaceholderCard = (category) => placeholderCard({ category, level: 4 });
 
 /** Page key used in WhatsApp messages. */
 export const PAGE = 'services';
+
+/** The phone layout of this page (DIRECTION §4.2 band "phone"). */
+export const PHONE_QUERY = '(max-width: 759px)';

@@ -1,0 +1,44 @@
+. [A] index.html @ 1440x900: tier A, 36 frames, 0 fail
+. [A] index.html @ 390x844: tier A, 36 frames, 1 fail
+. [A] services.html @ 1440x900: tier A, 48 frames, 0 fail
+. [A] services.html @ 390x844: tier A, 48 frames, 0 fail
+. [A] story.html @ 1440x900: tier A, 30 frames, 0 fail
+. [A] story.html @ 390x844: tier A, 30 frames, 0 fail
+. [A] partners.html @ 1440x900: tier A, 36 frames, 0 fail
+. [A] partners.html @ 390x844: tier A, 36 frames, 0 fail
+. [A] legal.html @ 1440x900: tier C (locked by the page), not A
+. [A] legal.html @ 390x844: tier C (locked by the page), not A
+. [C] index.html @ 1440x900: tier C, 36 frames, 0 fail
+. [C] index.html @ 390x844: tier C, 36 frames, 0 fail
+. [C] services.html @ 1440x900: tier C, 48 frames, 0 fail
+. [C] services.html @ 390x844: tier C, 48 frames, 0 fail
+. [C] story.html @ 1440x900: tier C, 30 frames, 0 fail
+. [C] story.html @ 390x844: tier C, 30 frames, 0 fail
+. [C] partners.html @ 1440x900: tier C, 36 frames, 0 fail
+. [C] partners.html @ 390x844: tier C, 36 frames, 0 fail
+. [C] legal.html @ 1440x900: tier C, 42 frames, 0 fail
+. [C] legal.html @ 390x844: tier C, 42 frames, 0 fail
+Seek test  2026-10-20T02:16:26.385Z  http://localhost:8542/  (frames at 0.25, 0.5, 0.75 of every cut, both directions; tiers A, C)
+
+ok   [A] index.html @ 1440x900 (tier A): 36 frames
+FAIL [A] index.html @ 390x844 (tier A): 36 frames, 1 fail
+  - #4->#5 @0.5 [ink]: text over globe: span.rv-word "One" (60% of its box); text over globe: span.rv-word "Message." (45% of its box)  (C:\Users\THEODO~1\AppData\Local\Temp\claude\C--Cargado-Strategies\b0e5bd65-452e-4583-aae2-00643e5ccc5c\scratchpad\seek\index\390x844-A\05-06-50.png)
+ok   [A] services.html @ 1440x900 (tier A): 48 frames
+ok   [A] services.html @ 390x844 (tier A): 48 frames
+ok   [A] story.html @ 1440x900 (tier A): 30 frames
+ok   [A] story.html @ 390x844 (tier A): 30 frames
+ok   [A] partners.html @ 1440x900 (tier A): 36 frames
+ok   [A] partners.html @ 390x844 (tier A): 36 frames
+ok   [C] index.html @ 1440x900 (tier C): 36 frames
+ok   [C] index.html @ 390x844 (tier C): 36 frames
+ok   [C] services.html @ 1440x900 (tier C): 48 frames
+ok   [C] services.html @ 390x844 (tier C): 48 frames
+ok   [C] story.html @ 1440x900 (tier C): 30 frames
+ok   [C] story.html @ 390x844 (tier C): 30 frames
+ok   [C] partners.html @ 1440x900 (tier C): 36 frames
+ok   [C] partners.html @ 390x844 (tier C): 36 frames
+ok   [C] legal.html @ 1440x900 (tier C): 42 frames
+ok   [C] legal.html @ 390x844 (tier C): 42 frames
+
+1 frames fail.
+exit 1

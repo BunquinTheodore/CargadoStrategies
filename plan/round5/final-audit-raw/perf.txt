@@ -1,0 +1,197 @@
+(node:33964) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+. lighthouse index.html mobile
+. lighthouse index.html desktop
+. lighthouse services.html mobile
+. lighthouse services.html desktop
+. lighthouse story.html mobile
+. lighthouse story.html desktop
+. lighthouse partners.html mobile
+. lighthouse partners.html desktop
+. lighthouse legal.html mobile
+. lighthouse legal.html desktop
+. lab index.html mobile
+. lab index.html desktop
+. lab services.html mobile
+. lab services.html desktop
+. lab story.html mobile
+. lab story.html desktop
+. lab partners.html mobile
+. lab partners.html desktop
+. lab legal.html mobile
+. lab legal.html desktop
+Perf gate  2026-10-20T03:01:51.413Z  http://localhost:8541/
+
+     check                                   page                  profile  value                             budget
+ok   JS initial gzip                         index.html                     55.6 KB                           ≤ 70 KB
+ok   CSS gzip                                index.html                     16.2 KB                           ≤ 28 KB
+ok   JS initial gzip                         services.html                  66.1 KB                           ≤ 70 KB
+ok   CSS gzip                                services.html                  17.7 KB                           ≤ 28 KB
+ok   JS initial gzip                         story.html                     53.9 KB                           ≤ 70 KB
+ok   CSS gzip                                story.html                     15.6 KB                           ≤ 28 KB
+ok   JS initial gzip                         partners.html                  63.0 KB                           ≤ 70 KB
+ok   CSS gzip                                partners.html                  16.5 KB                           ≤ 28 KB
+FAIL JS initial gzip                         legal.html                     51.3 KB                           ≤ 40 KB
+ok   legal: no dotglobe/stars/cursor         legal.html                     none                              none
+ok   CSS gzip                                legal.html                     16.1 KB                           ≤ 28 KB
+ok   brushed tile                            brushed-256-YVL25BPJ.png         5.5 KB                            ≤ 6 KB
+ok   brushed tile                            brushed-256.png                5.5 KB                            ≤ 6 KB
+ok   Lighthouse Performance                  index.html            mobile   99                                ≥ 90
+ok   Accessibility                           index.html            mobile   100                               ≥ 100
+ok   Best Practices                          index.html            mobile   100                               ≥ 95
+ok   SEO                                     index.html            mobile   100                               ≥ 95
+ok   LCP                                     index.html            mobile   1511 ms                           ≤ 2000 ms
+ok   TBT                                     index.html            mobile   65 ms                             ≤ 150 ms
+ok   CLS                                     index.html            mobile   0.002                             ≤ 0.02
+FAIL script transfer                         index.html            mobile   80.3 KB                           ≤ 70 KB
+ok   font files                              index.html            mobile   5                                 ≤ 5
+ok   total transfer (Home)                   index.html            mobile   167 KB                            ≤ 300 KB
+ok   Lighthouse Performance                  index.html            desktop  100                               ≥ 95
+ok   Accessibility                           index.html            desktop  100                               ≥ 100
+ok   Best Practices                          index.html            desktop  100                               ≥ 95
+ok   SEO                                     index.html            desktop  100                               ≥ 95
+ok   LCP                                     index.html            desktop  537 ms                            ≤ 1000 ms
+ok   TBT                                     index.html            desktop  0 ms                              ≤ 50 ms
+ok   CLS                                     index.html            desktop  0.000                             ≤ 0.02
+ok   script transfer                         index.html            desktop  84.8 KB                           ≤ 110 KB
+ok   font files                              index.html            desktop  5                                 ≤ 5
+ok   total transfer (Home)                   index.html            desktop  171 KB                            ≤ 380 KB
+ok   Lighthouse Performance                  services.html         mobile   100                               ≥ 90
+ok   Accessibility                           services.html         mobile   100                               ≥ 100
+ok   Best Practices                          services.html         mobile   100                               ≥ 95
+ok   SEO                                     services.html         mobile   100                               ≥ 95
+ok   LCP                                     services.html         mobile   1506 ms                           ≤ 2000 ms
+ok   TBT                                     services.html         mobile   12 ms                             ≤ 150 ms
+ok   CLS                                     services.html         mobile   0.000                             ≤ 0.02
+FAIL script transfer                         services.html         mobile   89.2 KB                           ≤ 70 KB
+ok   font files                              services.html         mobile   5                                 ≤ 5
+ok   Lighthouse Performance                  services.html         desktop  100                               ≥ 95
+ok   Accessibility                           services.html         desktop  100                               ≥ 100
+ok   Best Practices                          services.html         desktop  100                               ≥ 95
+ok   SEO                                     services.html         desktop  100                               ≥ 95
+ok   LCP                                     services.html         desktop  569 ms                            ≤ 1000 ms
+ok   TBT                                     services.html         desktop  0 ms                              ≤ 50 ms
+ok   CLS                                     services.html         desktop  0.001                             ≤ 0.02
+ok   script transfer                         services.html         desktop  93.7 KB                           ≤ 110 KB
+ok   font files                              services.html         desktop  5                                 ≤ 5
+ok   Lighthouse Performance                  story.html            mobile   100                               ≥ 90
+ok   Accessibility                           story.html            mobile   100                               ≥ 100
+ok   Best Practices                          story.html            mobile   100                               ≥ 95
+ok   SEO                                     story.html            mobile   100                               ≥ 95
+ok   LCP                                     story.html            mobile   1405 ms                           ≤ 2000 ms
+ok   TBT                                     story.html            mobile   42 ms                             ≤ 150 ms
+ok   CLS                                     story.html            mobile   0.000                             ≤ 0.02
+FAIL script transfer                         story.html            mobile   79.2 KB                           ≤ 70 KB
+ok   font files                              story.html            mobile   5                                 ≤ 5
+ok   Lighthouse Performance                  story.html            desktop  100                               ≥ 95
+ok   Accessibility                           story.html            desktop  100                               ≥ 100
+ok   Best Practices                          story.html            desktop  100                               ≥ 95
+ok   SEO                                     story.html            desktop  100                               ≥ 95
+ok   LCP                                     story.html            desktop  504 ms                            ≤ 1000 ms
+ok   TBT                                     story.html            desktop  1 ms                              ≤ 50 ms
+ok   CLS                                     story.html            desktop  0.007                             ≤ 0.02
+ok   script transfer                         story.html            desktop  83.7 KB                           ≤ 110 KB
+ok   font files                              story.html            desktop  5                                 ≤ 5
+ok   Lighthouse Performance                  partners.html         mobile   100                               ≥ 90
+ok   Accessibility                           partners.html         mobile   100                               ≥ 100
+ok   Best Practices                          partners.html         mobile   100                               ≥ 95
+ok   SEO                                     partners.html         mobile   100                               ≥ 95
+ok   LCP                                     partners.html         mobile   1508 ms                           ≤ 2000 ms
+ok   TBT                                     partners.html         mobile   17 ms                             ≤ 150 ms
+ok   CLS                                     partners.html         mobile   0.000                             ≤ 0.02
+FAIL script transfer                         partners.html         mobile   85.2 KB                           ≤ 70 KB
+ok   font files                              partners.html         mobile   5                                 ≤ 5
+ok   Lighthouse Performance                  partners.html         desktop  100                               ≥ 95
+ok   Accessibility                           partners.html         desktop  100                               ≥ 100
+ok   Best Practices                          partners.html         desktop  100                               ≥ 95
+ok   SEO                                     partners.html         desktop  100                               ≥ 95
+ok   LCP                                     partners.html         desktop  573 ms                            ≤ 1000 ms
+ok   TBT                                     partners.html         desktop  0 ms                              ≤ 50 ms
+ok   CLS                                     partners.html         desktop  0.000                             ≤ 0.02
+ok   script transfer                         partners.html         desktop  89.7 KB                           ≤ 110 KB
+ok   font files                              partners.html         desktop  5                                 ≤ 5
+ok   Lighthouse Performance                  legal.html            mobile   100                               ≥ 90
+ok   Accessibility                           legal.html            mobile   100                               ≥ 100
+ok   Best Practices                          legal.html            mobile   100                               ≥ 95
+ok   SEO                                     legal.html            mobile   100                               ≥ 95
+ok   LCP                                     legal.html            mobile   1434 ms                           ≤ 2000 ms
+ok   TBT                                     legal.html            mobile   18 ms                             ≤ 150 ms
+ok   CLS                                     legal.html            mobile   0.001                             ≤ 0.02
+ok   script transfer                         legal.html            mobile   66.2 KB                           ≤ 70 KB
+ok   font files                              legal.html            mobile   4                                 ≤ 5
+ok   Lighthouse Performance                  legal.html            desktop  100                               ≥ 95
+ok   Accessibility                           legal.html            desktop  100                               ≥ 100
+ok   Best Practices                          legal.html            desktop  100                               ≥ 95
+ok   SEO                                     legal.html            desktop  100                               ≥ 95
+ok   LCP                                     legal.html            desktop  506 ms                            ≤ 1000 ms
+ok   TBT                                     legal.html            desktop  0 ms                              ≤ 50 ms
+ok   CLS                                     legal.html            desktop  0.001                             ≤ 0.02
+ok   script transfer                         legal.html            desktop  69.7 KB                           ≤ 110 KB
+ok   font files                              legal.html            desktop  4                                 ≤ 5
+ok   DOM nodes                               index.html            mobile   636                               ≤ 900
+ok   composited layers                       index.html            mobile   12                                < 30
+ok   INP (sheet chip)                        index.html            mobile   144 ms                            ≤ 150 ms
+ok   long tasks in 3 cuts (4x CPU)           index.html            mobile   107 ms max (info: software GL)    ≤ 50 ms
+ok   cut frame rate (touch-cut, tier B)      index.html            mobile   44.7 fps (info: software GL)      ≥ 55 fps
+ok   idle rAF callbacks (6-8 s)              index.html            mobile   0                                 = 0
+FAIL splash (fresh, first frame → done)      index.html            mobile   1339 ms                           ≤ 1100 ms
+ok   DOM nodes                               index.html            desktop  637                               ≤ 900
+ok   composited layers                       index.html            desktop  22                                < 30
+ok   INP (sheet chip)                        index.html            desktop  24 ms                             ≤ 100 ms
+ok   long tasks in 3 cuts (1x)               index.html            desktop  0 ms max (info: software GL)      ≤ 50 ms
+ok   cut frame rate (cut, tier A)            index.html            desktop  39.2 fps (info: software GL)      ≥ 58 fps
+ok   idle rAF callbacks (6-8 s)              index.html            desktop  0                                 = 0
+FAIL splash (fresh, first frame → done)      index.html            desktop  1620 ms                           ≤ 1100 ms
+ok   DOM nodes                               services.html         mobile   872                               ≤ 900
+ok   composited layers                       services.html         mobile   14                                < 30
+ok   INP (sheet chip)                        services.html         mobile   64 ms                             ≤ 150 ms
+ok   long tasks in 3 cuts (4x CPU)           services.html         mobile   83 ms max (info: software GL)     ≤ 50 ms
+ok   cut frame rate (touch-cut, tier B)      services.html         mobile   56.9 fps (info: software GL)      ≥ 55 fps
+ok   idle rAF callbacks (6-8 s)              services.html         mobile   0                                 = 0
+ok   DOM nodes                               services.html         desktop  873                               ≤ 900
+ok   composited layers                       services.html         desktop  21                                < 30
+ok   INP (sheet chip)                        services.html         desktop  32 ms                             ≤ 100 ms
+ok   long tasks in 3 cuts (1x)               services.html         desktop  0 ms max (info: software GL)      ≤ 50 ms
+ok   cut frame rate (cut, tier A)            services.html         desktop  57.2 fps (info: software GL)      ≥ 58 fps
+ok   idle rAF callbacks (6-8 s)              services.html         desktop  0                                 = 0
+ok   DOM nodes                               story.html            mobile   517                               ≤ 900
+ok   composited layers                       story.html            mobile   11                                < 30
+ok   INP (sheet chip)                        story.html            mobile   80 ms                             ≤ 150 ms
+ok   long tasks in 3 cuts (4x CPU)           story.html            mobile   57 ms max (info: software GL)     ≤ 50 ms
+ok   cut frame rate (touch-cut, tier B)      story.html            mobile   46.2 fps (info: software GL)      ≥ 55 fps
+ok   idle rAF callbacks (6-8 s)              story.html            mobile   0                                 = 0
+ok   DOM nodes                               story.html            desktop  518                               ≤ 900
+ok   composited layers                       story.html            desktop  18                                < 30
+ok   INP (sheet chip)                        story.html            desktop  32 ms                             ≤ 100 ms
+ok   long tasks in 3 cuts (1x)               story.html            desktop  0 ms max (info: software GL)      ≤ 50 ms
+ok   cut frame rate (cut, tier A)            story.html            desktop  40.2 fps (info: software GL)      ≥ 58 fps
+ok   idle rAF callbacks (6-8 s)              story.html            desktop  0                                 = 0
+ok   DOM nodes                               partners.html         mobile   833                               ≤ 900
+ok   composited layers                       partners.html         mobile   12                                < 30
+ok   INP (sheet chip)                        partners.html         mobile   64 ms                             ≤ 150 ms
+ok   long tasks in 3 cuts (4x CPU)           partners.html         mobile   73 ms max (info: software GL)     ≤ 50 ms
+ok   cut frame rate (touch-cut, tier B)      partners.html         mobile   52.8 fps (info: software GL)      ≥ 55 fps
+ok   idle rAF callbacks (6-8 s)              partners.html         mobile   0                                 = 0
+ok   DOM nodes                               partners.html         desktop  834                               ≤ 900
+ok   composited layers                       partners.html         desktop  25                                < 30
+ok   INP (sheet chip)                        partners.html         desktop  24 ms                             ≤ 100 ms
+ok   long tasks in 3 cuts (1x)               partners.html         desktop  0 ms max (info: software GL)      ≤ 50 ms
+ok   cut frame rate (cut, tier A)            partners.html         desktop  36.6 fps (info: software GL)      ≥ 58 fps
+ok   idle rAF callbacks (6-8 s)              partners.html         desktop  0                                 = 0
+ok   DOM nodes                               legal.html            mobile   790                               ≤ 900
+ok   composited layers                       legal.html            mobile   7                                 < 30
+ok   INP (sheet chip)                        legal.html            mobile   72 ms                             ≤ 150 ms
+ok   long tasks in 3 cuts (4x CPU)           legal.html            mobile   65 ms max (info: software GL)     ≤ 50 ms
+ok   cut frame rate (touch-cut, tier C)      legal.html            mobile   56.8 fps (info: software GL)      ≥ 55 fps
+ok   idle rAF callbacks (6-8 s)              legal.html            mobile   0                                 = 0
+ok   DOM nodes                               legal.html            desktop  790                               ≤ 900
+ok   composited layers                       legal.html            desktop  11                                < 30
+ok   INP (sheet chip)                        legal.html            desktop  32 ms                             ≤ 100 ms
+ok   long tasks in 3 cuts (1x)               legal.html            desktop  0 ms max (info: software GL)      ≤ 50 ms
+ok   cut frame rate (cut, tier C)            legal.html            desktop  60 fps (info: software GL)        ≥ 58 fps
+ok   idle rAF callbacks (6-8 s)              legal.html            desktop  0                                 = 0
+
+lab WebGL renderer: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)
+
+7 budgets missed.
+exit 1

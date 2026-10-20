@@ -1,0 +1,90 @@
+Round 5 "Full Stop." · Stage 7 final audit · 2026-10-20
+Build: npm run build (exit 0, 5 pages), rebuilt after the RETIRED token aliases were deleted (exit 0).
+Served by serve.mjs dist on :8541 (source on :8542 for runs that need unbundled modules: the services
+fixture and the seek test). Headless Chrome, isolated profiles, SwiftShader (no GPU).
+Raw logs: plan/round5/final-audit-raw/
+
+======================================================================================================
+T1 · Fit (9 viewports: 1920x1080 1536x864 1440x900 1366x768 1280x720 1024x768 768x1024 390x844 360x740)
+Cells: failing scenes / scenes per viewport. "ok" = 0 failures. States: tools/fit-states/<page>.mjs.
+Fixtures: legal --ph-repeat=3 in every mode; services --fixture=partners-max (needs site/, see last row).
+
+page / mode           1920  1536  1440  1366  1280  1024   768   390   360   failures
+index      film        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+index      flow        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+index      touch       ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+services   film        ok    ok    ok    ok    ok    ok    ok    ok    ok    0   (dist: fixture not served)
+services   flow        ok    ok    ok   1/9   1/9   1/9    ok    ok    ok    3   #6 inquiry, all-errors unit 3/3: Y +25 / +161 / +623
+services   touch      1/9   1/9   1/9   1/9   1/9   1/9   1/9    ok    ok    7   #4 ours-outsourcing: Y +4..+5 (spare 71-101: one element pokes out)
+services   film+fix   1/9   1/9    ok   1/9   1/9   1/9   1/9   1/9   1/9    8   #5 finder: #categories-dialog Y +11..+110, spare < 24 (partners-max, site/)
+story      film        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+story      flow        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+story      touch       ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+partners   film        ok    ok    ok   1/7    ok    ok    ok    ok    ok    1   #4 apply: spare 37 < 40 (all-errors)
+partners   flow        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+partners   touch       ok    ok    ok    ok    ok    ok    ok   1/7   1/7    2   #3 founding: Y +24
+legal      film        ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+legal      flow        ok    ok    ok    ok    ok    ok    ok    ok   1/8    1   #7 credits: spare 21 < 24
+legal      touch       ok    ok    ok    ok    ok    ok    ok    ok    ok    0
+T1 total: 22 failing scene/viewport cells in 16 runs (11 runs clean). FAIL.
+
+======================================================================================================
+T2 · Performance (tools/perf-gate.mjs on dist, Lighthouse 13.5.0, single run, idle machine)
+
+page        mobile: Perf  A11y  BP   SEO  LCP     TBT    CLS     desktop: Perf  A11y  BP   SEO  LCP    TBT   CLS
+Home              99    100   100  100  1.51 s  65 ms  0.002            100   100   100  100  537 ms 0 ms  0.000
+Services         100    100   100  100  1.51 s  12 ms  0.000            100   100   100  100  569 ms 0 ms  0.001
+Our Story        100    100   100  100  1.41 s  42 ms  0.000            100   100   100  100  504 ms 1 ms  0.007
+Partners         100    100   100  100  1.51 s  17 ms  0.000            100   100   100  100  573 ms 0 ms  0.000
+Legal            100    100   100  100  1.43 s  18 ms  0.001            100   100   100  100  506 ms 0 ms  0.001
+
+Static: JS initial gzip  Home 55.6 · Services 66.1 · Story 53.9 · Partners 63.0 KB (≤ 70 ok) · Legal 51.3 KB (≤ 40 FAIL)
+        CSS gzip 15.6-17.7 KB per page (≤ 28 ok)
+Lab:    DOM nodes 517-873 (≤ 900 ok) · layers 7-25 (< 30 ok) · INP mobile 64-144 ms, desktop 24-32 ms (ok)
+        idle rAF callbacks at 6-8 s: 0 on every page and profile (ok)
+        fps / long tasks: info only (SwiftShader); re-run with --gpu on an idle machine
+Budgets missed (7):
+  - Legal initial JS 51.3 KB > 40 KB
+  - mobile script transfer: Home 80.3, Services 89.2, Story 79.2, Partners 85.2 KB > 70 KB (Legal 66.2 ok)
+  - splash (fresh, first frame → done): 1339 ms mobile, 1620 ms desktop > 1100 ms
+T2: Lighthouse targets PASS on every page and device (≥ 90 / ≥ 95, a11y 100); budget gate FAIL (7).
+
+======================================================================================================
+T3 · Console (tools/console-check.mjs, dist, rebuilt): 5 pages x cut / touch / flow x with and without
+?review=1 = 30 runs: 0 errors, 0 warnings, 0 failed requests. PASS.
+Not opened by the tool (no visible trigger): services profile-dialog; in cut mode services
+categories-dialog and partners tiers-dialog / partner-faq ("?"); menu where its trigger is hidden.
+
+T4 · Compliance diff (tools/compliance-diff.mjs, dist): 0 missing, 0 altered. PASS.
+  Home 23 ok / 2 retired, brackets 8/8 · Services 24 ok / 2 moved / 1 retired, 10/10 ·
+  Story 11 ok / 1 retired, 6/6 · Partners 28 ok, 21/21 · Legal 31 ok, 10/10.
+
+T5 · Seek (tools/seek-test.mjs, site/ because the film hook needs unbundled film.js; tiers A and C,
+1440x900 and 390x844): 684 frames, 1 fail. FAIL.
+  - [A] index.html @ 390x844, #4->#5 at 0.5: text over globe ("One Message." over the globe).
+    Frame: plan/round5/final-audit-raw/seek-fail-index-390x844-A-05-06-50.png
+  On dist the engine reports seekCut false (the hook cannot reach bundled film.js): run T5 on site/.
+
+T6 · Motion and a11y: partial. idle rAF 0 at 6-8 s on all pages (perf lab); Lighthouse a11y 100
+everywhere. Not run in stage 7: axe sweep per scene, reduced-motion / footer switch check, keyboard
+PageDown/Space walk, 44 px targets, focus-under-header, per-field contrast.
+
+T7 · Devices: not run in stage 7 (no real devices; touch-cut covered only by fit --touch and console
+touch mode). Trackpad fling and iOS / Android swipe limits remain unrecorded here.
+
+T8 · Re-judge (lens scores, target ≥ 8):
+  visual 7 · layout 7 · typography 7.5 · motion 7 · ux-conversion 6.5 · mobile-a11y 7 · content 6.5 ·
+  performance 7  → mean 6.94. FAIL (no lens reaches 8; up from the 4-6 baseline, 5.0 overall).
+
+T9 · Build: npm run build exit 0 (twice); check-config --fixture=partners-max ok; console-check saw
+0 failed requests and 0 HTTP >= 400 on all 5 pages (no 404s). PASS.
+
+======================================================================================================
+Hygiene
+  - console.log / console.debug / debugger in site/assets/js: 0.
+  - plan/round5/shots*/ not referenced by site/ or dist/ (site only names plan/round5/snippets/ in comments).
+  - RETIRED token aliases (--fs-hero, --fs-d3, --fs-small, --fs-xs, --track-hero): 0 uses, deleted
+    from site/assets/css/base.css; rebuilt, console re-checked clean (30/30).
+
+Summary: PASS T3 T4 T9, Lighthouse part of T2. FAIL T1 (22 cells), T2 budgets (7), T5 (1 frame), T8 (all
+lenses < 8). T6 partial, T7 not run.

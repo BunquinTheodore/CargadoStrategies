@@ -1,0 +1,36 @@
+<!--
+  Splash snippet (stage 2c, DIRECTION W1 / C1). 2b pastes this once per page in the shared HTML pass,
+  as the FIRST thing inside <body>, on every page except legal.html (legal has no splash).
+
+  - The inline script hides the splash before first paint on later pages of the session
+    (splash.js sets sessionStorage['cs-splash'] when it plays). Keep it before the markup.
+    It also sets html.splash-done when the CSS fallback fade (1.0 s) ends, so the engine never
+    waits for a late splash.js on a splash that is already gone.
+  - All styles live in visual.css (a render-blocking <link> in <head>), including the CSS-only
+    draw of the C ring, the W and the sheen, and the fallback fade when splash.js never runs.
+    The old inline <style id="splash-css"> block in each <head> is deleted.
+  - splash.js (the first import of main.js) adds the match cut into the hero globe.
+  - The C and W paths are the same geometry as the header monogram, the medallion and story #logo.
+
+  Stage nodes 2c expects in .stage, in this order (2b's HTML pass):
+    <div class="fields" aria-hidden="true"></div>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <canvas id="globe" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="scenes" id="content"> … </main>
+    <div class="iris" aria-hidden="true"></div>
+  #stars and .grain must come after .fields (visual.css shows them on ink only via `.fields[data-field="ink"] ~ …`).
+-->
+<script>try{if(sessionStorage.getItem('cs-splash'))document.documentElement.classList.add('splash-skip')}catch(e){}document.addEventListener('animationend',function(e){if(e.animationName==='splash-out'){document.documentElement.classList.add('splash-done');if(e.target.remove)e.target.remove()}})</script>
+<div class="splash" id="splash" aria-hidden="true">
+  <div class="splash__bg"></div>
+  <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
+    <defs>
+      <linearGradient id="splash-sheen" x1="0" x2="1"><stop offset="0" stop-color="#FFF6D6" stop-opacity="0"/><stop offset=".5" stop-color="#FFF6D6" stop-opacity=".9"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/></linearGradient>
+      <mask id="splash-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48"><g fill="none" stroke="#fff" stroke-width="2.6"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/></g></mask>
+    </defs>
+    <path class="splash__c" pathLength="100" d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
+    <path class="splash__w" pathLength="100" d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/>
+    <g mask="url(#splash-mask)"><rect class="splash__sheen" x="-16" y="-12" width="14" height="72" fill="url(#splash-sheen)"/></g>
+  </svg>
+</div>

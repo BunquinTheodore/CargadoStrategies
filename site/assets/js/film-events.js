@@ -42,7 +42,7 @@ export function fontsReady(maxWaitMs = 3000) {
   );
 }
 
-/** Scene title for the HUD: data-title, else the first heading's text. */
+/** Scene title for the scene event: data-title, else the first heading's text. */
 export function sceneTitle(sceneEl) {
   if (sceneEl.dataset.title) return sceneEl.dataset.title;
   const heading = sceneEl.querySelector('h1, h2, h3');

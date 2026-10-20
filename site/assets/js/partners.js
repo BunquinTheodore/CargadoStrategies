@@ -1,209 +1,192 @@
 /**
- * Become a partner (partners.html): partner WhatsApp links, tier
- * preselection, extra scrubbed tweens and the application form
- * (partners-form.js). Globe poses per screen shape (data-pose-md,
- * data-pose-sm) are picked by the shared globe.
+ * For Professionals (partners.html): 6 scenes + credits on the Round 5 cut engine
+ * (DIRECTION §7.4, P1-P7).
+ *
+ * Order (api.md §2): fill what depends on config, then boot(), then register
+ * the film listeners in the same tick. The globe (P1 "You" joins the map, P6
+ * the medallion), the in groups and the stops are the engine's and dotglobe's;
+ * this file adds the P3 deal-in, the tier choice, the two dialogs and the
+ * application stepper (partners-form.js). Sound is automatic (sfx.js), apart
+ * from the success chime the form plays.
  */
 import { boot } from './main.js';
 import { partnerQuestionMessage, waLink } from './whatsapp.js';
+import { createTabs } from './ui-tabs.js';
+import { closeDialog, openDialog } from './ui-dialog.js';
 import { initPartnerForm, renderCategoryOptions, selectTier } from './partners-form.js';
 
-const LAYOUT_SETTLE_MS = 450; // fallback when a content change causes no rebuild
-const NARROW_QUERY = '(max-width: 759px)';
-const WIDE_QUERY = '(min-width: 1100px)'; // two-column application layout
-const DEPTH_QUERY = '(pointer: fine)'; // phones and touch screens stay 2D (ENGINE §11)
-const BAR_LABEL = 'Ask About Partnering';
+const PAGE = 'partners';
+const PHONE_QUERY = '(max-width: 759px)';
+/** P3: the tier panels are dealt in like the Home doors, at most 12° (DIRECTION §7.4). */
+const DEAL = Object.freeze({
+  y: 48,
+  rotationY: 12,
+  perspective: 1100,
+  duration: 0.6,
+  stagger: 0.07,
+  after: 0.04, // seconds after the 'in' label (deal-ins start by 0.36 s, slice lesson 5)
+});
 
-/* ---------- links ---------- */
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const isPhone = () => window.matchMedia(PHONE_QUERY).matches;
 
-function wirePartnerLinks(chrome) {
-  const href = waLink(partnerQuestionMessage());
-  document.querySelectorAll('a[data-wa-partner]').forEach((a) => {
-    a.href = href;
-    a.target = '_blank';
-    a.rel = 'noopener';
-  });
-  chrome.setBar({ label: BAR_LABEL, href });
-}
+/* ---------- P3 choreography (film 'cut' listener, api.md §4.3) ---------- */
 
-/** "Apply for …" links preselect the tier; a pop confirms a changed choice. */
-function wireTierLinks(form, sound) {
-  document.querySelectorAll('a[data-tier]').forEach((link) => {
-    link.addEventListener('click', () => {
-      if (selectTier(form, link.dataset.tier)) sound('pop');
-    });
-  });
-}
-
-/**
- * The whole tier panel picks its tier (pointer convenience; keyboard and
- * screen-reader users keep the real link). Selecting text never navigates.
- */
-function wireTierCards() {
-  document.querySelectorAll('.tier').forEach((card) => {
-    const link = card.querySelector('a[data-tier]');
-    if (!link) return;
-    card.classList.add('is-pickable');
-    card.addEventListener('click', (event) => {
-      if (event.target.closest('a, button') || String(window.getSelection?.() || '')) return;
-      link.click();
-    });
-  });
-}
-
-/* ---------- scrubbed scene tweens (film mode only) ---------- */
-
-/** Drawn lines start part-way through the in-phase and are complete at the fully-in point. */
-const DRAW_START = 0.35; // share of the in-phase
-const DOT_DUR = 0.25; // share of the draw, per dot
-const DOT_STAGGER = 0.36; // share of the draw between dots (3 dots end at 0.97)
-
-function drawWindow(timing) {
-  const at = timing.inStart + timing.inDur * DRAW_START;
-  return { at, dur: Math.max(0.001, timing.focusTime - at) };
-}
-
-function howTweens({ tl, sceneEl, timing }) {
-  const guide = sceneEl.querySelector('.how__guide');
-  const { at, dur } = drawWindow(timing);
-  tl.fromTo(guide, { scaleY: 0 }, { scaleY: 1, duration: dur, ease: 'none' }, at);
-}
-
-function arrangementTweens({ tl, sceneEl, timing }) {
-  const vertical = window.matchMedia(NARROW_QUERY).matches;
-  const line = sceneEl.querySelector('.flow__line');
-  const dots = sceneEl.querySelectorAll('.flow__dot');
-  const { at, dur } = drawWindow(timing);
-  const axis = vertical ? 'scaleY' : 'scaleX';
-  tl.fromTo(line, { [axis]: 0 }, { [axis]: 1, duration: dur, ease: 'power1.inOut' }, at);
-  tl.fromTo(dots, { scale: 0 }, { scale: 1, duration: dur * DOT_DUR, ease: 'back.out(2)', stagger: dur * DOT_STAGGER }, at);
-}
-
-/**
- * The title only rises a little while held: drifting down ate the gap above the
- * lead (14px left at the fully-in point), and a bigger rise would touch the eyebrow.
- */
-const TITLE_DRIFT_PX = -10;
-
-function foundingTweens({ tl, sceneEl, timing }) {
-  const title = sceneEl.querySelector('.founding__title');
-  const ticket = sceneEl.querySelector('.ticket');
-  const hold = Math.max(0.001, timing.outStart - timing.focusTime);
-  tl.fromTo(title, { y: 0 }, { y: TITLE_DRIFT_PX, duration: hold, ease: 'none' }, timing.focusTime);
-  tl.fromTo(ticket, { xPercent: 0 }, { xPercent: 3, duration: hold, ease: 'none', immediateRender: false }, timing.focusTime);
-}
-
-/**
- * While the long form pans up, the "what happens next" column counter-moves
- * so it stays in view (a scrubbed "sticky"), until it reaches the form's end.
- */
-function applyTweens({ tl, sceneEl, timing }) {
-  if (!timing.pan || !window.matchMedia(WIDE_QUERY).matches) return;
-  const aside = sceneEl.querySelector('.apply__aside');
-  const main = sceneEl.querySelector('.apply__main');
-  const stick = Math.min(timing.pan, Math.max(0, main.offsetHeight - aside.offsetHeight));
-  if (!stick) return;
-  const duration = (timing.panEnd - timing.panStart) * (stick / timing.pan);
-  tl.fromTo(aside, { y: 0 }, { y: stick, duration, ease: 'none', immediateRender: false }, timing.panStart);
-}
-
-const SCENE_TWEENS = {
-  how: howTweens,
-  arrangement: arrangementTweens,
-  founding: foundingTweens,
-  apply: applyTweens,
-};
-
-/**
- * 3D staging (fine pointers only): each key scene's layered block swings in
- * from an angle as the scene arrives, then drifts a few degrees while held, so
- * the depth reads even before the pointer tilts a card. `ownPerspective` is
- * false for elements that already carry the reveal's transformPerspective.
- */
-const PERSPECTIVE_PX = 1100;
-const STAGE_START = 0.3; // share of the in-phase
-const DEPTH_STAGES = {
-  how: { target: '.how__list', enter: { rotationY: 16 }, drift: { rotationY: -5 }, ownPerspective: true },
-  arrangement: { target: '.flow', enter: { rotationX: 26 }, drift: { rotationX: -4 }, ownPerspective: true },
-  tiers: { target: '.tiers', enter: { rotationY: -16 }, drift: { rotationY: 5 }, ownPerspective: true },
-  founding: { target: '.ticket', enter: { rotationY: -22 }, drift: { rotationY: 9 }, ownPerspective: false },
-  ask: { target: '.ask__panel', enter: { rotationX: 18 }, drift: { rotationX: -4 }, ownPerspective: true },
-};
-
-const restOf = (state) => Object.fromEntries(Object.keys(state).map((key) => [key, 0]));
-
-function depthStage({ tl, sceneEl, timing }) {
-  const stage = DEPTH_STAGES[sceneEl.id];
-  const el = stage && sceneEl.querySelector(stage.target);
-  if (!el || !window.matchMedia(DEPTH_QUERY).matches) return;
-  const lens = stage.ownPerspective ? { transformPerspective: PERSPECTIVE_PX } : {};
-  const rest = restOf(stage.enter);
-  const at = timing.inStart + timing.inDur * STAGE_START;
-  const enterDur = Math.max(0.001, timing.focusTime - at);
-  tl.fromTo(el, { ...stage.enter, ...lens }, { ...rest, ...lens, duration: enterDur, ease: 'power2.out' }, at);
-  const hold = Math.max(0.001, timing.outStart - timing.focusTime);
-  tl.fromTo(el, rest, { ...stage.drift, duration: hold, ease: 'none', immediateRender: false }, timing.focusTime);
-}
-
-function addSceneTweens(payload) {
-  SCENE_TWEENS[payload.sceneEl.id]?.(payload);
-  depthStage(payload);
-}
-
-/* ---------- layout changes (errors, success state) ---------- */
-
-/** Run fn once the film has rebuilt after a content change (or after a short fallback). */
-function makeAfterLayout(film) {
-  return (fn) => {
-    let done = false;
-    let off = () => {};
-    const run = () => {
-      if (done) return;
-      done = true;
-      clearTimeout(timer);
-      off();
-      fn();
+function dealTiers(tl, el) {
+  const panels = $$('.tier', el);
+  if (!panels.length) return;
+  const flat = isPhone();
+  const from = flat
+    ? { opacity: 0, y: DEAL.y }
+    : {
+      opacity: 0,
+      y: (i) => (i % 2 ? DEAL.y : -DEAL.y),
+      rotationY: (i) => (i % 2 ? -DEAL.rotationY : DEAL.rotationY),
+      transformPerspective: DEAL.perspective,
     };
-    if (film.enabled) off = film.on('rebuilt', run);
-    const timer = setTimeout(run, film.enabled ? LAYOUT_SETTLE_MS : 0);
-  };
+  const to = flat
+    ? { opacity: 1, y: 0 }
+    : { opacity: 1, y: 0, rotationY: 0, transformPerspective: DEAL.perspective };
+  tl.fromTo(panels, from, {
+    ...to, duration: DEAL.duration, ease: 'expo.out', stagger: DEAL.stagger, clearProps: 'transform',
+  }, `in+=${DEAL.after}`);
 }
 
 /**
- * Move focus to el. Film mode: the engine pans or moves the film to the
- * focused element. Flow mode: scroll it below the fixed header.
+ * P6: the question rows lead the close in, from the 'iris' label rather than 'in', so the 25%
+ * frame of a cut into #close already shows them (slice lesson 5; the small medallion carries
+ * less of the frame than Home's). The engine's own row tweens are replaced, not doubled.
  */
-function makeFocusTo(film) {
-  const afterLayoutOf = makeAfterLayout(film);
-  const focusNow = (el) => {
-    el.focus({ preventScroll: true });
-    if (!film.enabled) el.scrollIntoView({ block: 'start' });
+const EARLY_ROWS = Object.freeze({ after: 0.04, duration: 0.45, stagger: 0.06, rise: 24 });
+
+function leadRows(tl, el, dir) {
+  const rows = $$('.close__rows > li', el);
+  if (!rows.length || tl.labels.iris === undefined) return;
+  tl.getTweensOf(rows).forEach((tween) => tween.kill());
+  tl.fromTo(rows, { opacity: 0, y: EARLY_ROWS.rise * dir }, {
+    opacity: 1, y: 0, duration: EARLY_ROWS.duration, ease: 'expo.out', stagger: EARLY_ROWS.stagger,
+  }, `iris+=${EARLY_ROWS.after}`);
+}
+
+/**
+ * P5 on a swap (tier C, reduced motion: 'iris' and 'in' share one early time, cut.js): the paper
+ * and its frame start at 'in' with the head, so the 25% frame shows more than the eyebrow. The
+ * circle cut keeps the head-then-paper order from the markup's data-delay.
+ */
+function leadPaper(tl, el) {
+  const { iris, in: at } = tl.labels;
+  if (!(at > 0) || iris !== at) return;
+  const paper = $('.apply__paper', el);
+  if (!paper) return;
+  tl.getTweensOf([paper, $('[data-frame]', paper)].filter(Boolean))
+    .forEach((tween) => { if (tween.startTime() > at) tween.startTime(at); });
+}
+
+function addCutTweens({ toEl, tl, dir = 1 }) {
+  if (toEl?.id === 'tiers') dealTiers(tl, toEl);
+  if (toEl?.id === 'apply') leadPaper(tl, toEl);
+  if (toEl?.id === 'close') leadRows(tl, toEl, dir);
+}
+
+/* ---------- P3 tier choice: the panels pick a tier, the one "Apply to Join" carries it ---------- */
+
+function wireTiers(film, form) {
+  const scene = $('#tiers');
+  if (!scene) return () => {};
+  const picks = $$('.tier__pick', scene);
+  const pick = (value) => {
+    const input = picks.find((p) => p.value === value);
+    if (input && !input.checked) input.checked = true;
+    selectTier(form, value);
   };
-  /**
-   * After a content change the rebuilt film keeps the old film time, which can
-   * now sit past the shorter scene's hold (part-way into its exit: the aside's
-   * eyebrow half-scrambled). Every target here (error summary, success title,
-   * first field) is at the top of the form, so return to the scene's fully-in point.
-   */
-  const settleThenFocus = (el) => {
-    focusNow(el);
-    if (film.enabled) film.goTo(el); // after focus, so it wins over the engine's pan-to-focus scroll
-  };
-  return (el, { afterLayout = false } = {}) => (afterLayout ? afterLayoutOf(() => settleThenFocus(el)) : focusNow(el));
+  scene.addEventListener('change', (event) => {
+    if (event.target.matches('.tier__pick')) selectTier(form, event.target.value);
+  });
+  // The whole panel picks (pointer convenience); selecting text never does.
+  scene.addEventListener('click', (event) => {
+    const panel = event.target.closest('.tier');
+    if (!panel || event.target.closest('a, button, input, label') || String(window.getSelection?.() || '')) return;
+    $('.tier__pick', panel)?.click();
+  });
+  const root = $('.tabs[data-tabs]', scene);
+  const tabs = root && createTabs(root, {
+    activeWhen: root.dataset.tabs,
+    label: root.dataset.tabsLabel,
+    fixedHeight: true,
+    swipe: true,
+    film,
+    onChange: ({ key, cause }) => { if (cause !== 'mode' && cause !== 'auto') pick(key.replace('tier-', '')); },
+    onModeChange: () => film.refreshReach(),
+  });
+  // On phones the tab on show is the choice, so Apply carries it even when nobody tapped a tab.
+  $('[data-tier-apply]', scene)?.addEventListener('click', () => {
+    if (tabs?.tabbed && tabs.current) pick(tabs.current.replace('tier-', ''));
+  });
+  // Links from elsewhere (partners.html?tier=growth#apply) arrive with the tier chosen.
+  const asked = new URLSearchParams(window.location.search).get('tier');
+  if (asked) pick(asked);
+  return pick;
+}
+
+/* ---------- dialogs: P3 "Compare All" and the P6 questions ---------- */
+
+function wireDialogs(film, pick) {
+  const tiers = document.getElementById('tiers-dialog');
+  $$('[data-tiers-open]').forEach((btn) => btn.addEventListener('click', () => openDialog(tiers, { trigger: btn, film })));
+  // "Apply for Growth →" in the comparison: close it, keep the choice, cut to the application.
+  tiers.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-tier]');
+    if (!link) return;
+    event.preventDefault();
+    const r = link.getBoundingClientRect(); // the iris opens from the link, measured before the dialog closes
+    pick(link.dataset.tier);
+    closeDialog(tiers, { returnFocus: false });
+    film.goTo('apply', { cause: 'click', origin: { x: r.left + r.width / 2, y: r.top + r.height / 2 } });
+  });
+  const faq = document.getElementById('partner-faq');
+  const answers = $$('details.acc', faq);
+  $$('[data-faq]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const n = Number(btn.dataset.faq) - 1;
+      answers.forEach((d, i) => { d.open = i === n; });
+      openDialog(faq, { trigger: btn, film });
+    });
+  });
+}
+
+function wirePartnerLinks() {
+  const href = waLink(partnerQuestionMessage());
+  $$('a[data-wa-partner]').forEach((a) => { a.href = href; });
+}
+
+/**
+ * Every scene lays out from its .scene__pan. The build writes it into dist and the engine adds it
+ * in cut and touch-cut mode; flow mode on the readable source has none, so add it here first.
+ */
+function ensurePans() {
+  $$('.scene > .scene__inner').forEach((inner) => {
+    if (inner.querySelector(':scope > .scene__pan')) return;
+    const pan = document.createElement('div');
+    pan.className = 'scene__pan';
+    pan.append(...inner.childNodes);
+    inner.append(pan);
+  });
 }
 
 /* ---------- start ---------- */
 
+ensurePans();
 const form = document.getElementById('apply-form');
-const success = document.getElementById('apply-success');
-
 renderCategoryOptions(form.elements.category);
+wirePartnerLinks();
 
-const { film, chrome, sfx } = boot();
-const sound = (name, options) => sfx?.play(name, options);
-film.on('build', addSceneTweens);
+const { film, sfx } = boot({ page: PAGE });
+if (typeof film.refreshReach !== 'function') {
+  console.error('[partners] film.refreshReach() is missing: tab and step controls in parked scenes stay reachable by Tab.');
+}
 
-wirePartnerLinks(chrome);
-wireTierLinks(form, sound);
-wireTierCards();
-initPartnerForm({ form, success, focusTo: makeFocusTo(film), sound });
+film.on('cut', addCutTweens);
+const pickTier = wireTiers(film, form);
+wireDialogs(film, pickTier);
+initPartnerForm({ form, success: document.getElementById('apply-success'), film, sfx });

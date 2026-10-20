@@ -1,0 +1,27 @@
+. legal.html @ 1920x1080
+. legal.html @ 1536x864
+. legal.html @ 1440x900
+. legal.html @ 1366x768
+. legal.html @ 1280x720
+. legal.html @ 1024x768
+. legal.html @ 768x1024
+. legal.html @ 390x844
+. legal.html @ 360x740
+Fit audit  2026-10-20T02:20:16.766Z  http://localhost:8541/  mode: touch-cut, activated, Round 4 box, states tools/fit-states/legal.mjs, ph x3, runs 2
+Cells: failing scenes / scenes.
+
+page         1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+legal.html          ok        ok        ok        ok        ok        ok        ok        ok        ok
+
+ok   legal.html @ 1920x1080: 8 scenes, all fit
+ok   legal.html @ 1536x864: 8 scenes, all fit
+ok   legal.html @ 1440x900: 8 scenes, all fit
+ok   legal.html @ 1366x768: 8 scenes, all fit
+ok   legal.html @ 1280x720: 8 scenes, all fit
+ok   legal.html @ 1024x768: 8 scenes, all fit
+ok   legal.html @ 768x1024: 8 scenes, all fit
+ok   legal.html @ 390x844: 8 scenes, all fit
+ok   legal.html @ 360x740: 8 scenes, all fit
+
+Every scene fits at every viewport, and every budget holds.
+exit 0

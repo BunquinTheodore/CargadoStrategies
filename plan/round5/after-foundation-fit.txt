@@ -1,0 +1,485 @@
+. index.html @ 1920x1080
+. index.html @ 1536x864
+. index.html @ 1440x900
+. index.html @ 1366x768
+. index.html @ 1280x720
+. index.html @ 1024x768
+. index.html @ 768x1024
+. index.html @ 390x844
+. index.html @ 360x740
+. services.html @ 1920x1080
+. services.html @ 1536x864
+. services.html @ 1440x900
+. services.html @ 1366x768
+. services.html @ 1280x720
+. services.html @ 1024x768
+. services.html @ 768x1024
+. services.html @ 390x844
+. services.html @ 360x740
+. story.html @ 1920x1080
+. story.html @ 1536x864
+. story.html @ 1440x900
+. story.html @ 1366x768
+. story.html @ 1280x720
+. story.html @ 1024x768
+. story.html @ 768x1024
+. story.html @ 390x844
+. story.html @ 360x740
+. partners.html @ 1920x1080
+. partners.html @ 1536x864
+. partners.html @ 1440x900
+. partners.html @ 1366x768
+. partners.html @ 1280x720
+. partners.html @ 1024x768
+. partners.html @ 768x1024
+. partners.html @ 390x844
+. partners.html @ 360x740
+. legal.html @ 1920x1080
+. legal.html @ 1536x864
+. legal.html @ 1440x900
+. legal.html @ 1366x768
+. legal.html @ 1280x720
+. legal.html @ 1024x768
+. legal.html @ 768x1024
+. legal.html @ 390x844
+. legal.html @ 360x740
+Fit audit  2026-10-18T05:49:33.496Z  http://localhost:8332/  mode: cut, activated, Round 4 box, runs 2
+Cells: failing scenes / scenes.
+
+page            1920x1080  1536x864  1440x900  1366x768  1280x720  1024x768  768x1024   390x844   360x740
+index.html          12/13     12/13     12/13     12/13     12/13     12/13     12/13     12/13     12/13
+services.html         8/9       8/9       8/9       8/9       8/9       8/9       8/9       8/9       8/9
+story.html            7/8       7/8       7/8       7/8       7/8       7/8       7/8       7/8       7/8
+partners.html         8/9       8/9       8/9       8/9       8/9       8/9       8/9       8/9       8/9
+legal.html            7/8       7/8       7/8       7/8       7/8       7/8       7/8       7/8       7/8
+
+FAIL index.html (page): gold-fields 3 > 1; irises 11 > 3 (ink bone gold bone ink bone gold ink bone gold bone ink ink)
+FAIL services.html (page): gold-fields 2 > 1; irises 7 > 3 (ink bone ink gold ink bone gold ink ink)
+FAIL story.html (page): gold-fields 2 > 0; irises 6 > 3 (ink bone gold ink bone gold ink ink)
+FAIL partners.html (page): gold-fields 2 > 1; irises 7 > 3 (ink bone gold ink gold ink bone ink ink)
+FAIL legal.html (page): gold-fields 1 > 0; irises 6 > 3 (ink bone ink bone gold bone ink ink)
+FAIL index.html @ 1920x1080: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 585 / box 1004, spare 237) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 494 / box 1004, spare 294) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 417 / box 1004, spare 321) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 373 / box 1004, spare 343) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 493 / box 1004, spare 286) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 653 / box 1004, spare 203) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 442 / box 1004, spare 308) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 489 / box 1004, spare 286) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 449 / box 1004, spare 336) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 626 / box 1004, spare 219) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 350 / box 1004, spare 272) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 466 / box 1004, spare 297) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 1536x864: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 564 / box 804, spare 142) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 486 / box 804, spare 193) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 400 / box 804, spare 223) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 326 / box 804, spare 261) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 423 / box 804, spare 215) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 609 / box 804, spare 119) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 434 / box 804, spare 207) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 454 / box 804, spare 198) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 435 / box 804, spare 248) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 528 / box 804, spare 162) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 340 / box 804, spare 171) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 416 / box 804, spare 216) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 1440x900: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 556 / box 837, spare 163) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 462 / box 837, spare 222) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 408 / box 837, spare 237) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 335 / box 837, spare 274) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 433 / box 837, spare 227) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 618 / box 837, spare 132) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 435 / box 837, spare 224) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 484 / box 837, spare 200) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 438 / box 837, spare 262) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 571 / box 837, spare 158) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 342 / box 837, spare 187) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 426 / box 837, spare 229) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 1366x768: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 520 / box 712, spare 115) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 435 / box 712, spare 170) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 380 / box 712, spare 185) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 301 / box 712, spare 225) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 396 / box 712, spare 180) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 630 / box 712, spare 60) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 430 / box 712, spare 160) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 458 / box 712, spare 147) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 426 / box 712, spare 210) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 550 / box 712, spare 103) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 334 / box 712, spare 126) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 333 / box 712, spare 210) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 1280x720: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 497 / box 664, spare 102) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 408 / box 664, spare 158) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 367 / box 664, spare 166) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 289 / box 664, spare 206) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 376 / box 664, spare 165) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 614 / box 664, spare 43) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 428 / box 664, spare 136) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 449 / box 664, spare 127) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 422 / box 664, spare 191) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 600 / box 664, spare 53) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 331 / box 664, spare 102) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 323 / box 664, spare 189) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 1024x768: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 504 / box 712, spare 123) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 335 / box 712, spare 219) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 528 / box 712, spare 111) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 425 / box 712, spare 163) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 435 / box 712, spare 161) [- w59 e1 g0 empty 100%]
+  - #5 founder: Y +134, small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 846 / box 712, spare -115) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 339 / box 712, spare 206) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 500 / box 712, spare 126) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 349 / box 712, spare 201) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 484 / box 712, spare 136) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 507 / box 712, spare 39) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 323 / box 712, spare 215) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 768x1024: 13 scenes, 12 fail
+  - #0 hero: small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 932 / box 952, spare 36) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 634 / box 952, spare 197) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 16 span.situation__tags "Mortgage · real estate · law", small-text 14px < 16 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 552 / box 952, spare 226) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 473 / box 952, spare 265) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 430 / box 952, spare 289) [- w59 e1 g0 empty 100%]
+  - #5 founder: small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 867 / box 952, spare 68) [- w131 e3 g0 empty 100%]
+  - #6 services: markup: no data-archetype, markup: no data-group, words 71 > 60 (content 875 / box 952, spare 64) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 16 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 556 / box 952, spare 225) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 689 / box 952, spare 157) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 534 / box 952, spare 237) [- w91 e1 g0 empty 100%]
+  - #10 faq: markup: no data-archetype, markup: no data-group, words 156 > 60 (content 515 / box 952, spare 163) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 319 / box 952, spare 343) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 390x844: 13 scenes, 12 fail
+  - #0 hero: Y +207, small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 988 / box 781, spare -186) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 501 / box 781, spare 173) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 15 span.situation__tags "Mortgage · real estate · law", small-text 14px < 15 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 612 / box 781, spare 105) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 674 / box 781, spare 75) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 642 / box 781, spare 93) [- w59 e1 g0 empty 100%]
+  - #5 founder: Y +349, small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 1130 / box 781, spare -328) [- w131 e3 g0 empty 100%]
+  - #6 services: Y +18, markup: no data-archetype, markup: no data-group, words 71 > 60 (content 799 / box 781, spare 3) [- w71 e9 g0 empty 100%]
+  - #7 find: small-text 14px < 15 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 673 / box 781, spare 76) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 492 / box 781, spare 165) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 639 / box 781, spare 94) [- w91 e1 g0 empty 100%]
+  - #10 faq: Y +24, markup: no data-archetype, markup: no data-group, words 156 > 60 (content 551 / box 781, spare -24) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 430 / box 781, spare 198) [- w52 e2 g0 empty 100%]
+FAIL index.html @ 360x740: 13 scenes, 12 fail
+  - #0 hero: Y +262, small-text 13px < 14 p#intro-city-why.hint "We ask for your city only so", small-text 13px < 14 p.hint "Opens WhatsApp with your mes", markup: no data-archetype, markup: no data-group, words 112 > 60 (content 946 / box 684, spare -244) [- w112 e3 g0 empty 100%]
+  - #1 video: markup: no data-archetype, markup: no data-group (content 473 / box 684, spare 136) [- w35 e0 g0 empty 100%]
+  - #2 situations: small-text 14px < 15 span.situation__tags "Mortgage · real estate · law", small-text 14px < 15 span.situation__tags "Insurance · wills and estate", markup: no data-archetype, markup: no data-group, words 61 > 60 (content 628 / box 684, spare 46) [- w61 e4 g0 empty 100%]
+  - #3 compare: markup: no data-archetype, markup: no data-group (content 675 / box 684, spare 23) [- w49 e2 g0 empty 100%]
+  - #4 how-it-works: markup: no data-archetype, markup: no data-group (content 628 / box 684, spare 48) [- w59 e1 g0 empty 100%]
+  - #5 founder: Y +480, small-text 13px < 14 p.offer__fine "[company name] · business st", small-text 13px < 14 span.ph "[company name]", small-text 13px < 14 p.offer__fine "[company name] · licence [#]", small-text 13px < 14 span.ph "[#]", small-text 13px < 14 span.ph "[regulator]", small-text 13px < 14 p.offer__fine "Provided by Cargado Strategi", markup: no data-archetype, markup: no data-group, words 131 > 60 (content 1164 / box 684, spare -462) [- w131 e3 g0 empty 100%]
+  - #6 services: Y +165, markup: no data-archetype, markup: no data-group, words 71 > 60 (content 849 / box 684, spare -147) [- w71 e9 g0 empty 100%]
+  - #7 find: Y +2, small-text 14px < 15 figcaption#map-cap.map__cap.ui "Map preview · cities shown f", markup: no data-archetype, markup: no data-group, words 80 > 60 (content 686 / box 684, spare 18) [- w80 e1 g0 empty 100%]
+  - #8 story: markup: no data-archetype, markup: no data-group (content 481 / box 684, spare 120) [- w35 e1 g0 empty 100%]
+  - #9 partners: markup: no data-archetype, markup: no data-group, words 91 > 60 (content 646 / box 684, spare 40) [- w91 e1 g0 empty 100%]
+  - #10 faq: Y +76, markup: no data-archetype, markup: no data-group, words 156 > 60 (content 554 / box 684, spare -76) [- w156 e6 g0 empty 100%]
+  - #11 close: markup: no data-archetype, markup: no data-group (content 421 / box 684, spare 151) [- w52 e2 g0 empty 100%]
+FAIL services.html @ 1920x1080: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 600 / box 1004, spare 229) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 581 / box 1004, spare 240) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 691 / box 1004, spare 185) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 625 / box 1004, spare 218) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 729 / box 1004, spare 167) [- w164 e17 g0 empty 100%]
+  - #5 categories: small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 833 / box 1004, spare 113) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 846 / box 1004, spare 106) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 466 / box 1004, spare 297) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 1536x864: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 524 / box 804, spare 161) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 550 / box 804, spare 149) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 606 / box 804, spare 122) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 594 / box 804, spare 128) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 711 / box 804, spare 71) [- w164 e17 g0 empty 100%]
+  - #5 categories: small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 779 / box 804, spare 34) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: Y +22, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 826 / box 804, spare -1) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 416 / box 804, spare 216) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 1440x900: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 539 / box 837, spare 171) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 558 / box 837, spare 163) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 679 / box 837, spare 103) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 624 / box 837, spare 130) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 686 / box 837, spare 100) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +35, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 872 / box 837, spare -13) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 832 / box 837, spare 25) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 426 / box 837, spare 229) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 1366x768: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 483 / box 712, spare 133) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 527 / box 712, spare 113) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 624 / box 712, spare 65) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 600 / box 712, spare 76) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 653 / box 712, spare 52) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +120, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 832 / box 712, spare -101) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: Y +122, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 834 / box 712, spare -102) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 333 / box 712, spare 210) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 1280x720: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 456 / box 664, spare 122) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 568 / box 664, spare 67) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 651 / box 664, spare 26) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 591 / box 664, spare 56) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 622 / box 664, spare 42) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +153, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 817 / box 664, spare -135) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: Y +161, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 825 / box 664, spare -143) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 323 / box 664, spare 189) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 1024x768: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 600 / box 712, spare 75) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 665 / box 712, spare 44) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: Y +365, small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 1077 / box 712, spare -346) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 571 / box 712, spare 90) [- w100 e2 g0 empty 100%]
+  - #4 finder: Y +131, small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 843 / box 712, spare -111) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +472, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 1184 / box 712, spare -453) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: Y +391, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 1103 / box 712, spare -372) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 323 / box 712, spare 215) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 768x1024: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 669 / box 952, spare 167) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 796 / box 952, spare 105) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: Y +200, small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 15px < 16 dd "Finance and operations strat", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 16 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 16 span.offer-stack__fix "Fixes: “I don't know what to", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 1152 / box 952, spare -174) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 16 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 595 / box 952, spare 205) [- w100 e2 g0 empty 100%]
+  - #4 finder: small-text 15px < 16 p#finder-status.results__status "Choose what you need first. ", small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "WhatsApp opens with your mes", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 825 / box 952, spare 90) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +383, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 span.cat-rail__tag "+ partners", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", markup: no data-archetype, markup: no data-group, words 157 > 60, elements 19 > 12 (content 1335 / box 952, spare -357) [- w157 e19 g0 empty 100%]
+  - #6 inquiry: Y +241, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 16 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 16 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 1193 / box 952, spare -215) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 319 / box 952, spare 343) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 390x844: 9 scenes, 8 fail
+  - #0 intro: small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 639 / box 781, spare 92) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 771 / box 781, spare 27) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: Y +781, small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 14px < 15 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 15 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 15 span.offer-stack__fix "Fixes: “I don't know what to", small-text 14px < 15 span.offer-stack__fix "Fixes: “I'll start, then lif", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 1562 / box 781, spare -760) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: Y +81, small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 15 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 862 / box 781, spare -58) [- w100 e2 g0 empty 100%]
+  - #4 finder: Y +522, small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 15 span "WhatsApp opens with your mes", small-text 12px < 14 span.next-steps__when.num "Within [24h]", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 1303 / box 781, spare -501) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +843, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", small-text 13px < 14 li "Business", markup: no data-archetype, markup: no data-group, words 156 > 60, elements 19 > 12 (content 1624 / box 781, spare -822) [- w156 e19 g0 empty 100%]
+  - #6 inquiry: Y +806, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 15 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 15 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 1587 / box 781, spare -785) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 430 / box 781, spare 198) [- w49 e2 g0 empty 100%]
+FAIL services.html @ 360x740: 9 scenes, 8 fail
+  - #0 intro: Y +5, small-text 12px < 14 span.jump-rail__n "01", small-text 11px < 14 span.jump-rail__group "Ours", small-text 12px < 14 span.jump-rail__n "02", small-text 12px < 14 span.jump-rail__n "03", small-text 12px < 14 span.jump-rail__n "04", small-text 11px < 14 span.jump-rail__group "Find", markup: no data-archetype, markup: no data-group, words 63 > 60 (content 689 / box 684, spare 14) [- w63 e6 g0 empty 100%]
+  - #1 ours-insurance: Y +122, small-text 13px < 14 p.num.offer-meta "30 min · Insurance · Licence", small-text 13px < 14 span.ph "[licence #]", markup: no data-archetype, markup: no data-group, words 94 > 60 (content 806 / box 684, spare -102) [- w94 e3 g0 empty 100%]
+  - #2 ours-strategy: Y +904, small-text 11px < 14 dt "Offered through", small-text 11px < 14 dt "Service", small-text 14px < 15 span.offer-stack__fix "Fixes: “I don't know where i", small-text 14px < 15 span.offer-stack__fix "Fixes: “I'm the bottleneck f", small-text 14px < 15 span.offer-stack__fix "Fixes: “I don't know what to", small-text 14px < 15 span.offer-stack__fix "Fixes: “I'll start, then lif", markup: no data-archetype, markup: no data-group, words 205 > 60 (content 1588 / box 684, spare -886) [- w205 e3 g0 empty 100%]
+  - #3 ours-outsourcing: Y +154, small-text 13px < 14 p.num.offer-meta "Outsourcing · from [$x]/hr", small-text 13px < 14 span.ph "[$x]", small-text 13px < 14 span.roles__n.num "01", small-text 14px < 15 span.ph "[what this role takes off yo", small-text 13px < 14 span.roles__n.num "02", small-text 13px < 14 span.roles__n.num "03", markup: no data-archetype, markup: no data-group, words 100 > 60 (content 838 / box 684, spare -134) [- w100 e2 g0 empty 100%]
+  - #4 finder: Y +643, small-text 12px < 14 p.notice.results__notice "Sorted by distance only. Thi", small-text 12px < 14 strong "Sorted by distance only.", small-text 12px < 14 span.ph "[Wording to be confirmed by ", small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 15 span "WhatsApp opens with your mes", small-text 12px < 14 span.next-steps__when.num "Within [24h]", markup: no data-archetype, markup: no data-group, words 164 > 60, elements 17 > 12 (content 1327 / box 684, spare -624) [- w164 e17 g0 empty 100%]
+  - #5 categories: Y +979, small-text 11px < 14 p#rail-ours.cat-rail__group "Ours", small-text 11px < 14 p#rail-partners.cat-rail__group "Partners", small-text 13px < 14 li "Life", small-text 13px < 14 li "Health", small-text 13px < 14 li "Home", small-text 13px < 14 li "Business", markup: no data-archetype, markup: no data-group, words 156 > 60, elements 19 > 12 (content 1663 / box 684, spare -960) [- w156 e19 g0 empty 100%]
+  - #6 inquiry: Y +921, small-text 12px < 14 span.next-steps__when.num "Now", small-text 14px < 15 span "Your inquiry opens in WhatsA", small-text 12px < 14 span.next-steps__when.num "Within [24h]", small-text 12px < 14 span.ph "[24h]", small-text 14px < 15 span "We introduce you both", small-text 12px < 14 span.next-steps__when.num "Day [3]", markup: no data-archetype, markup: no data-group, words 180 > 60, elements 13 > 12 (content 1605 / box 684, spare -902) [- w180 e13 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 421 / box 684, spare 151) [- w49 e2 g0 empty 100%]
+FAIL story.html @ 1920x1080: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 618 / box 1004, spare 291) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 652 / box 1004, spare 203) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 633 / box 1004, spare 214) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 721 / box 1004, spare 170) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 644 / box 1004, spare 262) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 583 / box 1004, spare 293) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 432 / box 1004, spare 319) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 1536x864: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 586 / box 804, spare 201) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 575 / box 804, spare 136) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 620 / box 804, spare 115) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 617 / box 804, spare 116) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 560 / box 804, spare 171) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 570 / box 804, spare 207) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 384 / box 804, spare 233) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 1440x900: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 607 / box 837, spare 220) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 589 / box 837, spare 146) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 595 / box 837, spare 145) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 640 / box 837, spare 123) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 568 / box 837, spare 184) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 576 / box 837, spare 220) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 391 / box 837, spare 246) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 1366x768: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 523 / box 712, spare 172) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 567 / box 712, spare 92) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 556 / box 712, spare 99) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 557 / box 712, spare 98) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 538 / box 712, spare 135) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 507 / box 712, spare 170) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 363 / box 712, spare 195) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 1280x720: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 492 / box 664, spare 156) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 547 / box 664, spare 76) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 525 / box 664, spare 89) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 527 / box 664, spare 88) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 528 / box 664, spare 102) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 475 / box 664, spare 139) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 353 / box 664, spare 174) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 1024x768: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 523 / box 712, spare 202) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 572 / box 712, spare 89) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 441 / box 712, spare 156) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 496 / box 712, spare 129) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 608 / box 712, spare 95) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 575 / box 712, spare 89) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 376 / box 712, spare 188) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 768x1024: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 615 / box 952, spare 314) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 653 / box 952, spare 175) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 381 / box 952, spare 311) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 466 / box 952, spare 270) [- w25 e0 g0 empty 100%]
+  - #4 values: markup: no data-archetype, markup: no data-group, words 106 > 60 (content 738 / box 952, spare 133) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 620 / box 952, spare 193) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 455 / box 952, spare 275) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 390x844: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 598 / box 781, spare 115) [- w40 e0 g0 empty 100%]
+  - #1 beginning: markup: no data-archetype, markup: no data-group, words 61 > 60 (content 674 / box 781, spare 74) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 612 / box 781, spare 105) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 528 / box 781, spare 149) [- w25 e0 g0 empty 100%]
+  - #4 values: Y +108, markup: no data-archetype, markup: no data-group, words 106 > 60 (content 889 / box 781, spare -87) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 573 / box 781, spare 126) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 422 / box 781, spare 202) [- w53 e2 g0 empty 100%]
+FAIL story.html @ 360x740: 8 scenes, 7 fail
+  - #0 top: markup: no data-archetype, markup: no data-group (content 376 / box 684, spare 174) [- w40 e0 g0 empty 100%]
+  - #1 beginning: Y +2, markup: no data-archetype, markup: no data-group, words 61 > 60 (content 686 / box 684, spare 17) [- w61 e1 g0 empty 100%]
+  - #2 founder: markup: no data-archetype, markup: no data-group (content 580 / box 684, spare 71) [- w27 e1 g0 empty 100%]
+  - #3 logo: markup: no data-archetype, markup: no data-group (content 502 / box 684, spare 111) [- w25 e0 g0 empty 100%]
+  - #4 values: Y +232, markup: no data-archetype, markup: no data-group, words 106 > 60 (content 916 / box 684, spare -213) [- w106 e0 g0 empty 100%]
+  - #5 network: markup: no data-archetype, markup: no data-group, words 68 > 60 (content 583 / box 684, spare 70) [- w68 e2 g0 empty 100%]
+  - #6 talk: markup: no data-archetype, markup: no data-group (content 441 / box 684, spare 142) [- w53 e2 g0 empty 100%]
+FAIL partners.html @ 1920x1080: 9 scenes, 8 fail
+  - #0 hero: markup: no data-archetype, markup: no data-group, words 95 > 60 (content 867 / box 1004, spare 99) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 605 / box 1004, spare 227) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 625 / box 1004, spare 217) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 614 / box 1004, spare 222) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 661 / box 1004, spare 198) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 562 / box 1004, spare 251) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1128, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2132 / box 1004, spare -1099) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 422 / box 1004, spare 319) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 1536x864: 9 scenes, 8 fail
+  - #0 hero: markup: no data-archetype, markup: no data-group, words 95 > 60 (content 769 / box 804, spare 41) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 572 / box 804, spare 137) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 587 / box 804, spare 130) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 575 / box 804, spare 136) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 603 / box 804, spare 122) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 522 / box 804, spare 165) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1249, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2053 / box 804, spare -1227) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 353 / box 804, spare 248) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 1440x900: 9 scenes, 8 fail
+  - #0 hero: markup: no data-archetype, markup: no data-group, words 95 > 60 (content 789 / box 837, spare 49) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 584 / box 837, spare 149) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 597 / box 837, spare 143) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 605 / box 837, spare 138) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 617 / box 837, spare 133) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 536 / box 837, spare 176) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1263, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2100 / box 837, spare -1239) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 360 / box 837, spare 262) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 1366x768: 9 scenes, 8 fail
+  - #0 hero: Y +36, markup: no data-archetype, markup: no data-group, words 95 > 60 (content 748 / box 712, spare -14) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 542 / box 712, spare 104) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 560 / box 712, spare 95) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 577 / box 712, spare 87) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 568 / box 712, spare 91) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 487 / box 712, spare 134) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1289, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2001 / box 712, spare -1269) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 275 / box 712, spare 239) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 1280x720: 9 scenes, 8 fail
+  - #0 hero: Y +59, markup: no data-archetype, markup: no data-group, words 95 > 60 (content 723 / box 664, spare -38) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 527 / box 664, spare 86) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 539 / box 664, spare 80) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 566 / box 664, spare 67) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 550 / box 664, spare 75) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 498 / box 664, spare 104) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1301, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 1965 / box 664, spare -1282) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 268 / box 664, spare 217) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 1024x768: 9 scenes, 8 fail
+  - #0 hero: markup: no data-archetype, markup: no data-group, words 95 > 60 (content 685 / box 712, spare 35) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 538 / box 712, spare 106) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 585 / box 712, spare 82) [- w121 e4 g0 empty 100%]
+  - #3 tiers: Y +99, small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 811 / box 712, spare -79) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 556 / box 712, spare 97) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 482 / box 712, spare 137) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1740, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2452 / box 712, spare -1720) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 270 / box 712, spare 241) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 768x1024: 9 scenes, 8 fail
+  - #0 hero: markup: no data-archetype, markup: no data-group, words 95 > 60 (content 675 / box 952, spare 167) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 572 / box 952, spare 216) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 697 / box 952, spare 153) [- w121 e4 g0 empty 100%]
+  - #3 tiers: small-text 14px < 16 li "Listing for your service are", small-text 14px < 16 li "Partner profile with your li", small-text 14px < 16 li "Commission only when an intr", small-text 14px < 16 span.ph "[Longer profile: languages, ", small-text 14px < 16 span.ph "[Network tools, e.g. an intr", small-text 14px < 16 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 871 / box 952, spare 66) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 583 / box 952, spare 210) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 523 / box 952, spare 242) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +1725, small-text 14px < 16 span "You send the application. No", small-text 14px < 16 span "We review your licence detai", small-text 14px < 16 span.ph "[process to be confirmed]", small-text 14px < 16 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 2677 / box 952, spare -1699) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 275 / box 952, spare 365) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 390x844: 9 scenes, 8 fail
+  - #0 hero: Y +6, markup: no data-archetype, markup: no data-group, words 95 > 60 (content 787 / box 781, spare 17) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 620 / box 781, spare 101) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: Y +210, small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 991 / box 781, spare -189) [- w121 e4 g0 empty 100%]
+  - #3 tiers: Y +272, small-text 14px < 15 li "Listing for your service are", small-text 14px < 15 li "Partner profile with your li", small-text 14px < 15 li "Commission only when an intr", small-text 14px < 15 span.ph "[Longer profile: languages, ", small-text 14px < 15 span.ph "[Network tools, e.g. an intr", small-text 14px < 15 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 1053 / box 781, spare -251) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 605 / box 781, spare 109) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 660 / box 781, spare 84) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +2632, small-text 14px < 15 span "You send the application. No", small-text 14px < 15 span "We review your licence detai", small-text 14px < 15 span.ph "[process to be confirmed]", small-text 14px < 15 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 3413 / box 781, spare -2611) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 394 / box 781, spare 216) [- w45 e2 g0 empty 100%]
+FAIL partners.html @ 360x740: 9 scenes, 8 fail
+  - #0 hero: Y +115, markup: no data-archetype, markup: no data-group, words 95 > 60 (content 799 / box 684, spare -95) [- w95 e2 g0 empty 100%]
+  - #1 how: markup: no data-archetype, markup: no data-group, words 67 > 60 (content 648 / box 684, spare 37) [- w67 e1 g0 empty 100%]
+  - #2 arrangement: Y +330, small-text 13px < 14 p.flow__n.num "01", small-text 13px < 14 p.flow__n.num "02", small-text 13px < 14 p.flow__n.num "03", markup: no data-archetype, markup: no data-group, words 121 > 60 (content 1014 / box 684, spare -311) [- w121 e4 g0 empty 100%]
+  - #3 tiers: Y +468, small-text 14px < 15 li "Listing for your service are", small-text 14px < 15 li "Partner profile with your li", small-text 14px < 15 li "Commission only when an intr", small-text 14px < 15 span.ph "[Longer profile: languages, ", small-text 14px < 15 span.ph "[Network tools, e.g. an intr", small-text 14px < 15 span.ph "[More than one service area]", markup: no data-archetype, markup: no data-group, words 135 > 60 (content 1152 / box 684, spare -450) [- w135 e6 g0 empty 100%]
+  - #4 founding: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 608 / box 684, spare 56) [- w76 e2 g0 empty 100%]
+  - #5 ask: markup: no data-archetype, markup: no data-group (content 685 / box 684, spare 20) [- w58 e2 g0 empty 100%]
+  - #6 apply: Y +2703, small-text 14px < 15 span "You send the application. No", small-text 14px < 15 span "We review your licence detai", small-text 14px < 15 span.ph "[process to be confirmed]", small-text 14px < 15 span "If approved, your listing go", markup: no data-archetype, markup: no data-group, words 327 > 60, elements 23 > 12 (content 3387 / box 684, spare -2684) [- w327 e23 g0 empty 100%]
+  - #7 close: markup: no data-archetype, markup: no data-group (content 413 / box 684, spare 156) [- w45 e2 g0 empty 100%]
+FAIL legal.html @ 1920x1080: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 600 / box 1004, spare 229) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: markup: no data-archetype, markup: no data-group, words 143 > 60 (content 1004 / box 1004, spare 217) [- w143 e1 g0 empty 100%]
+  - #2 privacy: small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 1004 / box 1004, spare 29) [- w174 e1 g0 empty 100%]
+  - #3 terms: markup: no data-archetype, markup: no data-group, words 122 > 60 (content 1004 / box 1004, spare 28) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 1004 / box 1004, spare 407) [- w85 e2 g0 empty 100%]
+  - #5 faq: markup: no data-archetype, markup: no data-group, words 354 > 60 (content 1004 / box 1004, spare 28) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 498 / box 1004, spare 281) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 1536x864: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 525 / box 804, spare 161) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: markup: no data-archetype, markup: no data-group, words 143 > 60 (content 804 / box 804, spare 123) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +153, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 804 / box 804, spare -153) [- w174 e1 g0 empty 100%]
+  - #3 terms: markup: no data-archetype, markup: no data-group, words 122 > 60 (content 804 / box 804, spare 23) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 804 / box 804, spare 227) [- w85 e2 g0 empty 100%]
+  - #5 faq: markup: no data-archetype, markup: no data-group, words 354 > 60 (content 804 / box 804, spare 23) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 447 / box 804, spare 201) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 1440x900: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 562 / box 837, spare 160) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: markup: no data-archetype, markup: no data-group, words 143 > 60 (content 837 / box 837, spare 135) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +160, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 837 / box 837, spare -160) [- w174 e1 g0 empty 100%]
+  - #3 terms: markup: no data-archetype, markup: no data-group, words 122 > 60 (content 837 / box 837, spare 24) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 837 / box 837, spare 255) [- w85 e2 g0 empty 100%]
+  - #5 faq: markup: no data-archetype, markup: no data-group, words 354 > 60 (content 837 / box 837, spare 24) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 457 / box 837, spare 213) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 1366x768: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 494 / box 712, spare 128) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: markup: no data-archetype, markup: no data-group, words 143 > 60 (content 712 / box 712, spare 89) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +237, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 712 / box 712, spare -237) [- w174 e1 g0 empty 100%]
+  - #3 terms: markup: no data-archetype, markup: no data-group, words 122 > 60 (content 712 / box 712, spare 2) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 712 / box 712, spare 162) [- w85 e2 g0 empty 100%]
+  - #5 faq: markup: no data-archetype, markup: no data-group, words 354 > 60 (content 712 / box 712, spare 17) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 363 / box 712, spare 195) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 1280x720: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 504 / box 664, spare 98) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: markup: no data-archetype, markup: no data-group, words 143 > 60 (content 664 / box 664, spare 44) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +294, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 664 / box 664, spare -294) [- w174 e1 g0 empty 100%]
+  - #3 terms: Y +32, markup: no data-archetype, markup: no data-group, words 122 > 60 (content 664 / box 664, spare -32) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 664 / box 664, spare 127) [- w85 e2 g0 empty 100%]
+  - #5 faq: Y +8, markup: no data-archetype, markup: no data-group, words 354 > 60 (content 664 / box 664, spare -8) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 353 / box 664, spare 174) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 1024x768: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 566 / box 712, spare 92) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: Y +26, markup: no data-archetype, markup: no data-group, words 143 > 60 (content 712 / box 712, spare -26) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +318, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 712 / box 712, spare -318) [- w174 e1 g0 empty 100%]
+  - #3 terms: Y +107, markup: no data-archetype, markup: no data-group, words 122 > 60 (content 712 / box 712, spare -107) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 712 / box 712, spare 116) [- w85 e2 g0 empty 100%]
+  - #5 faq: Y +48, markup: no data-archetype, markup: no data-group, words 354 > 60 (content 712 / box 712, spare -48) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 352 / box 712, spare 200) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 768x1024: 8 scenes, 7 fail
+  - #0 contents: small-text 13px < 14 span.toc__n "01", small-text 13px < 14 span.toc__n "02", small-text 13px < 14 span.toc__n "03", small-text 13px < 14 span.toc__n "04", small-text 13px < 14 span.toc__n "05", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 628 / box 952, spare 188) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: Y +11, markup: no data-archetype, markup: no data-group, words 143 > 60 (content 952 / box 952, spare -11) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +295, small-text 14px < 16 span.ph "[privacy officer name and em", markup: no data-archetype, markup: no data-group, words 174 > 60 (content 952 / box 952, spare -295) [- w174 e1 g0 empty 100%]
+  - #3 terms: Y +16, markup: no data-archetype, markup: no data-group, words 122 > 60 (content 952 / box 952, spare -16) [- w122 e1 g0 empty 100%]
+  - #4 conduct: small-text 14px < 16 p.legal-aside "Every partner agrees to thes", markup: no data-archetype, markup: no data-group, words 85 > 60 (content 952 / box 952, spare 210) [- w85 e2 g0 empty 100%]
+  - #5 faq: Y +4, markup: no data-archetype, markup: no data-group, words 354 > 60 (content 952 / box 952, spare -4) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 347 / box 952, spare 329) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 390x844: 8 scenes, 7 fail
+  - #0 contents: small-text 12px < 14 p.notice "Draft for review. These page", small-text 12px < 14 strong "Draft for review.", small-text 12px < 14 span.ph "[brackets]", small-text 13px < 14 span.toc__n "01", small-text 11px < 14 span.toc__meta "5 clauses", small-text 13px < 14 span.toc__n "02", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 623 / box 781, spare 100) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: Y +238, markup: no data-archetype, markup: no data-group, words 143 > 60 (content 781 / box 781, spare -238) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +458, markup: no data-archetype, markup: no data-group, words 167 > 60 (content 781 / box 781, spare -458) [- w167 e1 g0 empty 100%]
+  - #3 terms: Y +225, markup: no data-archetype, markup: no data-group, words 122 > 60 (content 781 / box 781, spare -225) [- w122 e1 g0 empty 100%]
+  - #4 conduct: markup: no data-archetype, markup: no data-group, words 76 > 60 (content 781 / box 781, spare 31) [- w76 e2 g0 empty 100%]
+  - #5 faq: Y +88, markup: no data-archetype, markup: no data-group, words 354 > 60 (content 781 / box 781, spare -88) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 458 / box 781, spare 184) [- w50 e2 g0 empty 100%]
+FAIL legal.html @ 360x740: 8 scenes, 7 fail
+  - #0 contents: small-text 12px < 14 p.notice "Draft for review. These page", small-text 12px < 14 strong "Draft for review.", small-text 12px < 14 span.ph "[brackets]", small-text 13px < 14 span.toc__n "01", small-text 11px < 14 span.toc__meta "5 clauses", small-text 13px < 14 span.toc__n "02", markup: no data-archetype, markup: no data-group, words 93 > 60 (content 624 / box 684, spare 49) [- w93 e5 g0 empty 100%]
+  - #1 disclosure: Y +458, markup: no data-archetype, markup: no data-group, words 143 > 60 (content 684 / box 684, spare -458) [- w143 e1 g0 empty 100%]
+  - #2 privacy: Y +628, markup: no data-archetype, markup: no data-group, words 167 > 60 (content 684 / box 684, spare -628) [- w167 e1 g0 empty 100%]
+  - #3 terms: Y +395, markup: no data-archetype, markup: no data-group, words 122 > 60 (content 684 / box 684, spare -395) [- w122 e1 g0 empty 100%]
+  - #4 conduct: Y +169, markup: no data-archetype, markup: no data-group, words 76 > 60 (content 684 / box 684, spare -169) [- w76 e2 g0 empty 100%]
+  - #5 faq: Y +210, markup: no data-archetype, markup: no data-group, words 354 > 60 (content 684 / box 684, spare -210) [- w354 e10 g0 empty 100%]
+  - #6 close: markup: no data-archetype, markup: no data-group (content 449 / box 684, spare 138) [- w50 e2 g0 empty 100%]
+
+388 failures (scene/viewport combinations plus page checks).
