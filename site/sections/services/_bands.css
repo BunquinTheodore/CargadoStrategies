@@ -130,3 +130,8 @@
 @media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
   #finder:not(.is-finder) .finder__globe { top: 3%; bottom: auto; height: 92%; left: 44%; right: 0; }
 }
+/* Wide screens: the concierge copy sits in the middle of the scene, not on its floor (owner, 2026-10-20). */
+@media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
+  #finder:not(.is-finder) :is(.scene__pan, html.rm .scene__inner) { justify-content: center; }
+  #finder:not(.is-finder) .finder__copy { padding-bottom: 0; }
+}
