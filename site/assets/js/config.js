@@ -38,8 +38,8 @@ export const ADDRESS = Object.freeze({
 });
 export const ADDRESS_LINE = `${ADDRESS.street}, ${ADDRESS.city}, ${ADDRESS.province} ${ADDRESS.postal}`;
 
-/** Business email (owner, 2026-10-18). Empty = forms fall back to WhatsApp and pages show the label below. */
-export const CONTACT_EMAIL = 'malee.holgado@mygreatway.ca';
+/** Business email (owner, 2026-10-25; Namecheap forwards it to the owner's inbox). Empty = forms fall back to WhatsApp and pages show the label below. */
+export const CONTACT_EMAIL = 'info@cargadostrategies.com';
 export const CONTACT_EMAIL_LABEL = CONTACT_EMAIL || '[company email]';
 
 /**
