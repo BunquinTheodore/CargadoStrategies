@@ -16,8 +16,8 @@
  * lab         our own CDP session: DOM nodes ≤ 900, composited layers < 30, INP on a sheet chip
  *             ≤ 150 / 100 ms, 3 cuts at 4x CPU (mobile, touch-cut, tier B) or 1x (desktop, tier A)
  *             with no long task > 50 ms and ≥ 55 / 58 fps, 0 rAF callbacks 6 s after the last
- *             landing, splash ≤ 2.6 s (Home, fresh load: splash.js's `cs-splash` measure, the
- *             splash's first frame to done; the boot intro is 2.5 s). The tier is pinned per profile.
+ *             landing, splash ≤ 4.1 s (Home, fresh load: splash.js's `cs-splash` measure, the
+ *             splash's first frame to done; the boot intro is 4 s). The tier is pinned per profile.
  *   --gpu     render the lab on the machine's GPU. Without it Chrome uses SwiftShader (software
  *             GL), whose frame rate and long tasks say more about the CPU than the site: those
  *             rows are then reported as "info" and never fail. Run the fps gate with --gpu on an
@@ -46,9 +46,9 @@ const B = {
   perf: [90, 95], a11y: [100, 100], bp: [95, 95], seo: [95, 95],
   lcp: [2000, 1000], tbt: [150, 50], cls: [0.02, 0.02], inp: [150, 100],
   // Initial JS raised from 70 / 40 KB (owner, 2026-10-27): the splash, transitions, orbit and
-  // account link added ~13 KB gzip, parsed while the 2.5 s splash is on screen.
+  // account link added ~13 KB gzip, parsed while the splash (now 4 s) is on screen.
   jsInitialKb: 80, jsLegalKb: 60, cssKb: 28, tileKb: 6, scriptKb: [70, 110], fonts: 5, homeKb: [300, 380],
-  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 2600,
+  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 4100,
 };
 
 const cli = parseArgs();

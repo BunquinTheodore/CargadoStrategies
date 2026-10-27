@@ -11,10 +11,11 @@
 
 /* 1. Splash (owner, 2026-10-26: the Portfolio boot intro) ------------------------------------- */
 /* The CSS plays the whole intro on its own, from the first frame, so the page under it never waits
-   for a script: 0-0.9 s the scan (brackets, tick rulers, ridges, the mark lit by the scanline),
-   0.9-1.3 s Access Granted, 1.3-1.6 s the collapse to the dot, 1.7-2.2 s the gold flood and the
-   name, 2.2-2.48 s the four cells pull into the centre and the page shows; at 2.5 s the splash is
-   gone (splash-out, also the fallback when splash.js never runs). splash.js adds the counter, the
+   for a script: 0-1.44 s the scan (brackets, tick rulers, ridges, the mark lit by the scanline),
+   1.44-2.08 s Access Granted, 2.08-2.56 s the collapse to the dot, 2.72-3.52 s the gold flood and
+   the name, 3.52-3.97 s the four cells pull into the centre and the page shows; at 4 s the splash
+   is gone (splash-out, also the fallback when splash.js never runs). Owner, 2026-10-28: 1.6x the
+   first cut's 2.5 s, which read too fast. splash.js adds the counter, the
    config names, the skip on input and the events. Only transform, opacity and clip-path animate,
    plus the mark's one stroke draw (stroke-dashoffset). The times are the delays below; splash.js
    mirrors them in SPLASH_MS (change both together). */
@@ -24,13 +25,13 @@ html:not(.js) .splash,
   --sf: min(46vmin, 300px);                       /* the scan frame's width (its height is 1.2x) */
   position: fixed; inset: 0; z-index: var(--z-splash, 30);
   pointer-events: none; overflow: hidden; color: var(--c-ivory-text, #F3ECDD);
-  animation: splash-out 1ms linear 2.5s forwards;
+  animation: splash-out 1ms linear 4s forwards;
 }
 .splash > * { position: absolute; }
 .splash__bg {
   inset: 0;
   background: radial-gradient(70% 60% at 50% 50%, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03) 45%, transparent 75%), var(--c-black, #0B0B0C);
-  animation: splash-hide 1ms linear 1.95s forwards; /* the flood covers the frame by then */
+  animation: splash-hide 1ms linear 3.12s forwards; /* the flood covers the frame by then */
 }
 /* Labels: Poppins, letter-spaced caps (UI labels, never display type), on the 14 px floor. */
 .splash__label {
@@ -40,94 +41,94 @@ html:not(.js) .splash,
 .splash__label b { font-weight: 600; color: var(--c-ivory-text, #F3ECDD); }
 
 /* 01 the scan */
-.splash__scan { inset: 0; animation: splash-hide 80ms linear .88s forwards; }
-.splash__scan > .splash__label { position: absolute; opacity: 0; animation: splash-label .45s var(--ease-out) forwards; }
+.splash__scan { inset: 0; animation: splash-hide 128ms linear 1.408s forwards; }
+.splash__scan > .splash__label { position: absolute; opacity: 0; animation: splash-label .72s var(--ease-out) forwards; }
 .splash__label--tl { left: max(16px, 6vw); top: max(24px, 8svh); }
-.splash__scan > .splash__label--tr { right: max(16px, 6vw); top: max(24px, 8svh); text-align: right; animation-delay: 80ms; }
-.splash__scan > .splash__label--bl { left: max(16px, 6vw); bottom: max(24px, 8svh); animation-delay: .1s; }
-.splash__scan > .splash__label--br { right: max(16px, 6vw); bottom: max(24px, 8svh); text-align: right; animation-delay: .16s; }
+.splash__scan > .splash__label--tr { right: max(16px, 6vw); top: max(24px, 8svh); text-align: right; animation-delay: 128ms; }
+.splash__scan > .splash__label--bl { left: max(16px, 6vw); bottom: max(24px, 8svh); animation-delay: .16s; }
+.splash__scan > .splash__label--br { right: max(16px, 6vw); bottom: max(24px, 8svh); text-align: right; animation-delay: .256s; }
 .splash__label .splash__pct { display: inline-block; min-width: 3ch; font-variant-numeric: tabular-nums; color: var(--c-gold, #D4AF37); }
 .splash__st { display: inline-grid; }
 .splash__label .splash__st > b { grid-area: 1 / 1; color: var(--c-gold, #D4AF37); }
-.splash__st > b:first-child { animation: splash-hide 1ms linear .85s forwards; }
-.splash__st > b + b { opacity: 0; animation: splash-show 1ms linear .85s forwards; }
-.splash__frame { left: 50%; top: 50%; width: var(--sf); height: calc(var(--sf) * 1.2); transform: translate(-50%, -50%); }
+.splash__st > b:first-child { animation: splash-hide 1ms linear 1.36s forwards; }
+.splash__st > b + b { opacity: 0; animation: splash-show 1ms linear 1.36s forwards; }
+.splash__frame { position: absolute; left: 50%; top: 50%; width: var(--sf); height: calc(var(--sf) * 1.2); transform: translate(-50%, -50%); }
 .splash__frame > * { position: absolute; }
 .splash__br {
   width: 18%; aspect-ratio: 1; border: 0 solid var(--c-ivory-text, #F3ECDD); opacity: 0;
-  animation: splash-bracket .3s var(--ease-out) forwards;
+  animation: splash-bracket .48s var(--ease-out) forwards;
 }
 .splash__br--tl { left: 0; top: 0; border-width: 2px 0 0 2px; }
-.splash__br--tr { right: 0; top: 0; border-width: 2px 2px 0 0; animation-delay: 40ms; }
-.splash__br--bl { left: 0; bottom: 0; border-width: 0 0 2px 2px; animation-delay: 80ms; }
-.splash__br--br { right: 0; bottom: 0; border-width: 0 2px 2px 0; animation-delay: .12s; }
+.splash__br--tr { right: 0; top: 0; border-width: 2px 2px 0 0; animation-delay: 64ms; }
+.splash__br--bl { left: 0; bottom: 0; border-width: 0 0 2px 2px; animation-delay: 128ms; }
+.splash__br--br { right: 0; bottom: 0; border-width: 0 2px 2px 0; animation-delay: .192s; }
 .splash__ticks {
   top: 0; height: 100%; width: 10px; transform: scaleY(0); transform-origin: 50% 0;
   background: repeating-linear-gradient(to bottom, rgba(243, 236, 221, .38) 0 1px, transparent 1px 10px);
-  animation: splash-ticks .4s var(--ease-out) .1s forwards;
+  animation: splash-ticks .64s var(--ease-out) .16s forwards;
 }
 .splash__ticks--l { left: -24px; }
 .splash__ticks--r { right: -24px; }
-.splash__ridges { left: 6%; top: 4%; width: 88%; height: 92%; overflow: visible; opacity: 0; animation: splash-show .4s linear forwards; }
+.splash__ridges { left: 6%; top: 4%; width: 88%; height: 92%; overflow: visible; opacity: 0; animation: splash-show .64s linear forwards; }
 .splash__ridges ellipse { fill: none; stroke: rgba(243, 236, 221, .2); stroke-width: .6; }
 .splash__mark { left: 22%; top: 27%; width: 56%; aspect-ratio: 1; }
 .splash__mark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .splash__mark path { fill: none; stroke-width: 1.4; stroke-linecap: square; stroke-linejoin: miter; stroke-dasharray: 100; }
-.splash__mark--base path { stroke: rgba(243, 236, 221, .3); stroke-dashoffset: 100; animation: splash-draw .5s cubic-bezier(.3, 0, .55, 1) forwards; }
+.splash__mark--base path { stroke: rgba(243, 236, 221, .3); stroke-dashoffset: 100; animation: splash-draw .8s cubic-bezier(.3, 0, .55, 1) forwards; }
 .splash__mark--lit path { stroke: var(--c-gold, #D4AF37); filter: drop-shadow(0 0 4px rgba(212, 175, 55, .55)); }
-.splash__mark--lit { clip-path: inset(0 0 100% 0); animation: splash-lit .7s cubic-bezier(.45, 0, .55, 1) .15s forwards; }
+.splash__mark--lit { clip-path: inset(0 0 100% 0); animation: splash-lit 1.12s cubic-bezier(.45, 0, .55, 1) .24s forwards; }
 .splash__scanline {
   left: -6%; width: 112%; top: 0; height: 2px; background: var(--c-gold, #D4AF37);
   box-shadow: 0 0 12px var(--c-gold, #D4AF37); opacity: 0;
-  animation: splash-scan .7s cubic-bezier(.45, 0, .55, 1) .15s forwards;
+  animation: splash-scan 1.12s cubic-bezier(.45, 0, .55, 1) .24s forwards;
 }
 
 /* 02 Access Granted, then 03 the collapse to the dot (one keyframe run) */
 .splash__access {
   inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; opacity: 0;
-  transform-origin: 50% 50%; animation: splash-access .72s linear .9s forwards;
+  transform-origin: 50% 50%; animation: splash-access 1.152s linear 1.44s forwards;
 }
-.splash__access::before { content: ""; position: fixed; inset: 0; background: var(--c-gold, #D4AF37); opacity: 0; animation: splash-flash .25s var(--ease-out) .9s; }
+.splash__access::before { content: ""; position: fixed; inset: 0; background: var(--c-gold, #D4AF37); opacity: 0; animation: splash-flash .4s var(--ease-out) 1.44s; }
 .splash__access .splash__label { color: var(--c-gold, #D4AF37); }
 .splash__granted {
   margin: 0; font: 400 clamp(2.5rem, 9vw, 7rem)/1 var(--font-display); letter-spacing: var(--track-mega, -.015em); text-align: center;
-  clip-path: inset(0 100% 0 0); animation: splash-wipe .25s var(--ease-out) .92s forwards;
+  clip-path: inset(0 100% 0 0); animation: splash-wipe .4s var(--ease-out) 1.472s forwards;
 }
 .splash__granted em { font-style: italic; color: var(--c-gold, #D4AF37); }
 .splash__bar {
   width: min(60vw, 420px); height: 2px; background: var(--c-gold, #D4AF37); box-shadow: 0 0 12px var(--c-gold, #D4AF37);
-  transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .3s var(--ease-out) 1s forwards;
+  transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .48s var(--ease-out) 1.6s forwards;
 }
 .splash__dot, .splash__ring { left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; transform: scale(0); }
-.splash__dot { background: var(--c-gold, #D4AF37); box-shadow: 0 0 24px var(--c-gold, #D4AF37); animation: splash-dot .3s linear 1.55s forwards; }
-.splash__ring { border: 2px solid var(--c-gold, #D4AF37); animation: splash-ring .4s var(--ease-out) 1.58s forwards; }
+.splash__dot { background: var(--c-gold, #D4AF37); box-shadow: 0 0 24px var(--c-gold, #D4AF37); animation: splash-dot .48s linear 2.48s forwards; }
+.splash__ring { border: 2px solid var(--c-gold, #D4AF37); animation: splash-ring .64s var(--ease-out) 2.528s forwards; }
 
 /* 04 the gold flood and the name, then 05 the four cells pull into the centre */
-.splash__flood { inset: 0; clip-path: circle(0 at 50% 50%); animation: splash-flood .25s var(--ease-in) 1.7s forwards; }
+.splash__flood { inset: 0; clip-path: circle(0 at 50% 50%); animation: splash-flood .4s var(--ease-in) 2.72s forwards; }
 .splash__cell {
   position: absolute; width: 50%; height: 50%; background: var(--metal-grad, linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%));
-  background-size: 200% 200%; animation: splash-cell .26s var(--ease-in) 2.22s forwards;
+  background-size: 200% 200%; animation: splash-cell .416s var(--ease-in) 3.552s forwards;
 }
 .splash__cell--tl { left: 0; top: 0; transform-origin: 100% 100%; background-position: 0 0; }
-.splash__cell--tr { right: 0; top: 0; transform-origin: 0 100%; background-position: 100% 0; animation-delay: 2.26s; }
-.splash__cell--bl { left: 0; bottom: 0; transform-origin: 100% 0; background-position: 0 100%; animation-delay: 2.3s; }
-.splash__cell--br { right: 0; bottom: 0; transform-origin: 0 0; background-position: 100% 100%; animation-delay: 2.34s; }
-.splash__name { inset: 0; display: grid; place-content: center; padding: 0 max(16px, 6vw); color: var(--c-black, #0B0B0C); animation: splash-hide 80ms linear 2.2s forwards; }
-.splash__name .splash__label { position: absolute; top: max(24px, 8svh); color: var(--c-gold-2nd, #1F1A0E); opacity: 0; animation: splash-show .2s linear 1.95s forwards; }
+.splash__cell--tr { right: 0; top: 0; transform-origin: 0 100%; background-position: 100% 0; animation-delay: 3.616s; }
+.splash__cell--bl { left: 0; bottom: 0; transform-origin: 100% 0; background-position: 0 100%; animation-delay: 3.68s; }
+.splash__cell--br { right: 0; bottom: 0; transform-origin: 0 0; background-position: 100% 100%; animation-delay: 3.744s; }
+.splash__name { inset: 0; display: grid; place-content: center; padding: 0 max(16px, 6vw); color: var(--c-black, #0B0B0C); animation: splash-hide 128ms linear 3.52s forwards; }
+.splash__name .splash__label { position: absolute; top: max(24px, 8svh); color: var(--c-gold-2nd, #1F1A0E); opacity: 0; animation: splash-show .32s linear 3.12s forwards; }
 .splash__meta--l { left: max(16px, 6vw); }
 .splash__meta--r { right: max(16px, 6vw); text-align: right; }
 .splash__name .splash__label:empty { display: none; }
 .splash__rule {
   position: absolute; left: max(16px, 6vw); right: max(16px, 6vw); top: calc(max(24px, 8svh) + 2.6em); height: 2px;
-  background: var(--c-black, #0B0B0C); transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .3s var(--ease-out) 1.9s forwards;
+  background: var(--c-black, #0B0B0C); transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .48s var(--ease-out) 3.04s forwards;
 }
 .splash__title { margin: 0; font: 400 clamp(3rem, 12vw, 10rem)/.92 var(--font-display); letter-spacing: var(--track-mega, -.015em); }
 .splash__line { display: block; overflow: hidden; padding-bottom: .06em; }
-.splash__line > span { display: inline-block; transform: translateY(110%); animation: splash-rise .3s var(--ease-out) 1.88s forwards; }
-.splash__line + .splash__line > span { animation-delay: 1.97s; }
+.splash__line > span { display: inline-block; transform: translateY(110%); animation: splash-rise .48s var(--ease-out) 3.008s forwards; }
+.splash__line + .splash__line > span { animation-delay: 3.152s; }
 .splash__stop {
   display: inline-block; width: var(--stop-size, .17em); height: var(--stop-size, .17em); margin-left: .04em; border-radius: 50%;
-  background: currentColor; transform: scale(0); animation: splash-pop .2s cubic-bezier(.34, 1.8, .64, 1) 2.08s forwards;
+  background: currentColor; transform: scale(0); animation: splash-pop .32s cubic-bezier(.34, 1.8, .64, 1) 3.328s forwards;
 }
 /* Story and legal have no gold field, so their flood is ivory paper (the bone field's colours,
    with the same 115deg sheen as the metal); the name stays black. The gold accents before it stay. */
@@ -148,7 +149,7 @@ html:not(.js) .splash,
 @keyframes splash-flash { from { opacity: .45; } to { opacity: 0; } }
 @keyframes splash-wipe { to { clip-path: inset(0 0 0 0); } }
 @keyframes splash-bar { to { transform: scaleX(1); } }
-/* From .9 s: shown until 1.3 s, squashed to a line by 1.45 s (ease-in), the line to a point by 1.58 s, gone at 1.6 s. */
+/* From 1.44 s: shown until 2.08 s, squashed to a line by 2.32 s (ease-in), the line to a point by 2.53 s, gone at 2.56 s. */
 @keyframes splash-access {
   0% { opacity: 1; transform: none; }
   55.5% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.55, 0, 1, .45); }

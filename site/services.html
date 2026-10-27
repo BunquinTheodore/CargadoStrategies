@@ -84,7 +84,7 @@
 </head>
 <body data-page="services">
   <!-- splash: the boot intro (core/engine/splash.js, visual.css §1). Shared node, the same in every film shell. -->
-  <script>try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='back_forward')document.documentElement.classList.add('splash-skip')}catch(e){}</script>
+  <script>try{var n=performance.getEntriesByType('navigation')[0],r=document.referrer;if(n&&(n.type==='back_forward'||(n.type==='navigate'&&r&&new URL(r).origin===location.origin)))document.documentElement.classList.add('splash-skip')}catch(e){}</script>
   <div class="splash" id="splash" aria-hidden="true">
     <div class="splash__bg"></div>
     <div class="splash__scan">

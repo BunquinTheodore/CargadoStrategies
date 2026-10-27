@@ -11,16 +11,17 @@ const FILM_PAGES = ['index', 'services', 'story', 'partners', 'legal', 'contact'
 const ORIGIN = 'https://cargadostrategies.com';
 const BLOCK = /  <!-- splash:[\s\S]*?<!-- \/splash -->\n/;
 
-test('the splash plays on an open, a refresh and between the site\'s own pages, not on back/forward', () => {
-  assert.equal(splashWanted({ type: 'navigate' }), true);
-  assert.equal(splashWanted({ type: 'reload' }), true);
-  assert.equal(splashWanted({ type: 'navigate', referrer: `${ORIGIN}/index.html`, origin: ORIGIN }), true);
-  assert.equal(splashWanted({ type: 'back_forward' }), false);
-  assert.equal(splashWanted(), true);
+test('the splash plays only on an open and a refresh, not between the site\'s own pages', () => {
+  assert.equal(splashWanted({ type: 'navigate', referrer: '', origin: ORIGIN }), true);
+  assert.equal(splashWanted({ type: 'reload', referrer: `${ORIGIN}/services.html`, origin: ORIGIN }), true);
+  assert.equal(splashWanted({ type: 'navigate', referrer: 'https://www.google.com/', origin: ORIGIN }), true);
+  assert.equal(splashWanted({ type: 'navigate', referrer: `${ORIGIN}/index.html`, origin: ORIGIN }), false);
+  assert.equal(splashWanted({ type: 'back_forward', referrer: '', origin: ORIGIN }), false);
+  assert.equal(splashWanted({ type: 'navigate', referrer: 'not a url', origin: ORIGIN }), true);
 });
 
-test('the intro stays inside 2.5 s and the aperture comes before the end', () => {
-  assert.ok(SPLASH_MS.end <= 2500);
+test('the intro stays inside 4 s and the aperture comes before the end', () => {
+  assert.ok(SPLASH_MS.end <= 4000);
   assert.ok(SPLASH_MS.aperture < SPLASH_MS.end);
   assert.ok(SPLASH_MS.countFrom < SPLASH_MS.countTo);
 });
@@ -55,5 +56,5 @@ test('every film shell carries the same splash block, aria-hidden, with nothing 
   assert.doesNotMatch(block, /<(a|button|input)\b|tabindex/);
   assert.doesNotMatch(block, /sessionStorage/);
   assert.match(block, /back_forward/);
-  assert.doesNotMatch(block, /origin===location\.origin/);
+  assert.match(block, /origin===location\.origin/);
 });

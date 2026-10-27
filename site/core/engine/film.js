@@ -44,7 +44,7 @@ import { CUT, DUR } from './motion-tokens.js';
 export const SHORT_H = 560; // below this stage height: the pan fallback (cut) or free scroll (touch-cut)
 const PAN_TOLERANCE_PX = 4;
 const REBUILD_DELAY_MS = 200;
-const SPLASH_WAIT_MS = 2600; // the first landing waits for the splash's cue (≈ 2.2 s in), never longer than this
+const SPLASH_WAIT_MS = 4100; // the first landing waits for the splash's cue (≈ 3.55 s in), never longer than this
 const TOUCH_FADE_S = 0.2; // touch-cut: text leaving the field it was written for
 const TOUCH_IRIS_FROM = 0.15; // touch-cut: the swell starts as a disc, never a lone dot
 const TOUCH_FADE_AT = 0.45; // share of the touch iris before the old text fades: the disc covers about 30% of the screen by then

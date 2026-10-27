@@ -5,16 +5,17 @@
  * The markup (the #splash block, the same in every film shell) and its CSS (visual.css §1) play
  * the whole intro by themselves from the first frame, so a late script never holds the page:
  *
- *      0-900 ms  01 the scan: corner brackets, tick rulers, ridges round the Cargado mark (the
+ *     0-1440 ms  01 the scan: corner brackets, tick rulers, ridges round the Cargado mark (the
  *                MARK_PATHS C and W), a gold scanline lights the mark top to bottom, Scan 00 → 100 %,
  *                Status Scanning → Verified
- *    900-1300    02 Access Granted (a gold flash, the words wiped in, the bar)
- *   1300-1600    03 the collapse: the block squashes to a line, the line to a point, a gold dot
+ *   1440-2080    02 Access Granted (a gold flash, the words wiped in, the bar)
+ *   2080-2560    03 the collapse: the block squashes to a line, the line to a point, a gold dot
  *                pops and a ring goes out
- *   1700-2200    04 the dot floods the frame in gold; the name (SITE_NAME, Times, Title Case)
+ *   2720-3520    04 the dot floods the frame in gold; the name (SITE_NAME, Times, Title Case)
  *                rises from its masks, the founder and the city above a rule, the full stop
- *   2200-2480    05 the four gold cells pull into the centre and the page shows
- *        2500    gone (the CSS splash-out; the same moment is the fallback without this script)
+ *   3520-3970    05 the four gold cells pull into the centre and the page shows
+ *        4000    gone (the CSS splash-out; the same moment is the fallback without this script)
+ *   (owner, 2026-10-28: 1.6x the first 2.5 s cut, which read too fast)
  *
  * This module adds what CSS cannot: the counter text, the names from config.js, the skip, and
  * the events. At APERTURE (the cells opening) it dispatches `cs:splash-aperture` ({ x, y, r }:
@@ -22,9 +23,9 @@
  * cells open and dotglobe draws its limb and fires the hero arc; `cs:splash-done` follows when
  * the splash is gone (also after a skip). done() records the User Timing measure `cs-splash`.
  *
- * - When: on an open, a refresh and every move between the site's own pages (owner,
- *   2026-10-27). Only back/forward skips it: the shell's inline script mirrors splashWanted()
- *   and sets html.splash-skip before first paint (keep the two in sync).
+ * - When: only on an open and a refresh (owner, 2026-10-28). Moving between the site's own
+ *   pages (a same-origin referrer on a 'navigate') and back/forward skip it: the shell's inline
+ *   script mirrors splashWanted() and sets html.splash-skip before first paint (keep the two in sync).
  * - Any input (pointer down, key, wheel, touch) fades it in SKIP_MS and finishes it.
  * - Reduced motion (html.rm or the OS setting): the CSS shows the name card still; it holds
  *   RM_HOLD_MS, then fades over RM_FADE_MS.
@@ -40,7 +41,7 @@ import { MARK_PATHS, MARK_PARTS } from './mark-draw.js';
 const MEASURE = 'cs-splash'; // User Timing: the splash's first frame to splash-done (perf-gate reads it)
 /** The CSS timeline in ms (visual.css §1 delays; change both together). */
 export const SPLASH_MS = Object.freeze({
-  countFrom: 150, countTo: 850, aperture: 2220, end: 2500,
+  countFrom: 240, countTo: 1360, aperture: 3552, end: 4000,
 });
 const SKIP_MS = 150;
 const RM_HOLD_MS = 600;
@@ -59,11 +60,17 @@ export function splashState() {
 }
 
 /**
- * True when this load should play the splash: an open, a refresh or a move between the site's
- * own pages. Back/forward does not. type: the navigation entry's type.
+ * True when this load should play the splash: an open or a refresh. A move between the site's
+ * own pages (a same-origin referrer) and back/forward do not. type: the navigation entry's type.
  */
-export function splashWanted({ type = 'navigate' } = {}) {
-  return type !== 'back_forward';
+export function splashWanted({ type = 'navigate', referrer = '', origin = '' } = {}) {
+  if (type === 'back_forward') return false;
+  if (type !== 'navigate' || !referrer) return true;
+  try {
+    return new URL(referrer).origin !== origin;
+  } catch {
+    return true;
+  }
 }
 
 /** The scan counter at `ms` from the first frame: 0 → 100, easing out. */

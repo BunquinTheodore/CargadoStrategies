@@ -163,7 +163,7 @@ async function measure(api, base, page, profile) {
   await setMedia(send, { touch: p.touch });
   await send('Emulation.setCPUThrottlingRate', { rate: 1 });
   await send('Storage.clearDataForOrigin', { origin: new URL(base).origin, storageTypes: 'all' }).catch(() => {});
-  // The splash plays on every fresh load now (no session gate); the old once-per-session key is still cleared, harmlessly.
+  // The splash plays on every open and refresh (no session gate); the old once-per-session key is still cleared, harmlessly.
   const { identifier } = await send('Page.addScriptToEvaluateOnNewDocument', { source: SPLASH_RESET });
   pinTier = p.tier;
   await navigate(api, base + page);
