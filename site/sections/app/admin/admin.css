@@ -1,0 +1,10 @@
+/* admin.html: the four record forms sit in a grid of sub-panels on wide screens. */
+.app-admin__forms { grid-template-columns: 1fr; gap: var(--dash-gap); }
+.app-admin__forms > h2 { grid-column: 1 / -1; }
+.app-admin__form {
+  align-content: start; padding: clamp(16px, 1.6vw, 22px);
+  border: 1px solid var(--line-text); border-radius: 10px; background: rgba(11,11,12,.35);
+}
+@media (min-width: 900px) {
+  .app-admin__forms { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

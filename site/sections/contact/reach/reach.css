@@ -1,0 +1,5 @@
+/* 3. C2 · Reach: the head, then WhatsApp, email, Facebook and the address as rows ----------------- */
+#reach :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-xl); }
+.reach__title { max-width: 16ch; }
+.reach__rows { width: 100%; max-width: 1100px; }
+.reach__row .row__meta { overflow-wrap: anywhere; }

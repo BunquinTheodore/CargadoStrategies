@@ -3,17 +3,40 @@
  * inquiry form, plus the partner renderers more than one section needs (the
  * "View Profile" trigger and the type names; the profile dialog itself is
  * sections/services/profile-dialog). The founder's own businesses (CR13) each
- * have their own scene.
+ * have their own scene (Graphics and Virtual Assistant share #ours-creative).
  */
-import { CATEGORIES, PARTNERS } from '../../assets/js/config.js';
+import { CATEGORIES, INSURANCE_INQUIRY_URL, PARTNERS } from '../../assets/js/config.js';
 import { escapeHtml, placeholderCard } from '../../core/chrome/chrome.js';
 
-/** Category slug → the founder's own offer on this page (names are titles: Title Case). */
+/** The CTA of the services Cargado Strategies delivers itself (v2 spec §6.1): no prices, a consultation first. */
+export const BOOK_CTA = 'Book a Free Consultation';
+
+/** The Contact page's booking scene, with the service preselected. */
+export const bookingHref = (slug) => `contact.html?service=${encodeURIComponent(slug)}#book`;
+
+const bookingOffer = (slug, scene, name) => Object.freeze({ scene, name, cta: BOOK_CTA, href: bookingHref(slug) });
+
+/**
+ * Category slug → the founder's own offer on this page (names are titles: Title Case).
+ * `href` (the v2 services): the CTA books a consultation instead of opening the WhatsApp sheet.
+ */
 export const FOUNDER_OFFERS = Object.freeze({
   insurance: Object.freeze({ scene: 'ours-insurance', name: 'Family Protection Review', cta: 'Ask About Insurance' }),
   'business-strategy': Object.freeze({ scene: 'ours-strategy', name: 'The 30-Day Cash-Flow Clean-Up', cta: 'Ask About the Clean-Up' }),
   outsourcing: Object.freeze({ scene: 'ours-outsourcing', name: 'Your Back-Office Team', cta: 'Ask About Outsourcing' }),
+  'web-design': bookingOffer('web-design', 'ours-web', 'Web Design'),
+  graphics: bookingOffer('graphics', 'ours-creative', 'Graphics'),
+  'virtual-assistant': bookingOffer('virtual-assistant', 'ours-creative', 'Virtual Assistant'),
+  'software-development': bookingOffer('software-development', 'ours-software', 'Software Development'),
+  'export-import': bookingOffer('export-import', 'ours-trade', 'Export and Import'),
+  contractor: bookingOffer('contractor', 'ours-contractor', 'Contractor Services'),
 });
+
+/** Insurance inquiries open the policy review site in a new tab (spec §6.1b), with this hint beside the link. */
+export const INSURANCE_HINT = 'Opens the policy review site';
+
+/** The insurance redirect, or null when the URL is empty (the insurance CTAs then keep today's behaviour). */
+export const insuranceLink = (url = INSURANCE_INQUIRY_URL) => (url ? { href: url, hint: INSURANCE_HINT } : null);
 
 export const isOurs = (category) => category.ownership === 'founder' || category.ownership === 'both';
 export const hasPartners = (category) => category.ownership === 'partner' || category.ownership === 'both';

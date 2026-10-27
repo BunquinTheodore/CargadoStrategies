@@ -1,0 +1,34 @@
+/* 6b. The services Cargado Strategies delivers itself (v2 §6.1; S5a-S5e: ours-web, ours-creative,
+   ours-software, ours-contractor, ours-trade): the shared head, description and action. No prices:
+   each scene books a free consultation (contact.html#book), with the WhatsApp sheet as the link.
+   Each scene's own file places the groups; the phone composition is at the end of this file. */
+.own__title { font-size: min(var(--fs-mega), 20cqh); max-width: none; text-wrap: balance; }
+.own__title--d1 { font-size: min(var(--fs-d1), 9cqh); }
+.own__body { display: grid; gap: var(--space-s); }
+.own__desc { max-width: 52ch; font-size: var(--fs-lead); line-height: 1.5; }
+.own__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
+/* The three.js motifs (own-3d.js, owner 2026-10-25): one canvas box behind the copy of each scene and
+   the slots the stage draws into, placed where the scene has room. Decorative (aria-hidden,
+   data-fit-ignore) and never hit by the pointer: the stage listens on the scene itself. */
+.own__3d { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .8s var(--ease-out); }
+.own__3d.is-live { opacity: 1; }
+.own__3d-canvas { display: block; width: 100%; height: 100%; }
+.own__3d-slot { position: absolute; pointer-events: none; }
+.own__3d-slot--m { top: 0; right: 0; bottom: 36%; left: 50%; }      /* M: above the monument, right half */
+.own__3d-slot--r { top: 6%; right: 0; bottom: 6%; left: 58%; }      /* R: right of the short rows */
+.own__3d-slot--part { top: 0; right: 0; left: 46%; height: 56%; }   /* D: beside each ghost numeral */
+html.rm .scene__inner:has(> .own__3d) { isolation: isolate; }       /* flow has no pan to hold the box above the field */
+
+@media (max-width: 759px) {
+  .own__head { gap: var(--space-xs); }
+  .own__title { font-size: min(var(--fs-statement), 13vw, 9svh); line-height: .98; }   /* long words never over statement size */
+  .own__title--d1 { font-size: clamp(2rem, 9vw, 2.5rem); }
+  .own__desc { font-size: 1.0625rem; }
+  .own__action { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
+  .own__action .btn { width: 100%; }
+  .own__action .link { align-self: center; }
+  /* Phones: only the monuments keep a motif, as a faint band above the copy; the busier scenes skip it. */
+  .own__3d.is-live { opacity: .55; }
+  .own__3d-slot--m { top: 0; right: 0; bottom: auto; left: 0; height: 24%; }
+  .own__3d-slot--r, .own__3d-slot--part { display: none; }
+}

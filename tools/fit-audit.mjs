@@ -25,7 +25,7 @@
  *                              dialog or sheet < 24 px
  *   words > 60, elements > 12, groups > 3, whitespace < 18%, longword, markup (no data-archetype /
  *   data-group)               per scene, base state (DIRECTION §4.2, §13); credits exempt
- *   archetype-repeat, gold-fields > 1 (story, legal: > 0), irises > 3       per page
+ *   archetype-repeat, gold-fields > 1 (story, legal: > 0), irises > 3 (services: > 7)   per page
  *
  * Activation: film.js is rewritten in flight (CDP Fetch; nothing on disk changes) to expose
  * initFilm()'s result as window.__fitAuditFilm. The audit waits for html.film-ready, seeks each
@@ -65,6 +65,9 @@ const TOLERANCE_PX = 1;
 const SPARE = { credits: 24, form: 40, dialog: 24 }; // DIRECTION §13 T1 "Spare"
 const BUDGET = { words: 60, elements: 12, groups: 3, goldFields: 1, irises: 3 }; // DIRECTION §4.2, §4.3
 const NO_GOLD_PAGES = new Set(['story.html', 'legal.html']); // DIRECTION §4.3: Legal and Story have none
+/** Per-page field-change caps that the owner approved over BUDGET.irises (2026-10-27: the 9
+ *  Services offer scenes alternate light and dark so each reads as its own chapter). */
+const IRIS_MAX = Object.freeze({ 'services.html': 7 });
 const ARCHETYPE_EXEMPT_PAGES = new Set(['legal.html']); // DIRECTION §4.2 rule 1
 
 const cli = parseArgs();
@@ -358,7 +361,8 @@ function pageChecks(page, facts) {
   const goldMax = NO_GOLD_PAGES.has(page) ? 0 : BUDGET.goldFields;
   if (gold > goldMax) out.push(`gold-fields ${gold} > ${goldMax}`);
   const irises = list.filter((s, k) => k && s.field && list[k - 1].field && s.field !== list[k - 1].field).length;
-  if (irises > BUDGET.irises) out.push(`irises ${irises} > ${BUDGET.irises} (${list.map((s) => s.field || '?').join(' ')})`);
+  const irisMax = IRIS_MAX[page] ?? BUDGET.irises;
+  if (irises > irisMax) out.push(`irises ${irises} > ${irisMax} (${list.map((s) => s.field || '?').join(' ')})`);
   return out;
 }
 

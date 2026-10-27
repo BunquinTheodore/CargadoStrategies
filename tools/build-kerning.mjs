@@ -31,6 +31,7 @@ export const KERN_FILE = join(SITE, 'assets/data/kern.json');
 const FONT_STACK = '"Times New Roman", Times, Tinos, serif';
 const MEASURE_PX = 100;
 const MIN_KERN_EM = 0.002;
+const APP_PAGE = /<html\b[^>]*\bdata-app\b/;
 const DISPLAY = /<(h[1-3])\b[^>]*>([\s\S]*?)<\/\1>|<([a-z][a-z0-9]*)\b[^>]*class="[^"]*\b(?:t-mega|t-statement|t-d1|t-d2|t-quote|num-outline)\b[^"]*"[^>]*>([\s\S]*?)<\/\3>/gi;
 
 const decode = (s) => s.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&rsquo;/g, '’').replace(/&[a-z]+;/g, ' ');
@@ -41,6 +42,7 @@ export async function displayPairs() {
   const pairs = new Set();
   files.forEach((f) => {
     const html = readAssembled(join(SITE, f));
+    if (APP_PAGE.test(html)) return;   // account and dashboards (v2 §8) never load kerning.js
     for (const m of html.matchAll(DISPLAY)) {
       const text = decode((m[2] ?? m[4] ?? '').replace(/<[^>]+>/g, ' '));
       text.split(/\s+/).forEach((word) => {

@@ -1,0 +1,19 @@
+/* 6b. #ours-creative · D: Graphics and Virtual Assistant as two panels (ghost numeral, Times name,
+   description), one consultation CTA under them. Phones stack the panels. */
+#ours-creative :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-l); }
+.own__pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.own__part {
+  position: relative; min-width: 0; display: grid; align-content: start; gap: var(--space-s);
+  padding: clamp(12px, 3cqh, 36px) clamp(16px, 2vw, 32px);
+}
+.own__part + .own__part { border-left: 1px solid var(--line); }
+.own__part .ghost { position: relative; inset: auto; justify-self: start; font-size: min(var(--fs-ghost), 16svh); line-height: .74; }
+.own__name { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+.own__part .own__desc { font-size: var(--fs-note); line-height: var(--lh-note); }
+@media (max-width: 759px) {
+  #ours-creative :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
+  .own__pair { grid-template-columns: minmax(0, 1fr); }
+  .own__part { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--space-s); padding: var(--space-s) 4px; }
+  .own__part + .own__part { border-left: 0; border-top: 1px solid var(--line); }
+  .own__part .ghost { grid-row: span 2; font-size: min(var(--fs-ghost), 9svh); }
+}

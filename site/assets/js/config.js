@@ -69,12 +69,19 @@ export const FOUNDER_LAST_NAME = 'Holgado';
 export const FOUNDER_NAME_LABEL = FOUNDER_NAME || '[First name]';
 
 /**
- * TODO(founder): BLOCKING FOR LAUNCH. Lee's real portrait url (4:5, duotone,
- * AVIF, e.g. 'assets/img/founder-800.avif'). It fills the Home hero and founder
- * avatars and the Story portrait. Never a stock or generated stand-in face.
- * Empty = the typographic portrait only.
+ * The founder's real photos (owner, 2026-10-25), one per mood (spec §6.7): navy suit
+ * (Home avatars, Services ours-insurance), cream suit (Story), seated poster (Contact).
+ * Paths are filled by tools/gen-images.mjs (plan Task 3); '' = that slot stays hidden.
+ * Never a stock or generated stand-in face.
  */
-export const FOUNDER_PHOTO = '';
+export const FOUNDER_PHOTOS = Object.freeze({
+  navy: 'assets/img/founder/navy-800.webp',
+  cream: 'assets/img/founder/cream-800.webp',
+  poster: 'assets/img/founder/poster-800.webp',
+});
+
+/** The default portrait for [data-when="FOUNDER_PHOTO"] slots. Empty = the typographic portrait only. */
+export const FOUNDER_PHOTO = FOUNDER_PHOTOS.navy;
 
 /**
  * TODO(founder): Lee's own signature mark (an SVG url she supplies), the H4
@@ -111,7 +118,7 @@ export const VIDEO_URL = VIDEO.url;
 export const NAV = Object.freeze([
   { key: 'home', label: 'Home', href: 'index.html' },
   { key: 'services', label: 'Services', href: 'services.html' },
-  { key: 'story', label: 'Our Story', href: 'story.html' },
+  { key: 'story', label: 'Story', href: 'story.html' },
   { key: 'partners', label: 'Become a Partner', href: 'partners.html' },
 ]);
 
@@ -119,7 +126,7 @@ export const NAV = Object.freeze([
 export const PAGE_NAMES = Object.freeze({
   home: 'Home',
   services: 'Services',
-  story: 'Our story',
+  story: 'Story',
   partners: 'Become a partner',
   legal: 'Legal',
 });
@@ -172,6 +179,49 @@ export const CATEGORIES = Object.freeze([
     description: 'Back-office and support roles supplied by Cargado Strategies itself.',
     ownership: 'founder',
     types: [],
+  },
+  {
+    slug: 'web-design',
+    name: 'Web Design',
+    description: 'Websites designed, built and kept up to date by Cargado Strategies, made to work well on any phone.',
+    ownership: 'founder',
+    types: [],
+  },
+  {
+    slug: 'graphics',
+    name: 'Graphics',
+    description: 'Logos, social media posts, flyers and print designs made by Cargado Strategies.',
+    ownership: 'founder',
+    types: [],
+  },
+  {
+    slug: 'virtual-assistant',
+    name: 'Virtual Assistant',
+    description: 'A virtual assistant from Cargado Strategies for email, scheduling, data entry and everyday admin.',
+    ownership: 'founder',
+    types: [],
+  },
+  {
+    slug: 'software-development',
+    name: 'Software Development',
+    description: 'Custom apps, online tools and automations built by Cargado Strategies for your business.',
+    ownership: 'founder',
+    types: [],
+  },
+  {
+    slug: 'export-import',
+    name: 'Export and Import',
+    description: 'Help finding suppliers and coordinating shipping and paperwork for goods moving into and out of Canada.',
+    ownership: 'founder',
+    types: [],
+  },
+  {
+    slug: 'contractor',
+    name: 'Contractor',
+    description: 'Home and property work arranged by Cargado Strategies: homecare cleaning, roofing, cleaning and gardening.',
+    ownership: 'founder',
+    types: [],
+    items: Object.freeze(['Homecare Cleaning Services', 'Roofing', 'Cleaning', 'Gardening']),
   },
   {
     slug: 'manufacturing',
@@ -231,6 +281,75 @@ export const CATEGORIES = Object.freeze([
 
 /** Find a category by slug; returns undefined when unknown. */
 export const categoryBySlug = (slug) => CATEGORIES.find((c) => c.slug === slug);
+
+/**
+ * Insurance inquiries open the founder's policy review site in a new tab (owner, 2026-10-25).
+ * The clean link only (no fbclid / sessionId). Empty = insurance CTAs keep the WhatsApp sheet.
+ */
+export const INSURANCE_INQUIRY_URL = 'https://policyreview.leeholgado.com/';
+
+/** One orbit circle per main group; the preview is the category's own one-line description. */
+const orbitGroup = (slug, name, href) => Object.freeze({ slug, name, href, preview: categoryBySlug(slug).description });
+
+/**
+ * The services orbit (Home + Services, spec §6.3): the main groups round the mark, in order.
+ * Existing groups go to their scenes; the new ones deep-link by category slug (a scene alias).
+ */
+export const ORBIT_GROUPS = Object.freeze([
+  orbitGroup('insurance', 'Insurance', 'services.html#ours-insurance'),
+  orbitGroup('business-strategy', 'Business Strategy', 'services.html#ours-strategy'),
+  orbitGroup('outsourcing', 'Outsourcing', 'services.html#ours-outsourcing'),
+  orbitGroup('web-design', 'Web Design', 'services.html#web-design'),
+  orbitGroup('graphics', 'Graphics', 'services.html#graphics'),
+  orbitGroup('virtual-assistant', 'Virtual Assistant', 'services.html#virtual-assistant'),
+  orbitGroup('software-development', 'Software Development', 'services.html#software-development'),
+  orbitGroup('export-import', 'Export and Import', 'services.html#export-import'),
+  orbitGroup('contractor', 'Contractor', 'services.html#contractor'),
+  Object.freeze({
+    slug: 'partner-network',
+    name: 'Partner Network',
+    href: 'services.html#finder',
+    preview: 'Independent local professionals, listed by distance only.',
+  }),
+]);
+
+/** The orbit legend (owner wording, 2026-10-25). The scene wraps "Ours" and "Partners" in <strong>. */
+export const ORBIT_LEGEND = 'Ours means Cargado Strategies provides it directly. Partners are independent local professionals.';
+
+/**
+ * Free consultation booking (spec §6.4). Minutes are local Winnipeg time from midnight:
+ * 930 = 3:30 pm (first slot), 1260 = 9:00 pm (end, so the last slot starts 8:50 pm).
+ */
+export const BOOKING = Object.freeze({
+  timeZone: 'America/Winnipeg',
+  startMinutes: 930,
+  endMinutes: 1260,
+  slotMinutes: 10,
+  leadHours: 2,
+  horizonDays: 60,
+  meetingLabel: 'Free Consultation',
+  durationLabel: '10 minutes',
+});
+
+/**
+ * Firebase web config (owner, 2026-10-25). Public by design: access is guarded by
+ * firestore.rules, and server secrets live only in Vercel env vars. No measurementId:
+ * the site never loads Analytics. Blank the values to show "Accounts are coming soon".
+ */
+export const FIREBASE = Object.freeze({
+  apiKey: 'AIzaSyCqK6UhrFt5dZdvn1aRyWpixmc26NsuS00',
+  authDomain: 'cargadostrategies-b7dfd.firebaseapp.com',
+  projectId: 'cargadostrategies-b7dfd',
+  storageBucket: 'cargadostrategies-b7dfd.firebasestorage.app',
+  messagingSenderId: '161389811113',
+  appId: '1:161389811113:web:3fbba4e20c37fc05b9e0b8',
+});
+
+const FIREBASE_REQUIRED = ['apiKey', 'authDomain', 'projectId', 'appId'];
+
+/** True when the Firebase keys accounts need are all filled in. */
+export const isFirebaseConfigured = (firebase = FIREBASE) =>
+  FIREBASE_REQUIRED.every((key) => typeof firebase?.[key] === 'string' && firebase[key].trim() !== '');
 
 /**
  * Approved partners only (FR12, CR16). Never add invented people or firms.

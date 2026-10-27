@@ -1,0 +1,39 @@
+/* 2. S1 · Orbit (v2 §6.3): the head and the legend on the left, the services orbit on the right.
+   The ring itself is core/design/orbit.css; this file only sizes and places it. Phones and tablet
+   portrait stack head, orbit and legend (phones get the pill grid). */
+#orbit :is(.scene__pan, html.rm .scene__inner) {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "head orbit" "legend orbit"; column-gap: var(--gap-col); align-items: center;
+}
+.sorbit__head { grid-area: head; align-self: end; }
+/* Side by side, the head and legend fill their half (owner, 2026-10-25: less dead space). */
+.sorbit__title { font-size: min(var(--fs-statement), 12cqh, 5.4vw); max-width: 12ch; }
+.sorbit__hint { margin: 0; font-size: var(--fs-lead); line-height: 1.5; }
+.sorbit__orbit {
+  grid-area: orbit; margin: 0;
+  --orbit-size: clamp(460px, calc(var(--scene-safe-h) - 16px), min(660px, 52vw));
+}
+.sorbit__legend { grid-area: legend; align-self: start; margin: var(--space-l) 0 0; max-width: 40ch; font-size: var(--fs-lead); line-height: 1.55; color: var(--fg-muted); }
+.sorbit__legend strong { color: var(--fg); font-weight: 600; }
+
+@media (max-width: 759px), (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #orbit :is(.scene__pan, html.rm .scene__inner) {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto;
+    grid-template-areas: "head" "orbit" "legend"; row-gap: var(--space-m); align-content: center;
+  }
+  .sorbit__head { align-self: start; }
+  .sorbit__title { max-width: none; font-size: min(var(--fs-d1), 9cqh); }
+  .sorbit__hint { font-size: var(--fs-note); line-height: var(--lh-note); }
+  .sorbit__orbit { --orbit-size: min(560px, 80vw); justify-self: center; }
+  .sorbit__legend { margin: 0; max-width: 46ch; font-size: var(--fs-note); line-height: var(--lh-note); }
+}
+@media (max-width: 759px) {
+  .sorbit__head { gap: var(--space-xs); }
+  .sorbit__title { font-size: clamp(2rem, 9vw, 2.5rem); }
+  .sorbit__orbit { width: 100%; --orbit-core-h: 104px; --orbit-pill-h: 44px; }   /* the 18 % air: a smaller mark band, pills at the tap minimum */
+}
+/* Short phones (360 × 740 and under): the mark band gives way first, never a pill or the legend. */
+@media (max-width: 759px) and (max-height: 760px) {
+  .sorbit__orbit { --orbit-core-h: 56px; }
+  .sorbit__head .rule { display: none; }
+}

@@ -1,0 +1,90 @@
+/* 2. C1 · Book: the founder's poster, large, with the head and the paper beside it ------------ */
+/* One row: the poster on the left at (nearly) the scene's height, and a column on its right with
+   the head on top and the paper filling the rest, so the paper keeps one height across the steps
+   and the stepper buttons never move. The pair is centred in the scene. */
+#book {
+  --poster-h: min(var(--scene-safe-h), 720px);   /* 720 px: the poster's own size, never upscaled further */
+  --book-col: 640px;
+}
+#book :is(.scene__pan, html.rm .scene__inner) {
+  display: grid; grid-template-columns: auto minmax(0, var(--book-col)); grid-template-areas: "poster main";
+  column-gap: clamp(32px, 4vw, 72px); align-content: center; justify-content: center; align-items: stretch;
+}
+#book:has(.book__poster[hidden]) :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, var(--book-col)); grid-template-areas: "main"; }
+.book__main { grid-area: main; display: flex; flex-direction: column; gap: var(--space-l); min-width: 0; }
+.book__head { grid-area: head; }
+/* After the day is chosen the paper is the scene, as on phones: the head and the poster step
+   aside and the paper widens, so the details page fits with every error line showing. */
+#book[data-step]:not([data-step="1"]) :is(.book__head, .book__poster) { display: none; }
+@media (min-width: 760px) and (min-aspect-ratio: 1/1) {
+  #book[data-step]:not([data-step="1"]) { --book-col: 720px; }
+  #book[data-step]:not([data-step="1"]) :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, var(--book-col)); grid-template-areas: "main"; }
+}
+.book__title { font-size: var(--fs-d1); max-width: 16ch; }
+.book__lead { font-size: var(--fs-lead); line-height: 1.5; color: var(--fg-muted); max-width: 36ch; }
+/* The poster is a finished brand image with its own logo and tagline: shown whole, never
+   cropped or recoloured, in a rounded frame with a gold hairline and a soft inner vignette
+   that eases its pale studio backdrop into the ink field. */
+.book__poster {
+  grid-area: poster; position: relative; margin: 0; align-self: center;
+  height: var(--poster-h); aspect-ratio: 2 / 3; overflow: hidden;
+  border: 1px solid var(--accent); border-radius: 14px; background: var(--c-black, #0B0B0C);
+}
+.book__poster img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.book__poster::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  box-shadow: inset 0 0 28px 6px rgba(11, 11, 12, .55);
+}
+
+.book__paper { grid-area: paper; flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+.book-form { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--space-s); }
+.book-form .stepper__status { flex-wrap: wrap; row-gap: 4px; }
+.book-form .stepper__errors { flex: 1 1 100%; }
+.book-form .stepper__steps { display: grid; gap: var(--space-m); }
+.book-form .stepper__step { display: grid; gap: var(--space-s); align-content: start; }
+.book-form .stepper__title { margin-bottom: 0; font: 600 1.25rem/1.3 var(--font-body); }
+/* From 760 px step 3 is one page of two fieldsets: the page's first title names it. */
+.book-form[data-mode="page"] [data-step="more"] > legend { display: none; }
+.book-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-s) var(--space-m); align-items: start; }
+.book-form .textarea { min-height: 0; height: clamp(56px, 8svh, 96px); resize: none; }
+.book-form .stepper__nav { margin-top: auto; }
+.book__status { margin: 0; min-height: 0; }
+.book__status:empty { display: none; }
+
+/* The month calendar (book-calendar.js): month and zone between the arrows, then an ARIA grid of
+   7 columns. A day is a whole cell (>= 44 px both ways); its pill is a ::before inside it, so cells
+   may touch on phones. Open days are lit, closed ones fade, today has a gold ring, the chosen day is
+   gold. No borders on the cells (a framed cell would count as an element in the scene budget). */
+.book-cal { --cal-cell: clamp(44px, 5svh, 52px); --cal-gap: 4px; display: grid; gap: var(--space-xs); }
+.book-cal__head { display: grid; grid-template-columns: var(--tap-min) minmax(0, 1fr) var(--tap-min); align-items: center; gap: var(--space-xs); }
+.book-cal__title { margin: 0; display: grid; justify-items: center; text-align: center; }
+.book-cal__month { font: 400 1.375rem/1.15 var(--font-display); font-variant-numeric: lining-nums; }
+.book-cal__zone { font: 500 var(--fs-label)/1.3 var(--font-ui); color: var(--fg-muted); }
+.book-cal__arrow {
+  width: var(--tap-min); height: var(--tap-min); display: inline-grid; place-items: center;
+  border: 1px solid var(--line-strong); border-radius: 50%; background: transparent; color: var(--fg);
+  font: 500 1.125rem/1 var(--font-ui); cursor: pointer;
+}
+.book-cal__arrow:disabled { opacity: .35; cursor: default; }
+.book-cal__arrow:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: var(--focus-off); }
+.book-cal__grid { display: grid; row-gap: var(--cal-gap); }
+.book-cal__row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: var(--cal-gap); }
+.book-cal__wd { padding-block: 2px; font: 500 var(--fs-label)/1.2 var(--font-ui); color: var(--fg-muted); text-align: center; }
+.book-cal__cell { position: relative; display: grid; place-items: center; min-width: var(--tap-min); height: var(--cal-cell); }
+.book-cal__day { cursor: pointer; border-radius: 12px; user-select: none; }
+.book-cal__day::before { content: ""; position: absolute; inset: 1px; border-radius: 11px; background: rgba(243, 236, 221, .07); }
+.book-cal__num { position: relative; font: 400 1.375rem/1 var(--font-display); font-variant-numeric: lining-nums tabular-nums; }
+.book-cal__day:not([aria-disabled]):hover::before { background: rgba(243, 236, 221, .14); }
+.book-cal__day[aria-current="date"]::before { box-shadow: inset 0 0 0 1px var(--accent); }
+.book-cal__day[aria-selected="true"]::before { background: var(--accent); }
+.book-cal__day[aria-selected="true"] .book-cal__num { color: var(--chip-on-fg); }
+.book-cal__day[aria-disabled] { cursor: not-allowed; }
+.book-cal__day[aria-disabled]::before { background: transparent; }
+.book-cal__day[aria-disabled] .book-cal__num { opacity: .32; }
+.book-cal__day:focus { outline: none; }
+.book-cal__day:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: -2px; }
+
+.book-success { display: grid; gap: var(--space-m); align-content: center; justify-items: start; flex: 1 1 auto; }
+.book-success:focus { outline: none; }
+.book-success__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); }
+.book-success__text { font-size: var(--fs-note); line-height: var(--lh-note); max-width: 44ch; }

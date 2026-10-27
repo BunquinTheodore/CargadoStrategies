@@ -18,13 +18,13 @@
  *                 field, and visible text runs (the ones the next check judges) cover under 2%
  *                 of it too (thin or dim type under the iris reads as field pixel by pixel).
  *                 The 2% is set for 1440x900 and shrinks with larger boxes (same type size,
- *                 more field): floor = 2% × min(1, 1440·900 / (w·h)), 1.25% at 1920x1080. The field expected at each pixel follows the iris: inside the circle
+ *                 more field): floor = 2% × min(1, 1440·900 / (w·h)), 1.25% at 1920x1080. The field expected at each pixel follows the iris: inside the circle (or the polygon of a quad or flood wipe, transitions.js)
  *                 the incoming field, outside it the field on .fields (a crossfade accepts
  *                 either). Ink = dark, bone = #F5F0E6 ± 22, gold = the metal ramp.
  *   wrong field   a visible text run (effective opacity ≥ 0.6, in any scene) whose colour has
  *                 under 3:1 contrast against the dominant pixel colour behind it: text drawn on
  *                 the wrong field (ivory on bone, ink on ink). Text that is not painted is
- *                 skipped: outside the incoming scene's inline clip-path circle, or in the
+ *                 skipped: outside a scene's inline clip-path circle or polygon, or in the
  *                 outgoing scene (.is-leaving) under the iris disc.
  *   text over globe  a visible text run of the incoming scene (not .is-leaving) with at least
  *                 GLOBE_OVERLAP of its box over lit pixels of the globe canvas (#globe, read
@@ -38,6 +38,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { PAGES, evaluate, filmHook, interceptResponses, launchChrome, navigate, parseArgs, parseViewports, setMedia, setViewport, waitReadyExpr } from './lib/cdp.mjs';
 import { decodePng } from './lib/png.mjs';
+import { insidePolygon } from '../site/core/engine/transitions.js';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const HOOK = '__seekFilm';
@@ -89,13 +90,28 @@ function frameInfo(minOpacity, globeOverlap, litAlpha) {
   const headerBottom = header && getComputedStyle(header).display !== 'none' ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
   const fields = document.querySelector('.fields');
   const iris = document.querySelector('.iris');
+  /* An inline clip-path polygon(evenodd?, Xpx Ypx, …) (transitions.js) as points, or null. */
+  const polyOf = (value) => {
+    const m = (value || '').match(/^polygon\(\s*(?:(?:evenodd|nonzero)\s*,\s*)?(.*)\)$/);
+    return m ? m[1].split(',').map((pair) => pair.trim().split(/\s+/).map((v) => parseFloat(v))) : null;
+  };
+  const inPoly = (pts, x, y) => {
+    let inside = false;
+    for (let i = 0, j = pts.length - 1; i < pts.length; j = i, i += 1) {
+      const [xi, yi] = pts[i];
+      const [xj, yj] = pts[j];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+    }
+    return inside;
+  };
   let irisInfo = null;
   if (iris) {
     const cs = getComputedStyle(iris);
     const r = iris.getBoundingClientRect();
     if (cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 2 && parseFloat(cs.opacity) > 0.02) {
+      const wipe = iris.dataset.state === 'wipe'; // quad / flood: the region is the iris's inline polygon
       irisInfo = { cx: r.left + r.width / 2, cy: r.top + r.height / 2, r: r.width / 2, field: iris.dataset.field || '',
-        fade: iris.dataset.state === 'fade' || cs.borderRadius === '0px' };
+        fade: !wipe && (iris.dataset.state === 'fade' || cs.borderRadius === '0px'), poly: wipe ? polyOf(iris.style.clipPath) : null };
     }
   }
   const opacityOf = (el) => {
@@ -124,9 +140,15 @@ function frameInfo(minOpacity, globeOverlap, litAlpha) {
     const keep = rr - l > 2 && b - t > 2 && (rr - l) * (b - t) >= 0.5 * r.width * r.height;
     return keep ? { left: l, top: t, right: rr, bottom: b, width: rr - l, height: b - t } : null;
   };
-  /* False when an ancestor's inline clip-path circle(<r>px at <x>px <y>px) (iris.js) leaves point (x, y) unpainted. */
+  /* False when an ancestor's inline clip-path circle(<r>px at <x>px <y>px) (iris.js) or polygon (transitions.js) leaves point (x, y) unpainted. */
   const inCircleClips = (el, x, y) => {
     for (let e = el; e && e !== h; e = e.parentElement) {
+      const poly = polyOf(e.style?.clipPath);
+      if (poly) {
+        const box = e.getBoundingClientRect();
+        if (!inPoly(poly, x - box.left, y - box.top)) return false;
+        continue;
+      }
       const m = (e.style?.clipPath || '').match(/^circle\(\s*([\d.]+)px\s+at\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s*\)$/);
       if (!m) continue;
       const box = e.getBoundingClientRect();
@@ -137,7 +159,7 @@ function frameInfo(minOpacity, globeOverlap, litAlpha) {
   };
   /* True when (x, y) of an outgoing scene lies under the iris disc, which stacks above it. */
   const underIris = (scene, x, y) => !!irisInfo && !irisInfo.fade && scene.classList.contains('is-leaving')
-    && (x - irisInfo.cx) ** 2 + (y - irisInfo.cy) ** 2 <= irisInfo.r ** 2;
+    && (irisInfo.poly ? inPoly(irisInfo.poly, x, y) : (x - irisInfo.cx) ** 2 + (y - irisInfo.cy) ** 2 <= irisInfo.r ** 2);
   const texts = [];
   document.querySelectorAll('section.scene').forEach((scene) => {
     const walker = document.createTreeWalker(scene, NodeFilter.SHOW_TEXT);
@@ -223,6 +245,7 @@ function analyse(png, info) {
     const ir = info.iris;
     if (!ir || !ir.field) return [info.base];
     if (ir.fade) return [info.base, ir.field];
+    if (ir.poly) return insidePolygon(ir.poly, x, y) ? [ir.field] : [info.base];
     return (x - ir.cx) ** 2 + (y - ir.cy) ** 2 <= ir.r ** 2 ? [ir.field] : [info.base];
   };
   let total = 0, content = 0;

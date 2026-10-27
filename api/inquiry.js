@@ -6,51 +6,22 @@
  *   →     200 { ok: true, id } · 4xx/5xx { ok: false, error }
  *
  * The site still hands every request to WhatsApp or email as before; this is a
- * copy for the owner's inbox. Sent through the Resend REST API with fetch (no
- * dependency). The key is the RESEND_API_KEY env var (Vercel, .env.local) and
- * is never logged or returned. RESEND_FROM may override the sender.
+ * copy for the owner's inbox, sent with api/_lib/mail.js (Resend REST; the
+ * RESEND_API_KEY env var, never logged or returned; RESEND_FROM may override the sender).
  */
+import { reply, readBody, isPlainObject } from './_lib/http.js';
+import { sendMail, isMailConfigured, OWNER_EMAIL, EMAIL_PATTERN, escapeHtml, oneLine } from './_lib/mail.js';
 
-const RESEND_URL = 'https://api.resend.com/emails';
-const TO = 'malee.holgado@mygreatway.ca';
-const FROM = process.env.RESEND_FROM || 'Cargado Strategies <noreply@gnlab.studio>';
-const MAX_BODY_BYTES = 20 * 1024;
 const MAX_FIELDS = 40;
 const MAX_VALUE = 2000;
 const MAX_LABEL = 80;
 const MAX_PAGE = 120;
-const EMAIL_PATTERN = /^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/;
 const SUBJECTS = Object.freeze({
   inquiry: 'New website inquiry',
   application: 'New partner application',
   introduction: 'New introduction request',
   contact: 'New WhatsApp chat from the website',
 });
-const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-
-const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (ch) => ESCAPES[ch]);
-const oneLine = (value) => String(value).replace(/[\r\n\t]+/g, ' ').trim();
-const isPlainObject = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
-
-function reply(res, status, payload) {
-  res.statusCode = status;
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-store');
-  res.end(JSON.stringify(payload));
-}
-
-/** The parsed body, or null when it is missing, not JSON or too large. */
-function readBody(req) {
-  if (Number(req.headers?.['content-length'] || 0) > MAX_BODY_BYTES) return null;
-  let body = req.body;
-  try {
-    if (typeof body === 'string' || Buffer.isBuffer(body)) body = JSON.parse(String(body));
-    if (!isPlainObject(body) || Buffer.byteLength(JSON.stringify(body)) > MAX_BODY_BYTES) return null;
-  } catch {
-    return null;
-  }
-  return body;
-}
 
 /** An error message for a bad payload, or '' when it is valid. */
 function invalid(body) {
@@ -89,24 +60,16 @@ function textOf({ kind, page, fields }) {
   return [SUBJECTS[kind], `Page: ${page || 'website'}`, '', ...lines].join('\n');
 }
 
-async function sendEmail(body, key) {
+async function sendEmail(body) {
   const email = String(body.fields.Email || '').trim();
-  const message = {
-    from: FROM,
-    to: [TO],
+  const { id } = await sendMail({
+    to: OWNER_EMAIL,
     subject: subjectOf(body),
     html: htmlOf(body),
     text: textOf(body),
-    ...(EMAIL_PATTERN.test(email) ? { reply_to: email } : {}),
-  };
-  const response = await fetch(RESEND_URL, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify(message),
+    replyTo: EMAIL_PATTERN.test(email) ? email : undefined,
   });
-  const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(`Resend ${response.status}: ${result.name || ''} ${result.message || ''}`.trim());
-  return result.id;
+  return id;
 }
 
 export default async function handler(req, res) {
@@ -120,13 +83,12 @@ export default async function handler(req, res) {
   if (problem) return reply(res, 400, { ok: false, error: problem });
   if (isBot(body)) return reply(res, 200, { ok: true, id: null });
 
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
+  if (!isMailConfigured()) {
     console.error('inquiry: RESEND_API_KEY is not set');
     return reply(res, 500, { ok: false, error: 'Email is not configured.' });
   }
   try {
-    const id = await sendEmail(body, key);
+    const id = await sendEmail(body);
     return reply(res, 200, { ok: true, id });
   } catch (error) {
     console.error('inquiry: send failed', error.message);

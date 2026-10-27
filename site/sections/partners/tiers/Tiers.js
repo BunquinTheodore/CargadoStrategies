@@ -1,5 +1,5 @@
 /**
- * P3 · Tiers (partners.html): the panels pick a tier and the one "Apply to Join" carries it,
+ * P3 · Tiers (partners.html): the panels pick a tier and the one "Join Us" carries it,
  * the panels are dealt in on the cut, and "Compare All" opens #tiers-dialog
  * (sections/partners/tiers-dialog). The choice lives in the application form: the page hands
  * over ctx.selectTier(tier) (pages/partners.js), so this section never reaches into Apply.
@@ -45,7 +45,7 @@ function dealTiers(tl, el) {
   }, `in+=${DEAL.after}`);
 }
 
-/* ---------- P3 tier choice: the panels pick a tier, the one "Apply to Join" carries it ---------- */
+/* ---------- P3 tier choice: the panels pick a tier, the one "Join Us" carries it ---------- */
 
 function wireTiers(scene, film, selectTier) {
   const picks = $$('.tier__pick', scene);

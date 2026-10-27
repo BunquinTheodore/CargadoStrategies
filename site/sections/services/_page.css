@@ -10,6 +10,6 @@ html.rm body[data-page="services"] .scene:not(.scene--credits) > .scene__inner {
   height: auto; margin: 0; padding-block: var(--scene-pad-top) var(--scene-pad-bottom);
   padding-inline: max(var(--page-pad), (100% - var(--max-w)) / 2);
 }
-.intro__head, .ins__head, .strat__head, .incl__head, .out__head, .finder__head { display: grid; gap: var(--space-s); justify-items: start; }
-.ins__head .rule, .intro__head .rule, .strat__head .rule, .incl__head .rule, .finder__head .rule { margin-top: var(--space-xs); }
+.sorbit__head, .own__head, .ins__head, .strat__head, .incl__head, .out__head, .finder__head { display: grid; gap: var(--space-s); justify-items: start; }
+.ins__head .rule, .sorbit__head .rule, .own__head .rule, .strat__head .rule, .incl__head .rule, .finder__head .rule { margin-top: var(--space-xs); }
 .offer-line { font: 600 var(--fs-note)/1.4 var(--font-body); color: var(--fg); }

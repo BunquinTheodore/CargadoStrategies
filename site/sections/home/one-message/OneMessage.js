@@ -3,20 +3,21 @@
  * arrive 80 ms apart from the 'iris' label (a J-cut; 'in' on a swap), a bar
  * wipes each one and the line dims; then, from just before the 'struck'
  * label, "One Message" rises, its stop pops and the steps settle with its
- * second word. The cut ends within 1.3 s. fromTo with explicit end states
+ * second word. The slower bars (owner, 2026-10-26) end the cut at about 2 s. fromTo with explicit end states
  * (immediate landings jump straight to the end); transform, opacity and two
  * registered custom properties only. Nothing loops.
  */
 
 import { Section } from '../../../core/Section.js';
+import { DEFAULT_ENTRANCE, itemStates, parseEntrance, wordStates } from '../../../core/engine/entrances.js';
 import { isPhone, leadLabel, qsa } from '../_shared.js';
 
 const STRIKE = Object.freeze({
   arrive: 0.35, // each line rises into place
   arriveStagger: 0.08,
   rise: 18, // px
-  bar: 0.14, // each bar wipes from the left
-  barStagger: 0.05,
+  bar: 0.5, // each bar wipes from the left (slowed, owner 2026-10-26: was 0.14)
+  barStagger: 0.2, // was 0.05
   barAfter: 0.16, // the first bar starts this long after the first line arrives
 });
 /** The answer after the problem: "One Message", its stop and the steps overlap the last bar. */
@@ -24,13 +25,11 @@ const ANSWER = Object.freeze({
   lead: 0.12, // the first word starts this long before 'struck' (the last bar is mostly drawn)
   wordDuration: 0.5,
   wordStagger: 0.07,
-  maskOffset: 110, // yPercent, as the engine's word reveal (film-reveals.js)
   stopAfter: 0.25, // after the last word starts (the stop lands by in + 1.0 s)
   stopDuration: 0.24,
   stepsAfter: 0.07, // after the first word: the steps start with the second
   stepDuration: 0.45,
   stepStagger: 0.06,
-  stepRise: 24,
 });
 
 /** Lines that phones drop (.phone-hide) are left out, so the stagger has no gap. No layout reads. */
@@ -54,19 +53,23 @@ function strikeSearches(tl, el, dir, lead) {
  * W2 order: the engine lands the monument and the steps with the rest of the in group; here
  * they are taken off the engine's slots and replayed from 'answer', as the last bar finishes,
  * so the answer never lands before the problem is crossed out. 'stop' moves with the stop.
+ * The replay uses the scene's entrance states (entrances.js): the killed engine fromTo has
+ * already rendered its 'from' (a slide's xPercent and opacity), so the end state must undo it.
  */
-function landAnswer(tl, el) {
+function landAnswer(tl, el, entrance) {
   const words = qsa(el, '.one__title .rv-word');
   const stop = el.querySelector('.one__title .stop');
   const steps = qsa(el, '.one__steps > li');
   [words, stop ? [stop] : [], steps].forEach((targets) => {
     if (targets.length) tl.getTweensOf(targets).forEach((tween) => tween.kill());
   });
+  const word = wordStates(entrance);
+  const item = itemStates(entrance);
   const lastWord = ANSWER.wordStagger * Math.max(words.length - 1, 0);
   tl.addLabel('answer', `struck-=${ANSWER.lead}`);
   if (words.length) {
-    tl.fromTo(words, { yPercent: ANSWER.maskOffset }, {
-      yPercent: 0, duration: ANSWER.wordDuration, ease: 'expo.out', stagger: ANSWER.wordStagger,
+    tl.fromTo(words, { ...word.from }, {
+      ...word.to, duration: ANSWER.wordDuration, ease: 'expo.out', stagger: ANSWER.wordStagger,
     }, 'answer');
   }
   if (stop) {
@@ -77,8 +80,8 @@ function landAnswer(tl, el) {
     tl.addLabel('stop', at);
   }
   if (steps.length) {
-    tl.fromTo(steps, { opacity: 0, y: ANSWER.stepRise }, {
-      opacity: 1, y: 0, duration: ANSWER.stepDuration, ease: 'expo.out', stagger: ANSWER.stepStagger,
+    tl.fromTo(steps, { ...item.from }, {
+      ...item.to, duration: ANSWER.stepDuration, ease: 'expo.out', stagger: ANSWER.stepStagger,
     }, `answer+=${ANSWER.stepsAfter}`);
   }
 }
@@ -88,9 +91,11 @@ export class OneMessage extends Section {
 
   /** Film 'cut': only the cut that enters this scene. */
   cut(event) {
-    const { tl, toEl, dir } = event;
+    const { tl, toEl, fromEl, dir } = event;
     if (toEl !== this.el) return;
     strikeSearches(tl, toEl, dir, leadLabel(tl, toEl, event));
-    if (tl.labels.struck !== undefined) landAnswer(tl, toEl);
+    // the first landing always rises, as the engine's in group (cut.js keepOpacity)
+    const entrance = fromEl ? parseEntrance(toEl.dataset.entrance) : DEFAULT_ENTRANCE;
+    if (tl.labels.struck !== undefined) landAnswer(tl, toEl, entrance);
   }
 }

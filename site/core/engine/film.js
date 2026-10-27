@@ -21,12 +21,15 @@
  * all of it is done. During a cut, input is ignored until 70%, then one step
  * queues and starts at 'settled'; jumps (Home/End, nav, hash, focus,
  * [data-cut]) interrupt at once. Keyboard reach (film-reach.js) parks the
- * controls of far scenes in cut mode.
+ * controls of far scenes in cut mode. Each cut's style (iris, dot, quad,
+ * flood) comes from the scenes' data-transition (transitions.js), in cut and
+ * touch-cut mode alike; the in group's from the entered scene's data-entrance.
  */
 import { createEmitter, fontsReady, sceneTitle, hashTargetOf } from './film-events.js';
 import { createFlowFilm } from './film-flow.js';
 import { prepareInGroup } from './film-reveals.js';
 import { buildCut } from './cut.js';
+import { transitionFor } from './transitions.js';
 import { irisTo, irisFades, fieldsEl, irisEl } from './iris.js';
 import { createReach } from './film-reach.js';
 import { createLinks, isSheetHash } from './film-links.js';
@@ -41,7 +44,7 @@ import { CUT, DUR } from './motion-tokens.js';
 export const SHORT_H = 560; // below this stage height: the pan fallback (cut) or free scroll (touch-cut)
 const PAN_TOLERANCE_PX = 4;
 const REBUILD_DELAY_MS = 200;
-const SPLASH_WAIT_MS = 1600; // the first landing waits for the splash's cue, never longer than this
+const SPLASH_WAIT_MS = 2600; // the first landing waits for the splash's cue (≈ 2.2 s in), never longer than this
 const TOUCH_FADE_S = 0.2; // touch-cut: text leaving the field it was written for
 const TOUCH_IRIS_FROM = 0.15; // touch-cut: the swell starts as a disc, never a lone dot
 const TOUCH_FADE_AT = 0.45; // share of the touch iris before the old text fades: the disc covers about 30% of the screen by then
@@ -59,6 +62,8 @@ const html = document.documentElement;
 const mm = (query) => !!window.matchMedia?.(query).matches;
 const coarsePointer = () => mm('(pointer: coarse)') && !mm('(hover: hover) and (pointer: fine)');
 const fieldOf = (el) => el?.dataset.field || 'ink';
+/** What transitions.js needs from a scene: its data-transition, and whether it shows the dot-globe. */
+const lookOf = (el) => (el ? { transition: el.dataset.transition, globe: !!el.dataset.globeMode && el.dataset.globeMode !== 'hidden' } : null);
 const centreOf = (el) => {
   const r = el.getBoundingClientRect();
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
@@ -331,12 +336,13 @@ function createFilm({ stage, scenes, emitter, mode }) {
     const fieldChange = toField !== fromField;
     const origin = resolveOrigin(index, from, opts);
     const withIris = fieldChange && from >= 0 && (!touchMode || opts.programmatic);
+    const transition = from >= 0 ? transitionFor({ from: lookOf(fromPart.el), to: lookOf(toPart.el), dir, fieldChange }) : null;
     pendingEnter?.kill();
     pendingEnter = null;
     if (fieldChange && withIris) state.field = toField;
     // Built before any class changes, so building it never meets invalidated style.
     const tl = buildCut({
-      from: fromPart, to: toPart, dir, origin, fieldChange, withIris, toField, tier: getTier(), mode,
+      from: fromPart, to: toPart, dir, origin, fieldChange, withIris, toField, tier: getTier(), mode, transition,
       onHalf: ({ field }) => emitter.emit('field', { field, from: fromField }),
     });
     setCurrent(index);
@@ -350,7 +356,7 @@ function createFilm({ stage, scenes, emitter, mode }) {
     state.cut = { index, from, cause };
     emitter.emit('cut', {
       from, to: index, dir, tl, cause, origin, fieldChange, fromField, toField,
-      fromEl: fromPart?.el || null, toEl: toPart.el, mode, immediate,
+      fromEl: fromPart?.el || null, toEl: toPart.el, mode, immediate, transition,
     });
     if (immediate) tl.progress(1);
     else if (seek !== null) tl.progress(seek);
@@ -445,7 +451,11 @@ function createFilm({ stage, scenes, emitter, mode }) {
     const origin = resolveOrigin(index, state.current, { live: true });
     // The old text stays while the disc is small (the disc covers it as it grows); on a swap it fades first.
     fadeOthers(index, irisFades(getTier(), origin) ? 0 : TOUCH_FADE_AT * DUR.iris);
+    const dir = Math.sign(index - state.current) || 1;
+    const look = { from: lookOf(scenes[state.current]), to: lookOf(scenes[index]), dir, fieldChange: true };
     const tl = irisTo(field, origin, {
+      shape: transitionFor(look) || 'iris',
+      dir,
       from: TOUCH_IRIS_FROM,
       swapAt: TOUCH_SWAP_AT,
       onHalf: ({ field: shown }) => emitter.emit('field', { field: shown, from: shown === field ? from : field }),

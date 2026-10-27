@@ -4,7 +4,6 @@
 #ours-outsourcing :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-end; gap: var(--space-l); padding-bottom: clamp(8px, 3cqh, 40px); }
 .out__title { font-size: min(var(--fs-d1), 8cqh); }
 .out__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
-.out__rate { font: 600 var(--fs-note)/1.4 var(--font-body); }
 /* Ghost · title · tasks · line rows are shared (subgrid), so the four titles and the four ledgers start on one line.
    A heavy ink rule caps the row; each panel is a faint ink plate that fades into the metal. */
 .panels {
@@ -37,6 +36,15 @@ html:not(.ph-loud) .panel__title .ph { text-decoration: none; }
 .panel__tasks li::before { content: ""; flex: none; width: 6px; height: 6px; background: currentColor; transform: translateY(-.2em) rotate(45deg); }
 .panel__line { grid-row: 4; max-width: 26ch; font-size: var(--fs-note); line-height: var(--lh-note); }
 .panel__toggle { display: none; }
+/* Wide screens: the line row keeps its height (subgrid), but only the open role's line shows. The
+   whole panel is its (invisible) toggle, so keyboard and screen-reader users open each role too. */
+@media (min-width: 760px) {
+  html.js .panel:not(.is-open) .panel__line { visibility: hidden; opacity: 0; }
+  html.js .panel__toggle { display: block; position: absolute; inset: 0; z-index: 1; border: 0; background: none; cursor: pointer; }
+  html.js .panel__toggle:focus-visible { outline: var(--focus-w) solid var(--focus); outline-offset: -4px; }
+  html.js .panel__toggle .panel__plus { display: none; }
+  .panel__line { transition: opacity var(--dur-hover) var(--ease-out); }
+}
 
 /* Laptop-short (≥ 760 wide, ≤ 800 tall): a smaller ghost, a tighter ledger, so the metal keeps its 18% of air. */
 @media (min-width: 760px) and (max-height: 800px) {
@@ -51,8 +59,8 @@ html:not(.ph-loud) .panel__title .ph { text-decoration: none; }
   .panels { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(8, auto); }
   .panel:nth-child(3) { border-left: 0; }
   .panel:nth-child(n + 3) { border-top: 1px solid var(--out-rule); }
-  .panel .ghost { font-size: min(var(--fs-ghost), 6svh); }
-  .panel { row-gap: var(--space-s); }
+  .panel .ghost { font-size: min(var(--fs-ghost), 4svh); }
+  .panel { row-gap: var(--space-s); padding-block: 16px; }   /* the plates hug their copy: the metal keeps its 18 % */
   .panel__tasks li { padding-block: 8px; }
 }
 

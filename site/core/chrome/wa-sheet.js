@@ -28,7 +28,7 @@
 import { openDialog, closeDialog } from '../ui/ui-dialog.js';
 import { createStepper } from '../ui/ui-stepper.js';
 import { buildIntro, waLink, pageMessage } from './whatsapp.js';
-import { PHONE, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, FOUNDER_NAME, categoryBySlug } from '../../assets/js/config.js';
+import { PHONE, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, categoryBySlug } from '../../assets/js/config.js';
 import { sendInquiry } from '../lib/send-inquiry.js';
 
 const CITY_KEY = 'cs-city';
@@ -38,11 +38,11 @@ const NEW_TAB = '_blank';
 const STEPS = ['need', 'city', 'send'];
 const STEP_LABELS = { need: 'What You Need', city: 'Your City', send: 'Open WhatsApp' };
 const CONTEXTS = new Set(['home', 'founder', 'network', 'services', 'story', 'partners', 'legal']);
-const CONTACT_TITLE = 'Call or Email Us';
+const CONTACT_TITLE = 'Call or Email Cargado Strategies';
 const ASK = 'Ask About';
 const WA_HREF = /^https:\/\/wa\.me\//;
 
-/** The step 1 chips, in DIRECTION §6.5 order. `founder`: labelled "From [First name]". */
+/** The step 1 chips, in DIRECTION §6.5 order. `founder`: tagged "Ours" (Cargado Strategies provides it directly). */
 const NEED_CHIPS = Object.freeze([
   { slug: 'insurance', label: 'Insurance' },
   { slug: 'business-strategy', label: 'Business Strategy' },
@@ -60,7 +60,6 @@ const validNeed = (slug) => slug === 'not-sure' || !!categoryBySlug(slug);
 const ESCAPES = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (ch) => ESCAPES[ch]);
 
-const founderName = () => (FOUNDER_NAME ? escapeHtml(FOUNDER_NAME) : '<span class="ph">[First name]</span>');
 const emailHtml = () => (CONTACT_EMAIL
   ? `<a class="link" href="mailto:${escapeHtml(CONTACT_EMAIL)}">${escapeHtml(CONTACT_EMAIL)}</a>`
   : `<span class="ph">${escapeHtml(CONTACT_EMAIL_LABEL)}</span>`);
@@ -141,7 +140,7 @@ function storeCity(city) {
 function renderChips(box, name) {
   box.innerHTML = NEED_CHIPS.map(({ slug, label, founder }) => `
     <label class="chip sheet__chip"><input type="radio" name="${name}" value="${slug}">
-      <span class="chip__label">${label}</span>${founder ? `<span class="chip__tag">From ${founderName()}</span>` : ''}
+      <span class="chip__label">${label}</span>${founder ? `<span class="chip__tag">Ours</span>` : ''}
     </label>`).join('');
 }
 
@@ -166,7 +165,6 @@ function renderMessage(el, text) {
 function fillContactSlots(dialog) {
   dialog.querySelectorAll('[data-sheet-phone]').forEach((el) => { el.innerHTML = phoneHtml(); });
   dialog.querySelectorAll('[data-sheet-email]').forEach((el) => { el.innerHTML = emailHtml(); });
-  dialog.querySelectorAll('[data-sheet-founder]').forEach((el) => { el.innerHTML = founderName(); });
 }
 
 /* ---------- trigger data ---------- */

@@ -1,0 +1,4 @@
+/* dashboard.html (app page): the shared app layout and the dashboard shell, then this page's own rules. Cascade order = import order. */
+@import "../core/design/app.css";
+@import "../core/design/dash.css";
+@import "../sections/app/dashboard/dashboard.css";

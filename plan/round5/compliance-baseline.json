@@ -1,26 +1,32 @@
 {
- "note": "Sentences are deduplicated per section; count = occurrences in that section. keyCounts = total sentence hits per keyword on the page. \"We only message from\" has 0 hits on every page: the line does not exist yet (R5 adds it in C22).",
- "generated": "2026-10-18T01:14:10.865Z",
- "source": "http://127.0.0.1:8301/",
- "method": "rendered DOM (headless Chrome, 1440x900, 4 s after load), textContent so hidden/closed content is included",
+ "note": "Regenerated 2026-10-25 from the built pages after the owner-approved rewrite of all copy into the third person (spec docs/superpowers/specs/2026-10-25-cargado-v2-design.md §5, §6.6, §6.8): notices, legal text and FAQ answers now name \"Cargado Strategies\" instead of \"we/us/our\". Legal sentences marked data-draft=\"pending-lawyer-review\" are builder drafts a Canadian lawyer reviews before launch. The gate protects this wording word for word from now on.",
+ "generated": "2026-10-25T08:12:28.237Z",
+ "source": "dist/ (node tools/compliance-diff.mjs --dist --regenerate)",
+ "method": "rendered DOM (headless Chrome, 1440x900, engine ready + 1500 ms, plain and ?review=1), textContent so hidden/closed content is included",
  "pages": {
   "index.html": {
    "notice": [],
    "hint": [
     {
-     "where": "section#hero",
-     "text": "We ask for your city only so we can introduce you to someone close to you."
+     "where": "section#orbit",
+     "text": "Point at or tap a circle to preview it."
     },
     {
-     "where": "section#hero",
-     "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
     },
     {
-     "where": "section#close",
+     "where": "dialog#wa-sheet",
      "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
     }
    ],
-   "offerFine": [
+   "offerFine": [],
+   "legalDraft": [],
+   "fineprint": [
+    {
+     "where": "section#hero",
+     "text": "No fee to you · No obligation · Licence shown where one applies · Replies within 24 hours"
+    },
     {
      "where": "section#founder",
      "text": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice."
@@ -30,8 +36,6 @@
      "text": "Provided by Cargado Strategies itself."
     }
    ],
-   "legalDraft": [],
-   "fineprint": [],
    "ph": [
     {
      "where": "section#hero",
@@ -39,23 +43,7 @@
     },
     {
      "where": "section#hero",
-     "text": "[n]"
-    },
-    {
-     "where": "section#hero",
-     "text": "[n]"
-    },
-    {
-     "where": "section#hero",
      "text": "[rating]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[month]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[$x]"
     },
     {
      "where": "section#founder",
@@ -76,173 +64,83 @@
     {
      "where": "section#founder",
      "text": "“[Real client quote about the speed]”"
-    },
-    {
-     "where": "section#founder",
-     "text": "[name]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[city]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[service]"
-    },
-    {
-     "where": "section#partners",
-     "text": "[to be confirmed]"
     }
    ],
    "details": [
     {
-     "where": "section#faq",
+     "where": "dialog#faq-dialog",
      "question": "Why Is It Free for Me?",
-     "answer": "Partners may pay us a fee if you become their client. You never pay us for an introduction."
+     "answer": "Partners may pay Cargado Strategies a fee if you become their client. You never pay Cargado Strategies for an introduction."
     },
     {
-     "where": "section#faq",
+     "where": "dialog#faq-dialog",
      "question": "Do I Have to Hire Them?",
      "answer": "No. You decide what happens next. Partners are independent businesses, and each one is responsible for their own licence and advice."
     },
     {
-     "where": "section#faq",
+     "where": "dialog#faq-dialog",
      "question": "How Do You Choose Who to Show Me?",
-     "answer": "By distance only. We show the nearest partners for the service you need, closest first. No one pays to be listed higher, and a listing is not a recommendation or an endorsement."
+     "answer": "By distance only. Cargado Strategies shows the nearest partners for the service you need, closest first. No one pays to be listed higher, and a listing is not a recommendation or an endorsement."
     },
     {
-     "where": "section#faq",
+     "where": "dialog#faq-dialog",
      "question": "What Happens to My Information?",
-     "answer": "We use it to answer you and connect you with a suitable partner. We ask for your city so we can find someone close to you. Cargado staff and the partner we connect you with see it, and we do not sell it. Read the privacy policy."
+     "answer": "Cargado Strategies uses it to answer you and connect you with a suitable partner. It asks for your city so it can find someone close to you. Cargado staff and the partner you are connected with see it, and Cargado Strategies does not sell it. Read the privacy policy."
     }
    ],
-   "keyCounts": {
-    "commission": 2,
-    "independent": 5,
-    "coaching only": 1,
-    "not a recommendation": 2,
-    "tap send": 2,
-    "Provided by Cargado": 1,
-    "We only message from": 0,
-    "Mark 11:24": 0,
-    "Draft": 0,
-    "Connected by Purpose": 1
-   },
    "sentences": [
     {
-     "where": "section#hero",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "section#founder",
+     "text": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice."
     },
     {
      "where": "section#founder",
-     "el": "p.span-5.md-span-12.keep-md.muted",
-     "keys": [
-      "independent"
-     ],
-     "text": "Her own businesses, named as hers and shown separately from the independent partner network.",
-     "count": 1
+     "text": "Provided by Cargado Strategies itself."
+    },
+    {
+     "where": "section#orbit",
+     "text": "Nine services Cargado Strategies provides directly, and a partner network of independent local professionals for the rest."
     },
     {
      "where": "section#founder",
-     "el": "p.offer__fine",
-     "keys": [
-      "coaching only"
-     ],
-     "text": "Business strategy · strategy and coaching only, not licensed accounting, tax or investment advice.",
-     "count": 1
+     "text": "Ours · Provided Directly"
     },
     {
-     "where": "section#founder",
-     "el": "p.offer__fine",
-     "keys": [
-      "Provided by Cargado"
-     ],
-     "text": "Provided by Cargado Strategies itself.",
-     "count": 1
+     "where": "section#credits",
+     "text": "Connected by Purpose."
     },
     {
-     "where": "section#services",
-     "el": "p",
-     "keys": [
-      "independent"
-     ],
-     "text": "Each one says whether it’s our founder’s own business or an independent partner’s.",
-     "count": 1
+     "where": "dialog#faq-dialog",
+     "text": "Partners are independent businesses, and each one is responsible for their own licence and advice."
     },
     {
-     "where": "section#faq",
-     "el": "p",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, and each one is responsible for their own licence and advice.",
-     "count": 1
+     "where": "dialog#faq-dialog",
+     "text": "No one pays to be listed higher, and a listing is not a recommendation or an endorsement."
     },
     {
-     "where": "section#faq",
-     "el": "p",
-     "keys": [
-      "not a recommendation"
-     ],
-     "text": "No one pays to be listed higher, and a listing is not a recommendation or an endorsement.",
-     "count": 1
+     "where": "dialog#faq-dialog",
+     "text": "Read the privacy policy."
     },
     {
-     "where": "section#close",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
-    },
-    {
-     "where": "footer",
-     "el": "p.site-footer__tagline",
-     "keys": [
-      "Connected by Purpose"
-     ],
-     "text": "Connected by Purpose.",
-     "count": 1
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
     }
    ]
   },
   "services.html": {
-   "notice": [
-    {
-     "where": "section",
-     "text": "Sorted by distance only. This list is not a recommendation. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us."
-    },
-    {
-     "where": "section#categories",
-     "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation. Cargado Strategies may receive a commission if you become their client."
-    },
-    {
-     "where": "section#inquiry",
-     "text": "Partners are independent businesses. Cargado Strategies may receive a commission if you become a partner's client. You never pay us for an introduction."
-    }
-   ],
+   "notice": [],
    "hint": [
     {
-     "where": "section#ours-insurance",
-     "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "Opens WhatsApp. Nothing is sent until you tap send."
+     "where": "section#orbit",
+     "text": "Point at or tap a circle to preview it."
     },
     {
      "where": "section#finder",
-     "text": "We use your city or area only to sort partners by distance. It isn't stored on this website."
+     "text": "Cargado Strategies uses your city or area only to sort partners by distance. It isn't stored on this website."
     },
     {
      "where": "section#inquiry",
-     "text": "So we can introduce you to someone close to you."
+     "text": "So Cargado Strategies can introduce you to someone close to you."
     },
     {
      "where": "section#inquiry",
@@ -253,242 +151,194 @@
      "text": "Opens WhatsApp with your inquiry written. Nothing is sent until you tap send."
     },
     {
-     "where": "section#close",
+     "where": "dialog#categories-dialog",
+     "text": "Opens the policy review site"
+    },
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
+    },
+    {
+     "where": "dialog#wa-sheet",
      "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
     }
    ],
-   "offerFine": [],
+   "offerFine": [
+    {
+     "where": "section#ours-insurance",
+     "text": "Family Protection Review · 30 min"
+    },
+    {
+     "where": "section#ours-web",
+     "text": "No prices online: Cargado Strategies quotes after a free consultation."
+    },
+    {
+     "where": "section#ours-software",
+     "text": "No prices online: Cargado Strategies quotes after a free consultation."
+    },
+    {
+     "where": "section#ours-trade",
+     "text": "No prices online: Cargado Strategies quotes after a free consultation."
+    }
+   ],
    "legalDraft": [],
-   "fineprint": [],
+   "fineprint": [
+    {
+     "where": "section#finder",
+     "text": "Sorted by distance only. This list is not a recommendation. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay Cargado Strategies."
+    },
+    {
+     "where": "section#inquiry",
+     "text": "Partners are independent businesses. Cargado Strategies may receive a commission if you become a partner's client. You never pay Cargado Strategies for an introduction."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Sorted by distance only. This list is not a recommendation. Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay Cargado Strategies."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation. Cargado Strategies may receive a commission if you become their client."
+    }
+   ],
    "ph": [
     {
-     "where": "section#ours-strategy",
-     "text": "[Founder]"
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "[value]"
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "[value]"
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "[value]"
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "[value]"
-    },
-    {
-     "where": "section#ours-strategy",
-     "text": "[value]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[$x]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[what this role takes off your plate]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[what this role takes off your plate]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[what this role takes off your plate]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[what this role takes off your plate]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[Role 1]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[Role 2]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[Role 3]"
-    },
-    {
-     "where": "section#ours-outsourcing",
-     "text": "[Role 4]"
+     "where": "section#ours-insurance",
+     "text": "[signature]"
     }
    ],
    "details": [],
-   "keyCounts": {
-    "commission": 4,
-    "independent": 8,
-    "coaching only": 1,
-    "not a recommendation": 2,
-    "tap send": 5,
-    "Provided by Cargado": 1,
-    "We only message from": 0,
-    "Mark 11:24": 0,
-    "Draft": 0,
-    "Connected by Purpose": 1
-   },
    "sentences": [
     {
-     "where": "section#intro",
-     "el": "p.t-lead",
-     "keys": [
-      "independent"
-     ],
-     "text": "Our founder's own three businesses, and a network of independent partners near you.",
-     "count": 1
+     "where": "section#finder",
+     "text": "Cargado Strategies uses your city or area only to sort partners by distance."
+    },
+    {
+     "where": "section#finder",
+     "text": "It isn't stored on this website."
+    },
+    {
+     "where": "section#finder",
+     "text": "Sorted by distance only."
+    },
+    {
+     "where": "section#finder",
+     "text": "This list is not a recommendation."
+    },
+    {
+     "where": "section#finder",
+     "text": "Partners are independent businesses, each responsible for their own licence and advice."
+    },
+    {
+     "where": "section#finder",
+     "text": "Cargado Strategies may receive a commission if you become their client."
+    },
+    {
+     "where": "section#finder",
+     "text": "You never pay Cargado Strategies."
+    },
+    {
+     "where": "section#inquiry",
+     "text": "Partners are independent businesses."
+    },
+    {
+     "where": "section#inquiry",
+     "text": "Cargado Strategies may receive a commission if you become a partner's client."
+    },
+    {
+     "where": "section#inquiry",
+     "text": "You never pay Cargado Strategies for an introduction."
+    },
+    {
+     "where": "section#orbit",
+     "text": "Ours means Cargado Strategies provides it directly."
+    },
+    {
+     "where": "section#orbit",
+     "text": "Partners are independent local professionals."
     },
     {
      "where": "section#ours-insurance",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "text": "Ours · Insurance"
     },
     {
      "where": "section#ours-strategy",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "text": "Ours · Business Strategy"
     },
     {
      "where": "section#ours-outsourcing",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "text": "Ours · Outsourcing"
     },
     {
-     "where": "section",
-     "el": "p.notice.results__notice",
-     "keys": [
-      "not a recommendation"
-     ],
-     "text": "This list is not a recommendation.",
-     "count": 1
+     "where": "section#ours-web",
+     "text": "Ours · Web Design"
     },
     {
-     "where": "section",
-     "el": "p.notice.results__notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, each responsible for their own licence and advice.",
-     "count": 1
+     "where": "section#ours-creative",
+     "text": "Ours · Two Services"
     },
     {
-     "where": "section",
-     "el": "p.notice.results__notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission if you become their client.",
-     "count": 1
+     "where": "section#ours-software",
+     "text": "Ours · Software Development"
     },
     {
-     "where": "section#categories",
-     "el": "p.t-small.muted",
-     "keys": [
-      "independent"
-     ],
-     "text": "The rail does the disclosure: Ours is run by our founder, Partners are independent businesses.",
-     "count": 1
+     "where": "section#ours-contractor",
+     "text": "Ours · Contractor"
     },
     {
-     "where": "section#categories",
-     "el": "p.cat-detail__desc",
-     "keys": [
-      "independent"
-     ],
-     "text": "The founder is an agent of a separate insurance company, and independent partners can also be listed.",
-     "count": 1
-    },
-    {
-     "where": "section#categories",
-     "el": "p.notice",
-     "keys": [
-      "independent",
-      "not a recommendation"
-     ],
-     "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation.",
-     "count": 1
-    },
-    {
-     "where": "section#categories",
-     "el": "p.notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission if you become their client.",
-     "count": 1
+     "where": "section#ours-trade",
+     "text": "Ours · Export and Import"
     },
     {
      "where": "section#inquiry",
-     "el": "p.notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses.",
-     "count": 1
+     "text": "Nothing is sent until you tap send."
     },
     {
-     "where": "section#inquiry",
-     "el": "p.notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission if you become a partner's client.",
-     "count": 1
+     "where": "section#credits",
+     "text": "Connected by Purpose."
     },
     {
-     "where": "section#inquiry",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "dialog#categories-dialog",
+     "text": "Cargado Strategies' own services, and a network of independent partners near you."
     },
     {
-     "where": "section#close",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "dialog#categories-dialog",
+     "text": "Ours"
     },
     {
-     "where": "footer",
-     "el": "p.site-footer__tagline",
-     "keys": [
-      "Connected by Purpose"
-     ],
-     "text": "Connected by Purpose.",
-     "count": 1
+     "where": "dialog#categories-dialog",
+     "text": "Ours + partners"
     },
     {
-     "where": "footer",
-     "el": "p.site-footer__notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, each responsible for their own licence and advice.",
-     "count": 1
+     "where": "dialog#categories-dialog",
+     "text": "The founder is an agent of a separate insurance company, and independent partners can also be listed."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Provided by Cargado Strategies itself, not by a partner."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Opens the policy review site"
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "This list is not a recommendation."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Partners are independent businesses, each responsible for their own licence and advice."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Cargado Strategies may receive a commission if you become their client."
+    },
+    {
+     "where": "dialog#categories-dialog",
+     "text": "Partners are independent businesses, listed by distance only; a listing is not a recommendation."
+    },
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
     }
    ]
   },
@@ -496,7 +346,11 @@
    "notice": [],
    "hint": [
     {
-     "where": "section#talk",
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
+    },
+    {
+     "where": "dialog#wa-sheet",
      "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
     }
    ],
@@ -506,106 +360,47 @@
    "ph": [
     {
      "where": "section#top",
-     "text": "[Draft story. The founder confirms every word before publication.]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[Founder photo]"
-    },
-    {
-     "where": "section#founder",
-     "text": "[One or two sentences about the founder's background and what led her here.]"
-    },
-    {
-     "where": "section#founder",
      "text": "[Signature]"
     },
     {
-     "where": "section#values",
-     "text": "[Optional, in the founder's words: one sentence on faith.]"
+     "where": "section#beginning",
+     "text": "“[Real client quote about finding the right person]”"
+    },
+    {
+     "where": "section#beginning",
+     "text": "[name]"
+    },
+    {
+     "where": "section#beginning",
+     "text": "[city]"
     }
    ],
    "details": [],
-   "keyCounts": {
-    "commission": 4,
-    "independent": 4,
-    "coaching only": 0,
-    "not a recommendation": 0,
-    "tap send": 1,
-    "Provided by Cargado": 0,
-    "We only message from": 0,
-    "Mark 11:24": 1,
-    "Draft": 1,
-    "Connected by Purpose": 1
-   },
    "sentences": [
     {
-     "where": "section#top",
-     "el": "p.t-xs.muted.story-draft",
-     "keys": [
-      "Draft"
-     ],
-     "text": "[Draft story.",
-     "count": 1
-    },
-    {
-     "where": "section#logo",
-     "el": "p.story-ref.ui",
-     "keys": [
-      "Mark 11:24"
-     ],
-     "text": "Mark 11:24",
-     "count": 1
+     "where": "section#values",
+     "text": "Cargado Strategies says how it is paid."
     },
     {
      "where": "section#values",
-     "el": "li.story-value.fx-tilt.fx-rel.has-depth",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission when an introduction becomes a client, and we tell you up front.",
-     "count": 2
+     "text": "It may receive a commission when an introduction becomes a client, and it tells you up front."
     },
     {
-     "where": "section#network",
-     "el": "h2.story-fit",
-     "keys": [
-      "independent"
-     ],
-     "text": "Behind the Website Is a Network of Independent Partners.Behind the Website Is a Network of Independent Partners.",
-     "count": 1
+     "where": "section#logo",
+     "text": "Mark 11:24"
     },
     {
-     "where": "section#talk",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "section#credits",
+     "text": "Connected by Purpose."
     },
     {
-     "where": "footer",
-     "el": "p.site-footer__tagline",
-     "keys": [
-      "Connected by Purpose"
-     ],
-     "text": "Connected by Purpose.",
-     "count": 1
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
     }
    ]
   },
   "partners.html": {
-   "notice": [
-    {
-     "where": "aside",
-     "text": "Commission. Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. [Commission terms to be confirmed by counsel]"
-    },
-    {
-     "where": "aside",
-     "text": "Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement."
-    }
-   ],
+   "notice": [],
    "hint": [
     {
      "where": "section#apply",
@@ -621,15 +416,15 @@
     },
     {
      "where": "section#apply",
-     "text": "Required for insurance, legal, mortgage and real estate. We review it before approval [how we confirm it with the issuing body: to be confirmed]."
+     "text": "Required for insurance, legal, mortgage and real estate. Cargado Strategies reviews it before approval by checking it against the issuing body's public register."
     },
     {
      "where": "section#apply",
-     "text": "Lists are sorted by distance, so we use this to show you to people near you."
+     "text": "Lists are sorted by distance, so Cargado Strategies uses this to show you to people near you."
     },
     {
      "where": "section#apply",
-     "text": "One or two names and how to reach them, such as a colleague or a long-standing client. We contact them only to review your application."
+     "text": "One or two names and how to reach them, such as a colleague or a long-standing client. Cargado Strategies contacts them only to review your application."
     },
     {
      "where": "section#apply",
@@ -637,16 +432,29 @@
     },
     {
      "where": "section#apply",
-     "text": "Opens WhatsApp with your application written out. Nothing is sent until you tap send. An email option will follow: [company email]."
+     "text": "Opens WhatsApp with your application written out. Nothing is sent until you tap send. An email option will follow: info@cargadostrategies.com."
     },
     {
-     "where": "section#close",
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
+    },
+    {
+     "where": "dialog#wa-sheet",
      "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
     }
    ],
    "offerFine": [],
    "legalDraft": [],
-   "fineprint": [],
+   "fineprint": [
+    {
+     "where": "section#apply",
+     "text": "Commission. Cargado Strategies may receive a commission when an introduction becomes your client. Terms are agreed in writing before your listing goes live. Independent partners. Partners are independent businesses, each responsible for their own licence and advice. Approval is not an endorsement."
+    },
+    {
+     "where": "dialog#tiers-dialog",
+     "text": "Membership covers listing and network tools only. It never buys introductions, referrals, a higher place in the list or an endorsement from Cargado Strategies. Lists stay sorted by distance for every tier."
+    }
+   ],
    "ph": [
     {
      "where": "section#founding",
@@ -658,7 +466,7 @@
     },
     {
      "where": "section#founding",
-     "text": "[n] of [2]"
+     "text": "[n]"
     },
     {
      "where": "section#founding",
@@ -666,172 +474,274 @@
     },
     {
      "where": "section#apply",
-     "text": "[how we confirm it with the issuing body: to be confirmed]"
+     "text": "info@cargadostrategies.com"
+    }
+   ],
+   "details": [
+    {
+     "where": "dialog#partner-faq",
+     "question": "What Do You Ask of Partners?",
+     "answer": "Hold a current licence where one applies. Reply to introductions within 1 business day. Describe their services honestly. Follow the Partner Code of Conduct. Cargado Strategies reviews and approves each application. A listing goes live only after approval."
+    },
+    {
+     "where": "dialog#partner-faq",
+     "question": "What Happens After I Apply?",
+     "answer": "You send the application. Nothing is sent until you tap send. Cargado Strategies reviews your licence details and contacts your references. Cargado Strategies replies within 5 business days. If approved, your listing goes live."
+    },
+    {
+     "where": "dialog#partner-faq",
+     "question": "How Are Partners Listed?",
+     "answer": "Lists are sorted by distance only. No bidding, no paid ranking, and a listing is never a recommendation. Cargado Strategies shows them the nearest partners for that service, sorted by distance, with a short WhatsApp introduction. They choose who to talk to."
+    },
+    {
+     "where": "dialog#partner-faq",
+     "question": "Do You Promise Clients?",
+     "answer": "Cargado Strategies doesn't promise a number of introductions, clients or results. That depends on what people near you ask for."
+    }
+   ],
+   "sentences": [
+    {
+     "where": "section#hero",
+     "text": "When people near you ask Cargado Strategies for your kind of service, they see the partners closest to them, sorted by distance."
+    },
+    {
+     "where": "section#hero",
+     "text": "Introductions cost nothing up front: you pay a commission only when one becomes your client."
+    },
+    {
+     "where": "section#tiers",
+     "text": "Commission only when an introduction becomes your client, on terms agreed in writing"
     },
     {
      "where": "section#apply",
-     "text": "[company email]"
+     "text": "All fields are required unless marked optional."
     },
     {
-     "where": "aside",
-     "text": "[Commission terms to be confirmed by counsel]"
-    }
-   ],
-   "details": [],
-   "keyCounts": {
-    "commission": 11,
-    "independent": 4,
-    "coaching only": 0,
-    "not a recommendation": 0,
-    "tap send": 4,
-    "Provided by Cargado": 0,
-    "We only message from": 0,
-    "Mark 11:24": 0,
-    "Draft": 0,
-    "Connected by Purpose": 1
-   },
-   "sentences": [
+     "where": "section#apply",
+     "text": "As registered."
+    },
     {
-     "where": "section#arrangement",
-     "el": "p.notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, each responsible for their own licence and advice.",
-     "count": 1
+     "where": "section#apply",
+     "text": "Repeat the business name if it's the same."
+    },
+    {
+     "where": "section#apply",
+     "text": "Include the area code."
+    },
+    {
+     "where": "section#apply",
+     "text": "Required for insurance, legal, mortgage and real estate."
+    },
+    {
+     "where": "section#apply",
+     "text": "Cargado Strategies reviews it before approval by checking it against the issuing body's public register."
+    },
+    {
+     "where": "section#apply",
+     "text": "Lists are sorted by distance, so Cargado Strategies uses this to show you to people near you."
+    },
+    {
+     "where": "section#apply",
+     "text": "One or two names and how to reach them, such as a colleague or a long-standing client."
+    },
+    {
+     "where": "section#apply",
+     "text": "Cargado Strategies contacts them only to review your application."
+    },
+    {
+     "where": "section#apply",
+     "text": "Two or three plain sentences: what you do, who you help and the languages you work in."
+    },
+    {
+     "where": "section#apply",
+     "text": "Commission."
+    },
+    {
+     "where": "section#apply",
+     "text": "Cargado Strategies may receive a commission when an introduction becomes your client."
+    },
+    {
+     "where": "section#apply",
+     "text": "Terms are agreed in writing before your listing goes live."
+    },
+    {
+     "where": "section#apply",
+     "text": "Independent partners."
+    },
+    {
+     "where": "section#apply",
+     "text": "Partners are independent businesses, each responsible for their own licence and advice."
+    },
+    {
+     "where": "section#apply",
+     "text": "Approval is not an endorsement."
+    },
+    {
+     "where": "section#apply",
+     "text": "Opens WhatsApp with your application written out."
+    },
+    {
+     "where": "section#apply",
+     "text": "Nothing is sent until you tap send."
+    },
+    {
+     "where": "section#apply",
+     "text": "An email option will follow: info@cargadostrategies.com."
+    },
+    {
+     "where": "dialog#tiers-dialog",
+     "text": "Membership covers listing and network tools only."
+    },
+    {
+     "where": "dialog#tiers-dialog",
+     "text": "It never buys introductions, referrals, a higher place in the list or an endorsement from Cargado Strategies."
+    },
+    {
+     "where": "dialog#tiers-dialog",
+     "text": "Lists stay sorted by distance for every tier."
+    },
+    {
+     "where": "section#how",
+     "text": "If they become your client, you pay the agreed commission."
     },
     {
      "where": "section#founding",
-     "el": "p.t-lead",
-     "keys": [
-      "commission"
-     ],
-     "text": "They get [0% commission on the first client].",
-     "count": 1
+     "text": "They get 0% commission on the first client."
     },
     {
-     "where": "section#apply",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 2
+     "where": "section#credits",
+     "text": "Connected by Purpose."
     },
     {
-     "where": "aside",
-     "el": "li",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "dialog#tiers-dialog",
+     "text": "Commission only when an introduction becomes your client, on terms agreed in writing"
     },
     {
-     "where": "aside",
-     "el": "p.notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "Commission.",
-     "count": 1
+     "where": "dialog#partner-faq",
+     "text": "Nothing is sent until you tap send."
     },
     {
-     "where": "aside",
-     "el": "p.notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission when an introduction becomes your client.",
-     "count": 1
-    },
-    {
-     "where": "aside",
-     "el": "p.notice",
-     "keys": [
-      "commission"
-     ],
-     "text": "[Commission terms to be confirmed by counsel]",
-     "count": 1
-    },
-    {
-     "where": "aside",
-     "el": "p.notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Independent partners.",
-     "count": 1
-    },
-    {
-     "where": "aside",
-     "el": "p.notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, each responsible for their own licence and advice.",
-     "count": 1
-    },
-    {
-     "where": "section#close",
-     "el": "p.t-lead.muted",
-     "keys": [
-      "commission"
-     ],
-     "text": "Message us on WhatsApp about tiers, commission terms or spots in your area.",
-     "count": 1
-    },
-    {
-     "where": "section#close",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
-    },
-    {
-     "where": "footer",
-     "el": "p.site-footer__tagline",
-     "keys": [
-      "Connected by Purpose"
-     ],
-     "text": "Connected by Purpose.",
-     "count": 1
-    },
-    {
-     "where": "footer",
-     "el": "p.site-footer__notice",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses, each responsible for their own licence and advice.",
-     "count": 1
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
     }
    ]
   },
   "legal.html": {
-   "notice": [
-    {
-     "where": "section#contents",
-     "text": "These pages set out how Cargado Strategies works, how we handle your information and what our partners agree to. They are general information, not legal advice."
-    }
-   ],
+   "notice": [],
    "hint": [
     {
-     "where": "section#close",
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
+    },
+    {
+     "where": "dialog#wa-sheet",
      "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
     }
    ],
    "offerFine": [],
-   "legalDraft": [],
-   "fineprint": [],
+   "legalDraft": [
+    {
+     "where": "section#contents",
+     "text": "These pages set out how Cargado Strategies works, how it handles your information and what its partners agree to. They are general information, not legal advice."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services (homecare cleaning, roofing, cleaning and gardening). They are labelled “Ours” and operate under their own licences where a licence applies. Licence details are provided on request and before any application."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Cargado Strategies may receive a commission from a partner when a referral becomes a client. You never pay Cargado Strategies for an introduction, and it discloses the commission on partner profiles, finder results and the inquiry form."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Insurance inquiries continue on a separate policy review website. Information you give there is handled under that website's own terms."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Information CollectedYour name, email address, phone or WhatsApp number, city or area, and the message you send. When you book a consultation, also the time you choose, the service it is about and your note. When you create an account, also your profile, bookings, points history and any referral code. When you apply as a partner, the details in your application."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Why It Is CollectedTo answer your inquiry, book your consultation, run your account and points, review partner applications, and connect you with a suitable partner. Cargado Strategies asks for your city so that it can find someone close to you."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Who Sees ItCargado staff and the partner you are connected with. Cargado Strategies does not sell your information."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Where It Is KeptIn Cargado Strategies' lead records and with the services that run this website: Google Firebase (accounts, sign-in, and records of profiles, bookings, points, referrals and partner applications), Google Calendar and Google Meet (consultation bookings and meeting links) and Resend (confirmation emails). These services may store information outside Canada. Facebook and WhatsApp apply their own terms to messages sent through them."
+    },
+    {
+     "where": "section#privacy",
+     "text": "How Long It Is KeptCargado Strategies keeps your information for up to 24 months after its last contact with you, or while your account stays open, unless the law requires it to be kept longer. Then it is deleted securely."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Your RightsYou may ask to see, correct or delete your information, or close your account, and you may withdraw consent at any time. Contact Lee Holgado at info@cargadostrategies.com, and Cargado Strategies will respond within 30 days. It follows the privacy laws that apply in Canada and in your province."
+    },
+    {
+     "where": "section#privacy",
+     "text": "MessagesCargado Strategies sends you messages only with your consent, and each marketing message includes a way to unsubscribe. Booking confirmations and account emails are sent only because you asked for them."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cookies and AnalyticsCargado Strategies uses no advertising cookies and no analytics tools. Your browser keeps a few small settings on your own device, which Cargado Strategies cannot see. When you sign in, Firebase also keeps your sign-in state on your device so you stay signed in."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Accounts and Sign-InYou can create an account with an email address and password, or continue with Google, in which case Google shares your name and email address with Cargado Strategies. Passwords are handled by Firebase and are never visible to Cargado Strategies."
+    },
+    {
+     "where": "section#terms",
+     "text": "ChangesCargado Strategies may change the website and these terms at any time. The latest version applies when you use the website."
+    },
+    {
+     "where": "section#terms",
+     "text": "ConsultationsA free consultation is a 10-minute Google Meet call, booked in Central Time. It does not create a professional relationship, and prices for Cargado Strategies' own services are quoted only after it. Cargado Strategies may confirm, move or cancel a booking by email."
+    },
+    {
+     "where": "section#terms",
+     "text": "Accounts and PointsSigned-in clients earn 5 points for each qualifying event: a completed consultation they booked, a service they acquire from Cargado Strategies, and a friend who signs up with their referral link and completes a first consultation. Each event counts once. Points have no cash value and cannot yet be spent. Cargado Strategies may correct points awarded in error and may close an account that is misused."
+    },
+    {
+     "where": "section#faq",
+     "text": "Partners may pay Cargado Strategies a fee if you become their client. You never pay Cargado Strategies for an introduction."
+    },
+    {
+     "where": "section#faq",
+     "text": "Because Cargado Strategies may receive a commission, it says so on partner profiles, finder results and the inquiry form. Partners set their own fees and explain any fee or commission before work begins."
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado Strategies uses your name, contact details, city or area and your message to answer you and connect you with a partner close to you. It asks for your city only to find someone near you. Cargado staff and the partner you are connected with see it, and Cargado Strategies does not sell it."
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+    },
+    {
+     "where": "section#faq",
+     "text": "Once an application is approved, Cargado Strategies emails an invitation to sign up with the email address in it. That account then opens the partner dashboard."
+    }
+   ],
+   "fineprint": [
+    {
+     "where": "section#contents",
+     "text": "These pages set out how Cargado Strategies works, how it handles your information and what its partners agree to. They are general information, not legal advice."
+    }
+   ],
    "ph": [],
    "details": [
     {
      "where": "section#faq",
      "question": "Why Is It Free for Me?",
-     "answer": "Partners may pay us a fee if you become their client. You never pay us for an introduction. Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form. Partners set their own fees and explain any fee or commission before work begins."
+     "answer": "Partners may pay Cargado Strategies a fee if you become their client. You never pay Cargado Strategies for an introduction."
+    },
+    {
+     "where": "section#faq",
+     "question": "Why Is It Free for Me?",
+     "answer": "Because Cargado Strategies may receive a commission, it says so on partner profiles, finder results and the inquiry form. Partners set their own fees and explain any fee or commission before work begins."
     },
     {
      "where": "section#faq",
@@ -841,126 +751,550 @@
     {
      "where": "section#faq",
      "question": "How Are Partners Listed?",
-     "answer": "By distance only, closest first. A listing is not an endorsement or a recommendation. Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled. Partners are independent businesses. Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence."
+     "answer": "By distance only, closest first. A listing is not an endorsement or a recommendation. Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled."
+    },
+    {
+     "where": "section#faq",
+     "question": "How Are Partners Listed?",
+     "answer": "Partners are independent businesses. Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence."
     },
     {
      "where": "section#faq",
      "question": "What Happens to My Information?",
-     "answer": "We use your name, contact details, city or area and your message to answer you and connect you with a partner close to you. We ask for your city only to find someone near you. Cargado staff and the partner we connect you with see it, and we do not sell it. You may ask to see, correct or delete it at any time. Read the privacy policy."
+     "answer": "Cargado Strategies uses your name, contact details, city or area and your message to answer you and connect you with a partner close to you. It asks for your city only to find someone near you. Cargado staff and the partner you are connected with see it, and Cargado Strategies does not sell it."
+    },
+    {
+     "where": "section#faq",
+     "question": "What Happens to My Information?",
+     "answer": "You may ask to see, correct or delete it at any time. Read the privacy policy."
     },
     {
      "where": "section#faq",
      "question": "Does Cargado Give Advice?",
-     "answer": "Not through this website. Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here. Advice comes from the partner you choose. The founder's own businesses (insurance, business strategy and outsourcing) are named as hers. Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+     "answer": "Not through this website. Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here. Advice comes from the partner you choose."
+    },
+    {
+     "where": "section#faq",
+     "question": "Does Cargado Give Advice?",
+     "answer": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
     },
     {
      "where": "section#faq",
      "question": "How Do I Become a Partner?",
-     "answer": "Apply on the Become a Partner page with your business details, category, licence number and issuing body, and service area. The Cargado team reviews and approves each application, and every partner agrees to the code of conduct. Membership buys a listing and network tools only. It does not promise referrals or outcomes."
+     "answer": "Apply on the Become a Partner page with your business details, category, licence number and issuing body, and service area. The Cargado team reviews and approves each application, and every partner agrees to the code of conduct."
+    },
+    {
+     "where": "section#faq",
+     "question": "How Do I Become a Partner?",
+     "answer": "Membership buys a listing and network tools only. It does not promise referrals or outcomes."
+    },
+    {
+     "where": "section#faq",
+     "question": "How Do I Become a Partner?",
+     "answer": "Once an application is approved, Cargado Strategies emails an invitation to sign up with the email address in it. That account then opens the partner dashboard."
     }
    ],
-   "keyCounts": {
-    "commission": 4,
-    "independent": 5,
-    "coaching only": 1,
-    "not a recommendation": 0,
-    "tap send": 1,
-    "Provided by Cargado": 0,
-    "We only message from": 0,
-    "Mark 11:24": 0,
-    "Draft": 0,
-    "Connected by Purpose": 1
-   },
    "sentences": [
     {
-     "where": "section#disclosure",
-     "el": "p",
-     "keys": [
-      "independent"
-     ],
-     "text": "Cargado Strategies connects visitors with independent partners.",
-     "count": 1
+     "where": "section#contents",
+     "text": "These pages set out how Cargado Strategies works, how it handles your information and what its partners agree to."
+    },
+    {
+     "where": "section#contents",
+     "text": "They are general information, not legal advice."
     },
     {
      "where": "section#disclosure",
-     "el": "p",
-     "keys": [
-      "commission"
-     ],
-     "text": "Cargado Strategies may receive a commission from a partner when a referral becomes a client.",
-     "count": 1
+     "text": "Cargado Strategies connects visitors with independent partners."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Each partner is solely responsible for their own services, licensing and compliance with the rules of their profession and province."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice through this website."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "A listing is not an endorsement or a recommendation."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Partners are listed by distance only."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services (homecare cleaning, roofing, cleaning and gardening)."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "They are labelled “Ours” and operate under their own licences where a licence applies."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Licence details are provided on request and before any application."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Cargado Strategies may receive a commission from a partner when a referral becomes a client."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "You never pay Cargado Strategies for an introduction, and it discloses the commission on partner profiles, finder results and the inquiry form."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Cargado's finance and operations strategy service is separate from partner services."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "It is not licensed accounting, tax or investment advice."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Insurance inquiries continue on a separate policy review website."
+    },
+    {
+     "where": "section#disclosure",
+     "text": "Information you give there is handled under that website's own terms."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Information Collected"
+    },
+    {
+     "where": "section#privacy",
+     "text": "Your name, email address, phone or WhatsApp number, city or area, and the message you send."
+    },
+    {
+     "where": "section#privacy",
+     "text": "When you book a consultation, also the time you choose, the service it is about and your note."
+    },
+    {
+     "where": "section#privacy",
+     "text": "When you create an account, also your profile, bookings, points history and any referral code."
+    },
+    {
+     "where": "section#privacy",
+     "text": "When you apply as a partner, the details in your application."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Why It Is Collected"
+    },
+    {
+     "where": "section#privacy",
+     "text": "To answer your inquiry, book your consultation, run your account and points, review partner applications, and connect you with a suitable partner."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado Strategies asks for your city so that it can find someone close to you."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Who Sees It"
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado staff and the partner you are connected with."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado Strategies does not sell your information."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Where It Is Kept"
+    },
+    {
+     "where": "section#privacy",
+     "text": "In Cargado Strategies' lead records and with the services that run this website: Google Firebase (accounts, sign-in, and records of profiles, bookings, points, referrals and partner applications), Google Calendar and Google Meet (consultation bookings and meeting links) and Resend (confirmation emails)."
+    },
+    {
+     "where": "section#privacy",
+     "text": "These services may store information outside Canada."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Facebook and WhatsApp apply their own terms to messages sent through them."
+    },
+    {
+     "where": "section#privacy",
+     "text": "How Long It Is Kept"
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado Strategies keeps your information for up to 24 months after its last contact with you, or while your account stays open, unless the law requires it to be kept longer."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Then it is deleted securely."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Your Rights"
+    },
+    {
+     "where": "section#privacy",
+     "text": "You may ask to see, correct or delete your information, or close your account, and you may withdraw consent at any time."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Contact Lee Holgado at info@cargadostrategies.com, and Cargado Strategies will respond within 30 days."
+    },
+    {
+     "where": "section#privacy",
+     "text": "It follows the privacy laws that apply in Canada and in your province."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Messages"
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado Strategies sends you messages only with your consent, and each marketing message includes a way to unsubscribe."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Booking confirmations and account emails are sent only because you asked for them."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cookies and Analytics"
+    },
+    {
+     "where": "section#privacy",
+     "text": "Cargado Strategies uses no advertising cookies and no analytics tools."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Your browser keeps a few small settings on your own device, which Cargado Strategies cannot see."
+    },
+    {
+     "where": "section#privacy",
+     "text": "When you sign in, Firebase also keeps your sign-in state on your device so you stay signed in."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Accounts and Sign-In"
+    },
+    {
+     "where": "section#privacy",
+     "text": "You can create an account with an email address and password, or continue with Google, in which case Google shares your name and email address with Cargado Strategies."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Passwords are handled by Firebase and are never visible to Cargado Strategies."
     },
     {
      "where": "section#terms",
-     "el": "h3.clause__title",
-     "keys": [
-      "independent"
-     ],
-     "text": "Independent Partners",
-     "count": 1
+     "text": "General Information"
     },
     {
      "where": "section#terms",
-     "el": "p",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent.",
-     "count": 1
+     "text": "This website gives general information."
+    },
+    {
+     "where": "section#terms",
+     "text": "Using it does not create a professional relationship with Cargado Strategies or with any partner."
+    },
+    {
+     "where": "section#terms",
+     "text": "Independent Partners"
+    },
+    {
+     "where": "section#terms",
+     "text": "Partners are independent."
+    },
+    {
+     "where": "section#terms",
+     "text": "Cargado Strategies is not responsible for their advice, services or results."
+    },
+    {
+     "where": "section#terms",
+     "text": "Acceptable Use"
+    },
+    {
+     "where": "section#terms",
+     "text": "You agree not to misuse the website and not to submit false or misleading information."
+    },
+    {
+     "where": "section#terms",
+     "text": "Changes"
+    },
+    {
+     "where": "section#terms",
+     "text": "Cargado Strategies may change the website and these terms at any time."
+    },
+    {
+     "where": "section#terms",
+     "text": "The latest version applies when you use the website."
+    },
+    {
+     "where": "section#terms",
+     "text": "Consultations"
+    },
+    {
+     "where": "section#terms",
+     "text": "A free consultation is a 10-minute Google Meet call, booked in Central Time."
+    },
+    {
+     "where": "section#terms",
+     "text": "It does not create a professional relationship, and prices for Cargado Strategies' own services are quoted only after it."
+    },
+    {
+     "where": "section#terms",
+     "text": "Cargado Strategies may confirm, move or cancel a booking by email."
+    },
+    {
+     "where": "section#terms",
+     "text": "Accounts and Points"
+    },
+    {
+     "where": "section#terms",
+     "text": "Signed-in clients earn 5 points for each qualifying event: a completed consultation they booked, a service they acquire from Cargado Strategies, and a friend who signs up with their referral link and completes a first consultation."
+    },
+    {
+     "where": "section#terms",
+     "text": "Each event counts once."
+    },
+    {
+     "where": "section#terms",
+     "text": "Points have no cash value and cannot yet be spent."
+    },
+    {
+     "where": "section#terms",
+     "text": "Cargado Strategies may correct points awarded in error and may close an account that is misused."
+    },
+    {
+     "where": "section#terms",
+     "text": "Limit of Liability"
+    },
+    {
+     "where": "section#terms",
+     "text": "To the extent the law allows, Cargado Strategies is not liable for losses arising from use of this website."
+    },
+    {
+     "where": "section#terms",
+     "text": "Nothing in these terms limits rights you have under consumer protection laws that cannot be waived."
+    },
+    {
+     "where": "section#terms",
+     "text": "Governing Law"
+    },
+    {
+     "where": "section#terms",
+     "text": "These terms are governed by the laws of Manitoba and the federal laws of Canada that apply."
     },
     {
      "where": "section#conduct",
-     "el": "p",
-     "keys": [
-      "commission"
-     ],
-     "text": "Put clients before transactions, and explain any fee or commission before work begins.",
-     "count": 1
+     "text": "Describe your licence, credentials and services honestly, and keep your licence current."
+    },
+    {
+     "where": "section#conduct",
+     "text": "Put clients before transactions, and explain any fee or commission before work begins."
+    },
+    {
+     "where": "section#conduct",
+     "text": "Protect client confidentiality and personal information."
+    },
+    {
+     "where": "section#conduct",
+     "text": "Reply to inquiries within 1 business day."
+    },
+    {
+     "where": "section#conduct",
+     "text": "Never promise results you cannot guarantee, and follow your regulator's advertising and referral rules."
+    },
+    {
+     "where": "section#conduct",
+     "text": "Accept removal from the network if these commitments are broken."
     },
     {
      "where": "section#faq",
-     "el": "p",
-     "keys": [
-      "commission"
-     ],
-     "text": "Because Cargado Strategies may receive a commission, we say so on partner profiles, finder results and the inquiry form.",
-     "count": 1
+     "text": "Why Is It Free for Me?"
     },
     {
      "where": "section#faq",
-     "el": "p",
-     "keys": [
-      "independent"
-     ],
-     "text": "Partners are independent businesses.",
-     "count": 1
+     "text": "Partners may pay Cargado Strategies a fee if you become their client."
     },
     {
      "where": "section#faq",
-     "el": "p",
-     "keys": [
-      "coaching only"
-     ],
-     "text": "Her strategy service is strategy and coaching only — not licensed accounting, tax or investment advice.",
-     "count": 1
+     "text": "You never pay Cargado Strategies for an introduction."
     },
     {
-     "where": "section#close",
-     "el": "p.hint",
-     "keys": [
-      "tap send"
-     ],
-     "text": "Nothing is sent until you tap send.",
-     "count": 1
+     "where": "section#faq",
+     "text": "Because Cargado Strategies may receive a commission, it says so on partner profiles, finder results and the inquiry form."
     },
     {
-     "where": "footer",
-     "el": "p.site-footer__tagline",
-     "keys": [
-      "Connected by Purpose"
-     ],
-     "text": "Connected by Purpose.",
-     "count": 1
+     "where": "section#faq",
+     "text": "Partners set their own fees and explain any fee or commission before work begins."
+    },
+    {
+     "where": "section#faq",
+     "text": "Do I Have to Hire Them?"
+    },
+    {
+     "where": "section#faq",
+     "text": "You decide what happens next."
+    },
+    {
+     "where": "section#faq",
+     "text": "An introduction does not create a professional relationship with Cargado Strategies or with the partner, and you are free to speak with anyone else."
+    },
+    {
+     "where": "section#faq",
+     "text": "How Are Partners Listed?"
+    },
+    {
+     "where": "section#faq",
+     "text": "By distance only, closest first."
+    },
+    {
+     "where": "section#faq",
+     "text": "A listing is not an endorsement or a recommendation."
+    },
+    {
+     "where": "section#faq",
+     "text": "Where a licence applies, each partner shows it and who issued it, and any sponsored listing is clearly labelled."
+    },
+    {
+     "where": "section#faq",
+     "text": "Partners are independent businesses."
+    },
+    {
+     "where": "section#faq",
+     "text": "Each one applies, is reviewed and approved by the Cargado team, and is responsible for their own services and licence."
+    },
+    {
+     "where": "section#faq",
+     "text": "What Happens to My Information?"
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado Strategies uses your name, contact details, city or area and your message to answer you and connect you with a partner close to you."
+    },
+    {
+     "where": "section#faq",
+     "text": "It asks for your city only to find someone near you."
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado staff and the partner you are connected with see it, and Cargado Strategies does not sell it."
+    },
+    {
+     "where": "section#faq",
+     "text": "You may ask to see, correct or delete it at any time."
+    },
+    {
+     "where": "section#faq",
+     "text": "Read the privacy policy."
+    },
+    {
+     "where": "section#faq",
+     "text": "Does Cargado Give Advice?"
+    },
+    {
+     "where": "section#faq",
+     "text": "Not through this website."
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado Strategies does not provide legal, mortgage, insurance, real estate, tax, manufacturing or financial advice here."
+    },
+    {
+     "where": "section#faq",
+     "text": "Advice comes from the partner you choose."
+    },
+    {
+     "where": "section#faq",
+     "text": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”."
+    },
+    {
+     "where": "section#faq",
+     "text": "Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+    },
+    {
+     "where": "section#faq",
+     "text": "How Do I Become a Partner?"
+    },
+    {
+     "where": "section#faq",
+     "text": "Apply on the Become a Partner page with your business details, category, licence number and issuing body, and service area."
+    },
+    {
+     "where": "section#faq",
+     "text": "The Cargado team reviews and approves each application, and every partner agrees to the code of conduct."
+    },
+    {
+     "where": "section#faq",
+     "text": "Membership buys a listing and network tools only."
+    },
+    {
+     "where": "section#faq",
+     "text": "It does not promise referrals or outcomes."
+    },
+    {
+     "where": "section#faq",
+     "text": "Once an application is approved, Cargado Strategies emails an invitation to sign up with the email address in it."
+    },
+    {
+     "where": "section#faq",
+     "text": "That account then opens the partner dashboard."
+    },
+    {
+     "where": "section#privacy",
+     "text": "Privacy Policy"
+    },
+    {
+     "where": "section#credits",
+     "text": "Connected by Purpose."
+    },
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
+    }
+   ]
+  },
+  "contact.html": {
+   "notice": [],
+   "hint": [
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Cargado Strategies asks for your city only so it can introduce you to someone close to you."
+    },
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Opens WhatsApp with your message written. Nothing is sent until you tap send."
+    }
+   ],
+   "offerFine": [],
+   "legalDraft": [
+    {
+     "where": "section#book",
+     "text": "I agree that Cargado Strategies may use these details to book this call. See the privacy policy."
+    }
+   ],
+   "fineprint": [],
+   "ph": [],
+   "details": [],
+   "sentences": [
+    {
+     "where": "section#book",
+     "text": "Time, in Central Time (Winnipeg)"
+    },
+    {
+     "where": "section#book",
+     "text": "Note and Consent"
+    },
+    {
+     "where": "section#credits",
+     "text": "Connected by Purpose."
+    },
+    {
+     "where": "dialog#wa-sheet",
+     "text": "Nothing is sent until you tap send."
     }
    ]
   }
@@ -1087,6 +1421,21 @@
    "page": "partners.html",
    "where": "#partner-faq",
    "note": "Owner 2026-10-20: removed the licence-check process brackets (and \"How we confirm it:\")"
+  },
+  {
+   "page": "services.html",
+   "where": "section#ours-web … #ours-contractor, section#ours-outsourcing",
+   "note": "Owner 2026-10-25: asked the builder to write the placeholder copy itself; the six one-line descriptions and the four role lines written, the [$x] rate removed (no prices online)."
+  },
+  {
+   "page": "story.html",
+   "where": "section#top, section#logo",
+   "note": "Owner 2026-10-25: background line written from known facts; the draft note and the optional faith line removed."
+  },
+  {
+   "page": "partners.html",
+   "where": "section#apply",
+   "note": "Owner 2026-10-25: licence check written as a check against the issuing body's public register; the commission-terms bracket removed (terms stay agreed in writing)."
   }
  ]
 }

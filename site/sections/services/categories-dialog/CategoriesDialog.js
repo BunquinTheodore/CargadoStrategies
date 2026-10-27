@@ -1,6 +1,6 @@
 /**
  * The categories dialog (#categories-dialog): the rail and one category's
- * detail (services-categories.js). Opened by "See All Nine Kinds of Help →"
+ * detail (services-categories.js). Opened by "See Every Kind of Help →"
  * on S6 and by every deep link that names a category (data-open on #finder,
  * `cs:open`); a category's scene link leaves the dialog for that scene.
  */

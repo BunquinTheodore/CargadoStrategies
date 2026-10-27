@@ -31,8 +31,8 @@
       var rescueNav = function () {
         if (d.querySelector('.site-header, .nav-rescue')) return;
         var here = location.pathname.split('/').pop() || 'index.html';
-        var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Our Story'],
-          ['partners.html', 'For Professionals'], ['legal.html', 'Legal']];
+        var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Story'],
+          ['partners.html', 'Application'], ['legal.html', 'Legal']];
         var nav = d.createElement('nav');
         nav.className = 'nav-rescue';
         nav.setAttribute('aria-label', 'Main');
@@ -68,9 +68,9 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
        Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Josefin+Sans:wght@700&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
   <link rel="stylesheet" href="core/design/base.css">
   <link rel="stylesheet" href="core/design/fx.css">
   <link rel="stylesheet" href="core/design/ui.css">
@@ -83,28 +83,46 @@
   <script type="module" src="pages/partners.js"></script>
 </head>
 <body data-page="partners">
-  <!-- splash (2c): plan/round5/snippets/splash.html. Shared node (2b). -->
-  <script>try{if(sessionStorage.getItem('cs-splash'))document.documentElement.classList.add('splash-skip')}catch(e){}</script>
+  <!-- splash: the boot intro (core/engine/splash.js, visual.css §1). Shared node, the same in every film shell. -->
+  <script>try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='back_forward')document.documentElement.classList.add('splash-skip')}catch(e){}</script>
   <div class="splash" id="splash" aria-hidden="true">
     <div class="splash__bg"></div>
-    <svg class="splash__mark" viewBox="0 0 48 48" focusable="false">
-      <defs>
-        <linearGradient id="splash-sheen" x1="0" x2="1"><stop offset="0" stop-color="#FFF6D6" stop-opacity="0"/><stop offset=".5" stop-color="#FFF6D6" stop-opacity=".9"/><stop offset="1" stop-color="#FFF6D6" stop-opacity="0"/></linearGradient>
-        <mask id="splash-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="48" height="48"><g fill="none" stroke="#fff" stroke-width="2.6"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/></g></mask>
-      </defs>
-      <path class="splash__c" pathLength="100" d="M37.4 10.6A19 19 0 1 0 37.4 37.4"/>
-      <path class="splash__w" pathLength="100" d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17"/>
-      <g mask="url(#splash-mask)"><rect class="splash__sheen" x="-16" y="-12" width="14" height="72" fill="url(#splash-sheen)"/></g>
-    </svg>
+    <div class="splash__scan">
+      <p class="splash__label splash__label--tl">Identity Scan<br><b data-splash="site">Cargado Strategies</b></p>
+      <p class="splash__label splash__label--tr">Channel <b>01 / 05</b><br>Link <b>Secure</b></p>
+      <div class="splash__frame">
+        <svg class="splash__ridges" viewBox="0 0 100 120" focusable="false"><ellipse cx="50" cy="60" rx="14" ry="18" pathLength="100" stroke-dasharray="78 8 14 0"/><ellipse cx="50" cy="60" rx="22" ry="28" pathLength="100" stroke-dasharray="40 6 50 4"/><ellipse cx="50" cy="60" rx="30" ry="37" pathLength="100" stroke-dasharray="62 7 25 6"/><ellipse cx="50" cy="60" rx="38" ry="46" pathLength="100" stroke-dasharray="30 5 58 7"/><ellipse cx="50" cy="60" rx="46" ry="56" pathLength="100" stroke-dasharray="70 9 15 6"/></svg>
+        <div class="mark splash__mark splash__mark--base"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
+        <div class="mark splash__mark splash__mark--lit"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
+        <i class="splash__br splash__br--tl"></i><i class="splash__br splash__br--tr"></i><i class="splash__br splash__br--bl"></i><i class="splash__br splash__br--br"></i>
+        <i class="splash__ticks splash__ticks--l"></i><i class="splash__ticks splash__ticks--r"></i>
+        <i class="splash__scanline"></i>
+      </div>
+      <p class="splash__label splash__label--bl">Scan <b class="splash__pct">100</b> %</p>
+      <p class="splash__label splash__label--br">Status <span class="splash__st"><b>Scanning</b><b>Verified</b></span></p>
+    </div>
+    <div class="splash__access">
+      <p class="splash__label">Identity Confirmed</p>
+      <p class="splash__granted">Access <em>Granted</em></p>
+      <i class="splash__bar"></i>
+    </div>
+    <i class="splash__ring"></i>
+    <i class="splash__dot"></i>
+    <div class="splash__flood"><i class="splash__cell splash__cell--tl"></i><i class="splash__cell splash__cell--tr"></i><i class="splash__cell splash__cell--bl"></i><i class="splash__cell splash__cell--br"></i></div>
+    <div class="splash__name">
+      <p class="splash__label splash__meta--l" data-splash="founder"></p>
+      <p class="splash__label splash__meta--r" data-splash="city"></p>
+      <i class="splash__rule"></i>
+      <p class="splash__title" data-splash="name"><span class="splash__line"><span>Cargado</span></span><span class="splash__line"><span>Strategies<i class="splash__stop"></i></span></span></p>
+    </div>
   </div>
   <!-- /splash -->
   <!-- Shared chrome (2b): skip link and header, painted with the page; chrome.js wires them. -->
   <a class="skip-link" href="#content">Skip to Content</a>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Cargado Strategies, home"><svg class="monogram" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="miter" stroke-linecap="square"/></svg><span class="brand__word">Cargado Strategies</span></a>
-    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="index.html">Home</a></li><li><a class="site-nav__link" href="services.html">Services</a></li><li><a class="site-nav__link" href="story.html">Story</a></li><li><a class="site-nav__link" href="partners.html" aria-current="page">For Professionals</a></li></ul></nav>
-    <a class="btn btn--primary btn--sm site-header__wa" href="https://wa.me/12048692508?text=Hi%20Cargado%20Strategies%2C%0AI'm%20on%20the%20Become%20a%20partner%20page%20of%20your%20website.%0AWhat%20I%20need%20help%20with%3A%20%E2%80%A6%0AMy%20city%20and%20province%20(so%20you%20can%20introduce%20me%20to%20someone%20close%20to%20me)%3A%20%E2%80%A6" target="_blank" rel="noopener" data-wa-sheet data-context="partners"
-       aria-label="Message Us on WhatsApp"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round"/><path d="M9.2 8.2c.3-.6.6-.6.9-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.5 2.4.2.1.4.1.5 0l.6-.7c.2-.2.4-.2.6-.1l1.6.8c.2.1.3.3.3.5 0 .6-.2 1.3-.8 1.6-.6.4-1.5.5-2.6.1-1.7-.6-3.4-2.1-4.3-3.8-.6-1.1-.7-2.2-.4-3Z" fill="currentColor"/></svg><span class="btn__label">WhatsApp</span></a>
+    <a class="brand" href="index.html" aria-label="Cargado Strategies, home"><img class="brand__mark" src="assets/img/brand/logo-mark@2x.png" srcset="assets/img/brand/logo-mark@2x.png 2x, assets/img/brand/logo-mark@3x.png 3x" alt="" width="41" height="40"><span class="brand__word">Cargado Strategies</span></a>
+    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="index.html">Home</a></li><li><a class="site-nav__link" href="services.html">Services</a></li><li><a class="site-nav__link" href="story.html">Story</a></li><li><a class="site-nav__link" href="partners.html" aria-current="page">Application</a></li><li><a class="site-nav__link" href="contact.html">Contact</a></li></ul></nav>
+    <a class="site-header__account" href="account.html" hidden data-account>Log In</a>
     <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">
       <span class="nav-toggle__label">Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span>
     </button>
@@ -151,7 +169,7 @@
     <div class="sheet__paper paper">
       <div class="sheet__head">
         <p class="sheet__title eyebrow" id="wa-sheet-title">Get My Introduction</p>
-        <p class="sheet__tag" data-sheet-tag hidden>From <span data-sheet-founder><span class="ph">[First name]</span></span></p>
+        <p class="sheet__tag" data-sheet-tag hidden>From Cargado Strategies</p>
         <button type="button" class="link sheet__close" data-sheet-close>Close</button>
       </div>
       <form class="stepper sheet__form" novalidate>
@@ -171,7 +189,7 @@
             <label class="label" for="wa-city">City or town</label>
             <input class="input" id="wa-city" name="city" type="text" placeholder="e.g. Winnipeg"
                    autocomplete="address-level2" maxlength="60" aria-describedby="wa-city-why">
-            <p class="hint" id="wa-city-why">We ask for your city only so we can introduce you to someone close to you.</p>
+            <p class="hint" id="wa-city-why">Cargado Strategies asks for your city only so it can introduce you to someone close to you.</p>
           </fieldset>
           <div class="stepper__step" data-step="send" role="group" aria-labelledby="wa-send-title" hidden>
             <h3 class="stepper__title" id="wa-send-title" tabindex="-1">Open WhatsApp<span class="visually-hidden" data-step-of></span></h3>

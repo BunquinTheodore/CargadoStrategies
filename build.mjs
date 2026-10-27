@@ -15,8 +15,10 @@
  *   window.ScrollTrigger: the Round 4 engine) and the page chunk; code splitting
  *   keeps the engine in a shared chunk cached across pages. The Round 5 engine's
  *   `import(LENIS_URL)` (the jsDelivr Lenis URL) becomes a lazy local chunk.
- *   three.js is gone (DIRECTION §10: dotglobe.js replaces it); any other
- *   external dynamic import fails the build.
+ *   The globe stays dotglobe.js (DIRECTION §10); three.js is back only for the
+ *   Services own-scene motifs (owner, 2026-10-25): their lazy stage module
+ *   imports the jsDelivr three URL, which resolves to the npm copy inside that
+ *   lazy chunk. Any other external dynamic import fails the build.
  * - CSS: one file per page (SHARED_CSS + self-hosted @font-face + the page's
  *   own stylesheet), so first paint waits on a single stylesheet request.
  * - Fonts: DIRECTION §12: Manrope 400/500/600, Poppins 500/600, Tinos 400 and
@@ -30,6 +32,10 @@
  *   canonical / Open Graph / Twitter meta, inline script and style minified,
  *   comments stripped. Plus robots.txt, sitemap.xml, favicon, _headers and
  *   assets/data/*.json (kern.json).
+ * - App pages (PAGES kind 'app': account and dashboards, v2 §8): the page module
+ *   without the GSAP vendor chunk or the first-paint wait, base.css + their own CSS
+ *   only, no word splits or splash, <meta name="robots" content="noindex">, and
+ *   left out of the sitemap. The Firebase SDK stays an external gstatic import.
  * - Report: sizes, and tools/.cache/build-meta.json (per page: the entry, its
  *   preloaded chunks and the source modules in them) for tools/perf-gate.mjs,
  *   which enforces the §12 budgets (the legal page loads no dotglobe, layers
@@ -64,11 +70,24 @@ const PAGES = [
   { html: 'index.html', js: 'pages/home.js', css: 'pages/home.css', priority: '1.0' },
   { html: 'services.html', js: 'pages/services.js', css: 'pages/services.css', priority: '0.9' },
   { html: 'partners.html', js: 'pages/partners.js', css: 'pages/partners.css', priority: '0.8' },
+  { html: 'contact.html', js: 'pages/contact.js', css: 'pages/contact.css', priority: '0.8' },
   { html: 'story.html', js: 'pages/story.js', css: 'pages/story.css', priority: '0.7' },
   { html: 'legal.html', js: 'pages/legal.js', css: 'pages/legal.css', priority: '0.4' },
+  /* App pages (v2 §8): not scroll films. No GSAP, word splits or splash; noindex; not in the sitemap. */
+  { html: 'account.html', js: 'pages/account.js', css: 'pages/account.css', kind: 'app' },
+  { html: 'dashboard.html', js: 'pages/dashboard.js', css: 'pages/dashboard.css', kind: 'app' },
+  { html: 'partner-dashboard.html', js: 'pages/partner-dashboard.js', css: 'pages/partner-dashboard.css', kind: 'app' },
+  { html: 'admin.html', js: 'pages/admin.js', css: 'pages/admin.css', kind: 'app' },
 ];
+const isApp = (page) => page.kind === 'app';
+const FILM_PAGES = PAGES.filter((p) => !isApp(p));
 /** Shared stylesheets (paths in site/), before the page's own. */
 const SHARED_CSS = ['core/design/base.css', 'core/design/fx.css', 'core/design/ui.css', 'core/design/visual.css'];
+/** App pages share only the tokens, type, buttons and forms (their page CSS imports core/design/app.css). */
+const APP_SHARED_CSS = ['core/design/base.css'];
+/** The Firebase SDK (core/account/firebase.js) stays an external import from Google's CDN. */
+const EXTERNAL_JS = ['https://www.gstatic.com/firebasejs/*'];
+const NOINDEX = '<meta name="robots" content="noindex">';
 /** Source folders (in site/) whose modules the build reads; every page's modules live under one of them. */
 const JS_DIRS = ['core', 'assets/js', 'pages', 'sections'];
 /** Source modules the legal page must never load (DIRECTION §12: no dotglobe, stars or cursor). */
@@ -82,13 +101,14 @@ const SPLASH_MARK = /\bid="splash"/;
 const IMAGE_LOADERS = { '.png': 'file', '.svg': 'file', '.webp': 'file', '.avif': 'file', '.jpg': 'file' };
 /** The jsDelivr URL film-snap.js imports Lenis from (api.md §16); bundled as a lazy local chunk. */
 const LENIS_URL = /^https:\/\/cdn\.jsdelivr\.net\/npm\/lenis@[\d.]+\/dist\/lenis\.mjs$/;
+/** The jsDelivr URL sections/services/own-3d-stage.js imports three from; bundled from the npm copy (owner, 2026-10-25). */
+const THREE_URL = /^https:\/\/cdn\.jsdelivr\.net\/npm\/three@[\d.]+\/build\/three\.module\.js$/;
 
 /** Self-hosted fonts (DIRECTION §12). `preload` marks the face the first screen needs. */
 const FONTS = [
   { family: 'Manrope', pkg: 'manrope', weights: [400, 500, 600], styles: ['normal'], preload: [400] },
   { family: 'Poppins', pkg: 'poppins', weights: [500, 600], styles: ['normal'], preload: [] },
   { family: 'Tinos', pkg: 'tinos', weights: [400], styles: ['normal', 'italic'], preload: [] }, // only where Times New Roman is missing
-  { family: 'Josefin Sans', pkg: 'josefin-sans', weights: [700], styles: ['normal'], preload: [] }, // the header nav, bold all caps (owner, 2026-10-20)
 ];
 const FONT_SUBSETS = {
   latin: 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD',
@@ -163,6 +183,9 @@ afterFirstPaint()
   .then(() => import(${JSON.stringify(file)}));
 `;
 
+/** App pages: no film to wait for and no GSAP; the page module straight away. */
+const appEntry = (file) => `import(${JSON.stringify(file)});\n`;
+
 /**
  * The splash's own entry, an async module in the head of #splash pages: it starts
  * the splash as soon as the #splash markup is parsed (a following sibling exists),
@@ -200,6 +223,10 @@ function sitePlugin({ legacyVendor }) {
   return {
     name: 'cargado-site',
     setup(b) {
+      b.onResolve({ filter: /^https:\/\/cdn\.jsdelivr\.net\/npm\/three@/ }, (args) => {
+        if (!THREE_URL.test(args.path)) throw new Error(`unexpected three URL ${args.path}`);
+        return { path: join(NODE_MODULES, 'three', 'build', 'three.module.js') };
+      });
       b.onResolve({ filter: /^https:\/\/cdn\.jsdelivr\.net\/npm\/lenis@/ }, (args) => {
         if (!LENIS_URL.test(args.path)) throw new Error(`unexpected Lenis URL ${args.path}`);
         return { path: join(NODE_MODULES, 'lenis', 'dist', 'lenis.mjs') };
@@ -214,7 +241,7 @@ function sitePlugin({ legacyVendor }) {
       b.onLoad({ filter: /^virtual:page\//, namespace: 'virtual' }, (args) => {
         const page = PAGES.find((p) => pageEntryName(p) === args.path.split('/')[1]);
         const file = join(SRC, page.js).replace(/\\/g, '/');
-        return { contents: pageEntry(file), resolveDir: ROOT, loader: 'js' };
+        return { contents: (isApp(page) ? appEntry : pageEntry)(file), resolveDir: ROOT, loader: 'js' };
       });
       b.onLoad({ filter: SOURCE_MODULE }, async (args) => {
         const source = await readFile(args.path, 'utf8');
@@ -254,6 +281,7 @@ async function buildJs() {
     chunkNames: 'chunks/[name]-[hash]',
     metafile: true,
     nodePaths: [NODE_MODULES],
+    external: EXTERNAL_JS,
     plugins: [sitePlugin({ legacyVendor })],
     logLevel: 'warning',
   });
@@ -287,8 +315,8 @@ const chunkFor = (metafile, file) => Object.entries(metafile.outputs)
 
 /** Pages whose source HTML has #splash (main.js awaits import('./splash.js') there); never legal. */
 async function splashPages() {
-  const sources = PAGES.map((p) => readAssembled(join(SRC, p.html)));
-  return new Set(PAGES.filter((p, i) => p.html !== LEGAL_PAGE && SPLASH_MARK.test(sources[i])).map((p) => p.html));
+  const sources = FILM_PAGES.map((p) => readAssembled(join(SRC, p.html)));
+  return new Set(FILM_PAGES.filter((p, i) => p.html !== LEGAL_PAGE && SPLASH_MARK.test(sources[i])).map((p) => p.html));
 }
 
 /**
@@ -385,7 +413,7 @@ async function buildCss() {
   const shared = sharedCss();
   const faces = fontFaces();
   const pages = {};
-  for (const p of PAGES) pages[p.html] = await cssBundle(basename(p.css, '.css'),[...shared, p.css], faces);
+  for (const p of PAGES) pages[p.html] = await cssBundle(basename(p.css, '.css'), [...(isApp(p) ? APP_SHARED_CSS : shared), p.css], faces);
   return { pages };
 }
 
@@ -529,6 +557,10 @@ async function buildHtml(jsMap, css) {
   await Promise.all(PAGES.map(async (page) => {
     const source = bakeFounder(await minifyInline(readAssembled(join(SRC, page.html))));
     const built = transformHtml(source, page, jsMap[page.html], css.pages[page.html]);
+    if (isApp(page)) {
+      await writeFile(join(OUT, page.html), built.includes(NOINDEX) ? built : built.replace('</title>', `</title>\n  ${NOINDEX}`));
+      return;
+    }
     const { html, warnings } = splitHtml(built);
     warnings.forEach((w) => process.stdout.write(`warning: ${page.html} ${w}\n`));
     await writeFile(join(OUT, page.html), html);
@@ -539,14 +571,15 @@ async function buildHtml(jsMap, css) {
 
 async function writeExtras() {
   const today = new Date().toISOString().slice(0, 10);
-  const urls = PAGES.map((p) => `  <url><loc>${pageUrl(p.html)}</loc><lastmod>${today}</lastmod><priority>${p.priority}</priority></url>`);
+  const urls = FILM_PAGES.map((p) => `  <url><loc>${pageUrl(p.html)}</loc><lastmod>${today}</lastmod><priority>${p.priority}</priority></url>`);
   await writeFile(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
   await writeFile(join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
   await cp(join(SRC, 'favicon.svg'), join(OUT, 'favicon.svg'));
   await cp(join(SRC, '404.html'), join(OUT, '404.html')); // standalone, served by the host for unknown URLs
   await writeFile(join(OUT, '_headers'), HOST_HEADERS);
   const imgDir = join(SRC, ASSETS, 'img');
-  if (existsSync(imgDir)) await cp(imgDir, join(OUT, ASSETS, 'img'), { recursive: true }); // HTML and JS references (sprite, posters)
+  // HTML and JS references (sprite, posters, logo mark, founder photos); *-source.png originals stay out of dist/
+  if (existsSync(imgDir)) await cp(imgDir, join(OUT, ASSETS, 'img'), { recursive: true, filter: (src) => !src.endsWith('-source.png') });
   const dataDir = join(SRC, ASSETS, 'data');
   const json = existsSync(dataDir) ? (await readdir(dataDir)).filter((f) => f.endsWith('.json')) : [];
   if (json.length) await mkdir(join(OUT, ASSETS, 'data'), { recursive: true });

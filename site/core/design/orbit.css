@@ -1,0 +1,180 @@
+/* ==========================================================================
+   The services orbit (spec §6.3), shared by Home and Services: core/ui/ui-orbit.js
+   wires it, core/engine/mark-draw.js draws the centre mark. Pages import this file
+   from pages/<page>.css (before the orbit scene's own CSS); scene CSS sizes it with
+   --orbit-size, --orbit-node and, on phones, --orbit-core-h / --orbit-pill-h.
+   Ring from 760 px; on phones the mark sits above a two-column grid of pills.
+   Animates only transform and opacity.
+   ========================================================================== */
+
+.orbit {
+  --orbit-size: min(660px, max(470px, min(72svh, 62vw)));
+  --orbit-node: clamp(104px, 14vmin, 124px);
+  --orbit-gap: 12px;
+  --orbit-r: calc((var(--orbit-size) - var(--orbit-node)) / 2);
+  --orbit-core: calc(var(--orbit-size) - 2 * var(--orbit-node) - 2 * var(--orbit-gap));
+  position: relative;
+  width: var(--orbit-size);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+.orbit__ring { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; }
+
+/* The centre circle: the mark, and the preview card over it. */
+.orbit__centre {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--orbit-core); aspect-ratio: 1; margin: calc(var(--orbit-core) / -2) 0 0 calc(var(--orbit-core) / -2);
+  border: 1px solid var(--line); border-radius: 50%;
+}
+.orbit .mark { position: absolute; inset: 20%; color: var(--accent); transition: opacity var(--dur-hover) var(--ease); }
+.mark__c, .mark__w { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mark path { stroke-dasharray: 100; }   /* pathLength="100": mark-draw.js draws them on the cut */
+.orbit.is-previewing .mark { opacity: 0; }
+
+/* A node: a frosted circle on the ring at its angle (--a, set by ui-orbit.js). */
+.orbit__node {
+  --s: 1;
+  position: absolute; left: 50%; top: 50%;
+  width: var(--orbit-node); height: var(--orbit-node);
+  margin: calc(var(--orbit-node) / -2) 0 0 calc(var(--orbit-node) / -2);
+  display: grid; place-items: center; padding: 6px; box-sizing: border-box;
+  border: 1px solid var(--accent); border-radius: 50%;   /* gold rings, like the mark (owner, 2026-10-26) */
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  color: var(--fg); text-align: center; text-decoration: none;
+  font: 500 var(--fs-label)/1.25 var(--font-ui);
+  transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--a, 0deg))) scale(var(--s));
+  transition: transform var(--dur-hover) var(--ease), border-color var(--dur-hover) var(--ease), color var(--dur-hover) var(--ease);
+}
+.orbit__label { display: block; max-width: 100%; overflow-wrap: normal; hyphens: manual; letter-spacing: -.01em; }
+.orbit__node:is(:hover, :focus-visible, .is-current) { --s: 1.06; color: var(--accent); }
+
+/* Each group's icon sits centred above its label (owner, 2026-10-26): a line drawing used as a
+   mask, so it takes the node's colour. Picked by data-slug; the markup stays text only. */
+.orbit__node { grid-auto-flow: row; align-content: center; row-gap: 4px; }
+.orbit__node::before {
+  content: ""; width: var(--orbit-icon, 24px); height: var(--orbit-icon, 24px);
+  background: currentColor;
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+:is(.orbit__node, .orbit__preview)[data-slug="insurance"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.6-3 8.2-7 10-4-1.8-7-5.4-7-10V6z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="business-strategy"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M5 16l5-5 3 3 6-7'/%3E%3Cpath d='M15 7h4v4'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="outsourcing"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3'/%3E%3Cpath d='M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6'/%3E%3Ccircle cx='17' cy='9' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.6 4.5 5.3'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="web-design"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='2'/%3E%3Cpath d='M3 9h18'/%3E%3Cpath d='M6 6.8h.01M8.5 6.8h.01'/%3E%3Cpath d='M7 13h6M7 16h4'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="graphics"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a9 9 0 1 0 0 18c1 0 1.6-.7 1.6-1.5 0-1-.8-1.3-.8-2.3 0-.9.7-1.4 1.6-1.4H17a4 4 0 0 0 4-4c0-4.9-4-8.8-9-8.8z'/%3E%3Ccircle cx='7.5' cy='11' r='1.1'/%3E%3Ccircle cx='10.5' cy='7' r='1.1'/%3E%3Ccircle cx='15' cy='7.5' r='1.1'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="virtual-assistant"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 14v-2a8 8 0 0 1 16 0v2'/%3E%3Crect x='3' y='13.5' width='4' height='6' rx='1.5'/%3E%3Crect x='17' y='13.5' width='4' height='6' rx='1.5'/%3E%3Cpath d='M19 19.5c0 1.2-1.8 2-4.5 2H12'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="software-development"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 7l-5 5 5 5'/%3E%3Cpath d='M16 7l5 5-5 5'/%3E%3Cpath d='M13.5 4.5l-3 15'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="export-import"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="contractor"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-7 9 7'/%3E%3Cpath d='M5 9.5V20h14V9.5'/%3E%3Cpath d='M10 20v-5h4v5'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="partner-network"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='5' r='2.2'/%3E%3Ccircle cx='5' cy='18' r='2.2'/%3E%3Ccircle cx='19' cy='18' r='2.2'/%3E%3Cpath d='M10.9 7l-4.8 9M13.1 7l4.8 9M7.2 18h9.6'/%3E%3C/svg%3E"); }
+
+/* The groups circle the centre like planets round a sun (owner, 2026-10-25): every node runs
+   the same 90 s turn on its own transform (orbit-spin: its angle +0 to +360deg, counter-rotated
+   so its label stays upright), so the spin stays on the compositor (transform only; the ring
+   itself carries the GSAP scale reveal). Nothing grows: the nodes never leave the orbit box. It
+   pauses while the scene is off screen, on hover, focus or a preview. */
+@media (min-width: 760px) {
+  .orbit__node {
+    padding: 3px;
+    animation: orbit-spin var(--orbit-turn, 90s) linear infinite;
+    transition-property: border-color, color;   /* the spin owns the transform */
+  }
+  :is(.scene:not(.is-active), .orbit:hover, .orbit:focus-within, .orbit.is-previewing) .orbit__node { animation-play-state: paused; }
+
+  /* Clear gold rings (owner, 2026-10-26: no fill, the page shows through). Each node is only a
+     brushed-gold rim (::after, a conic band of gold tones masked to a 4 px ring) with a gold glow
+     round it and a faint glow just inside the edge. The ring turns slowly so the light runs round
+     the metal (--i offsets each one); only its transform animates. Gold icon, champagne label. */
+  .orbit__node {
+    border: 0; background: none;
+    box-shadow:
+      inset 0 0 14px color-mix(in srgb, var(--c-gold) 22%, transparent),
+      0 0 22px color-mix(in srgb, var(--c-gold) 38%, transparent),
+      0 0 46px color-mix(in srgb, var(--c-gold) 22%, transparent);
+    -webkit-backdrop-filter: none; backdrop-filter: none;
+    color: var(--c-champagne); font-weight: 500; line-height: 1.15;
+  }
+  /* Smaller icon and label so the longest names ("Development") sit clear of the ring. The label
+     is 13 px, under the 14 px floor: the owner's call (2026-10-26) for the orbit labels only. */
+  .orbit__node::before { --orbit-icon: 16px; background: var(--c-gold-light); }
+  /* Two-word names wrap inside the ring; a word longer than that width ("Development") widens the
+     box (min-width beats max-width) so it stays centred instead of overflowing to the right. */
+  .orbit__label { font-size: .8125rem; letter-spacing: -.02em; max-width: 74%; min-width: min-content; justify-self: center; text-wrap: balance; }
+  .orbit__node::after {
+    content: ""; position: absolute; inset: 0; padding: 4px; border-radius: 50%; pointer-events: none;
+    background: conic-gradient(from 200deg, var(--c-gold-light), var(--c-gold-dark) 22%, var(--c-champagne) 40%, var(--c-gold-deep) 58%, var(--c-gold-dark) 76%, var(--c-gold-light));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    transform: rotate(calc(var(--i, 0) * 36deg));
+    animation: orbit-rim 12s linear infinite;
+  }
+  .orbit__label { position: relative; text-shadow: 0 1px 2px color-mix(in srgb, var(--c-black) 70%, transparent); }
+  .orbit__node:is(:hover, :focus-visible, .is-current) { color: var(--c-gold-light); }
+  .orbit__node:is(:hover, :focus-visible, .is-current)::after { animation-duration: 3s; }
+  .scene:not(.is-active) .orbit__node::after { animation-play-state: paused; }
+  html.rm .orbit__node::after { animation: none; }
+}
+@keyframes orbit-rim {
+  from { transform: rotate(calc(var(--i, 0) * 36deg)); }
+  to { transform: rotate(calc(var(--i, 0) * 36deg + 360deg)); }
+}
+@keyframes orbit-spin {
+  from { transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--a, 0deg))) scale(var(--s)); }
+  to { transform: rotate(calc(var(--a, 0deg) + 360deg)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--a, 0deg) - 360deg)) scale(var(--s)); }
+}
+
+/* The preview card: name and one line; on touch also its own Open link (.is-armed). */
+.orbit__preview {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; place-content: center; justify-items: center; gap: var(--space-xs);
+  padding: 14%; border-radius: 50%; text-align: center;
+  background: var(--surface); color: var(--fg);
+  pointer-events: none;
+}
+.orbit__preview:not([hidden]) { animation: orbit-preview-in var(--dur-hover) var(--ease-out) both; }
+.orbit__preview[hidden] { display: none; }
+.orbit.is-armed .orbit__preview { pointer-events: auto; }
+/* The previewed group's icon, above its name (the same --icon as its node). */
+.orbit__preview::before {
+  content: ""; width: 34px; height: 34px; background: var(--accent);
+  -webkit-mask: var(--icon) center / contain no-repeat; mask: var(--icon) center / contain no-repeat;
+}
+.orbit__preview:not([data-slug])::before, .orbit__preview[data-slug=""]::before { display: none; }
+.orbit__preview-name { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-d4); line-height: 1.15; }
+.orbit__preview-text { margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); }
+.orbit__open {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: var(--tap-min); min-width: var(--tap-min); padding: 0 1.1em;
+  border: 1px solid var(--line-strong); border-radius: 999px;
+  font: 500 var(--fs-ui-min) var(--font-ui); color: var(--fg); text-decoration: none;
+}
+.orbit__open[hidden] { display: none; }
+@keyframes orbit-preview-in { from { opacity: 0; transform: scale(.96); } }
+
+/* Phones: the mark above, the groups as a two-column grid of pills (each ≥ 44 px). */
+@media (max-width: 759px) {
+  .orbit {
+    --orbit-core-h: 140px;
+    --orbit-pill-h: 48px;
+    width: 100%; aspect-ratio: auto;
+    display: grid; gap: var(--orbit-gap);
+  }
+  .orbit__ring { position: static; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .orbit__centre {
+    position: relative; left: auto; top: auto; margin: 0;
+    width: 100%; height: var(--orbit-core-h); aspect-ratio: auto;
+    border: 0; border-radius: 0;
+  }
+  .orbit .mark { inset: 0; left: 50%; width: var(--orbit-core-h); margin-left: calc(var(--orbit-core-h) / -2); }
+  .orbit__node {
+    position: relative; left: auto; top: auto; margin: 0;
+    width: auto; height: auto; min-height: var(--orbit-pill-h);
+    display: flex; align-items: center; justify-content: flex-start; gap: 10px;
+    padding: 6px 12px; border-radius: 999px; text-align: left;
+    transform: scale(var(--s));
+  }
+  .orbit__node::before { flex: none; --orbit-icon: 20px; background: var(--accent); }   /* the icon leads each pill */
+  .orbit__node:is(:hover, :focus-visible, .is-current) { --s: 1.02; }
+  .orbit__preview { padding: 8px 16px; border-radius: 24px; gap: 4px; }
+  .orbit__preview::before { width: 22px; height: 22px; }
+}

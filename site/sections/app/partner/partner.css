@@ -1,0 +1,2 @@
+/* partner-dashboard.html: the shell, tiles, tables and chart are in core/design/dash.css. */
+.dash [data-partner-pending] { color: var(--accent); }

@@ -6,26 +6,28 @@ Read this first on every task. Deeper contracts: `site/core/CLAUDE.md` (engine, 
 
 - **Business.** Cargado Strategies, a Canadian business run by the founder, Lee Holgado (Winnipeg, MB). Three things: her own insurance and business-strategy/outsourcing work, and free introductions to partner professionals (legal, mortgage, real estate, accounting and tax, financial planning, manufacturing) anywhere in Canada.
 - **Audience.** Canadians aged 30-45, mostly on mid-range phones. Mobile performance and readability come first.
-- **Site.** A static "scroll film": every page is a list of full-screen scenes, one scroll (wheel, key, swipe) = one cut to the next scene. Plain HTML, CSS and ES modules in `site/`. `npm run build` (esbuild) bundles it into `dist/`, which is what gets uploaded. No server code and no framework.
-- **Pages.** `index.html` (Home), `services.html`, `story.html`, `partners.html` (For Professionals), `legal.html`.
+- **Site.** A static "scroll film": every page is a list of full-screen scenes, one scroll (wheel, key, swipe) = one cut to the next scene. Plain HTML, CSS and ES modules in `site/`. `npm run build` (esbuild) bundles it into `dist/`, which is what gets uploaded. No server rendering and no framework (the only server code is the Vercel functions in `api/`).
+- **Pages.** `index.html` (Home), `services.html`, `story.html`, `partners.html` (For Professionals), `legal.html`, and from v2 `contact.html` (booking). v2 also adds **app pages** (`account.html`, `dashboard.html`, `partner-dashboard.html`, `admin.html`): Firebase accounts and dashboards, not scroll films, and the only pages that load Firebase. Server code lives in Vercel functions under `api/`.
+- **v2 plan and spec** (owner-approved 2026-10-25): `docs/superpowers/plans/2026-10-25-cargado-v2.md`, `docs/superpowers/specs/2026-10-25-cargado-v2-design.md`.
 
 ## Fixed rules (never break)
 
-- **Colour: black and gold only. No blue anywhere.** Fields are `ink`, `bone` and `gold`, with gold at most once per page (none on story and legal). Tokens live at the top of `site/core/design/base.css`.
+- **Colour: black and gold, plus a deep navy used only in backgrounds** (the `--navy-*` tokens in the `ink` field and app-page backgrounds; never buttons, text, links, icons or borders; owner, 2026-10-25). Fields are `ink`, `bone` and `gold`, with gold at most once per page (none on story and legal). Tokens live at the top of `site/core/design/base.css`.
 - **Type:** display is the Times New Roman stack (Tinos fallback), written in **Title Case in the markup** (never `text-transform`). Body is Manrope and UI labels are Poppins. **14 px floor** for any visible text (`--fs-label`), and reading lines use `--fs-note`.
 - **One scroll = one section, and every section fits one screen** at all 9 contract viewports, in cut, touch-cut and flow modes (`tools/fit-audit.mjs`).
-- **Compliance copy survives word for word**: the notices, hints, fine print, FAQ answers and `[bracket]` placeholders recorded in `plan/round5/compliance-baseline.json`. `tools/compliance-diff.mjs` must report **0 missing / 0 altered**. Only the moves listed in `plan/round5/compliance-moves.json` are allowed.
+- **Compliance copy survives word for word**: the notices, hints, fine print, FAQ answers and `[bracket]` placeholders recorded in `plan/round5/compliance-baseline.json`. `tools/compliance-diff.mjs` must report **0 missing / 0 altered**. Only the moves listed in `plan/round5/compliance-moves.json` are allowed. (Owner, 2026-10-25: the locked copy may be rewritten once into the third person naming "Cargado Strategies"; the baseline is then regenerated and protects the new wording word for word.)
 - **Owner decisions (2026-10-20), do not re-add:**
   - No footer fine print, and no "We only message from" line. The Story "Independent partners" notice and the Partners "Commission terms" notice are gone too.
-  - The Legal page is final, with no draft markers.
+  - The Legal page is final, with no visible draft markers. (v2: new or changed legal sentences carry an invisible `data-draft="pending-lawyer-review"` marker for the owner's lawyer review, listed in `site/sections/legal/CLAUDE.md`.)
   - No Sound or Motion switches; the site always runs with full motion and sound on.
   - Buttons are round frosted glass (`.btn` in base.css).
-  - The nav is centred and includes Home.
+  - The nav is centred and includes Home and (v2) Contact; the header also has the account (Log In) entry.
   - Footer contact shows WhatsApp, the email address, the Facebook page name and the address, with no Call item.
   - A `.rule[data-rule-fit]` runs to the end of its heading's last line (`core/lib/fit-rule.js`).
 - **Owner content lives in `site/assets/js/config.js`**: founder Lee Holgado, phone **+1 (204) 869 2508 (the only number)**, the email, the Winnipeg address (1210 Chamberlain Ave, R2X 1E7), the Facebook page (the URL is still a placeholder), categories, partners and the proof slots. Do not hardcode these elsewhere; read them from config.
 - **Never invent** partners, people, photos, stats, ratings, testimonials, quotes or licence numbers. Unconfirmed facts stay as `<span class="ph">[bracket]</span>`. Proof slots stay hidden through `[data-when="KEY"]` until config fills them. `PARTNERS` is empty, so the site shows "Partner spot available".
 - **The repo is public.** `Cargado-Strategies-Proposal-SRS*.pdf` and `Cargado-Wireframes.html` stay gitignored and are never committed or quoted wholesale. The golden copies under `plan/restructure/golden/` and `after-core/` are gitignored too.
+- **App pages are exempt from the film rules** (one scroll = one scene, scene budgets, fit-audit, seek-test). Colour, type, the 14 px floor, 44 px tap targets, 360 px, no `console.log` and the console-check gate still apply.
 - Animate only `transform`, `opacity` and `clip-path`. Tap targets are at least 44 px. Everything works from 360 px wide. No `console.log`. Use small functions and named constants, and match the surrounding style and comment density. Use plain ES modules and add no new dependencies.
 
 ## Folder map (who owns what)
@@ -113,12 +115,12 @@ The project root is `C:\Cargado Strategies`. Node 22+ is needed (the tools use g
 ## Gates before calling work done
 
 1. `npm run build` exits 0 with no warnings.
-2. **Pure refactor:** `node tools/lib/golden-diff.mjs` shows assembled site HTML identical, and dist HTML and CSS identical. JS minified-name differences are expected.
+2. **Pure refactor:** `node tools/lib/golden-diff.mjs` shows assembled site HTML identical, and dist HTML and CSS identical. JS minified-name differences are expected. **Not applicable to v2** (not a pure refactor).
 3. **Compliance:** `node tools/compliance-diff.mjs --dist` gives 0 missing / 0 altered.
 4. **Console:** `node tools/console-check.mjs http://127.0.0.1:<port>/ <pages touched>` gives 0 errors and 0 warnings.
 5. **Layout or copy changes:** fit-audit for each page touched, in film, `--flow` and `--touch`. Results must be no worse than the baseline in `plan/round5/final-audit.txt`, whose known failures are listed in each page's CLAUDE.md.
 6. **Motion changes:** seek-test on site/ for the page, with no new failing frames.
-7. Grep check: no `console.log`, no blue, no `text-transform: uppercase` on display type, no new hardcoded phone, email or address.
+7. Grep check: no `console.log`, no blue outside `--navy-*` background tokens, no `text-transform: uppercase` on display type, no new hardcoded phone, email or address.
 8. Stop every server you started, and make sure no headless Chrome of yours is left running.
 
 ## Windows notes and memory rule

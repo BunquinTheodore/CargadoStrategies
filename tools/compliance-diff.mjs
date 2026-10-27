@@ -28,8 +28,16 @@
  * Also failed: a baseline [bracket] no longer on its page (except RETIRED_BRACKETS), and the new R5 line
  * "We only message from +1 (204) 869 2508" missing from a page (DIRECTION §6.4).
  * Exit code 1 on any altered, missing, bracket or new-line failure.
+ *
+ *   node tools/compliance-diff.mjs --dist --regenerate
+ *
+ * Regeneration (owner-approved rewrites only, e.g. the 2026-10-25 third-person copy): reads the
+ * built pages the same way and writes a new baseline from them (REGEN_PAGES), keeping the
+ * owner-filled placeholders. Every notice, hint, offer line, fine print, legal draft
+ * ([data-draft]), FAQ question and answer, [bracket], every sentence of a [data-compliance]
+ * block and every keyword sentence becomes a baseline item. Run the plain diff after it.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { evaluate, filmHook, interceptResponses, launchChrome, navigate, parseArgs, setMedia, setViewport, sleep, waitReadyExpr } from './lib/cdp.mjs';
@@ -63,8 +71,18 @@ const C22_SEND = 'Opens WhatsApp with your message written. Nothing is sent unti
 const REMOVED = /^\(removed\)$/;
 const ITEM_KINDS = ['notice', 'hint', 'offerFine', 'legalDraft', 'fineprint'];
 
+/** Pages a regenerated baseline covers (contact.html joined in v2). */
+const REGEN_PAGES = ['index.html', 'services.html', 'story.html', 'partners.html', 'legal.html', 'contact.html'];
+/** Words whose sentences are always protected (the R5 keyCounts list plus the v2 additions). */
+const KEYWORDS = ['commission', 'independent', 'coaching only', 'not a recommendation', 'tap send', 'Provided by Cargado',
+  'Mark 11:24', 'Connected by Purpose', 'Ours', 'policy review site', 'points', 'Central Time', 'privacy policy', 'consent'];
+const REGEN_NOTE = 'Regenerated 2026-10-25 from the built pages after the owner-approved rewrite of all copy into the third person '
+  + '(spec docs/superpowers/specs/2026-10-25-cargado-v2-design.md §5, §6.6, §6.8): notices, legal text and FAQ answers now name '
+  + '"Cargado Strategies" instead of "we/us/our". Legal sentences marked data-draft="pending-lawyer-review" are builder drafts '
+  + 'a Canadian lawyer reviews before launch. The gate protects this wording word for word from now on.';
+
 const cli = parseArgs();
-const opts = { base: cli.base, dist: cli.has('dist'), pages: cli.pages, json: cli.has('json') };
+const opts = { base: cli.base, dist: cli.has('dist'), pages: cli.pages, json: cli.has('json'), regenerate: cli.has('regenerate') };
 
 const norm = (s) => String(s).replace(/[ \s]+/g, ' ').trim();
 const words = (s) => norm(s).toLowerCase().match(/[\p{L}\p{N}[\]#]+/gu) || [];
@@ -139,6 +157,82 @@ async function pageText(api, base, page) {
   return texts.join(' ‖ ');
 }
 
+/* ---------- regeneration ---------- */
+
+/** Text that scripts write from the date or a live status (booking day range, chosen day, pager counts): never baseline copy. */
+const DYNAMIC = '[role="status"], [aria-live], .pager, [data-days-range], [data-book-day]';
+
+/** In the page: the baseline items of the rendered DOM, by kind, each { where, text } (details: { where, question, answer }). */
+const EXTRACT = (keywords, dynamic) => `(() => {
+  const live = (el) => !!el.closest(${JSON.stringify(dynamic)});
+  const norm = (s) => String(s).replace(/[\\u00a0\\s]+/g, ' ').trim();
+  const where = (el) => { const s = el.closest('.scene[id], dialog[id]'); return s ? s.tagName.toLowerCase() + '#' + s.id : 'page'; };
+  const item = (el, text = el.textContent) => ({ where: where(el), text: norm(text) });
+  const grab = (sel) => [...document.querySelectorAll(sel)].filter((el) => !live(el)).map((el) => item(el)).filter((x) => x.text);
+  const sentences = (text) => norm(text).split(/(?<=[.!?])\\s+(?=[A-Z[])/);
+  const leaf = (el) => !live(el) && !el.querySelector('p, li, div, ul, ol, button, select, input, textarea');
+  const blocks = (root) => (root.matches('p, li, span, h3, label') && leaf(root) ? [root]
+    : [...root.querySelectorAll('p, h3, li')].filter(leaf));
+  const details = [...document.querySelectorAll('details')].map((d) => {
+    const q = d.querySelector('summary');
+    const full = d.textContent;
+    const at = q ? full.indexOf(q.textContent) : -1;
+    return { where: where(d), question: norm(q ? q.textContent : ''), answer: norm(at < 0 ? full : full.slice(at + q.textContent.length)) };
+  });
+  const qa = [...document.querySelectorAll('.qa__panel')].flatMap((panel) => {
+    const q = norm(panel.querySelector('.qa__title')?.textContent || '');
+    return [...panel.querySelectorAll('[data-page-item]')].map((p) => ({ where: where(panel), question: q, answer: norm(p.textContent) }));
+  });
+  const compliance = [...document.querySelectorAll('[data-compliance]')].flatMap(blocks)
+    .flatMap((el) => sentences(el.textContent).map((s) => item(el, s)));
+  const words = ${JSON.stringify(keywords)}.map((k) => new RegExp('\\\\b' + k.replace(/[.*+?^$()|[\\]\\\\]/g, '\\\\$&') + '\\\\b', 'i'));
+  const keyed = [...document.querySelectorAll('p, li, h1, h2, h3, summary, label, figcaption')].filter(leaf)
+    .flatMap((el) => sentences(el.textContent).filter((s) => words.some((w) => w.test(s))).map((s) => item(el, s)));
+  return {
+    notice: grab('.notice'), hint: grab('.hint'), offerFine: grab('.offer__fine, .offer-line'), legalDraft: grab('[data-draft]'),
+    fineprint: grab('.fineprint'), ph: grab('.ph'), details: [...details, ...qa].filter((x) => x.answer),
+    sentences: [...compliance, ...keyed].filter((x) => x.text.length > 3),
+  };
+})()`;
+
+const KINDS = ['notice', 'hint', 'offerFine', 'legalDraft', 'fineprint', 'ph', 'details', 'sentences'];
+const keyOf = (x) => `${x.where}|${x.text ?? `${x.question}|${x.answer}`}`;
+
+/** Two reads of a page merged, duplicates (same place and text) dropped. */
+function mergeReads(reads) {
+  const page = {};
+  KINDS.forEach((kind) => {
+    const seen = new Set();
+    page[kind] = reads.flatMap((r) => r[kind]).filter((x) => !seen.has(keyOf(x)) && seen.add(keyOf(x)));
+  });
+  return page;
+}
+
+async function regenerate(api, base, old) {
+  const pages = {};
+  for (const page of REGEN_PAGES) {
+    const reads = [];
+    for (const q of ['', '?review=1']) {
+      await navigate(api, `${base}${page}${q}`);
+      await evaluate(api.send, waitReadyExpr(HOOK, READY_TIMEOUT_MS));
+      await sleep(SETTLE_MS);
+      reads.push(await evaluate(api.send, EXTRACT(KEYWORDS, DYNAMIC)));
+    }
+    pages[page] = mergeReads(reads);
+    process.stderr.write(`. extracted ${page}\n`);
+  }
+  const out = {
+    note: REGEN_NOTE,
+    generated: new Date().toISOString(),
+    source: 'dist/ (node tools/compliance-diff.mjs --dist --regenerate)',
+    method: `rendered DOM (headless Chrome, 1440x900, engine ready + ${SETTLE_MS} ms, plain and ?review=1), textContent so hidden/closed content is included`,
+    pages,
+    filledPlaceholders: old.filledPlaceholders || [],
+  };
+  writeFileSync(BASELINE, `${JSON.stringify(out, null, 2)}\n`);
+  Object.entries(pages).forEach(([p, v]) => process.stdout.write(`${p}: ${KINDS.map((k) => `${v[k].length} ${k}`).join(', ')}\n`));
+}
+
 function diffPage(name, baseline, moves, texts, fills) {
   const text = texts[name];
   const rows = itemsOf(baseline).map((item) => {
@@ -176,6 +270,7 @@ async function main() {
     await interceptResponses(api, [filmHook(HOOK)], { stayOn: new URL(base).origin });
     await setViewport(api.send, 1440, 900);
     await setMedia(api.send, {});
+    if (opts.regenerate) return await regenerate(api, base, baseline);
     const texts = {};
     // Moves can land on another page, so read every baseline page, not only the ones asked for.
     for (const p of Object.keys(baseline.pages)) {

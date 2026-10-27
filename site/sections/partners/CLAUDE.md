@@ -26,8 +26,7 @@ Page-level files: `_page.css` (first), `_page-bands.css` (last).
 
 ## Known open issues (plan/round5/final-audit.txt)
 
-- Fit film: #4 `apply` spare 37 < 40 in the all-errors pass at 1366x768. This is still the baseline after the restructure (verify.md).
-- Fit touch: #3 `founding` Y +24 at 390x844 and 360x740.
+- Fit: clean in film, touch and flow at all 9 viewports (2026-10-26). The old baseline items (#4 `apply` spare at 1366x768, #3 `founding` Y +24 in touch on phones) no longer fail. Short phones (≤ 760 tall) tighten the apply paper in `_page-bands.css` so the licence step with every error keeps ≥ 40 px in flow at 360x740.
 - Run: `node tools/fit-audit.mjs <url> partners.html --states=tools/fit-states/partners.mjs`.
 - Perf: mobile script transfer 85.2 KB (budget 70).
 - console-check cannot open `tiers-dialog` or `partner-faq` in cut mode (no visible trigger).

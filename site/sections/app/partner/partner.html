@@ -1,0 +1,73 @@
+<div class="dash" data-app-main hidden>
+      <aside class="dash-side" aria-label="Dashboard">
+        <!-- @section app/dash-brand -->
+        <div class="dash-who"><span class="dash-who__avatar" aria-hidden="true" data-app-initial>P</span><span class="dash-who__text"><span class="dash-who__name" data-app-name>Partner</span><span class="dash-who__role">Partner Account</span></span></div>
+        <nav class="dash-nav" aria-label="Dashboard sections">
+          <ul class="dash-nav__list">
+            <li><a class="dash-nav__link" href="#overview"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg><span class="dash-nav__text">Overview</span></a></li>
+            <li><a class="dash-nav__link" href="#referrals"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="9" r="3.25"/><path d="M3 19.5a6 6 0 0 1 12 0M15.5 5.9a3.25 3.25 0 0 1 0 6.2M17.5 14.2a6 6 0 0 1 3.5 5.3"/></svg><span class="dash-nav__text">Referrals</span></a></li>
+            <li><a class="dash-nav__link" href="#profile"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.75"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span class="dash-nav__text">Profile</span></a></li>
+          </ul>
+        </nav>
+        <!-- @section app/dash-foot -->
+      </aside>
+      <div class="dash-body">
+        <header class="dash-top">
+          <div class="dash-top__titles">
+            <p class="eyebrow">Overview</p>
+            <h1 tabindex="-1">Welcome, <span data-dash-first>Partner</span></h1>
+          </div>
+          <div class="dash-top__actions">
+            <span class="dash-badge" data-preview-badge hidden>Preview · sample data</span>
+            <a class="btn btn--primary btn--sm" href="#profile">Edit Profile <span class="btn__arrow" aria-hidden="true">→</span></a>
+          </div>
+        </header>
+        <section class="dash-kpis dash-kpis--2" id="overview" aria-label="Overview">
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Referrals Received</h2><p class="dash-kpi__value num" data-kpi="referrals">0</p><p class="dash-kpi__note">clients</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Profile Status</h2><p class="dash-kpi__value dash-kpi__value--word" data-kpi="status">Pending</p><p class="dash-kpi__note" data-partner-pending hidden>Changes waiting for review.</p></article>
+        </section>
+        <div class="dash-grid">
+          <section class="dash-panel dash-span-12" id="referrals" aria-labelledby="partner-referrals-title">
+            <h2 class="dash-panel__title" id="partner-referrals-title">Referrals</h2>
+            <p class="hint">Clients Cargado Strategies has introduced.</p>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead><tr><th scope="col">Client</th><th scope="col">Date</th><th scope="col">Note</th><th scope="col">Status</th></tr></thead>
+                <tbody data-partner-referrals></tbody>
+              </table>
+            </div>
+            <p class="hint" data-partner-referrals-empty hidden>No referrals yet.</p>
+          </section>
+          <section class="dash-panel dash-span-12" id="profile" aria-labelledby="partner-profile-title">
+            <h2 class="dash-panel__title" id="partner-profile-title">Profile</h2>
+            <p class="hint">Changes are sent to Cargado Strategies for review. Nothing is shown publicly until it is approved.</p>
+            <form class="form dash-form-grid" data-partner-profile novalidate>
+              <div class="form-row">
+                <label class="label" for="partner-business">Business name</label>
+                <input class="input" id="partner-business" name="business" type="text" autocomplete="organization" maxlength="120">
+              </div>
+              <div class="form-row">
+                <label class="label" for="partner-name">Contact name</label>
+                <input class="input" id="partner-name" name="name" type="text" autocomplete="name" maxlength="80">
+              </div>
+              <div class="form-row">
+                <label class="label" for="partner-phone">Phone</label>
+                <input class="input" id="partner-phone" name="phone" type="tel" autocomplete="tel" maxlength="30">
+              </div>
+              <div class="form-row">
+                <label class="label" for="partner-area">City and service area</label>
+                <input class="input" id="partner-area" name="serviceArea" type="text" maxlength="120">
+              </div>
+              <div class="form-row dash-form-grid__wide">
+                <label class="label" for="partner-description">Short description</label>
+                <textarea class="textarea" id="partner-description" name="description" maxlength="400"></textarea>
+              </div>
+              <div class="dash-form-grid__wide app-actions">
+                <button type="submit" class="btn btn--primary">Send for Review</button>
+              </div>
+              <p class="app-status dash-form-grid__wide" data-status role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>

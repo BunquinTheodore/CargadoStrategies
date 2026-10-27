@@ -1,0 +1,3 @@
+/* account.html (app page): the shared app layout, then this page's own rules. Cascade order = import order. */
+@import "../core/design/app.css";
+@import "../sections/app/account/account.css";

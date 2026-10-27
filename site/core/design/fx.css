@@ -53,7 +53,7 @@ html.is-cutting .scene.is-entering .rv-word { will-change: transform; }
   .door:is(:hover, :focus-within) {
     --fg: #F3ECDD; --fg-muted: var(--c-ivory-2nd); --accent: #D4AF37; --line: rgba(212,175,55,.22);
     --line-strong: rgba(243,236,221,.42); --ghost: rgba(212,175,55,.14); --stroke-num: rgba(212,175,55,.40);
-    --btn-bg: #D4AF37; --btn-fg: #0B0B0C; --btn-arrow: #0B0B0C; --btn-hover-bg: #F3ECDD; --focus: #F3ECDD;
+    --btn-bg: #D4AF37; --btn-fg: #0B0B0C; --btn-arrow: #0B0B0C; --btn-hover-bg: #F3ECDD; --btn-glow: 212, 175, 55; --focus: #F3ECDD;
     --ph-line: rgba(212,175,55,.6);
     color: var(--fg);
   }

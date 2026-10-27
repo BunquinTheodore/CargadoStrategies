@@ -1,0 +1,5 @@
+/* 6b. #ours-trade · M: the service name as a monument bottom-left, its description, the consultation CTA */
+#ours-trade :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-end; gap: var(--space-l); padding-bottom: clamp(8px, 4cqh, 56px); }
+@media (max-width: 759px) {
+  #ours-trade :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-m); padding-bottom: 0; }
+}

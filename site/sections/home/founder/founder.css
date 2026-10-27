@@ -3,11 +3,6 @@
 #founder .scene__pan { justify-content: center; gap: var(--space-l); }
 .founder__head { max-width: 66.6%; width: fit-content; }
 .founder__title { font-size: min(var(--fs-d1), 8cqh); }
-.founder__avatar { width: 40px; height: 40px; }
-/* Founder photo slots (pages/home.js fills them from FOUNDER_PHOTO; hidden while it is empty). */
-.avatar { display: block; overflow: clip; border-radius: 50%; border: 1px solid var(--line-strong); }
-.avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.hero__avatar { float: left; width: 60px; height: 60px; margin: .15em .9em .2em 0; }
 .founder__sig { display: block; height: 32px; }   /* FOUNDER_SIGNATURE, only while there is no photo */
 .founder__sig img { display: block; height: 100%; width: auto; }
 .founder__quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-col); }

@@ -1,0 +1,116 @@
+<div class="dash" data-app-main hidden>
+      <aside class="dash-side" aria-label="Dashboard">
+        <!-- @section app/dash-brand -->
+        <div class="dash-who"><span class="dash-who__avatar" aria-hidden="true" data-app-initial>C</span><span class="dash-who__text"><span class="dash-who__name" data-app-name>Client</span><span class="dash-who__role">Client Account</span></span></div>
+        <nav class="dash-nav" aria-label="Dashboard sections">
+          <ul class="dash-nav__list">
+            <li><a class="dash-nav__link" href="#overview"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg><span class="dash-nav__text">Overview</span></a></li>
+            <li><a class="dash-nav__link" href="#points"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg><span class="dash-nav__text">Points</span></a></li>
+            <li><a class="dash-nav__link" href="#bookings"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="14.5" rx="1.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg><span class="dash-nav__text">Bookings</span></a></li>
+            <li><a class="dash-nav__link" href="#referral"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span class="dash-nav__text">Referral</span></a></li>
+            <li><a class="dash-nav__link" href="#profile"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="8.5" r="3.75"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg><span class="dash-nav__text">Profile</span></a></li>
+          </ul>
+        </nav>
+        <!-- @section app/dash-foot -->
+      </aside>
+      <div class="dash-body">
+        <header class="dash-top">
+          <div class="dash-top__titles">
+            <p class="eyebrow">Overview</p>
+            <h1 tabindex="-1">Welcome, <span data-dash-first>Client</span></h1>
+          </div>
+          <div class="dash-top__actions">
+            <span class="dash-badge" data-preview-badge hidden>Preview · sample data</span>
+            <a class="btn btn--primary btn--sm" href="contact.html#book">Book a Consultation <span class="btn__arrow" aria-hidden="true">→</span></a>
+          </div>
+        </header>
+        <section class="dash-kpis" id="overview" aria-label="Overview">
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Points Balance</h2><p class="dash-kpi__value num" data-dash-balance>0</p><p class="dash-kpi__note">points</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Upcoming</h2><p class="dash-kpi__value num" data-kpi="upcoming">0</p><p class="dash-kpi__note">consultations</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Completed</h2><p class="dash-kpi__value num" data-kpi="completed">0</p><p class="dash-kpi__note">consultations</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Friends Referred</h2><p class="dash-kpi__value num" data-kpi="referred">0</p><p class="dash-kpi__note">friends</p></article>
+        </section>
+        <div class="dash-grid">
+          <section class="dash-panel dash-span-4 dash-next" aria-labelledby="next-title">
+            <h2 class="dash-panel__title" id="next-title">Next Consultation</h2>
+            <div class="dash-next__body" data-dash-next></div>
+          </section>
+          <section class="dash-panel dash-span-8" id="points" aria-labelledby="points-title">
+            <div class="dash-panel__head">
+              <h2 class="dash-panel__title" id="points-title">Points</h2>
+              <p class="dash-panel__figure"><span class="num" data-dash-balance-panel>0</span> points</p>
+            </div>
+            <div class="dash-chart-box" data-dash-chart></div>
+            <p class="hint">5 points for each completed consultation, each service acquired from Cargado Strategies, and each friend who signs up with the referral link below and completes a first consultation. Points are added automatically. They cannot be spent yet.</p>
+            <h3 class="dash-sub">History</h3>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead><tr><th scope="col">Event</th><th scope="col">Date</th><th scope="col" class="is-num">Points</th></tr></thead>
+                <tbody data-dash-history></tbody>
+              </table>
+            </div>
+            <p class="hint" data-dash-history-empty hidden>No points yet.</p>
+          </section>
+          <section class="dash-panel dash-span-12" id="bookings" aria-labelledby="bookings-title">
+            <div class="dash-panel__head">
+              <h2 class="dash-panel__title" id="bookings-title">Bookings</h2>
+              <div class="dash-tabs" role="tablist" aria-label="Bookings" data-dash-tabs>
+                <button type="button" class="dash-tab" role="tab" id="tab-upcoming" aria-controls="panel-upcoming" aria-selected="true">Upcoming</button>
+                <button type="button" class="dash-tab" role="tab" id="tab-past" aria-controls="panel-past" aria-selected="false" tabindex="-1">Past</button>
+              </div>
+            </div>
+            <div role="tabpanel" id="panel-upcoming" aria-labelledby="tab-upcoming">
+              <div class="dash-table-wrap">
+                <table class="dash-table">
+                  <thead><tr><th scope="col">When</th><th scope="col">Service</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Link</span></th></tr></thead>
+                  <tbody data-dash-upcoming></tbody>
+                </table>
+              </div>
+              <p class="hint" data-dash-upcoming-empty hidden>No upcoming consultation. <a href="contact.html#book">Book a free consultation</a>.</p>
+            </div>
+            <div role="tabpanel" id="panel-past" aria-labelledby="tab-past" hidden>
+              <div class="dash-table-wrap">
+                <table class="dash-table">
+                  <thead><tr><th scope="col">When</th><th scope="col">Service</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Link</span></th></tr></thead>
+                  <tbody data-dash-past></tbody>
+                </table>
+              </div>
+              <p class="hint" data-dash-past-empty hidden>No past consultations.</p>
+            </div>
+          </section>
+          <section class="dash-panel dash-span-6" id="referral" aria-labelledby="referral-title">
+            <h2 class="dash-panel__title" id="referral-title">Referral Link</h2>
+            <p class="hint">Share a link with a friend. When they sign up with it and complete a first consultation, 5 points are added here.</p>
+            <p class="app-code">Code <strong class="num" data-dash-code></strong></p>
+            <div class="app-copy">
+              <label class="label" for="ref-book">Booking link</label>
+              <div class="app-copy__row"><input class="input" id="ref-book" type="text" readonly data-dash-ref-book><button type="button" class="btn btn--ghost btn--sm" data-copy="ref-book">Copy</button></div>
+            </div>
+            <div class="app-copy">
+              <label class="label" for="ref-signup">Sign-up link</label>
+              <div class="app-copy__row"><input class="input" id="ref-signup" type="text" readonly data-dash-ref-signup><button type="button" class="btn btn--ghost btn--sm" data-copy="ref-signup">Copy</button></div>
+            </div>
+          </section>
+          <section class="dash-panel dash-span-6" id="profile" aria-labelledby="profile-title">
+            <h2 class="dash-panel__title" id="profile-title">Profile</h2>
+            <form class="form" data-dash-profile novalidate>
+              <div class="form-row">
+                <label class="label" for="profile-name">Name</label>
+                <input class="input" id="profile-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+              </div>
+              <div class="form-row">
+                <label class="label" for="profile-email">Email</label>
+                <input class="input" id="profile-email" name="email" type="email" readonly aria-describedby="profile-email-hint">
+                <p class="hint" id="profile-email-hint">The email is the log-in and cannot be changed here.</p>
+              </div>
+              <div class="form-row">
+                <label class="label" for="profile-phone">Phone (optional)</label>
+                <input class="input" id="profile-phone" name="phone" type="tel" autocomplete="tel" maxlength="30">
+              </div>
+              <button type="submit" class="btn btn--primary">Save Profile</button>
+              <p class="app-status" data-status role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>

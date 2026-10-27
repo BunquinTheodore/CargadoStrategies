@@ -6,9 +6,10 @@
  *
  * - The header is in every page's HTML (HTML-first, no layout shift); this
  *   module wires it, and draws it only when a page has none.
- * - Header: monogram + wordmark, Services · Our Story · For Professionals, and
- *   one gold "WhatsApp" button that opens the sheet (data-wa-sheet; the real
- *   wa.me href works without JS). Phones: monogram, WhatsApp icon, Menu.
+ * - Header: the logo mark (v2 §6.5) + wordmark, Home · Services · Story · For
+ *   Professionals · Contact, the account button (account-button.js: hidden until
+ *   Firebase is configured). No WhatsApp button (owner, 2026-10-26): the sheet
+ *   opens from the page CTAs, the menu and the footer. Phones: mark, account, Menu.
  * - Menu: a native <dialog> (focus trapped by showModal, Escape closes): the
  *   pages as rows, then call, email, WhatsApp and Facebook, then the switches.
  * - Footer ([data-footer] in #credits): contact row, link columns, the fine
@@ -25,6 +26,7 @@ import { FACEBOOK_URL, PHONE, TAGLINE, SITE_NAME, CONTACT_EMAIL, CONTACT_EMAIL_L
 import { pageLink, waLink } from './whatsapp.js';
 import { titleCase } from '../lib/text-case.js';
 import { prefersReducedMotion, setMotionPref } from '../engine/motion-pref.js';
+import { initAccountButton } from './account-button.js';
 
 const NEW_TAB = 'target="_blank" rel="noopener"';
 const NEW_TAB_NOTE = '<span class="visually-hidden"> (opens in a new tab)</span>';
@@ -51,13 +53,19 @@ export const ICONS = Object.freeze({
   close: svg('<path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>'),
 });
 
+/** The owner's logo mark (header and menu bar only; the footer and splash keep the monogram). */
+const MARK_SRC = 'assets/img/brand/logo-mark';
+export const BRAND_MARK = `<img class="brand__mark" src="${MARK_SRC}@2x.png" srcset="${MARK_SRC}@2x.png 2x, ${MARK_SRC}@3x.png 3x" alt="" width="41" height="40">`;
+const ACCOUNT_LINK = '<a class="site-header__account" href="account.html" hidden data-account>Log In</a>';
+
 const ARROW = '<span class="btn__arrow" aria-hidden="true">→</span>';
 
-/** Header links (≤ 6 marks with the monogram, wordmark and WhatsApp). */
+/** Header links after Home (v2: Contact joins the nav). */
 export const HEADER_NAV = Object.freeze([
   { key: 'services', label: 'Services', href: 'services.html' },
   { key: 'story', label: 'Story', href: 'story.html' },
-  { key: 'partners', label: 'For Professionals', href: 'partners.html' },
+  { key: 'partners', label: 'Application', href: 'partners.html' },
+  { key: 'contact', label: 'Contact', href: 'contact.html' },
 ]);
 /** Menu and footer pages. */
 export const MENU_PAGES = Object.freeze([
@@ -81,10 +89,9 @@ export function headerHTML(page = 'home') {
   const links = [{ key: 'home', label: 'Home', href: 'index.html' }, ...HEADER_NAV].map(({ key, label, href }) =>
     `<li><a class="site-nav__link" href="${href}"${current(key, page)}>${titleCase(label)}</a></li>`).join('');
   return `
-  <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${MONOGRAM}<span class="brand__word">${SITE_NAME}</span></a>
+  <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${BRAND_MARK}<span class="brand__word">${SITE_NAME}</span></a>
   <nav class="site-nav" aria-label="Main"><ul class="site-nav__list">${links}</ul></nav>
-  <a class="btn btn--primary btn--sm site-header__wa" href="${pageLink(page)}" ${NEW_TAB} ${sheetAttrs(page)}
-     aria-label="Message Us on WhatsApp">${ICONS.whatsapp}<span class="btn__label">WhatsApp</span></a>
+  ${ACCOUNT_LINK}
   <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">
     <span class="nav-toggle__label">Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span>
   </button>`;
@@ -158,7 +165,7 @@ function menuHTML(page) {
     `<li><a class="row row--compact" href="${href}"${current(key, page)}><span class="row__title">${titleCase(label)}</span><span class="row__arrow" aria-hidden="true">→</span></a></li>`).join('');
   return `
   <div class="menu__bar">
-    <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${MONOGRAM}<span class="brand__word">${SITE_NAME}</span></a>
+    <a class="brand" href="index.html" aria-label="${SITE_NAME}, home">${BRAND_MARK}<span class="brand__word">${SITE_NAME}</span></a>
     <button class="nav-toggle menu__close" type="button" data-menu-close>Close ${ICONS.close}</button>
   </div>
   <div class="menu__body">
@@ -251,7 +258,7 @@ export function placeholderCard({ category = '', level = CARD_LEVEL.fallback } =
     <div class="partner-card__body">
       <${h} class="partner-card__title">Partner Spot Available</${h}>
       <p class="partner-card__meta">${meta}</p>
-      <a class="link" href="partners.html">Apply to Join ${ARROW}</a>
+      <a class="link" href="partners.html">Join Us ${ARROW}</a>
     </div>
   </article>`;
 }
@@ -344,6 +351,7 @@ export function initChrome({ page = document.body.dataset.page || 'home' } = {})
   const header = ensureHeader(page);
   const menu = createMenu(header, page, (open) => menuListeners.forEach((cb) => cb(open)));
   fillSlots(page);
+  initAccountButton({ root: header });
   document.addEventListener('click', (e) => { if (!e.target.closest('.menu')) onSwitchClick(e); });
   window.addEventListener('storage', (e) => { if (e.key === SOUND_KEY) syncSwitches(); });
 

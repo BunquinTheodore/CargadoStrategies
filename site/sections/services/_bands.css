@@ -4,7 +4,6 @@
 /* 11. Bands ----------------------------------------------------------------------------------- */
 /* Laptop-short (≥ 760 wide, ≤ 760 tall): rows at 64 px, the caps tighten. */
 @media (min-width: 760px) and (max-height: 760px) {
-  .intro__rows .row { min-height: 64px; }
   .ins__portrait { --tportrait-h: min(54svh, 32vw); }
   .strat__title { font-size: min(var(--fs-mega), 18svh); }
   .incl__row { min-height: 52px; }
@@ -23,6 +22,7 @@
   #ours-insurance :is(.scene__pan, html.rm .scene__inner) { display: flex; flex-direction: column; gap: var(--space-s); }
   .ins__object { flex: 1 1 30svh; max-height: 30svh; min-height: 0; container-type: size; }
   .ins__portrait { --tportrait-h: min(100cqh, 70vw); min-height: 0; height: 100%; }   /* the ring never outgrows its band */
+  .ins__photo { width: min(100%, 80cqh); }   /* 4:5, so the photo is exactly the band tall and never runs under the title */
   .ins__copy { flex: 0 0 auto; gap: var(--space-l); padding-bottom: 0; }   /* the portrait band gives way, never the copy */
   .ins__title { max-width: none; }
   #finder:not(.is-finder) :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-start; }
@@ -31,7 +31,6 @@
     flex: 1 1 32svh; min-height: 8svh; max-height: 32svh;
   }
   .finder__copy { width: auto; flex: 0 1 auto; justify-content: flex-end; padding-bottom: 0; gap: var(--space-m); }
-  .intro__head { max-width: none; }
   #inquiry :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); row-gap: var(--space-m); align-items: stretch; }
   .inq__title { max-width: none; }
   .inq__paper { min-height: 0; align-self: start; }
@@ -54,10 +53,6 @@
 
 /* Phone only. */
 @media (max-width: 759px) {
-  .intro__title { font-size: clamp(2.25rem, 10.5vw, 2.75rem); }
-  #intro :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
-  .intro__rows .row:where(a) { grid-template-columns: auto minmax(0, 1fr) auto auto; grid-template-areas: "num title meta arrow"; min-height: 64px; }
-  .intro__rows .row__title { font-size: max(1.75rem, var(--fs-d2)); }   /* Times never under 28 px */
   .ins__copy { gap: var(--space-m); }
   .ins__head { gap: var(--space-xs); }
   .ins__promise, .strat__for, .strat__promise { font-size: 1.0625rem; }
@@ -112,8 +107,14 @@
   .cats:not(.is-detail) .cats__detail { display: none; }
   .cats.is-detail .cats__back { display: inline-flex; justify-self: start; }
   .cats__tags { display: none; }
-  /* a category with partners fits the 92svh sheet at 360 × 740 */
+  /* a category with partners fits the sheet at 360 × 740: Insurance splits into Ours · Partners
+     tabs (their labels say what the eyebrow says), and the sheet may rise to 24 px under the top */
+  .dialog.cats { max-height: calc(100svh - 24px); }
   .cats .dialog__panel { gap: var(--space-xs); padding-top: var(--space-s); }
+  .cats__card.is-tabbed .cats__intro .eyebrow { display: none; }
+  .cats__card, .cats__about, .cats__listing { gap: 6px; }
+  .cats__card .fineprint { line-height: 1.4; }
+  .cats__tabs { width: 100%; }
   .cats__partner { padding-block: 4px; }
   .cats__cta { margin-top: 0; --btn-h: 44px; min-height: 44px; }
   .profile__facts { grid-template-columns: minmax(0, 1fr); gap: 2px; }

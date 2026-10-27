@@ -1,13 +1,13 @@
 # Cargado Strategies website
 
-A static website: plain HTML, CSS and JavaScript modules, with no server code.
+A static website: plain HTML, CSS and JavaScript modules. The only server code is the Vercel functions in `../api/` (email, booking, accounts); see the root `README.md` for those, the environment variables and the setup guides in `../docs/` ([Google Calendar](../docs/setup-google-calendar.md), [Firebase](../docs/setup-firebase.md)).
 
 - `site/` is the readable source. It runs unbundled through `serve.mjs` (which assembles each page from its sections): GSAP 3.12.5 loads from a public CDN at a fixed version (Lenis 1.1.13 loads lazily, on mouse and trackpad only) and the fonts from Google Fonts. Round 5 removed ScrollTrigger and three.js: the globe is a 2D dot canvas.
 - `dist/` is the production copy made by `npm run build`: the same site bundled, minified and self-hosted for speed. **Upload `dist/`, not `site/`.**
 
 Fonts: Manrope 400/500/600 (body) and Poppins 500/600 (labels and buttons), with Tinos 400 and italic downloaded only where the system Times New Roman (display type) is missing.
 
-Colour palette: black and gold (ink `#0B0B0C`, gold `#C9A24A` / `#D4AF37`, ivory `#F5F0E6`, dark gold `#7A5C12` for gold text on light backgrounds). All tokens live at the top of `core/design/base.css` (see *Design system* below).
+Colour palette: black and gold (ink `#0B0B0C`, gold `#C9A24A` / `#D4AF37`, ivory `#F5F0E6`, dark gold `#7A5C12` for gold text on light backgrounds), plus a deep navy (`--navy-deep` `#0E172C`, the `--navy-glow` wash) used only in the background of the ink field and the app pages, never on text, buttons, links, icons or borders. All tokens live at the top of `core/design/base.css` (see *Design system* below).
 
 ---
 
@@ -157,13 +157,20 @@ To see the plain, motion-free version of any page, turn on "reduce motion" in th
 
 | File | Page | What is on it |
 |---|---|---|
-| `index.html` | Home | Six scenes plus credits: the hero (first full stop), one message instead of five searches, situations (services), the founder's three doors, find someone near you (the globe comes down to Canada), and the close (the FAQ opens as a dialog) |
-| `services.html` | Services | Intro, the founder's businesses (insurance, business strategy and what it includes, outsourcing), the partner finder (map of Canada + city/postal search, every category), the inquiry form, close |
-| `story.html` | Our story | The founder's statement, where it began, the logo story (W for Wealth, C for Cargado, Mark 11:24 as a reference), values with the independence fine print, close |
+| `index.html` | Home | Seven scenes plus credits: the hero (first full stop), the services orbit (v2), one message instead of five searches, situations (services), the founder's three doors, find someone near you (the globe comes down to Canada), and the close (the FAQ opens as a dialog) |
+| `services.html` | Services | The services orbit, the services Cargado Strategies provides itself (insurance, business strategy and what it includes, outsourcing, then web design, graphics and virtual assistance, software development, contractor work, export and import), the partner finder (map of Canada + city/postal search, every category), the inquiry form, close |
+| `story.html` | Our story | The logo story (W for Wealth, C for Cargado, Mark 11:24 as a reference), the founder's statement with her portrait, where it began, values with the independence fine print, close |
 | `partners.html` | Become a partner | Offer, how it works, tiers (Community / Growth / Premier), founding-partner offer, application form, close |
-| `legal.html` | Legal | Contents with the draft notice, professional disclosure, privacy policy, terms of use, partner code of conduct, FAQ, close |
+| `contact.html` | Contact (v2) | Book a free 10-minute consultation (day, Central Time slot, details) beside the founder's poster photo; then WhatsApp, email, Facebook page and address; credits |
+| `legal.html` | Legal | Contents, professional disclosure, privacy policy, terms of use, partner code of conduct, FAQ, close (v2 clauses marked `data-draft="pending-lawyer-review"`, invisible) |
+| `account.html` | Log in (app page) | Log in, sign up (optional referral code), password reset, Google sign-in |
+| `dashboard.html` | Client dashboard (app page) | Points balance and history, bookings, referral links, profile |
+| `partner-dashboard.html` | Partner dashboard (app page) | Profile, referrals |
+| `admin.html` | Admin (app page) | Applications, bookings and their status, clients and points, referrals |
 
-Useful deep links: `services.html#finder`, `services.html#<category-slug>` (for example `services.html#legal`), `legal.html#disclosure`, `#privacy`, `#terms`, `#conduct`, `#faq`. Home's `#faq` opens the FAQ dialog.
+v2 (2026-10-25) also added the services orbit to Home (after the hero) and to Services (in place of the intro), and five Services scenes for the services Cargado Strategies provides itself (`ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-trade`). Each page's scene list is in `sections/<page>/CLAUDE.md`. App pages are ordinary scrolling pages, not scroll films (`sections/app/CLAUDE.md`).
+
+Useful deep links: `services.html#finder`, `services.html#<category-slug>` (for example `services.html#legal`, `services.html#web-design`), `contact.html?service=<slug>#book`, `legal.html#disclosure`, `#privacy`, `#terms`, `#conduct`, `#faq`. Home's `#faq` opens the FAQ dialog.
 
 How a page is put together: each `*.html` file above holds the `<head>`, the header, the WhatsApp sheet and one marker per section, such as `<!-- @section home/hero -->`. The marker is replaced by the exact contents of `sections/home/hero/hero.html`. `serve.mjs` does this when it serves `site/`, and `npm run build` does it for `dist/` (both use `tools/lib/assemble.mjs`). **To change a section's text, edit its file in `sections/<page>/<name>/<name>.html`**, not the page file.
 
@@ -184,7 +191,7 @@ Three stylesheets load on every page, in this order, before the page's own CSS: 
 - **Type.** `.t-mega`, `.t-statement`, `.t-d1`, `.t-d2`, `.t-quote` (Times), `.t-lead` and body (Manrope), `.eyebrow` and every control label (Poppins). Nothing visible is smaller than 14 px (`--fs-label`); reading and fine-print lines use `--fs-note` (16 px, 15 on phones).
 - **Modes** (set on `<html>` before first paint): `film` (mouse and trackpad: one fixed stage, each scene cut in), `touch-cut` (phones and tablets: native scroll snap, transparent scenes over one fixed `.fields` layer) and `rm` (flow: reduced motion, no JS, or the safety fallback; each scene paints its own field). `data-tier` (A, B, C) scales the decoration; Legal is tier C.
 - **Components** (`core/design/ui.css` + `core/ui/ui-*.js`): index rows (`.row`, `.row--quote`), doors (`.doors > .door`), the strike list, the steps strip, paper (`.paper`, one framed element per scene), fine print (`.fineprint`, at most one per scene), tabs and switches (`ui-tabs.js`), pagers (`ui-pager.js`), steppers (`ui-stepper.js`), dialogs (`ui-dialog.js`), exclusive accordions (`ui-accordion.js`), the focus helper (`ui-focus.js`), the globe placement (`globe-fit.js`) and the WhatsApp sheet (`.sheet`). Their APIs are in `plan/round5/api.md` §17.
-- **Chrome** (`chrome.js`): the header is written into every page's HTML and wired by the script; the phone menu is a native dialog; the `#credits` scene's footer carries the contact row, the links, the fine print, the tagline (once per page) and the **Sound** and **Motion** switches. *Motion: Reduced* is remembered (`localStorage`) and reloads the page in the calm flow mode, keeping the scene.
+- **Chrome** (`chrome.js`): the header is written into every page's HTML and wired by the script; the phone menu is a native dialog; the `#credits` scene's footer carries the contact row (WhatsApp, email, Facebook page name, address; no Call item), the links and the tagline (once per page). There are no Sound or Motion switches and no footer fine print (owner, 2026-10-20); the calm flow mode follows the operating system's reduce-motion setting.
 
 ---
 
@@ -198,7 +205,11 @@ Nothing on the site invents people, partners, reviews, numbers or licence number
 |---|---|---|
 | `FACEBOOK_URL` | `https://www.facebook.com/` (placeholder) | Put the Cargado Strategies Facebook page address here, then set `FACEBOOK_IS_PLACEHOLDER = false`. |
 | `VIDEO.url` | empty, so the home page shows "Founder video coming soon" | Put the video file address (MP4) here. Also set `VIDEO.captions` (a `.vtt` captions file, needed for accessibility), `VIDEO.poster` (a still image) and `VIDEO.source` (`'founder'` or `'stock'`). The video never plays with sound by itself. |
-| `CONTACT_EMAIL` | empty, so forms send through WhatsApp only and pages show "[company email]" | Put the company email here when it exists; the forms then offer email too. |
+| `CONTACT_EMAIL` | `info@cargadostrategies.com` | The forms offer email too. The Privacy Policy writes the same address into `sections/legal/privacy/privacy.html`; change both together. |
+| `BOOKING` | 10-minute slots, 3:30 pm to 8:50 pm Winnipeg, 2 h lead, 60 days | The Contact page and `api/` both read it. |
+| `INSURANCE_INQUIRY_URL` | `https://policyreview.leeholgado.com/` | Insurance CTAs open it in a new tab. Empty = the WhatsApp sheet. |
+| `FIREBASE` | the project's web config (public by design) | Empty = every app page shows "Accounts are coming soon". Never add `measurementId` (no Analytics). |
+| `FOUNDER_PHOTOS` | navy, cream and poster photos (`assets/img/founder/`) | Regenerate the sizes with `tools/gen-images.mjs`. |
 | `PHONE` | +1 (204) 869 2508 | Change only if the business number changes. Every WhatsApp link uses it. |
 | `PARTNERS` | empty, so every category shows "Partner spot available" | Add approved partners (see below). |
 
@@ -247,7 +258,7 @@ export const PARTNERS = Object.freeze([
 
 The partner then appears in the finder (sorted by distance, with the distance shown), on the map, and in that category on the Services page. Each category list always shows at least two entries, so "Partner spot available" cards fill the empty slots until two real partners are listed. Coordinates can be looked up on any map site (right-click the office location).
 
-Category slugs: `insurance`, `business-strategy`, `outsourcing`, `manufacturing`, `legal`, `mortgage`, `real-estate`, `accounting-and-tax`, `financial-planning`.
+Category slugs: `insurance`, `business-strategy`, `outsourcing`, `web-design`, `graphics`, `virtual-assistant`, `software-development`, `export-import`, `contractor`, `manufacturing`, `legal`, `mortgage`, `real-estate`, `accounting-and-tax`, `financial-planning`.
 
 Never add a "verified" badge, a ranking or a recommendation. The finder sorts by distance only.
 
@@ -265,7 +276,7 @@ Add an entry to `CATEGORIES` in `assets/js/config.js`:
 },
 ```
 
-The new category shows up by itself in the home page service tiles, the finder's "What do you need?" list, the Services category rail, the inquiry form and the partner application form. Its deep link `services.html#<slug>` works straight away. Do not use a slug that is already a scene id on the Services page (`intro`, `finder`, `categories`, `inquiry`, `close`, `ours-insurance`, `ours-strategy`, `ours-outsourcing`).
+The new category shows up by itself in the home page service tiles, the finder's "What do you need?" list, the Services category rail, the inquiry form and the partner application form. Its deep link `services.html#<slug>` works straight away. Do not use a slug that is already a scene id on the Services page (`orbit`, `finder`, `categories`, `inquiry`, `close`, `ours-insurance`, `ours-strategy`, `ours-includes`, `ours-outsourcing`, `ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-trade`).
 
 For a category with `ownership: 'founder'` or `'both'`, also add its offer and credential line to `FOUNDER_OFFERS` in `sections/services/services-data.js` and `FOUNDER_LINES` in `sections/services/categories-dialog/services-categories.js` (with `[bracket]` placeholders until the details are confirmed).
 

@@ -1,0 +1,44 @@
+/* 2b. H1b · Orbit: the head on the left, the ring on the right; stacked where the screen is
+   portrait. core/design/orbit.css draws the ring; this file places it and sizes it to the
+   scene's safe box (--orbit-size never taller than the box under the header). Flow mode has no
+   .scene__pan, so html.rm lays out .scene__inner the same way. -------------------------------- */
+#orbit :is(.scene__pan, html.rm .scene__inner) {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  column-gap: var(--space-2xl);
+}
+.horbit__head { display: grid; gap: var(--space-s); justify-items: start; max-width: 34rem; }
+.horbit__head .rule { margin-top: var(--space-xs); }
+.horbit__title { font-size: min(var(--fs-statement), 11svh, 6vw); max-width: 10ch; }
+.horbit__line { margin: 0; max-width: 36ch; font: 400 var(--fs-lead)/1.45 var(--font-body); color: var(--fg-muted); }
+.horbit__hint { margin: 0; }
+.horbit__orbit {
+  --orbit-size: min(640px, max(470px, min(calc(var(--scene-safe-h) - 8px), 50vw)));
+  --orbit-node: clamp(108px, 13vmin, 120px);
+  margin: 0;
+}
+
+/* Tablet portrait (≥ 760 wide but not landscape): the head over the ring. */
+@media (min-width: 760px) and (max-aspect-ratio: 1/1) {
+  #orbit :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); align-content: center; row-gap: var(--space-l); }
+  .horbit__head { max-width: none; }
+  .horbit__title { max-width: none; font-size: min(var(--fs-statement), 7svh); }
+  .horbit__orbit { --orbit-size: min(560px, max(470px, 62vw)); margin-inline: auto; }
+}
+
+/* Phones: the head, then the mark band and the two-column pills (orbit.css), in the thumb zone. */
+@media (max-width: 759px) {
+  #orbit :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); align-content: space-between; row-gap: var(--space-m); }
+  .horbit__head { gap: var(--space-xs); max-width: none; }
+  .horbit__title { max-width: none; font-size: min(var(--fs-statement), 6.5svh); }
+  .horbit__line { font-size: 1rem; line-height: 1.45; }
+  /* 44 px pills (two-line names included) and 6 px gaps keep the R5 whitespace (18%) at 390 px */
+  .horbit__orbit { --orbit-core-h: clamp(72px, 13svh, 140px); --orbit-pill-h: 44px; }
+  .horbit__orbit .orbit__ring { gap: 6px; }
+  .horbit__orbit .orbit__node { padding-block: 4px; line-height: 1.15; }
+  /* short phones: no hint, a smaller mark band and the reading-line size for the line */
+  @media (max-height: 780px) {
+    .horbit__hint { display: none; }
+    .horbit__line { font-size: var(--fs-note); }
+    .horbit__orbit { --orbit-core-h: clamp(60px, 9svh, 96px); }
+  }
+}

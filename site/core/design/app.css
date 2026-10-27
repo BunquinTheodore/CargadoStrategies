@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Cargado Strategies — app.css (v2 §8: account and dashboard pages)
+   App pages are ordinary scrolling pages, not scroll films: they load base.css
+   (tokens, ink field, type, buttons, forms) and this file only. Brand rules
+   still hold: black and gold, navy only in the background wash, 14 px floor,
+   44 px targets, from 360 px.
+   Sections: 1 page · 2 header · 3 main and cards · 4 lists · 5 forms and status · 6 footer
+   ========================================================================== */
+
+/* 1. Page --------------------------------------------------------------------- */
+html.app { scroll-snap-type: none; background: var(--c-black); }
+.app-body {
+  display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh;
+  background-color: var(--bg);
+  background-image: var(--field-bg);            /* key light + the navy wash of the ink field */
+  background-attachment: fixed;
+}
+
+/* 2. Header (static, not the film's fixed header) --------------------------------- */
+.app-header {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l);
+  padding: var(--space-xs) var(--page-pad); border-bottom: 1px solid var(--line);
+  background: var(--hdr-bg-solid);
+}
+.app-header .brand { margin-right: auto; }
+.app-header .brand__mark { width: auto; height: 40px; flex: none; }
+.app-nav__list { display: flex; flex-wrap: wrap; gap: 0 var(--space-m); }
+.app-nav__link {
+  display: inline-flex; align-items: center; min-height: var(--tap-min);
+  font: 600 var(--fs-ui-min)/1 var(--font-body); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--fg); text-decoration: none;
+}
+.app-nav__link:is(:hover, :focus-visible) { color: var(--accent); }
+.app-header__user { display: flex; align-items: center; gap: var(--space-s); }
+.app-header__name { font: 500 var(--fs-label)/1.3 var(--font-ui); color: var(--fg-muted); }
+@media (max-width: 759px) {
+  .app-header .brand__word { font-size: 1.125rem; }
+  .app-nav { order: 3; width: 100%; }
+}
+
+/* 3. Main and cards ------------------------------------------------------------- */
+.app-main {
+  flex: 1; display: grid; align-content: start; gap: var(--space-l);
+  width: 100%; max-width: 64rem; margin: 0 auto; padding: var(--space-xl) var(--page-pad) var(--space-2xl);
+}
+.app-main h1 { font-size: clamp(2rem, calc(1.2rem + 2.4vw), 3.25rem); line-height: 1.05; }
+.app-main h2 { font-size: clamp(1.75rem, calc(1.2rem + 1vw), 2.25rem); }
+.app-card {
+  display: grid; gap: var(--space-m); padding: clamp(20px, 4vw, 40px);
+  border: 1px solid var(--line); border-radius: 12px;
+  background: color-mix(in srgb, var(--c-charcoal-2) 88%, transparent);
+}
+.app-dash { display: grid; gap: var(--space-l); }
+.app-dash__head { display: grid; gap: var(--space-xs); }
+.app-sub { font: 600 var(--fs-d4)/1.25 var(--font-body); letter-spacing: 0; margin-top: var(--space-xs); }
+.app-soon { max-width: 40rem; justify-items: start; }
+.app-loading { font: 500 var(--fs-note)/1.5 var(--font-ui); color: var(--fg-muted); }
+.app-actions { display: flex; flex-wrap: wrap; gap: var(--space-s); }
+
+/* 4. Lists (rows that stack on phones) --------------------------------------------- */
+.app-list { display: grid; }
+.app-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px var(--space-m); align-items: center;
+  padding: var(--space-s) 0; border-top: 1px solid var(--line);
+}
+.app-row:last-child { border-bottom: 1px solid var(--line); }
+.app-row__main { font-weight: 600; overflow-wrap: anywhere; }
+.app-row__meta { grid-column: 1; font-size: var(--fs-note); color: var(--fg-muted); overflow-wrap: anywhere; }
+.app-row__value { grid-column: 2; grid-row: 1 / span 2; justify-self: end; font-weight: 600; }
+.app-row__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-xs); align-items: center; }
+.app-row__actions .select { width: auto; min-width: 11rem; min-height: var(--tap-min); padding-block: 6px; font-size: 1rem; }
+@media (min-width: 760px) {
+  .app-row:has(.app-row__actions) { grid-template-columns: minmax(0, 1fr) auto; }
+  .app-row__actions { grid-column: 2; grid-row: 1 / span 2; justify-content: end; }
+}
+
+/* 5. Forms and status ---------------------------------------------------------------- */
+.app-main .form { max-width: 34rem; }
+.app-status { min-height: 1.5em; font: 500 var(--fs-note)/1.5 var(--font-ui); color: var(--fg-muted); }
+.app-status:empty { min-height: 0; }
+.app-status[data-tone="error"] { color: var(--error); }
+.app-status[data-tone="ok"] { color: var(--fg); }
+.app-main .input[readonly] { opacity: .8; }
+
+/* 6. Footer ------------------------------------------------------------------------ */
+.app-footer {
+  padding: var(--space-m) var(--page-pad) calc(var(--space-m) + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--line); font: 500 var(--fs-label)/1.6 var(--font-ui); color: var(--fg-muted); text-align: center;
+}
+.app-footer a { display: inline-flex; align-items: center; min-height: var(--tap-min); color: inherit; }

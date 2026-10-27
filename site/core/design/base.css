@@ -113,6 +113,12 @@
   --kx: 30%;  --ky: 55%;
   --key-light: radial-gradient(60% 50% at var(--kx) var(--ky), rgba(212,175,55,.08), transparent 70%);
   --lamp: radial-gradient(120% 90% at 70% 30%, #1A1712 0%, #0B0B0C 62%);
+  /* navy (owner, 2026-10-25): background only, inside the ink field, never on a foreground.
+     A low glow from the bottom right, opposite the warm lamp and clear of the key light, so
+     no point of the field is lighter than the lamp's core (gold and bone contrast unchanged). */
+  --navy-deep: #0E172C;
+  --navy-glow: radial-gradient(100% 80% at 85% 105%, var(--navy-deep) 0%, rgba(14,23,44,0) 80%);
+  --ink-wash: var(--navy-glow), var(--lamp);
   --grain-op: .05;  --stars-op-ink: 1;  --stars-op-long: .25;  --hair-w: 1px;
 
   /* the full stop */
@@ -149,13 +155,14 @@
    alone, not the whole document); with no data-hdr the header is ink. */
 [data-field="ink"], .on-ink,
 .site-header:not([data-hdr]), .site-header[data-hdr="ink"] {
-  --bg: #0B0B0C;  --field-bg: var(--key-light), var(--lamp);
+  --bg: #0B0B0C;  --field-bg: var(--key-light), var(--ink-wash);
   --fg: #F3ECDD;  --fg-muted: var(--c-ivory-2nd);  --accent: #D4AF37;
   --line: rgba(212,175,55,.22);  --line-strong: rgba(243,236,221,.42);  --line-text: rgba(243,236,221,.16);
   --surface: var(--c-charcoal-2);
   --input-bg: #1A1A1C;  --input-line: rgba(243,236,221,.45);  --input-fg: #F3ECDD;
   --btn-bg: linear-gradient(180deg, #E6C55A 0%, #D4AF37 55%, #C29B2C 100%);  --btn-fg: #0B0B0C;  --btn-arrow: #0B0B0C;  --btn-hover-bg: linear-gradient(180deg, #F0D673 0%, #DDB943 55%, #CBA533 100%);
   --btn-line: rgba(255,240,190,.75);   /* solid glass buttons (owner, 2026-10-20): opaque gold pill, glossy edge and sheen */
+  --btn-glow: 212, 175, 55;           /* the halo ring and glow under the pill (owner, 2026-10-26) */
   --chip-on-bg: #D4AF37;  --chip-on-fg: #0B0B0C;
   --row-flood: #D4AF37;  --row-flood-fg: #0B0B0C;
   --ph-line: rgba(212,175,55,.6);  --ph-loud: rgba(212,175,55,.16);
@@ -171,6 +178,7 @@
   --input-bg: #FFFFFF;  --input-line: rgba(11,11,12,.30);  --input-fg: #0B0B0C;
   --btn-bg: linear-gradient(180deg, #E6C55A 0%, #D4AF37 55%, #C29B2C 100%);  --btn-fg: #0B0B0C;  --btn-arrow: #0B0B0C;  --btn-hover-bg: linear-gradient(180deg, #F0D673 0%, #DDB943 55%, #CBA533 100%);
   --btn-line: rgba(122,92,18,.55);
+  --btn-glow: 176, 138, 32;
   --chip-on-bg: #0B0B0C;  --chip-on-fg: #E9DCB8;
   --row-flood: #0B0B0C;  --row-flood-fg: #F3ECDD;
   --ph-line: rgba(122,92,18,.6);  --ph-loud: rgba(122,92,18,.12);
@@ -186,6 +194,7 @@
   --input-bg: #0B0B0C;  --input-line: rgba(243,236,221,.45);  --input-fg: #F3ECDD;   /* inputs on gold: ink fill */
   --btn-bg: linear-gradient(180deg, #2A2A2E 0%, #141416 55%, #0B0B0C 100%);  --btn-fg: #F3ECDD;  --btn-arrow: #D4AF37;  --btn-hover-bg: linear-gradient(180deg, #34343A 0%, #1C1C1F 55%, #111113 100%);
   --btn-line: rgba(243,236,221,.35);
+  --btn-glow: 11, 11, 12;
   --chip-on-bg: #0B0B0C;  --chip-on-fg: #D4AF37;
   --row-flood: #0B0B0C;  --row-flood-fg: #F3ECDD;
   --ph-line: rgba(11,11,12,.6);  --ph-loud: rgba(11,11,12,.1);
@@ -352,7 +361,7 @@ html.is-cutting .scene:is(.is-entering, .is-leaving) .scene__pan { will-change: 
 
 /* The persistent layers: one .fields, one .iris per page. */
 .fields { position: absolute; inset: 0; z-index: var(--z-fields); pointer-events: none; background-color: var(--bg); }
-.fields[data-field="ink"] { background-image: var(--lamp); }
+.fields[data-field="ink"] { background-image: var(--ink-wash); }
 .fields[data-field="gold"] { background-image: var(--metal-grad); }
 /* The iris (C4): a circle of radius --iris-r centred on --iris-x/--iris-y. Its
    gradient spans the whole circle: a viewport-sized one shrank with the scale into a
@@ -364,9 +373,11 @@ html.is-cutting .scene:is(.is-entering, .is-leaving) .scene__pan { will-change: 
   border-radius: 50%; transform: scale(0); background-color: var(--bg); background-repeat: no-repeat;
   background-size: 100% 100%; background-position: 0 0;
 }
-.iris[data-field="ink"] { background-image: var(--lamp); }
+.iris[data-field="ink"] { background-image: var(--ink-wash); }
 .iris[data-field="gold"] { background-image: var(--metal-grad); }
 .iris[data-state="fade"] { left: 0; top: 0; width: 100%; height: 100%; border-radius: 0; transform: none; z-index: var(--z-fields); }
+/* quad and flood (transitions.js): the full frame, clipped to the region polygon iris.js writes inline. */
+.iris[data-state="wipe"] { left: 0; top: 0; width: 100%; height: 100%; border-radius: 0; transform: none; }
 .iris[data-state="idle"] { visibility: hidden; }
 .iris:not([data-field]) { visibility: hidden; }
 /* Canvases and grain sit in the stage, under the scenes (visual.css skins them). */
@@ -434,14 +445,22 @@ html[data-tier="A"] .site-header { background: var(--hdr-bg); -webkit-backdrop-f
 /* Film mode: nothing scrolls under the header, so on gold it lets the brushed metal
    through instead of a flat band with a hard edge (V5). Flow modes keep the solid token. */
 html.film .site-header[data-hdr="gold"] { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; }
-.brand { display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap-min); margin-right: auto; color: inherit; text-decoration: none; }
+.brand { display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap-min); min-width: var(--tap-min); margin-right: auto; color: inherit; text-decoration: none; }
 .monogram { width: 36px; height: 36px; flex: none; color: var(--accent); }
-.brand .monogram { view-transition-name: cs-mark; }
+/* The owner's logo mark (v2 §6.5): a 2x/3x PNG drawn at 41 x 40; the footer and splash keep the monogram. */
+.brand__mark { display: block; width: 41px; height: 40px; flex: none; object-fit: contain; }
+.site-header .brand__mark { view-transition-name: cs-mark; }
+.site-header[data-hdr="gold"] .brand__mark { filter: brightness(0); }   /* gold on gold would vanish: ink on the one gold field */
 .brand__word { font: 400 1.25rem/1 var(--font-display); letter-spacing: .005em; white-space: nowrap; }
 .site-nav__list { display: flex; gap: clamp(20px, 2.4vw, 40px); }
-/* The header links: Josefin Sans Bold, all caps (owner, 2026-10-20). */
-.site-nav .site-nav__link { font: 700 var(--fs-ui-min)/1 'Josefin Sans', var(--font-ui); text-transform: uppercase; letter-spacing: .14em; }
-@media (min-width: 1024px) and (max-width: 1199px) { .site-nav .site-nav__list { gap: 18px; } .site-nav .site-nav__link { letter-spacing: .06em; } }   /* clear of the brand on small laptops */
+/* The header links: Manrope, all caps (owner, 2026-10-26; was Josefin Sans). */
+.site-nav .site-nav__link { font: 600 var(--fs-ui-min)/1 var(--font-body); text-transform: uppercase; letter-spacing: .14em; }
+/* Five links plus the account button (v2): tighter links up to 1279 px, and the WhatsApp
+   button drops to its icon below 1200 px, so the centred nav clears the brand and the right side. */
+@media (min-width: 1024px) and (max-width: 1279px) { .site-nav .site-nav__list { gap: 18px; } .site-nav .site-nav__link { letter-spacing: .06em; } }
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .site-nav .site-nav__list { gap: 16px; } .site-nav .site-nav__link { letter-spacing: .02em; }
+}
 /* The page links sit at the true centre of the header, whatever the brand and WhatsApp widths. */
 @media (min-width: 1024px) {
   .site-nav { position: absolute; left: 50%; transform: translateX(-50%); }
@@ -455,7 +474,17 @@ html.film .site-header[data-hdr="gold"] { background: transparent; -webkit-backd
   transform: scaleX(0); transform-origin: 100% 50%; transition: transform .25s var(--ease-out);
 }
 .site-nav__link:is(:hover, :focus-visible, [aria-current="page"])::after { transform: scaleX(1); transform-origin: 0 50%; }
-.site-header__wa .icon { width: 20px; height: 20px; }
+/* Account (v2 §8.1): "Log In", or "Dashboard" once signed in (owner, 2026-10-26). Hidden until Firebase is configured. */
+.site-header__account:not([hidden]) {
+  position: relative; display: inline-block; flex: none; min-width: var(--tap-min);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: center; color: inherit; text-decoration: none;
+  font: 600 var(--fs-ui-min)/var(--tap-min) var(--font-body); text-transform: uppercase; letter-spacing: .14em;
+}
+.site-header__account::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 10px; height: 1px; background: var(--accent);
+  transform: scaleX(0); transform-origin: 100% 50%; transition: transform .25s var(--ease-out);
+}
+.site-header__account:is(:hover, :focus-visible)::after { transform: scaleX(1); transform-origin: 0 50%; }
 .nav-toggle {
   display: none; align-items: center; gap: 10px; min-height: var(--tap-min); min-width: var(--tap-min);
   padding: 0 4px 0 10px; background: none; border: 0; color: inherit; font: 500 var(--fs-ui-min) var(--font-ui);
@@ -469,9 +498,7 @@ html.film .site-header[data-hdr="gold"] { background: transparent; -webkit-backd
 }
 @media (max-width: 759px) {
   .site-header { gap: var(--space-xs); }
-  .brand__word { display: none; }                 /* phone: monogram, WhatsApp icon, Menu */
-  .site-header .site-header__wa { width: var(--tap-min); min-width: var(--tap-min); padding: 0; }
-  .site-header__wa .btn__label { display: none; }
+  .brand__word { display: none; }                 /* phone: mark, account, Menu */
 }
 html:not(.js) .site-nav { display: block; }       /* no JS: the links stay reachable */
 html:not(.js) .nav-toggle { display: none; }
@@ -572,18 +599,24 @@ html:not(.js) .nav-toggle { display: none; }
 .btn--primary {
   position: relative; background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-line, var(--btn-bg));
   -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.55), inset 0 -2px 6px rgba(0,0,0,.18), 0 10px 26px -12px rgba(0,0,0,.55);
+  /* Glossy pill (owner reference, 2026-10-26): a bright rim, a soft light pooled inside the top,
+     a faint halo ring round the pill and a glow under it. */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6), inset 0 0 0 1px rgba(255,255,255,.14), inset 0 -8px 16px -6px rgba(0,0,0,.22),
+    0 0 0 4px rgba(var(--btn-glow), .16), 0 10px 28px -8px rgba(var(--btn-glow), .55);
 }
-.btn--primary::before {        /* the glass sheen: a soft highlight across the upper half */
-  content: ""; position: absolute; inset: 1px 1px 50% 1px; border-radius: 999px 999px 40% 40% / 999px 999px 100% 100%;
-  background: linear-gradient(rgba(255,255,255,.38), rgba(255,255,255,0)); pointer-events: none;
+.btn--primary::before {        /* the inner light: a soft radial pool under the top rim */
+  content: ""; position: absolute; inset: 1px; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(70% 90% at 50% 0%, rgba(255,255,255,.34), rgba(255,255,255,0) 70%);
 }
+.btn--primary > * { position: relative; }
 .btn--primary:hover { background: var(--btn-hover-bg); border-color: var(--btn-line, var(--btn-hover-bg)); }
 .btn--ghost { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
 /* The header swaps colour once, at 50% of the iris, and never blends (api.md §8),
    not even for the one-frame transitions of the reduced-motion reset. */
 .site-header, .site-header :not(.btn__arrow) { transition-property: none; }
-.btn--ghost { --btn-arrow: var(--accent); background: rgba(255,255,255,.04); color: var(--fg); border-color: var(--line-strong); }
+.btn--ghost { --btn-arrow: var(--accent); background: rgba(255,255,255,.04); color: var(--fg); border-color: var(--line-strong);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 4px rgba(212,175,55,.08); }
 .btn--ghost:hover { border-color: var(--fg); }
 .btn--sm { min-height: var(--tap-min); padding: 0 1.1em; font-size: var(--fs-ui-min); }
 .btn--lg { min-height: var(--btn-h); }      /* RETIRED alias: every primary is 56 px */
@@ -743,4 +776,4 @@ html.rm::view-transition-new(root), html.rm::view-transition-old(root) { animati
 }
 /* The footer "Motion: Reduced" switch (html.rm) is as calm as the OS setting. */
 html.rm :is(.btn, .btn__arrow, .chip, .link, .btn--link),
-html.rm .site-nav__link::after, html.rm .acc > summary::after { transition: none; }
+html.rm .site-nav__link::after, html.rm .site-header__account::after, html.rm .acc > summary::after { transition: none; }

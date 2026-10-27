@@ -20,3 +20,7 @@ plan/round5/make_report.py
 .vercel/
 .env*.local
 plan/restructure/shots-*/
+
+# Private keys (Firebase service account). Never commit.
+secrets/
+plan/round5/seek-test/

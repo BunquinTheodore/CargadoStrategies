@@ -1,0 +1,25 @@
+/* account.html: the log-in / sign-up card. */
+.app-auth { max-width: 32rem; width: 100%; justify-self: center; }
+.app-switch { display: flex; gap: var(--space-xs); }
+.app-switch .chip { flex: 1; justify-content: center; }
+.app-auth__google { display: grid; gap: var(--space-s); }
+.app-or { display: flex; align-items: center; gap: var(--space-s); font: 500 var(--fs-label)/1 var(--font-ui); color: var(--fg-muted); }
+.app-or::before, .app-or::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+.app-auth__alt { justify-self: start; min-height: var(--tap-min); font-size: var(--fs-note); }
+.app-auth__consent { margin-top: 0; }
+/* The card fits one screen (owner, 2026-10-26): from 1280x720 up, log in and sign up show whole
+   without scrolling. Tighter page padding, gaps and fields, a smaller title, and on wide screens
+   the sign-up name and email sit side by side. */
+.app-main:has(> .app-auth:not([hidden])) { align-content: center; padding-block: var(--space-m); }
+.app-auth { gap: var(--space-s); padding: clamp(20px, 3vw, 32px); }
+.app-main .app-auth h1 { font-size: clamp(2rem, calc(1.2rem + 1.6vw), 2.5rem); }
+.app-auth .form { gap: var(--space-s); }
+.app-auth :is(.input, .select) { min-height: 48px; padding-block: 10px; }
+.app-auth .btn { min-height: 48px; }
+@media (min-width: 760px) {
+  .app-auth { max-width: 38rem; }
+  .app-auth [data-auth-form="signup"] { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-m); }
+  .app-auth [data-auth-form="signup"] > :nth-child(n + 3) { grid-column: 1 / -1; }
+}
+.app-auth .app-status:empty { display: none; }   /* no empty status row adding two gaps */
+.app-auth__alt { justify-self: center; }

@@ -1,0 +1,13 @@
+/* ==========================================================================
+   Cargado Strategies — pages/contact.css (contact.html, spec §6.4)
+   1 shared scene frame · 2 C1 book (P) · 3 C2 reach (R) · 4 bands: laptop-short,
+   tablet, tablet portrait, phone
+   Shared mechanics (paper, stepper, chips, rows) live in core/design (base.css,
+   ui.css); the files below only place and size them inside contact.html.
+   ========================================================================== */
+
+/* The page stylesheet is this list, in rule order (the build inlines it into one bundle). */
+@import "../sections/contact/_page.css";
+@import "../sections/contact/book/book.css";
+@import "../sections/contact/reach/reach.css";
+@import "../sections/contact/_bands.css";

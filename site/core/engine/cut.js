@@ -24,16 +24,60 @@
  * uses the same compact layout (there is nothing to take out). The timeline
  * is returned paused; the engine hands it to the 'cut' listeners first, then
  * plays it.
+ *
+ * `transition` (transitions.js; film.js picks it from the scenes' data-transition) varies the
+ * cut without moving a label: the field paint takes that shape (iris.js), the outgoing pan
+ * leaves its own way (iris: up; dot: collapses to a line; quad: pulls back; flood: drifts off
+ * the flood's diagonal), and a same-field cut becomes a reveal: from 'iris' the incoming scene
+ * is clipped to the growing region and the outgoing one to the rest of the frame, so the two
+ * never overlap and nothing is painted over the stars or the globe. The in group plays at
+ * 'in' as before (its entrance: the scene's data-entrance, entrances.js). Touch-cut, the first
+ * landing, reduced motion and a measured tier C keep the plain same-field hold.
  */
 import { CUT, DUR, EASE } from './motion-tokens.js';
-import { irisTo, irisFades, unclip } from './iris.js';
+import { irisTo, irisFades, unclip, shapesAllowed } from './iris.js';
 import { addInGroup } from './film-reveals.js';
+import { complementOf, polygonCss, regionAt } from './transitions.js';
+import { parseEntrance } from './entrances.js';
 
 const PAN_IN_S = 0.08; // the incoming pan's own short fade; the in group carries the entrance
 const PAN_LEAD_S = 0.05; // the pan fade starts this long before 'in', so the in group plays at full opacity
 const TOUCH_OUT_S = 0.2;
 const OUT_HOLD_S = 0.45; // a circle cut's out group (or a [data-out-hold] scene's) lasts past 'in' (J-cut)
 const SWAP_IN_S = 0.12; // a swap cut's 'iris' and 'in': the out group is gone, the field switches and the in group starts at once
+const REVEAL_GONE_S = 0.06; // a same-field reveal: the outgoing pan's fade once the region covers the frame
+const FLOOD_DRIFT = 0.6; // share of CUT.outY the flood's outgoing pan drifts on each axis
+
+/** The outgoing pan's motion per style (transform only; the opacity is set by the caller). */
+function outMotion(transition, y, dir) {
+  if (transition === 'dot') return { from: { scaleX: 1, scaleY: 1 }, to: { scaleX: 0.9, scaleY: 0.2, ease: 'power3.in' } };
+  if (transition === 'quad') return { from: { scale: 1 }, to: { scale: 0.94 } };
+  if (transition === 'flood') {
+    const d = CUT.outY * FLOOD_DRIFT * dir;
+    return { from: { x: 0, y }, to: { x: d, y: y - d } };
+  }
+  return { from: { y }, to: { y: y - CUT.outY * dir } };
+}
+
+/**
+ * Same-field reveal: the incoming scene inside the region, the outgoing one outside it, from
+ * 'iris' for DUR.iris (a proxy tween with ease 'none', so it seeks exactly).
+ */
+function addReveal(tl, { from, to, transition, origin, dir, settled }) {
+  const run = { t: 0 };
+  let boxes = null;
+  const draw = () => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    boxes ||= { to: to.el.getBoundingClientRect(), from: from.el.getBoundingClientRect() };
+    const points = regionAt(transition, run.t, { w, h, origin, dir });
+    to.el.style.clipPath = polygonCss(points, -boxes.to.left, -boxes.to.top);
+    from.el.style.clipPath = polygonCss(complementOf(w, h, points), -boxes.from.left, -boxes.from.top);
+  };
+  tl.call(() => { boxes = null; }, null, 'iris');
+  tl.fromTo(run, { t: 0 }, { t: 1, duration: DUR.iris, ease: 'none', immediateRender: false, onUpdate: draw }, 'iris');
+  tl.call(() => { unclip(to.el); unclip(from.el); }, null, settled);
+}
 
 /**
  * from / to: { el, pan, items } (from is null on the first landing).
@@ -41,12 +85,13 @@ const SWAP_IN_S = 0.12; // a swap cut's 'iris' and 'in': the out group is gone, 
  * change; touch-cut only for programmatic cuts). onHalf: called when the
  * header field changes (50% of the circle, or the swap).
  */
-export function buildCut({ from, to, dir = 1, origin, fieldChange, withIris = fieldChange, toField, tier, mode, onHalf }) {
+export function buildCut({ from, to, dir = 1, origin, fieldChange, withIris = fieldChange, toField, tier, mode, onHalf, transition = null }) {
   const { gsap } = window;
   const touch = mode === 'touch-cut';
   const compact = touch || !from; // touch-cut and the first landing: nothing to swap, the in group starts at once
   const swap = withIris && irisFades(tier, origin);
   const circle = withIris && !swap;
+  const reveal = !!transition && !fieldChange && !compact && !!from?.el && shapesAllowed(tier);
   const at = compact ? { out: 0, iris: 0, in: 0 }
     : swap ? { out: CUT.out, iris: SWAP_IN_S, in: SWAP_IN_S }
       : { out: CUT.out, iris: CUT.iris, in: CUT.in };
@@ -63,23 +108,35 @@ export function buildCut({ from, to, dir = 1, origin, fieldChange, withIris = fi
     if (touch) {
       tl.fromTo(from.pan, { opacity }, { opacity: 0, duration: TOUCH_OUT_S, ease: 'none' }, 'out');
     } else {
-      const hold = circle || (!fieldChange && from.el?.hasAttribute('data-out-hold'));
-      const gone = hold ? OUT_HOLD_S : swap ? swapAt : at.in;
-      tl.fromTo(from.pan, { y }, { y: y - CUT.outY * dir, duration: DUR.out, ease: EASE.stepOut }, 'out');
-      tl.fromTo(from.pan, { opacity }, { opacity: 0, duration: gone - at.out, ease: EASE.stepOut }, 'out');
+      const motion = outMotion(transition, y, dir);
+      tl.fromTo(from.pan, motion.from, { duration: transition && (reveal || circle) ? OUT_HOLD_S : DUR.out, ease: EASE.stepOut, ...motion.to }, 'out');
+      if (reveal) {
+        // Clipped to the rest of the frame, it stays until the region covers it all.
+        tl.fromTo(from.pan, { opacity }, { opacity: 0, duration: REVEAL_GONE_S, ease: 'none', immediateRender: false }, `iris+=${DUR.iris}`);
+      } else {
+        const hold = circle || (!fieldChange && from.el?.hasAttribute('data-out-hold'));
+        const gone = hold ? OUT_HOLD_S : swap ? swapAt : at.in;
+        tl.fromTo(from.pan, { opacity }, { opacity: 0, duration: gone - at.out, ease: EASE.stepOut }, 'out');
+      }
     }
   }
   if (withIris) {
-    const iris = irisTo(toField, origin, { paused: true, tier, onHalf, clip: circle ? to.el : null });
+    const iris = irisTo(toField, origin, { paused: true, tier, onHalf, clip: circle ? to.el : null, shape: transition || 'iris', dir });
     tl.add(iris.paused(false), swap ? swapAt : 'iris');
   }
   const panAt = swap ? swapAt : Math.max(0, at.in - PAN_LEAD_S); // never on the old field of a swap
   // The first landing keeps the HTML's opacity on the pan and its fades (they only rise), so the
   // hero text painted at first paint stays painted (LCP, §6.1 HTML-first).
   const first = !from;
-  const panFrom = first ? { y: 0 } : { opacity: 0, y: 0 };
-  tl.fromTo(to.pan, panFrom, { ...(first ? {} : { opacity: 1 }), y: 0, duration: PAN_IN_S, ease: 'none' }, panAt);
-  addInGroup(tl, to.items, { at: at.in, settled, frameAt: fieldChange || compact ? null : CUT.frameAt * CUT.total, keepOpacity: first });
+  // x and scale reset too: a pan that left by a dot, quad or flood cut keeps that transform.
+  const still = { x: 0, y: 0, scale: 1 };
+  const panFrom = first ? still : { opacity: 0, ...still };
+  tl.fromTo(to.pan, panFrom, { ...(first ? {} : { opacity: 1 }), ...still, duration: PAN_IN_S, ease: 'none' }, panAt);
+  if (reveal) addReveal(tl, { from, to, transition, origin, dir, settled });
+  addInGroup(tl, to.items, {
+    at: at.in, settled, frameAt: fieldChange || compact ? null : CUT.frameAt * CUT.total, keepOpacity: first,
+    entrance: parseEntrance(to.el?.dataset.entrance),
+  });
   tl.addLabel('settled', settled);
   if (circle) tl.call(() => unclip(to.el), null, settled); // the iris drops it on complete; this covers a skipped iris
   tl.to({}, { duration: 0 }, settled); // the engine part always lasts until 'settled'

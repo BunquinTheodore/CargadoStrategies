@@ -1,6 +1,6 @@
 /* 8. S7 · Inquiry: the headline beside a 640 px paper; Back and Next close the paper -------- */
 #inquiry :is(.scene__pan, html.rm .scene__inner) { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 700px); column-gap: var(--gap-col); align-items: center; justify-content: space-between; }
-.inq__title { align-self: center; font-size: min(var(--fs-statement), 13cqh, 7vw); max-width: 9ch; }   /* larger, so the left half is not dead space (owner, 2026-10-20) */
+.inq__title { align-self: center; font-size: min(var(--fs-statement), 13cqh, 7vw); max-width: none; white-space: nowrap; }   /* two lines: "Say What / You Need." (owner, 2026-10-25) */   /* larger, so the left half is not dead space (owner, 2026-10-20) */
 .inq__paper { display: flex; flex-direction: column; min-height: min(100%, 30rem); max-height: 100%; }
 .inq-form { flex: 1 1 auto; display: flex; flex-direction: column; gap: var(--space-s); }
 .inq-form .stepper__status { flex-wrap: wrap; row-gap: 4px; }
@@ -37,5 +37,8 @@
   }
 }
 @media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
-  .inq__title { font-size: min(11rem, 21cqh, 9.6vw); max-width: 8ch; line-height: .96; }
+  .inq__title { font-size: min(11rem, 21cqh, 9.6vw); max-width: none; line-height: .96; }
 }
+/* v2 (spec §6.1b): insurance chosen → the policy review link and its hint under the select. */
+.inq-redirect { display: flex; flex-wrap: wrap; align-items: center; gap: 0 .6em; }
+.inq-redirect[hidden] { display: none; }

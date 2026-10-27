@@ -20,6 +20,7 @@
  */
 import { splitWords } from './film-split.js';
 import { CUT, DUR, EASE } from './motion-tokens.js';
+import { itemStates, wordStates, DEFAULT_ENTRANCE } from './entrances.js';
 
 export const IN_GROUP = '.eyebrow, [data-reveal], .rule, .stop, [data-frame]';
 const WORD_KINDS = new Set(['words', 'lines', 'chars']);
@@ -31,7 +32,6 @@ const STOP_AFTER = 0.3; // the stop pops this long after its heading's last word
 const MAX_DELAY = 0.6;
 const RISE_PX = 24;
 const SCALE_FROM = 0.96;
-const MASK_OFFSET = 110; // yPercent a word starts below its mask
 const EYEBROW_OFFSET = 100;
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -93,9 +93,13 @@ const fitStagger = (step, count, start, latest) => (count < 2 ? 0 : Math.min(ste
  * landing by `settled`. `frameAt` (same-field cuts) is when [data-frame]
  * starts drawing; null draws it with the group. `keepOpacity` (the first
  * landing): "fade" items only rise, so text painted from the HTML is never
- * hidden again. Adds the 'stop' label.
+ * hidden again. `entrance` (the scene's data-entrance, entrances.js) sets how words and
+ * fade / stagger items arrive; the first landing always rises. Adds the 'stop' label.
  */
-export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity = false }) {
+export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity = false, entrance = DEFAULT_ENTRANCE }) {
+  const look = keepOpacity ? DEFAULT_ENTRANCE : entrance;
+  const words = wordStates(look);
+  const fades = itemStates(look);
   let cursor = at;
   let stopAt = null;
   let wordsEnd = null;
@@ -106,8 +110,8 @@ export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity
     const t = Number.isFinite(delay) ? at + clamp(delay, 0, MAX_DELAY) : natural;
     return clamp(t, at, latest(dur));
   };
-  const fadeIn = (targets, from, start, extra = {}) => {
-    tl.fromTo(targets, from, { opacity: 1, y: 0, scale: 1, duration: ITEM_DUR, ease: EASE.stepIn, ...extra }, start);
+  const fadeIn = (targets, from, start, extra = {}, to = {}) => {
+    tl.fromTo(targets, from, { opacity: 1, y: 0, scale: 1, ...to, duration: ITEM_DUR, ease: EASE.stepIn, ...extra }, start);
   };
 
   items.forEach((item) => {
@@ -121,8 +125,8 @@ export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity
       if (!item.words.length) return;
       const start = slot(item, Math.max(cursor, at + WORDS_AFTER), WORD_DUR);
       const stagger = fitStagger(CUT.wordStagger, item.words.length, start, latest(WORD_DUR));
-      tl.fromTo(item.words, { yPercent: MASK_OFFSET },
-        { yPercent: 0, duration: WORD_DUR, ease: EASE.stepIn, stagger }, start);
+      tl.fromTo(item.words, { ...words.from },
+        { ...words.to, duration: WORD_DUR, ease: EASE.stepIn, stagger }, start);
       const last = start + stagger * (item.words.length - 1);
       lastWord.set(el, last);
       wordsEnd = last + STOP_AFTER;
@@ -137,14 +141,15 @@ export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity
       if (kind === 'fade' && keepOpacity) {
         tl.fromTo(el, { y: RISE_PX }, { y: 0, duration: ITEM_DUR, ease: EASE.stepIn }, start);
       } else {
-        fadeIn(el, kind === 'fade' ? { opacity: 0, y: RISE_PX } : { opacity: 0, scale: SCALE_FROM }, start);
+        if (kind === 'fade') fadeIn(el, { ...fades.from }, start, {}, fades.to);
+        else fadeIn(el, { opacity: 0, scale: SCALE_FROM }, start);
       }
       cursor = start + CUT.itemStagger;
     } else if (kind === 'stagger') {
       if (!item.kids.length) return;
       const start = slot(item, cursor, ITEM_DUR);
       const stagger = fitStagger(CUT.itemStagger, item.kids.length, start, latest(ITEM_DUR));
-      fadeIn(item.kids, { opacity: 0, y: RISE_PX }, start, { stagger });
+      fadeIn(item.kids, { ...fades.from }, start, { stagger }, fades.to);
       cursor = start + stagger * (item.kids.length - 1) + CUT.itemStagger;
     } else if (kind === 'stop') {
       const anchor = lastWord.get(item.heading);

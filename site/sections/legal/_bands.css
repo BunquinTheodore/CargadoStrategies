@@ -83,4 +83,8 @@ html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(va
   .legal-contents .contents__head > .eyebrow { display: none; }
   .legal-paper { max-height: 58cqh; }
   #conduct .legal-paper { max-height: 48cqh; }   /* its head carries the aside and the link */
+  /* Privacy 04 (the services list) fills a page on its own: more paper and a tighter
+     leading so the whole clause and the pager show, at the same type size. */
+  #privacy .legal-paper { max-height: 70cqh; }
+  #privacy .legal-reader { --doc-lh: 1.5; }
 }

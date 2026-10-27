@@ -2,7 +2,7 @@
 #top .scene__pan { justify-content: center; }
 .top__portrait {
   position: absolute; top: 0; right: 0; bottom: var(--scene-pad-bottom);
-  width: 40%; display: grid; place-items: center;
+  width: 40%; display: grid; place-items: center; container-type: size;
 }
 .top__tportrait { --tportrait-h: min(64svh, 36vw); width: 100%; height: 100%; min-height: 0; }
 .top__tportrait .tportrait__name { font-size: min(var(--fs-d1), 8.5cqh); }
@@ -14,8 +14,10 @@
    while the C ring around it keeps C33's 40% (the bio line shows in review mode only; the
    signature once FOUNDER_SIGNATURE is set). */
 .top__tportrait .tportrait__mark path + path { stroke-opacity: .6; }
-/* The real photo (C34) replaces the typographic portrait once FOUNDER_PHOTO is set. */
-.top__photo { height: min(100%, 72svh); }
+/* The real photo (C34) replaces the typographic portrait once FOUNDER_PHOTO is set. Sized from
+   its slot (a size container): never taller than the slot, never wider at 4:5 (125cqw), so the
+   arch stays on screen at 1024x768 and never runs down into the sentence on phones. */
+.top__photo { height: min(100cqh, 72svh, 125cqw); }
 .top__photo[data-when-on] ~ .top__tportrait { display: none; }
 .top__photo-ph { position: absolute; inset: auto 0 0; text-align: center; font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); }
 .top__photo:has(img) .top__photo-ph { display: none; }
@@ -23,5 +25,4 @@
 /* 11 words: capped so the statement sets on 4 lines, not 5 (the widest line is "Wouldn't Have to"). */
 .top__title { font-size: min(var(--fs-statement), 11svh, 5.4vw); max-width: 16ch; }
 .top__by { margin: 0; font: 500 var(--fs-lead)/1.4 var(--font-body); color: var(--fg-muted); }
-.top__draft { margin: 0; }
 

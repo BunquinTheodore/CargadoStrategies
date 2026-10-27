@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Contact · Cargado Strategies</title>
+  <meta name="description" content="Book a free 10-minute consultation with Cargado Strategies on Google Meet, or reach Cargado Strategies by WhatsApp, email, Facebook or at the Winnipeg office.">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="view-transition" content="same-origin">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <script>
+    /* Mode (cut, touch-cut or flow) and tier before first paint; falls back to flow if the engine never starts. */
+    (function (d) {
+      var h = d.documentElement;
+      var FALLBACK_MS = 8000;
+      var mm = function (q) { return !!(window.matchMedia && matchMedia(q).matches); };
+      var pref = null;
+      /* No motion or sound switches (owner, 2026-10-20): forget choices made with the old footer switches. */
+      try { localStorage.removeItem('cs-motion'); localStorage.removeItem('cs-sound'); } catch (e) { /* storage blocked: nothing stored */ }
+      var rm = pref === 'reduced' || pref === 'full' ? pref === 'reduced' : mm('(prefers-reduced-motion: reduce)');
+      var coarse = mm('(pointer: coarse)') && !mm('(hover: hover) and (pointer: fine)');
+      var mode = rm ? 'flow' : coarse ? 'touch-cut' : 'cut';
+      h.classList.add('js', mode === 'flow' ? 'rm' : mode === 'cut' ? 'film' : 'touch-cut');
+      h.setAttribute('data-mode', mode);
+      if (!h.hasAttribute('data-tier-lock')) {
+        var c = navigator.connection, mem = navigator.deviceMemory;
+        h.setAttribute('data-tier', (c && c.saveData) || (mem && mem <= 2) ? 'C' : coarse ? 'B' : 'A');
+      }
+      /* If the site script never ran (a blocked or failed module), chrome.js drew no header:
+         give the page a plain nav so every page stays reachable. */
+      var rescueNav = function () {
+        if (d.querySelector('.site-header, .nav-rescue')) return;
+        var here = location.pathname.split('/').pop() || 'index.html';
+        var links = [['index.html', 'Home'], ['services.html', 'Services'], ['story.html', 'Story'],
+          ['partners.html', 'Application'], ['legal.html', 'Legal']];
+        var nav = d.createElement('nav');
+        nav.className = 'nav-rescue';
+        nav.setAttribute('aria-label', 'Main');
+        nav.innerHTML = links.map(function (l) {
+          return '<a href="' + l[0] + '"' + (l[0] === here ? ' aria-current="page"' : '') + '>' + l[1] + '</a>';
+        }).join('');
+        d.body.insertBefore(nav, d.body.firstChild);
+      };
+      /* Hidden (background) tabs cannot start the film, so their time does not count. */
+      var wait = function () {
+        d.addEventListener('visibilitychange', function f() {
+          if (d.visibilityState !== 'visible') return;
+          d.removeEventListener('visibilitychange', f);
+          arm();
+        });
+      };
+      var arm = function () {
+        setTimeout(function () {
+          if (h.classList.contains('film-ready')) return;
+          if (d.visibilityState === 'hidden') return wait();
+          /* film-fallback: film.js stands down if it is still building (film.js fallBackToFlow). */
+          h.classList.remove('film', 'touch-cut'); h.classList.add('rm', 'film-fallback'); h.setAttribute('data-mode', 'flow');
+          rescueNav();
+        }, FALLBACK_MS);
+      };
+      if (rm) setTimeout(rescueNav, FALLBACK_MS);
+      else if (d.visibilityState === 'hidden') wait();
+      else arm();
+    })(document);
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <!-- Fonts load without blocking first paint; metric-matched fallbacks in base.css stop any shift on swap.
+       Display type is Times New Roman (system); Tinos downloads only where it is missing. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Poppins:wght@500;600&amp;family=Tinos:ital@0;1&amp;display=swap"></noscript>
+  <link rel="stylesheet" href="core/design/base.css">
+  <link rel="stylesheet" href="core/design/fx.css">
+  <link rel="stylesheet" href="core/design/ui.css">
+  <link rel="stylesheet" href="core/design/visual.css">
+  <link rel="stylesheet" href="pages/contact.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <link rel="modulepreload" href="core/main.js">
+  <link rel="modulepreload" href="core/engine/film.js">
+  <link rel="modulepreload" href="core/chrome/chrome.js">
+  <script type="module" src="pages/contact.js"></script>
+</head>
+<body data-page="contact">
+  <!-- splash: the boot intro (core/engine/splash.js, visual.css §1). Shared node, the same in every film shell. -->
+  <script>try{var n=performance.getEntriesByType('navigation')[0];if(n&&n.type==='back_forward')document.documentElement.classList.add('splash-skip')}catch(e){}</script>
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash__bg"></div>
+    <div class="splash__scan">
+      <p class="splash__label splash__label--tl">Identity Scan<br><b data-splash="site">Cargado Strategies</b></p>
+      <p class="splash__label splash__label--tr">Channel <b>01 / 05</b><br>Link <b>Secure</b></p>
+      <div class="splash__frame">
+        <svg class="splash__ridges" viewBox="0 0 100 120" focusable="false"><ellipse cx="50" cy="60" rx="14" ry="18" pathLength="100" stroke-dasharray="78 8 14 0"/><ellipse cx="50" cy="60" rx="22" ry="28" pathLength="100" stroke-dasharray="40 6 50 4"/><ellipse cx="50" cy="60" rx="30" ry="37" pathLength="100" stroke-dasharray="62 7 25 6"/><ellipse cx="50" cy="60" rx="38" ry="46" pathLength="100" stroke-dasharray="30 5 58 7"/><ellipse cx="50" cy="60" rx="46" ry="56" pathLength="100" stroke-dasharray="70 9 15 6"/></svg>
+        <div class="mark splash__mark splash__mark--base"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
+        <div class="mark splash__mark splash__mark--lit"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
+        <i class="splash__br splash__br--tl"></i><i class="splash__br splash__br--tr"></i><i class="splash__br splash__br--bl"></i><i class="splash__br splash__br--br"></i>
+        <i class="splash__ticks splash__ticks--l"></i><i class="splash__ticks splash__ticks--r"></i>
+        <i class="splash__scanline"></i>
+      </div>
+      <p class="splash__label splash__label--bl">Scan <b class="splash__pct">100</b> %</p>
+      <p class="splash__label splash__label--br">Status <span class="splash__st"><b>Scanning</b><b>Verified</b></span></p>
+    </div>
+    <div class="splash__access">
+      <p class="splash__label">Identity Confirmed</p>
+      <p class="splash__granted">Access <em>Granted</em></p>
+      <i class="splash__bar"></i>
+    </div>
+    <i class="splash__ring"></i>
+    <i class="splash__dot"></i>
+    <div class="splash__flood"><i class="splash__cell splash__cell--tl"></i><i class="splash__cell splash__cell--tr"></i><i class="splash__cell splash__cell--bl"></i><i class="splash__cell splash__cell--br"></i></div>
+    <div class="splash__name">
+      <p class="splash__label splash__meta--l" data-splash="founder"></p>
+      <p class="splash__label splash__meta--r" data-splash="city"></p>
+      <i class="splash__rule"></i>
+      <p class="splash__title" data-splash="name"><span class="splash__line"><span>Cargado</span></span><span class="splash__line"><span>Strategies<i class="splash__stop"></i></span></span></p>
+    </div>
+  </div>
+  <!-- /splash -->
+  <!-- Shared chrome (2b): skip link and header, painted with the page; chrome.js wires them. -->
+  <a class="skip-link" href="#content">Skip to Content</a>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Cargado Strategies, home"><img class="brand__mark" src="assets/img/brand/logo-mark@2x.png" srcset="assets/img/brand/logo-mark@2x.png 2x, assets/img/brand/logo-mark@3x.png 3x" alt="" width="41" height="40"><span class="brand__word">Cargado Strategies</span></a>
+    <nav class="site-nav" aria-label="Main"><ul class="site-nav__list"><li><a class="site-nav__link" href="index.html">Home</a></li><li><a class="site-nav__link" href="services.html">Services</a></li><li><a class="site-nav__link" href="story.html">Story</a></li><li><a class="site-nav__link" href="partners.html">Application</a></li><li><a class="site-nav__link" href="contact.html" aria-current="page">Contact</a></li></ul></nav>
+    <a class="site-header__account" href="account.html" hidden data-account>Log In</a>
+    <button class="nav-toggle" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="menu">
+      <span class="nav-toggle__label">Menu</span><span class="nav-toggle__icon" aria-hidden="true"></span>
+    </button>
+  </header>
+  <div class="stage">
+    <div class="fields" aria-hidden="true" data-field="ink"></div>
+    <canvas id="stars" aria-hidden="true"></canvas>
+    <canvas id="globe" aria-hidden="true"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <main class="scenes" id="content">
+
+      <!-- C1 · Book · ink · P: the founder's poster beside a 3-step picker (day, time, details) ------ -->
+      <!-- @section contact/book -->
+
+      <!-- C2 · Reach · bone · R: WhatsApp, email, Facebook and the address, one row each ----------- -->
+      <!-- @section contact/reach -->
+
+      <!-- Credits: the same on every page (R4 shared.md §5.4, DIRECTION §6.4). Shared node (2b). -->
+      <!-- @section contact/credits -->
+
+    </main>
+    <div class="iris" aria-hidden="true"></div>
+  </div>
+  <!-- WhatsApp sheet (C22): 2d's snippet, plan/round5/snippets/wa-sheet.html. Shared node (2b). -->
+  <dialog class="sheet" id="wa-sheet" aria-labelledby="wa-sheet-title">
+    <div class="sheet__paper paper">
+      <div class="sheet__head">
+        <p class="sheet__title eyebrow" id="wa-sheet-title">Get My Introduction</p>
+        <p class="sheet__tag" data-sheet-tag hidden>From Cargado Strategies</p>
+        <button type="button" class="link sheet__close" data-sheet-close>Close</button>
+      </div>
+      <form class="stepper sheet__form" novalidate>
+        <div class="stepper__status">
+          <span class="stepper__count" aria-hidden="true">Step 1 of 3 · What You Need</span>
+          <span class="stepper__bar"><span class="stepper__fill"></span></span>
+          <p class="stepper__errors" role="alert" hidden></p>
+        </div>
+        <div class="stepper__steps">
+          <fieldset class="stepper__step" data-step="need">
+            <legend><h3 class="stepper__title" tabindex="-1">What Do You Need?<span class="visually-hidden" data-step-of></span></h3></legend>
+            <div class="chips sheet__chips" data-sheet-needs></div>
+            <p class="sheet__note">No fee to you · No obligation</p>
+          </fieldset>
+          <fieldset class="stepper__step" data-step="city" hidden>
+            <legend><h3 class="stepper__title" tabindex="-1">Your City<span class="visually-hidden" data-step-of></span></h3></legend>
+            <label class="label" for="wa-city">City or town</label>
+            <input class="input" id="wa-city" name="city" type="text" placeholder="e.g. Winnipeg"
+                   autocomplete="address-level2" maxlength="60" aria-describedby="wa-city-why">
+            <p class="hint" id="wa-city-why">Cargado Strategies asks for your city only so it can introduce you to someone close to you.</p>
+          </fieldset>
+          <div class="stepper__step" data-step="send" role="group" aria-labelledby="wa-send-title" hidden>
+            <h3 class="stepper__title" id="wa-send-title" tabindex="-1">Open WhatsApp<span class="visually-hidden" data-step-of></span></h3>
+            <p class="label">Your message</p>
+            <p class="sheet__message" data-sheet-message></p>
+          </div>
+        </div>
+        <div class="stepper__nav">
+          <button type="button" class="btn btn--ghost" data-step-back>Back</button>
+          <button type="submit" class="btn btn--primary" data-step-next>Next <span class="btn__arrow" aria-hidden="true">→</span></button>
+          <a class="btn btn--primary" data-step-send data-sheet-go data-sfx="none" href="https://wa.me/12048692508" target="_blank" rel="noopener" hidden>
+            Open WhatsApp <span class="btn__arrow" aria-hidden="true">→</span><span class="visually-hidden"> (opens in a new tab)</span>
+          </a>
+        </div>
+        <p class="stepper__send-hint hint" hidden>Opens WhatsApp with your message written. Nothing is sent until you tap send.</p>
+        <p class="sheet__contact" data-sheet-contact tabindex="-1" hidden>Rather call or email? <span data-sheet-phone>+1 (204) 869 2508</span> · <span data-sheet-email><span class="ph">[company email]</span></span></p>
+        <p class="sheet__done" data-sheet-done role="status"></p>
+      </form>
+    </div>
+  </dialog>
+  <div class="scroll-spacer"></div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<div class="dash app-admin" data-app-main hidden>
+      <aside class="dash-side" aria-label="Dashboard">
+        <!-- @section app/dash-brand -->
+        <div class="dash-who"><span class="dash-who__avatar" aria-hidden="true" data-app-initial>A</span><span class="dash-who__text"><span class="dash-who__name" data-app-name>Admin</span><span class="dash-who__role">Admin</span></span></div>
+        <nav class="dash-nav" aria-label="Dashboard sections">
+          <ul class="dash-nav__list">
+            <li><a class="dash-nav__link" href="#overview"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg><span class="dash-nav__text">Overview</span></a></li>
+            <li><a class="dash-nav__link" href="#applications"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 13.5 6.5 5h11l2.5 8.5V19H4zM4 13.5h5a3 3 0 0 0 6 0h5"/></svg><span class="dash-nav__text">Applications</span></a></li>
+            <li><a class="dash-nav__link" href="#bookings"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="4" y="5.5" width="16" height="14.5" rx="1.5"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg><span class="dash-nav__text">Bookings</span></a></li>
+            <li><a class="dash-nav__link" href="#clients"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="9" cy="9" r="3.25"/><path d="M3 19.5a6 6 0 0 1 12 0M15.5 5.9a3.25 3.25 0 0 1 0 6.2M17.5 14.2a6 6 0 0 1 3.5 5.3"/></svg><span class="dash-nav__text">Clients</span></a></li>
+            <li><a class="dash-nav__link" href="#record"><svg class="dash-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4"/></svg><span class="dash-nav__text">Record</span></a></li>
+          </ul>
+        </nav>
+        <!-- @section app/dash-foot -->
+      </aside>
+      <div class="dash-body">
+        <header class="dash-top">
+          <div class="dash-top__titles">
+            <p class="eyebrow">Overview</p>
+            <h1 tabindex="-1">Cargado Strategies Admin</h1>
+          </div>
+          <div class="dash-top__actions">
+            <span class="dash-badge" data-preview-badge hidden>Preview · sample data</span>
+            <a class="btn btn--primary btn--sm" href="#record">Record <span class="btn__arrow" aria-hidden="true">→</span></a>
+          </div>
+          <p class="app-status dash-top__status" data-admin-status role="status" aria-live="polite"></p>
+        </header>
+        <section class="dash-kpis" id="overview" aria-label="Overview">
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Pending Applications</h2><p class="dash-kpi__value num" data-kpi="pendingApplications">0</p><p class="dash-kpi__note">partners</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Upcoming Bookings</h2><p class="dash-kpi__value num" data-kpi="upcomingBookings">0</p><p class="dash-kpi__note">consultations</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Client Accounts</h2><p class="dash-kpi__value num" data-kpi="clients">0</p><p class="dash-kpi__note">clients</p></article>
+          <article class="dash-kpi"><h2 class="dash-kpi__label">Partners</h2><p class="dash-kpi__value num" data-kpi="partners">0</p><p class="dash-kpi__note">accounts</p></article>
+        </section>
+        <div class="dash-grid">
+          <section class="dash-panel dash-span-12" id="applications" aria-labelledby="admin-apps-title">
+            <h2 class="dash-panel__title" id="admin-apps-title">Partner Applications</h2>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead><tr><th scope="col">Applicant</th><th scope="col">Email</th><th scope="col">Received</th><th scope="col">Status</th><th scope="col"><span class="visually-hidden">Actions</span></th></tr></thead>
+                <tbody data-admin-applications></tbody>
+              </table>
+            </div>
+            <p class="hint" data-admin-applications-empty hidden>No applications.</p>
+          </section>
+          <section class="dash-panel dash-span-12" id="bookings" aria-labelledby="admin-bookings-title">
+            <h2 class="dash-panel__title" id="admin-bookings-title">Bookings</h2>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead><tr><th scope="col">When</th><th scope="col">Client</th><th scope="col">Service</th><th scope="col">Status</th></tr></thead>
+                <tbody data-admin-bookings></tbody>
+              </table>
+            </div>
+            <p class="hint" data-admin-bookings-empty hidden>No bookings.</p>
+          </section>
+          <section class="dash-panel dash-span-12" id="clients" aria-labelledby="admin-clients-title">
+            <h2 class="dash-panel__title" id="admin-clients-title">Clients and Points</h2>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead><tr><th scope="col">Account</th><th scope="col">Role</th><th scope="col">Code</th><th scope="col" class="is-num">Points</th></tr></thead>
+                <tbody data-admin-users></tbody>
+              </table>
+            </div>
+            <p class="hint" data-admin-users-empty hidden>No accounts yet.</p>
+          </section>
+          <section class="dash-panel dash-span-12 app-admin__forms" id="record" aria-labelledby="admin-actions-title">
+            <h2 class="dash-panel__title" id="admin-actions-title">Record</h2>
+            <form class="form app-admin__form" data-admin-form="adjust-points" novalidate>
+              <h3 class="dash-sub">Adjust Points</h3>
+              <div class="form-row"><label class="label" for="adj-user">Client</label><select class="select" id="adj-user" name="uid" required data-options="clients"></select></div>
+              <div class="form-row"><label class="label" for="adj-points">Points (use a minus sign to remove)</label><input class="input" id="adj-points" name="points" type="number" step="1" required></div>
+              <div class="form-row"><label class="label" for="adj-reason">Reason (shown to the client)</label><input class="input" id="adj-reason" name="reason" type="text" maxlength="120" required></div>
+              <button type="submit" class="btn btn--primary">Save Adjustment</button>
+              <p class="app-status" data-status role="status" aria-live="polite"></p>
+            </form>
+            <form class="form app-admin__form" data-admin-form="mark-acquired" novalidate>
+              <h3 class="dash-sub">Mark Service Acquired</h3>
+              <div class="form-row"><label class="label" for="acq-user">Client</label><select class="select" id="acq-user" name="uid" required data-options="clients"></select></div>
+              <div class="form-row"><label class="label" for="acq-service">Service</label><select class="select" id="acq-service" name="service" required data-options="services"></select></div>
+              <button type="submit" class="btn btn--primary">Mark Acquired</button>
+              <p class="app-status" data-status role="status" aria-live="polite"></p>
+            </form>
+            <form class="form app-admin__form" data-admin-form="assign-referral" novalidate>
+              <h3 class="dash-sub">Assign a Referral</h3>
+              <div class="form-row"><label class="label" for="ref-partner">Partner</label><select class="select" id="ref-partner" name="partnerUid" required data-options="partners"></select></div>
+              <div class="form-row"><label class="label" for="ref-client">Client</label><select class="select" id="ref-client" name="clientUid" required data-options="clients"></select></div>
+              <div class="form-row"><label class="label" for="ref-note">Note for the partner</label><input class="input" id="ref-note" name="note" type="text" maxlength="200"></div>
+              <button type="submit" class="btn btn--primary">Assign Referral</button>
+              <p class="app-status" data-status role="status" aria-live="polite"></p>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>

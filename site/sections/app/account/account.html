@@ -1,0 +1,60 @@
+<section class="app-card app-auth" data-app-main data-auth hidden aria-labelledby="auth-title">
+      <p class="eyebrow">Cargado Strategies Account</p>
+      <h1 id="auth-title" data-auth-title tabindex="-1">Log In</h1>
+      <div class="app-switch" role="group" aria-label="Log in or sign up">
+        <button type="button" class="chip" data-auth-view="login" aria-pressed="true">Log In</button>
+        <button type="button" class="chip" data-auth-view="signup" aria-pressed="false">Sign Up</button>
+      </div>
+      <div class="app-auth__google" data-auth-google>
+        <button type="button" class="btn btn--ghost btn--block" data-google>Continue With Google</button>
+        <p class="app-or"><span>or with email</span></p>
+      </div>
+      <form class="form" data-auth-form="login" novalidate>
+        <div class="form-row">
+          <label class="label" for="login-email">Email</label>
+          <input class="input" id="login-email" name="email" type="email" autocomplete="email" required maxlength="120">
+        </div>
+        <div class="form-row">
+          <label class="label" for="login-password">Password</label>
+          <input class="input" id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="128">
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Log In <span class="btn__arrow" aria-hidden="true">→</span></button>
+        <button type="button" class="link app-auth__alt" data-auth-view="reset">Forgot your password?</button>
+      </form>
+      <form class="form" data-auth-form="signup" novalidate hidden>
+        <div class="form-row">
+          <label class="label" for="signup-name">Your name</label>
+          <input class="input" id="signup-name" name="name" type="text" autocomplete="name" required maxlength="80">
+        </div>
+        <div class="form-row">
+          <label class="label" for="signup-email">Email</label>
+          <input class="input" id="signup-email" name="email" type="email" autocomplete="email" required maxlength="120">
+        </div>
+        <div class="form-row">
+          <label class="label" for="signup-password">Password</label>
+          <input class="input" id="signup-password" name="password" type="password" autocomplete="new-password" required minlength="6" maxlength="128" aria-describedby="signup-password-hint">
+          <p class="hint" id="signup-password-hint">At least 6 characters.</p>
+        </div>
+        <p class="hint" data-auth-ref hidden>Referral code <strong data-auth-ref-code></strong> will be added to the new account.</p>
+        <button type="submit" class="btn btn--primary btn--block">Create Account <span class="btn__arrow" aria-hidden="true">→</span></button>
+      </form>
+      <form class="form" data-auth-form="reset" novalidate hidden>
+        <p class="hint">Enter the email of the account. A link to choose a new password will be sent to it.</p>
+        <div class="form-row">
+          <label class="label" for="reset-email">Email</label>
+          <input class="input" id="reset-email" name="email" type="email" autocomplete="email" required maxlength="120">
+        </div>
+        <button type="submit" class="btn btn--primary btn--block">Send Reset Link <span class="btn__arrow" aria-hidden="true">→</span></button>
+        <button type="button" class="link app-auth__alt" data-auth-view="login">Back to log in</button>
+      </form>
+      <p class="app-status" data-auth-status role="status" aria-live="polite"></p>
+      <!-- draft: pending lawyer review --><p class="hint app-auth__consent" data-draft="pending-lawyer-review">By continuing, you agree to the <a href="legal.html#terms">Terms of Use</a> and the <a href="legal.html#privacy">Privacy Policy</a> of Cargado Strategies.</p>
+    </section>
+    <section class="app-card" data-app-signed hidden aria-labelledby="signed-title">
+      <h1 id="signed-title">You Are Logged In</h1>
+      <p>Signed in as <strong data-signed-email></strong>.</p>
+      <div class="app-actions">
+        <a class="btn btn--primary" href="dashboard.html" data-signed-go>Open Your Dashboard <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <button type="button" class="btn btn--ghost" data-sign-out>Log Out</button>
+      </div>
+    </section>

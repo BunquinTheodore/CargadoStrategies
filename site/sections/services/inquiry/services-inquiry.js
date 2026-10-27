@@ -11,12 +11,14 @@
  * reason (CR10), consent (CR06), the commission notice (CR17) and a honeypot
  * (a filled one silently "succeeds" without a hand-off) are kept.
  * Required fields use aria-required, not `required`: validation is ours.
+ * Choosing Insurance adds a "Continue on the policy review site" link under the
+ * select (v2 spec §6.1b); the form itself still works for insurance too.
  */
-import { CONTACT_EMAIL, SITE_NAME } from '../../../assets/js/config.js';
+import { CONTACT_EMAIL, INSURANCE_INQUIRY_URL, SITE_NAME } from '../../../assets/js/config.js';
 import { escapeHtml } from '../../../core/chrome/chrome.js';
 import { waLink } from '../../../core/chrome/whatsapp.js';
 import { createStepper } from '../../../core/ui/ui-stepper.js';
-import { OURS, PARTNER_ONLY } from '../services-data.js';
+import { OURS, PARTNER_ONLY, insuranceLink } from '../services-data.js';
 import { titleCase } from '../../../core/lib/text-case.js';
 import { sendInquiry } from '../../../core/lib/send-inquiry.js';
 
@@ -25,6 +27,37 @@ const PHONE_DIGITS_MIN = 7;
 const CONTACT_LABELS = Object.freeze({ whatsapp: 'WhatsApp', phone: 'Phone Call', email: 'Email' });
 const STEP_TITLE = (unit, total, name) => `Step ${unit + 1} of ${total} · ${name}`;
 const PAGE_QUERY = '(min-width: 760px)';
+const REDIRECT_TEXT = 'Continue on the policy review site';
+
+/**
+ * Insurance inquiries continue on the policy review site (spec §6.1b): the link shown under the
+ * service select when insurance is chosen, or null (another service, or no URL in config).
+ */
+export function insuranceRedirect(slug, url = INSURANCE_INQUIRY_URL) {
+  const link = slug === 'insurance' ? insuranceLink(url) : null;
+  return link ? { ...link, text: REDIRECT_TEXT } : null;
+}
+
+function redirectMarkup({ href, text, hint }) {
+  return `<a class="link" href="${escapeHtml(href)}" target="_blank" rel="noopener">${text} <span aria-hidden="true">→</span></a>
+    <span class="inq-redirect__hint">${hint}</span>`;
+}
+
+/** The redirect line under the service select, created once and shown only for insurance. */
+function wireRedirect(select) {
+  const line = document.createElement('p');
+  line.className = 'hint inq-redirect';
+  line.id = 'inq-category-redirect';
+  line.hidden = true;
+  select.closest('.form-row').append(line);
+  const update = () => {
+    const redirect = insuranceRedirect(select.value);
+    line.hidden = !redirect;
+    line.innerHTML = redirect ? redirectMarkup(redirect) : '';
+  };
+  select.addEventListener('change', update);
+  return update;
+}
 
 function categoryOptions() {
   const opt = (c) => `<option value="${c.slug}">${escapeHtml(titleCase(c.name))}</option>`;
@@ -50,14 +83,14 @@ export function validateInquiry(d) {
   const errors = [];
   const digits = (d.phone || '').replace(/\D/g, '');
   if (!d.category) errors.push({ id: 'category', message: 'Choose a service, or “Not sure yet”.' });
-  if (!d.city) errors.push({ id: 'city', message: 'Add your city or area so we can find someone close to you.' });
+  if (!d.city) errors.push({ id: 'city', message: 'Add your city or area so Cargado Strategies can find someone close to you.' });
   if (!d.name) errors.push({ id: 'name', message: 'Please add your name.' });
   if (d.phone && digits.length < PHONE_DIGITS_MIN) errors.push({ id: 'phone', message: 'This number looks too short.' });
   else if (d.contact !== 'email' && !digits && d.email) errors.push({ id: 'phone', message: 'Add a number, or choose email as the way to reach you.' });
   if (d.email && !EMAIL_PATTERN.test(d.email)) errors.push({ id: 'email', message: 'This email doesn’t look complete.' });
-  else if (!d.email && !digits) errors.push({ id: 'email', message: 'Add an email or a phone number so we can reply.' });
+  else if (!d.email && !digits) errors.push({ id: 'email', message: 'Add an email or a phone number so Cargado Strategies can reply.' });
   else if (d.contact === 'email' && !d.email) errors.push({ id: 'email', message: 'Add your email, or choose another way to reach you.' });
-  if (!d.consent) errors.push({ id: 'consent', message: 'Please tick the box so we can use your details to reply.' });
+  if (!d.consent) errors.push({ id: 'consent', message: 'Please tick the box so Cargado Strategies can use your details to reply.' });
   return errors;
 }
 
@@ -106,7 +139,7 @@ function handoff(d, form) {
 
 /** FR08: the confirmation, in place of the form. */
 function successMarkup(name, link) {
-  const opened = link ? `${link.app} opened with your inquiry written. Nothing is sent until you tap send there.` : 'We have your inquiry.';
+  const opened = link ? `${link.app} opened with your inquiry written. Nothing is sent until you tap send there.` : 'Cargado Strategies has your inquiry.';
   const retry = link
     ? `<p class="inq-success__retry">Didn't open? <a class="link" href="${link.href}" target="_blank" rel="noopener">Open it again with your inquiry</a></p>`
     : '';
@@ -126,6 +159,7 @@ export function initInquiry({ panel, film, sound }) {
   const success = panel.querySelector('#inquiry-success');
   const scene = panel.closest('.scene');
   form.elements.category.innerHTML = categoryOptions();
+  const updateRedirect = wireRedirect(form.elements.category);
 
   function showErrors(errors) {
     form.querySelectorAll('.error').forEach((p) => { p.textContent = ''; });
@@ -176,6 +210,7 @@ export function initInquiry({ panel, film, sound }) {
   success.addEventListener('click', (event) => {
     if (!event.target.closest('[data-inq-reset]')) return;
     form.reset();
+    updateRedirect();
     showErrors([]);
     success.hidden = true;
     form.hidden = false;
@@ -187,11 +222,13 @@ export function initInquiry({ panel, film, sound }) {
     setCategory(slug) {
       if (!form.elements.category.querySelector(`option[value="${slug}"]`)) return;
       form.elements.category.value = slug;
+      updateRedirect();
       if (stepper.unit !== 0) stepper.go(0, { focus: false });
     },
     /** Service and city given elsewhere (the S6 concierge): with both set, step 1 is done, so open on step 2. */
     prefill({ category = '', city = '' }) {
       if (category && form.elements.category.querySelector(`option[value="${category}"]`)) form.elements.category.value = category;
+      updateRedirect();
       if (city) form.elements.city.value = city;
       const done = form.elements.category.value && form.elements.city.value.trim();
       if (done && stepper.unit === 0 && !form.hidden) stepper.go(1, { focus: false });

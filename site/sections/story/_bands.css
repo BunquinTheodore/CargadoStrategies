@@ -20,6 +20,8 @@
   #top .scene__pan { justify-content: center; gap: var(--space-m); }
   /* the portrait group is as wide as its mark, so the band reads as one object, not a full-width box */
   .top__portrait { position: relative; inset: auto; width: min(100%, 40svh); margin-inline: auto; flex: 1 1 30svh; min-height: 24svh; max-height: 40svh; }
+  /* with her photo the group hugs the 4:5 arch (0.8 × its 40svh cap), so the band keeps its air */
+  .top__portrait:has(.top__photo[data-when-on]) { width: min(100%, 32svh); }
   .top__tportrait { --tportrait-h: min(40svh, 84vw); }
   .top__copy { width: auto; flex: none; }
   .top__title { font-size: var(--fs-statement); max-width: none; }

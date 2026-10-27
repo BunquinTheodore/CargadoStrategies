@@ -10,6 +10,7 @@
     "serve": "node serve.mjs dist 8231",
     "serve:src": "node serve.mjs site 8230",
     "start": "npm run build && npm run serve",
+    "test": "node --test \"tests/**/*.test.mjs\"",
     "check:config": "node tools/check-config.mjs --fixture=partners-max",
     "audit:fit": "node tools/fit-audit.mjs",
     "audit:seek": "node tools/seek-test.mjs",
@@ -19,13 +20,13 @@
     "shoot": "node tools/shoot.mjs --vp=review"
   },
   "devDependencies": {
-    "@fontsource/josefin-sans": "5.1.0",
     "@fontsource/manrope": "5.1.0",
     "@fontsource/poppins": "5.1.0",
     "@fontsource/tinos": "5.1.0",
     "esbuild": "0.24.0",
     "gsap": "3.12.5",
-    "lenis": "1.1.13"
+    "lenis": "1.1.13",
+    "three": "0.186.1"
   },
   "engines": {
     "node": "24.x"

@@ -71,8 +71,8 @@ function founderAskBlock({ category, place }) {
   return `
   <div class="results__ask">
     <p class="results__ask-title">Prefer to Ask First?</p>
-    <p class="results__ask-text">Our founder answers questions about ${name} herself.</p>
-    <a class="link" href="${waLink(text)}" ${NEW_TAB}>Ask Our Founder on WhatsApp ${ARROW}<span class="visually-hidden"> about ${name} (opens in a new tab)</span></a>
+    <p class="results__ask-text">Cargado Strategies answers questions about ${name} itself.</p>
+    <a class="link" href="${waLink(text)}" ${NEW_TAB}>Ask Cargado Strategies on WhatsApp ${ARROW}<span class="visually-hidden"> about ${name} (opens in a new tab)</span></a>
   </div>`;
 }
 
@@ -81,7 +81,7 @@ function founderBlock(category) {
   if (!offer) return '';
   return `
   <div class="results__ours">
-    <p class="results__ours-text"><strong>${escapeHtml(offer.name)}</strong>. Our founder's own business, not a partner listing.</p>
+    <p class="results__ours-text"><strong>${escapeHtml(offer.name)}</strong>. Cargado Strategies' own service, not a partner listing.</p>
     <a class="link" href="#${offer.scene}">${escapeHtml(titleCase(`See ${lower(offer.name)}`))} ${ARROW}</a>
   </div>`;
 }
@@ -102,7 +102,7 @@ function radiusStatus(radius, count, label, place) {
   const where = escapeHtml(place.label);
   const first = RADIUS_STEPS_KM[0];
   if (radius === first) return `${plural(count, `${label} partner`)} within ${first} km of ${where}.`;
-  if (Number.isFinite(radius)) return `No ${label} partner within ${first} km of ${where}. We widened the search to ${radius} km.`;
+  if (Number.isFinite(radius)) return `No ${label} partner within ${first} km of ${where}. The search widened to ${radius} km.`;
   const max = RADIUS_STEPS_KM[RADIUS_STEPS_KM.length - 1];
   return `No ${label} partner within ${max} km of ${where}. Showing the nearest across all of Canada.`;
 }
@@ -129,7 +129,7 @@ export function resultsView({ category, type, place }) {
   const ctx = { category, type, place };
   if (!hasPartners(category)) {
     return {
-      status: `${category.name} is our founder's own service, offered across Canada.`,
+      status: `${category.name} is Cargado Strategies' own service, offered across Canada.`,
       slots: [founderBlock(category), founderAskBlock(ctx)],
     };
   }

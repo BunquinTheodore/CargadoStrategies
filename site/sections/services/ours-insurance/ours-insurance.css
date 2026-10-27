@@ -11,3 +11,4 @@
 .ins__promise { max-width: 46ch; font-size: var(--fs-lead); line-height: 1.5; }
 .ins__action { display: grid; gap: var(--space-m); justify-items: start; }
 .ctas { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
+/* v2 (spec §6.1b): "Ask About Insurance" opens the policy review site; this hint says so first. */

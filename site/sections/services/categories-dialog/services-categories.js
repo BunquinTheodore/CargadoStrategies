@@ -14,32 +14,45 @@ import { CATEGORIES, FINDER_MIN_PARTNERS, PARTNERS, categoryBySlug } from '../..
 import { escapeHtml } from '../../../core/chrome/chrome.js';
 import { waLink, categoryMessage } from '../../../core/chrome/whatsapp.js';
 import { createPager } from '../../../core/ui/ui-pager.js';
-import { FOUNDER_OFFERS, OURS, PARTNER_ONLY, hasPartners, isOurs, PAGE, PHONE_QUERY, profileTrigger, subPlaceholderCard } from '../services-data.js';
+import { createTabs } from '../../../core/ui/ui-tabs.js';
+import {
+  FOUNDER_OFFERS, OURS, PARTNER_ONLY, hasPartners, insuranceLink, isOurs, PAGE, PHONE_QUERY, profileTrigger, subPlaceholderCard,
+} from '../services-data.js';
 import { titleCase } from '../../../core/lib/text-case.js';
 
 const ARROW = '<span class="btn__arrow" aria-hidden="true">→</span>';
 const NEW_TAB = 'target="_blank" rel="noopener"';
-const TALL_QUERY = '(min-height: 1000px) and (min-width: 760px)'; // two partners a page only where the dialog has room
+const TALL_QUERY = '(min-height: 1000px) and (min-width: 1000px)'; // two partners a page only where the dialog has room
 const DRILL_CLASS = 'is-detail';
 const name = (category) => escapeHtml(titleCase(category.name));
 /** Until the finder is live the dialog is the concierge: no partner list, no partner-spot cards (those stay on partners.html). */
 const LISTS_ON = PARTNERS.length >= FINDER_MIN_PARTNERS;
 /** The S6 fine print (verbatim, moved here): its first two sentences stand only beside a list. */
 const LIST_NOTICE = '<strong>Sorted by distance only.</strong> This list is not a recommendation. ';
-const PARTNER_NOTICE = 'Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay us.';
+const PARTNER_NOTICE = 'Partners are independent businesses, each responsible for their own licence and advice. Cargado Strategies may receive a commission if you become their client. You never pay Cargado Strategies.';
 /** Today's dialog notice, shown while partners are listed here. */
 const LISTING_NOTICE = 'Partners are independent businesses, listed by distance only; a listing is not a recommendation. Cargado Strategies may receive a commission if you become their client.';
 
-/** Founder credential line per category. */
-const FOUNDER_LINES = Object.freeze({
-  insurance: 'Offered by our founder.',
-  'business-strategy': 'Offered by our founder · Finance and operations strategy · Strategy and coaching only, not licensed accounting, tax or investment advice.',
-  outsourcing: 'Provided by Cargado Strategies itself, not by a partner.',
+const OWN_LINE = 'Provided by Cargado Strategies itself, not by a partner.';
+/** The line of a category with items (Contractor): the own line, then its items. */
+const itemsLine = (slug) => [OWN_LINE, ...(categoryBySlug(slug)?.items || [])].join(' · ');
+
+/** Founder credential line per category (every founder-owned category needs one). */
+export const FOUNDER_LINES = Object.freeze({
+  insurance: OWN_LINE,
+  'business-strategy': 'Provided by Cargado Strategies itself · Finance and operations strategy · Strategy and coaching only, not licensed accounting, tax or investment advice.',
+  outsourcing: OWN_LINE,
+  'web-design': OWN_LINE,
+  graphics: OWN_LINE,
+  'virtual-assistant': OWN_LINE,
+  'software-development': OWN_LINE,
+  'export-import': OWN_LINE,
+  contractor: itemsLine('contractor'),
 });
 
 function ownershipLabel(category) {
   if (category.ownership === 'both') return 'Ours + partners';
-  return isOurs(category) ? 'Ours · from our founder' : 'Partners · independent businesses';
+  return isOurs(category) ? 'Ours · from Cargado Strategies' : 'Partners · independent businesses';
 }
 
 function railItem(category) {
@@ -50,7 +63,7 @@ function railItem(category) {
 function railMarkup() {
   return `
   <p class="cats__group" id="rail-ours">Ours</p>
-  <ul class="cats__list" aria-labelledby="rail-ours">${OURS.map(railItem).join('')}</ul>
+  <ul class="cats__list cats__list--ours" aria-labelledby="rail-ours">${OURS.map(railItem).join('')}</ul>
   <p class="cats__group" id="rail-partners">Partners</p>
   <ul class="cats__list" aria-labelledby="rail-partners">${PARTNER_ONLY.map(railItem).join('')}</ul>`;
 }
@@ -93,11 +106,20 @@ function founderMarkup(category) {
   if (!offer) return '';
   return `
   <p class="cats__offer"><strong>${escapeHtml(offer.name)}.</strong> ${FOUNDER_LINES[category.slug] || ''}
-    <a class="link" href="#${offer.scene}" data-cat-scene>See Her Offer ${ARROW}</a></p>`;
+    <a class="link" href="#${offer.scene}" data-cat-scene>See the Offer ${ARROW}</a></p>`;
+}
+
+/** Insurance opens the policy review site (spec §6.1b); the hint says so before the tap. */
+function insuranceMarkup(link) {
+  return `<a class="btn btn--primary cats__cta" href="${escapeHtml(link.href)}" ${NEW_TAB}>${FOUNDER_OFFERS.insurance.cta} ${ARROW}</a>
+    <p class="hint cats__hint">${link.hint}</p>`;
 }
 
 function actionMarkup(category) {
+  const redirect = category.slug === 'insurance' ? insuranceLink() : null;
+  if (redirect) return insuranceMarkup(redirect);
   const offer = hasPartners(category) ? null : FOUNDER_OFFERS[category.slug];
+  if (offer?.href) return `<a class="btn btn--primary cats__cta" href="${offer.href}">${offer.cta} ${ARROW}</a>`;
   const label = offer ? offer.cta : 'Get My Introduction';
   const context = offer ? 'founder' : 'services';
   const href = waLink(categoryMessage({ category: category.name, page: PAGE }));
@@ -114,16 +136,32 @@ function detailMarkup(category) {
     ? `<p class="fineprint cats__notice"><span${hidden}>${LIST_NOTICE}</span>${PARTNER_NOTICE}</p>
        <p class="fineprint cats__notice"${hidden}>${LISTING_NOTICE}</p>`
     : '';
+  const listed = LISTS_ON && hasPartners(category);
+  const listing = notice ? `
+    <div class="cats__listing tabs__panel" id="cat-listing">
+      ${listed ? partnersMarkup(category) : ''}
+      ${notice}
+    </div>` : '';
+  /* Ours + listed partners (Insurance): on phones the two halves are tabs, so each fits the sheet. */
+  const tabs = listed && FOUNDER_OFFERS[category.slug]
+    ? `<div class="tabs__list cats__tabs">
+      <button class="tabs__tab" type="button" aria-controls="cat-about">Ours</button>
+      <button class="tabs__tab" type="button" aria-controls="cat-listing">Partners</button>
+    </div>` : '';
   return `
-  <div class="cats__card">
-    <p class="eyebrow">${ownershipLabel(category)}</p>
-    <h3 class="cats__name" id="cat-detail-title">${name(category)}</h3>
-    <p class="cats__desc">${escapeHtml(category.description)}</p>
-    ${types}
-    ${founderMarkup(category)}
-    ${LISTS_ON && hasPartners(category) ? partnersMarkup(category) : ''}
-    ${actionMarkup(category)}
-    ${notice}
+  <div class="cats__card${listing ? ' cats__card--split' : ''}" data-cat-card>
+    <div class="cats__intro">
+      <p class="eyebrow">${ownershipLabel(category)}</p>
+      <h3 class="cats__name" id="cat-detail-title">${name(category)}</h3>
+    </div>
+    ${tabs}
+    <div class="cats__about tabs__panel" id="cat-about">
+      <p class="cats__desc">${escapeHtml(category.description)}</p>
+      ${types}
+      ${founderMarkup(category)}
+      ${actionMarkup(category)}
+    </div>
+    ${listing}
   </div>`;
 }
 
@@ -143,6 +181,7 @@ export function initCategories({ dialog, initial, onRender = () => {} }) {
   const buttons = Array.from(rail.querySelectorAll('.cats__item'));
   let current = null;
   let pager = null;
+  let tabs = null;
 
   function pageCards(category) {
     pager?.destroy();
@@ -151,6 +190,14 @@ export function initCategories({ dialog, initial, onRender = () => {} }) {
     if (!list) return;
     list.innerHTML = cardsOf(category).join('');
     pager = createPager(list, { mode: 'static', maxPerPage: () => (tall.matches ? 2 : 1), noun: 'partners' });
+  }
+
+  /** Ours · Partners tabs on phones (static, both shown, on wider screens). */
+  function tabCard() {
+    tabs?.destroy();
+    tabs = null;
+    const card = detail.querySelector('[data-cat-card]');
+    if (card?.querySelector('.cats__tabs')) tabs = createTabs(card, { activeWhen: PHONE_QUERY, label: 'Ours or partners', panelStop: false });
   }
 
   /** Phones show the rail or one category; on a category the back button takes the title's row. */
@@ -166,6 +213,7 @@ export function initCategories({ dialog, initial, onRender = () => {} }) {
     buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.slug === slug)));
     detail.innerHTML = detailMarkup(category);
     pageCards(category);
+    tabCard();
     setDrill(drill);
     if (announce) announce.textContent = `Showing ${titleCase(category.name)}`;
     if (updateUrl) history.replaceState(null, '', `#${slug}`);

@@ -7,19 +7,19 @@
  * config, licence rules (CR02), honeypot, the hand-off to WhatsApp (or email
  * once CONTACT_EMAIL exists) and the "we review each one" success state.
  *
- * Nothing is stored or sent by the page itself: the visitor sends the
- * prefilled message from their own WhatsApp / email app.
+ * The visitor sends the prefilled message from their own WhatsApp / email
+ * app. Beside it, a copy goes to POST /api/partner-apply, which stores the
+ * application for the admin dashboard and emails the owner.
  */
 import { CATEGORIES, CONTACT_EMAIL, CONTACT_EMAIL_LABEL, SITE_NAME, categoryBySlug } from '../../../assets/js/config.js';
 import { waLink } from '../../../core/chrome/whatsapp.js';
 import { escapeHtml } from '../../../core/chrome/chrome.js';
 import { createStepper } from '../../../core/ui/ui-stepper.js';
 import { focusInScene } from '../../../core/ui/ui-focus.js';
-import { sendInquiry } from '../../../core/lib/send-inquiry.js';
 
 /** Categories where a current licence is required to be listed (CR02). */
 const LICENCE_REQUIRED = new Set(['insurance', 'legal', 'mortgage', 'real-estate']);
-const OTHER_CATEGORY = { slug: 'other', name: 'Something else (tell us under About your work)' };
+const OTHER_CATEGORY = { slug: 'other', name: 'Something else (say more under About your work)' };
 const TIER_NAMES = { community: 'Community', growth: 'Growth', premier: 'Premier' };
 const MIN_PHONE_DIGITS = 10;
 const MIN_REFERENCES = 10;
@@ -27,6 +27,8 @@ const MIN_ABOUT = 30;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const ID_PREFIX = 'pa-';
 const PAGE_WHEN = '(min-width: 760px)';
+const APPLY_ENDPOINT = '/api/partner-apply';
+const MAX_VALUE = 2000;
 
 const filled = (value) => value.length > 0;
 const digitCount = (value) => value.replace(/\D/g, '').length;
@@ -37,7 +39,7 @@ const categoryName = (slug) => (slug === OTHER_CATEGORY.slug ? 'Other' : categor
 const RULES = [
   { field: 'business', ok: (v) => filled(v.business), message: 'Enter your business name.' },
   { field: 'entity', ok: (v) => filled(v.entity), message: 'Enter the legal entity name, even if it is the same as your business name.' },
-  { field: 'contact', ok: (v) => filled(v.contact), message: 'Enter the name of the person we should contact.' },
+  { field: 'contact', ok: (v) => filled(v.contact), message: 'Enter the name of the person Cargado Strategies should contact.' },
   { field: 'phone', ok: (v) => digitCount(v.phone) >= MIN_PHONE_DIGITS, message: `Enter a phone or WhatsApp number with at least ${MIN_PHONE_DIGITS} digits, including the area code.` },
   { field: 'category', ok: (v) => filled(v.category), message: 'Choose the service you offer.' },
   {
@@ -52,11 +54,11 @@ const RULES = [
   },
   { field: 'city', ok: (v) => filled(v.city), message: 'Enter the city or town you work from.' },
   { field: 'province', ok: (v) => filled(v.province), message: 'Choose your province or territory.' },
-  { field: 'references', ok: (v) => v.references.length >= MIN_REFERENCES, message: 'Add at least one professional reference: a name and how to reach them. We contact them only to review your application.' },
-  { field: 'about', ok: (v) => v.about.length >= MIN_ABOUT, message: `Tell us about your work in two or three sentences (${MIN_ABOUT} characters or more): what you do, who you help, your languages.` },
+  { field: 'references', ok: (v) => v.references.length >= MIN_REFERENCES, message: 'Add at least one professional reference: a name and how to reach them. Cargado Strategies contacts them only to review your application.' },
+  { field: 'about', ok: (v) => v.about.length >= MIN_ABOUT, message: `Describe your work in two or three sentences (${MIN_ABOUT} characters or more): what you do, who you help, your languages.` },
   { field: 'email', ok: (v) => EMAIL_PATTERN.test(v.email), message: 'Enter an email address like name@example.com.' },
   { field: 'conduct', ok: (v) => v.conduct, message: 'Tick to agree to the Partner Code of Conduct.' },
-  { field: 'consent', ok: (v) => v.consent, message: 'Tick so we can use these details to review it.' },
+  { field: 'consent', ok: (v) => v.consent, message: 'Tick so Cargado Strategies can use these details to review it.' },
 ];
 
 /* ---------- rendering ---------- */
@@ -138,9 +140,30 @@ function applicationText(v) {
   ].join('\n');
 }
 
-/** The owner's email copy (api/inquiry.js), sent beside the hand-off. */
+/**
+ * The stored copy and the owner's email (api/partner-apply.js), sent beside the
+ * hand-off. Fire and forget: keepalive lets it finish while WhatsApp opens.
+ */
+function postApplication(fields) {
+  const clean = Object.fromEntries(Object.entries(fields)
+    .map(([label, value]) => [label, String(value ?? '').trim().slice(0, MAX_VALUE)])
+    .filter(([, value]) => value));
+  try {
+    fetch(APPLY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: document.body.dataset.page || '', fields: clean }),
+      keepalive: true,
+    })
+      .then((response) => { if (!response.ok) console.error(`partner-apply: ${response.status}`); })
+      .catch((error) => console.error('partner-apply failed', error));
+  } catch (error) {
+    console.error('partner-apply failed', error);
+  }
+}
+
 function emailCopy(via, v) {
-  sendInquiry('application', {
+  postApplication({
     'Business name': v.business,
     'Legal entity': v.entity,
     'Contact name': v.contact,

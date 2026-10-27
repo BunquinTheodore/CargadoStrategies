@@ -64,15 +64,12 @@ const sheetStep = (step, name) => ({
   name: `WhatsApp sheet: ${name}`,
   run: runOf(`
     const step = ${JSON.stringify(step)};
-    const header = document.querySelector('.site-header__wa');
-    if (step === 'contact') {
-      const a = document.createElement('a');
-      a.href = '#wa-sheet?contact';
-      a.setAttribute('data-wa-sheet', 'contact');
-      a.setAttribute('data-context', 'partners');
-      document.body.append(a);
-      a.click();
-    } else header?.click();
+    const a = document.createElement('a');   // the header no longer has a WhatsApp button (owner, 2026-10-26)
+    a.href = step === 'contact' ? '#wa-sheet?contact' : '#wa-sheet';
+    a.setAttribute('data-wa-sheet', step === 'contact' ? 'contact' : '');
+    a.setAttribute('data-context', 'partners');
+    document.body.append(a);
+    a.click();
     for (let i = 0; i < 30 && !document.getElementById('wa-sheet')?.open; i++) await sleep(100);
     const form = document.querySelector('#wa-sheet form.stepper');
     if (step !== 'contact' && step > 0 && form?.csStepper) {

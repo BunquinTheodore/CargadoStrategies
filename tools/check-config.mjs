@@ -11,6 +11,8 @@
  * positive integer, FOOTER_SWITCHES is boolean, and proof keys (STATS, RATING, QUOTES,
  * FOUNDING_LIVE, FOUNDER_PHOTO, VIDEO_URL) are never an empty array or object, which would be
  * truthy and render a [data-when] slot with nothing real in it.
+ * v2 keys (when present): CATEGORIES shape (unique slugs, ownership, items, no price fields),
+ * ORBIT_GROUPS, BOOKING hours, INSURANCE_INQUIRY_URL, FOUNDER_PHOTOS and FIREBASE (no Analytics).
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
@@ -76,10 +78,58 @@ export function checkRound5(config) {
   return errors;
 }
 
+const OWNERSHIPS = new Set(['founder', 'partner', 'both']);
+const ORBIT_KEYS = ['slug', 'name', 'href', 'preview'];
+const PHOTO_KEYS = ['navy', 'cream', 'poster'];
+const MINUTES_PER_DAY = 1440;
+
+/** CATEGORIES: unique slugs, known ownership, optional items as strings, no prices online. */
+function checkCategories(categories) {
+  const errors = [];
+  const slugs = new Set();
+  categories.forEach((c, k) => {
+    const at = `CATEGORIES[${k}]${c?.slug ? ` (${c.slug})` : ''}`;
+    if (slugs.has(c.slug)) errors.push(`${at}: duplicate slug`);
+    slugs.add(c.slug);
+    if (!OWNERSHIPS.has(c.ownership)) errors.push(`${at}: ownership "${c.ownership}" is not ${[...OWNERSHIPS].join(' | ')}`);
+    if ('items' in c && !(Array.isArray(c.items) && c.items.every((i) => typeof i === 'string' && i))) errors.push(`${at}: items must be a list of names`);
+    Object.keys(c).filter((key) => /price/i.test(key)).forEach((key) => errors.push(`${at}: "${key}": no prices online`));
+  });
+  return errors;
+}
+
+/** v2 keys (when present): orbit groups, booking hours, insurance link, photos, Firebase. */
+export function checkV2(config) {
+  const errors = [];
+  if (Array.isArray(config.CATEGORIES)) errors.push(...checkCategories(config.CATEGORIES));
+  if ('ORBIT_GROUPS' in config) {
+    const groups = config.ORBIT_GROUPS;
+    if (!Array.isArray(groups) || !groups.length) errors.push('ORBIT_GROUPS must be a non-empty list');
+    else groups.forEach((g, k) => ORBIT_KEYS.forEach((key) => {
+      if (typeof g?.[key] !== 'string' || !g[key]) errors.push(`ORBIT_GROUPS[${k}]: missing ${key}`);
+    }));
+  }
+  if ('BOOKING' in config) {
+    const b = config.BOOKING || {};
+    const ints = ['startMinutes', 'endMinutes', 'slotMinutes', 'leadHours', 'horizonDays'];
+    ints.filter((key) => !(Number.isInteger(b[key]) && b[key] >= 0)).forEach((key) => errors.push(`BOOKING.${key} must be a whole number`));
+    if (!(b.startMinutes < b.endMinutes && b.endMinutes <= MINUTES_PER_DAY)) errors.push('BOOKING: startMinutes must be before endMinutes, within one day');
+    if (!(b.slotMinutes > 0) || (b.endMinutes - b.startMinutes) % b.slotMinutes) errors.push('BOOKING: the day must split into whole slots');
+    if (typeof b.timeZone !== 'string' || !b.timeZone) errors.push('BOOKING.timeZone is missing');
+  }
+  const url = config.INSURANCE_INQUIRY_URL;
+  if (url && !/^https:\/\/[^\s?#]+\/?$/.test(url)) errors.push('INSURANCE_INQUIRY_URL must be a plain https link (no query string) or empty');
+  if ('FOUNDER_PHOTOS' in config) {
+    PHOTO_KEYS.filter((key) => typeof config.FOUNDER_PHOTOS?.[key] !== 'string').forEach((key) => errors.push(`FOUNDER_PHOTOS.${key} must be a path or ''`));
+  }
+  if (config.FIREBASE && 'measurementId' in config.FIREBASE) errors.push('FIREBASE.measurementId: the site never loads Analytics; remove it');
+  return errors;
+}
+
 /** Load config.js and run every check. Returns { errors, partners }. */
 export async function checkConfig({ fixture } = {}) {
   const config = await import(`${pathToFileURL(CONFIG).href}?t=${Date.now()}`);
-  const errors = [...checkPartners(config.PARTNERS, config.CATEGORIES || []), ...checkRound5(config)];
+  const errors = [...checkPartners(config.PARTNERS, config.CATEGORIES || []), ...checkRound5(config), ...checkV2(config)];
   if (fixture) {
     const file = /[\\/]|\.json$/.test(fixture) ? resolve(ROOT, fixture) : join(ROOT, 'tools/fit-states/fixtures', `${fixture}.json`);
     if (!existsSync(file)) errors.push(`fixture not found: ${file}`);

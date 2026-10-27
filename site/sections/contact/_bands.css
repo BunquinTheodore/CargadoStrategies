@@ -1,0 +1,75 @@
+/* 4. Bands -------------------------------------------------------------------------------------- */
+/* Laptop-short (≥ 760 wide, ≤ 800 tall): a shorter poster (it keeps the scene's whitespace), a
+   one-line title, and tighter paper so the tallest step (the six-week calendar) fits. */
+@media (min-width: 760px) and (max-height: 800px) {
+  #book { --poster-h: min(var(--scene-safe-h), 540px); }
+  .book__main { gap: var(--space-m); }
+  .book__title { font-size: min(var(--fs-d1), 3rem); max-width: none; }
+  .book__lead { font-size: var(--fs-body); }
+  .book__paper { padding-block: 16px; }
+  .book-form { gap: var(--space-xs); }
+  .book-cal { --cal-cell: 44px; --cal-gap: 3px; }
+  /* The details page (four fields, the note and the consent, every error line showing) is the
+     tallest: 44 px fields, a two-line note and tighter rows. */
+  .book__paper { padding-block: 12px; }
+  .book-form .stepper__steps { gap: var(--space-xs); }
+  .book-form :is(.input, .select) { min-height: var(--tap-min); height: var(--tap-min); }
+  .book-form .textarea { height: var(--tap-min); }
+  .book-grid { row-gap: var(--space-xs); }
+}
+
+/* Tablet (760-1099 landscape): the poster gives way to a 520 px column, and the title steps down. */
+@media (min-width: 760px) and (max-width: 1099px) and (min-aspect-ratio: 1/1) {
+  #book { --poster-h: min(var(--scene-safe-h), 50vw, 720px); --book-col: 520px; }
+  .book__title { font-size: var(--fs-d2); max-width: none; }
+}
+
+/* Tablet portrait: the poster and the head side by side on top, the paper across both under them. */
+@media (min-width: 760px) and (max-width: 1099px) and (max-aspect-ratio: 1/1) {
+  #book { --poster-h: min(28svh, 320px); }
+  #book :is(.scene__pan, html.rm .scene__inner) {
+    grid-template-columns: auto minmax(0, 26rem); grid-template-areas: "poster head" "paper paper";
+    row-gap: var(--space-l); align-items: center;
+  }
+  #book:has(.book__poster[hidden]) :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 40rem); grid-template-areas: "head" "paper"; }
+  .book__main { display: contents; }
+  .book-cal { --cal-cell: 48px; }
+}
+
+/* Phone: the paper is the scene. On step 1 a small whole poster sits beside the head as a band
+   (from 760 px tall; shorter phones keep the paper alone); later steps show the paper only.
+   The calendar's cells touch and the grid reaches into the paper's padding, so 7 columns stay
+   >= 44 px wide from 360 px. */
+@media (max-width: 759px) {
+  #book { --poster-h: clamp(104px, 16svh, 150px); }
+  #book :is(.scene__pan, html.rm .scene__inner) {
+    grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "poster head" "paper paper";
+    column-gap: var(--space-s); row-gap: var(--space-s); align-items: center;
+  }
+  #book:has(.book__poster[hidden]) :is(.scene__pan, html.rm .scene__inner),
+  #book[data-step]:not([data-step="1"]) :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "paper"; }
+  .book__main { display: contents; }
+  .book__poster { border-radius: 10px; }
+  .book__head { gap: var(--space-xs); }
+  .book__title { font-size: var(--fs-d2); max-width: none; }
+  .book__lead { font-size: var(--fs-note); }
+  #book[data-step]:not([data-step="1"]) :is(.book__head, .book__poster) { display: none; }
+  .book__paper { min-height: 0; padding: 12px 14px; }
+  .book-form { gap: var(--space-xs); }
+  .book-form .stepper__step { gap: var(--space-xs); }
+  .book-form .form-row { gap: 4px; }
+  .book-grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xs); }
+  .book-form :is(.input, .select) { min-height: var(--tap-min); height: var(--tap-min); }   /* four fields in one column */
+  .book-form .stepper__nav .btn { flex: 1 1 auto; }
+  .book-form .textarea { height: 76px; }
+  .book-cal { --cal-cell: 44px; --cal-gap: 0px; margin-inline: -8px; gap: var(--space-2xs); }
+  .book-cal__head { padding-inline: 8px; }
+  .book-cal__day::before { inset: 2px; border-radius: 10px; }
+  .reach__title { font-size: var(--fs-d2); }
+}
+
+/* Phone-short (< 760 px tall): no room for the poster band; the head and the paper alone. */
+@media (max-width: 759px) and (max-height: 759px) {
+  #book :is(.scene__pan, html.rm .scene__inner) { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "paper"; }
+  .book__poster { display: none; }
+}

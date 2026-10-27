@@ -17,7 +17,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 export const CHROME = process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-export const PAGES = ['index.html', 'services.html', 'story.html', 'partners.html', 'legal.html'];
+export const PAGES = ['index.html', 'services.html', 'story.html', 'partners.html', 'contact.html', 'legal.html'];
+/** App pages (v2 §8: account, dashboards). Not scroll films: console-check only (no fit-audit, seek-test or shoot). */
+export const APP_PAGES = ['account.html', 'dashboard.html', 'partner-dashboard.html', 'admin.html'];
 export const VIEWPORTS_ALL = ['1920x1080', '1536x864', '1440x900', '1366x768', '1280x720', '1024x768', '768x1024', '390x844', '360x740'];
 export const VIEWPORTS_REVIEW = ['1440x900', '1280x720', '390x844', '360x740'];
 export const LOAD_TIMEOUT_MS = 15000;

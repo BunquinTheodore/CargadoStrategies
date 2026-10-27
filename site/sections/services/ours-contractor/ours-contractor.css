@@ -1,0 +1,15 @@
+/* 6b. #ours-contractor · R: the description, the four items as hairline rows, the consultation CTA */
+#ours-contractor :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-l); }
+.own__rows { display: grid; margin: 0; padding: 0; list-style: none; }
+.own__row {
+  display: grid; grid-template-columns: 3.2ch minmax(0, 1fr); align-items: center; column-gap: var(--gap-col);
+  min-height: min(var(--row-pitch), 10cqh); padding: var(--space-2xs) 24px; border-top: 1px solid var(--line);
+}
+.own__row:last-child { border-bottom: 1px solid var(--line); }
+.own__num { font-size: min(var(--fs-row-num), 6cqh); }
+.own__item { font: 400 min(var(--fs-d2), 5.4cqh)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+@media (max-width: 759px) {
+  #ours-contractor :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
+  .own__row { min-height: 52px; padding-inline: 8px; }
+  .own__item { font-size: max(1.5rem, min(var(--fs-d2), 6.5vw)); }
+}

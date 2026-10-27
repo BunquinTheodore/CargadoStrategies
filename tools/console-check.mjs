@@ -17,7 +17,7 @@
  * at error or warning level, failed requests and HTTP status >= 400 (a 404 is a T9 failure).
  * Exit code 1 when anything was collected.
  */
-import { PAGES, evaluate, filmHook, interceptResponses, launchChrome, navigate, parseArgs, setMedia, setViewport, sleep, waitReadyExpr } from './lib/cdp.mjs';
+import { APP_PAGES, PAGES, evaluate, filmHook, interceptResponses, launchChrome, navigate, parseArgs, setMedia, setViewport, sleep, waitReadyExpr } from './lib/cdp.mjs';
 
 const HOOK = '__consoleFilm';
 const READY_TIMEOUT_MS = 8000;
@@ -35,7 +35,7 @@ const MODES = {
 const cli = parseArgs();
 const opts = {
   base: cli.base,
-  pages: cli.pages.length ? cli.pages : PAGES,
+  pages: cli.pages.length ? cli.pages : [...PAGES, ...APP_PAGES],   // app pages: no film, so the walk finds no scenes
   modes: String(cli.value('modes', 'cut,touch,flow')).split(',').filter((m) => MODES[m]),
   review: !cli.has('no-review'),
   json: cli.has('json'),

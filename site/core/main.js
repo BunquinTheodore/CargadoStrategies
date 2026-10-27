@@ -44,7 +44,8 @@ function startModule(loader, what, run) {
  * Loaded only when the page has #splash (module scripts run after parsing, so
  * it is there), and awaited at the top level, so the page module evaluates
  * after it and boot() starts the splash before the chrome and the film, as a
- * static import would. Legal has no #splash and never downloads it.
+ * static import would. Every film page has #splash now (legal too, owner 2026-10-26);
+ * a page without one never downloads it.
  */
 const splash = document.getElementById('splash')
   ? await import('./engine/splash.js').catch((err) => { fail('the splash')(err); return null; })

@@ -21,9 +21,16 @@
  * be nested in a paused cut timeline and seeked (T5). Reversed (a touch swipe
  * that turned back), it gives the header its old field back at 50% and
  * returns to idle at 0 without touching .fields.
+ *
+ * `shape` (transitions.js, the scene's data-transition) draws the paint in another style:
+ * 'dot' pops a dot at the centre and swells it (the same circle and scale, so dotglobe's
+ * irisClip still matches); 'quad' and 'flood' turn the iris into a full-frame layer
+ * (data-state="wipe") clipped to a polygon, with the incoming scene clipped to the same one.
+ * `dir` orders the quad cells and aims the flood. The swap path is the same for every shape.
  */
 import { DUR, EASE } from './motion-tokens.js';
 import { getTier, tierConfig } from './tier.js';
+import { circleAt, coverRadius as cover, polygonCss, regionAt } from './transitions.js';
 
 const IRIS_FROM = 0.02;
 const SWAP_TAIL_S = 0.05; // the swap timeline's length after the swap, so it has a duration to nest and seek
@@ -46,11 +53,7 @@ export const irisEl = () => layer('iris');
 export const fieldsEl = () => layer('fields');
 
 /** Radius that covers the whole viewport from (x, y): the distance to the farthest corner. */
-function coverRadius(x, y) {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  return Math.ceil(Math.hypot(Math.max(x, w - x), Math.max(y, h - y)));
-}
+const coverRadius = (x, y) => cover(window.innerWidth, window.innerHeight, x, y);
 
 /** Drop the circle clip from a scene (cut.js also calls it at 'settled'). */
 export function unclip(el) {
@@ -60,7 +63,7 @@ export function unclip(el) {
 function settle(iris, fields, field, clip) {
   if (field) fields.setAttribute('data-field', field);
   iris.setAttribute('data-state', 'idle');
-  ['transform', 'opacity', 'will-change', 'z-index'].forEach((prop) => iris.style.removeProperty(prop));
+  ['transform', 'opacity', 'will-change', 'z-index', 'clip-path'].forEach((prop) => iris.style.removeProperty(prop));
   unclip(clip);
 }
 
@@ -76,6 +79,13 @@ function usesSwap(tier, stop) {
 
 /** True when irisTo would swap for this tier and origin (cut.js places a swap just before 'in'). */
 export const irisFades = (tier = getTier(), origin = {}) => usesSwap(tier, !!origin?.stop);
+
+/**
+ * True when a same-field cut may play its data-transition reveal (cut.js): not under reduced
+ * motion, and not on a measured tier C; a tier-locked page (legal, C by policy) keeps it.
+ */
+export const shapesAllowed = (tier = getTier()) => !html.classList.contains('rm')
+  && (tierConfig(tier).iris !== 'fade' || html.hasAttribute('data-tier-lock'));
 
 /** Swap path: one hard switch of .fields and the header at `swapAt`; reversed before it, nothing changed. */
 function swapTimeline(field, { paused, swapAt, onHalf }) {
@@ -94,15 +104,61 @@ function swapTimeline(field, { paused, swapAt, onHalf }) {
   return tl;
 }
 
-export function irisTo(field, origin = {}, {
-  paused = false, duration, tier = getTier(), onHalf, clip = null, from = IRIS_FROM, swapAt = 0,
-} = {}) {
-  if (usesSwap(tier, !!origin.stop)) return swapTimeline(field, { paused, swapAt, onHalf });
+/** The header swap at 50%, and back on a reversed run. */
+function addHalf(tl, field, seconds, getBefore, onHalf) {
+  tl.call(() => {
+    const before = getBefore();
+    const shown = tl.reversed() && before ? before : field;
+    html.setAttribute('data-hdr-field', shown);
+    onHalf?.({ field: shown });
+  }, null, seconds / 2);
+}
+
+/** quad / flood: a full-frame layer clipped to the region polygon, the incoming scene to the same one. */
+function wipeTimeline(field, shape, { paused, seconds, onHalf, clip, dir }) {
   const { gsap } = window;
   const iris = irisEl();
   const fields = fieldsEl();
-  const x = Number.isFinite(origin.x) ? origin.x : window.innerWidth / 2;
-  const y = Number.isFinite(origin.y) ? origin.y : window.innerHeight / 2;
+  const tl = gsap.timeline({ paused });
+  const run = { t: 0 };
+  let before = null;
+  let box = null;
+  const draw = () => {
+    const points = regionAt(shape, run.t, { w: window.innerWidth, h: window.innerHeight, dir });
+    iris.style.clipPath = polygonCss(points);
+    if (!clip) return;
+    box ||= clip.getBoundingClientRect();
+    clip.style.clipPath = polygonCss(points, -box.left, -box.top);
+  };
+  tl.call(() => {
+    if (tl.reversed()) return;
+    before = fields.getAttribute('data-field');
+    box = null;
+    iris.style.removeProperty('transform');
+    iris.setAttribute('data-field', field);
+    iris.setAttribute('data-state', 'wipe');
+    iris.style.willChange = 'clip-path';
+    draw();
+  }, null, 0);
+  tl.fromTo(run, { t: 0 }, { t: 1, duration: seconds, ease: 'none', immediateRender: false, onUpdate: draw }, 0);
+  addHalf(tl, field, seconds, () => before, onHalf);
+  tl.call(() => { if (!tl.reversed()) settle(iris, fields, field, clip); }, null, seconds);
+  tl.eventCallback('onReverseComplete', () => settle(iris, fields, null, clip));
+  return tl;
+}
+
+export function irisTo(field, origin = {}, {
+  paused = false, duration, tier = getTier(), onHalf, clip = null, from = IRIS_FROM, swapAt = 0, shape = 'iris', dir = 1,
+} = {}) {
+  if (usesSwap(tier, !!origin.stop)) return swapTimeline(field, { paused, swapAt, onHalf });
+  if (shape === 'quad' || shape === 'flood') return wipeTimeline(field, shape, { paused, seconds: duration ?? DUR.iris, onHalf, clip, dir });
+  const dot = shape === 'dot' && from <= IRIS_FROM; // touch-cut starts as a disc: a dot run would shrink it first
+  const at = shape === 'dot' ? { x: window.innerWidth / 2, y: window.innerHeight / 2 } : origin;
+  const { gsap } = window;
+  const iris = irisEl();
+  const fields = fieldsEl();
+  const x = Number.isFinite(at.x) ? at.x : window.innerWidth / 2;
+  const y = Number.isFinite(at.y) ? at.y : window.innerHeight / 2;
   const radius = coverRadius(x, y);
   const seconds = duration ?? DUR.iris;
   const tl = gsap.timeline({ paused });
@@ -132,14 +188,20 @@ export function irisTo(field, origin = {}, {
       drawClip();
     }
   }, null, 0);
-  tl.fromTo(iris, { scale: from }, {
-    scale: 1, duration: seconds, ease: EASE.iris, immediateRender: false, onUpdate: drawClip,
-  }, 0);
-  tl.call(() => {
-    const shown = tl.reversed() && before ? before : field;
-    html.setAttribute('data-hdr-field', shown);
-    onHalf?.({ field: shown });
-  }, null, seconds / 2);
+  if (dot) {
+    // The dot's radius from transitions.js, as the iris scale (dotglobe reads the scale).
+    const run = { t: 0 };
+    const size = { w: window.innerWidth, h: window.innerHeight };
+    tl.fromTo(run, { t: 0 }, {
+      t: 1, duration: seconds, ease: 'none', immediateRender: false,
+      onUpdate: () => { gsap.set(iris, { scale: circleAt('dot', run.t, size).r / radius }); drawClip(); },
+    }, 0);
+  } else {
+    tl.fromTo(iris, { scale: from }, {
+      scale: 1, duration: seconds, ease: EASE.iris, immediateRender: false, onUpdate: drawClip,
+    }, 0);
+  }
+  addHalf(tl, field, seconds, () => before, onHalf);
   tl.call(() => { if (!tl.reversed()) settle(iris, fields, field, clip); }, null, seconds);
   tl.eventCallback('onReverseComplete', () => settle(iris, fields, null, clip));
   return tl;

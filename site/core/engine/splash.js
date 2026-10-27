@@ -1,61 +1,90 @@
 /**
- * Splash (Round 5, DIRECTION W1, C1): the match cut into the hero globe.
+ * Splash (owner, 2026-10-26): the boot intro of the Portfolio film, in black and gold, on every
+ * film page when the site is opened or refreshed.
  *
- * The markup (plan/round5/snippets/splash.html) and its CSS (visual.css) paint
- * with the HTML, and the CSS alone draws the monogram: the C ring (420 ms),
- * then the W (260 ms), then one sheen band. This module only adds the match
- * cut: at MATCH_AT_MS the C ring becomes an aperture that slides and grows
- * until it sits exactly on the hero globe's horizon (the globe's anchor
- * circle, the same circle dotglobe.js draws), while the ink backdrop falls
- * away and the hero shows through. The globe circle is read before the ring
- * moves. It then dispatches `cs:splash-aperture` ({ x, y, r }) on document,
- * so dotglobe draws its limb on the same frame and fires the hero arc, and
- * the ring fades out (80 ms). `cs:splash-done` follows when the splash is
- * gone (also after a skip). Total ≤ 2.1 s from the mark's first frame (1500 +
- * 340 + 60 = 1900 ms), and CAP_MS enforces it: whatever is still running then
- * fades in SKIP_MS. A script that arrives too late for the match cut fades the
- * splash at once. done() records the User Timing measure `cs-splash`.
+ * The markup (the #splash block, the same in every film shell) and its CSS (visual.css §1) play
+ * the whole intro by themselves from the first frame, so a late script never holds the page:
  *
- * - Once per session (sessionStorage['cs-splash']); the snippet's inline
- *   script hides the splash before first paint on later pages.
- * - Any input (pointer down, key, wheel, touch) finishes it in 150 ms.
- * - Reduced motion (html.rm or the OS setting): the monogram shows for at
- *   most 300 ms, then fades over 200 ms.
- * - It never waits for film.ready or fonts, never traps focus (aria-hidden,
- *   nothing focusable), and uses WAAPI only (no GSAP), so it runs first.
- * - If this script is late, the CSS fallback (1.0 s) has already faded it:
- *   remove it at once. The snippet's inline listener sets html.splash-done on
- *   that fade's animationend, so nothing waits on a splash that is gone.
+ *      0-900 ms  01 the scan: corner brackets, tick rulers, ridges round the Cargado mark (the
+ *                MARK_PATHS C and W), a gold scanline lights the mark top to bottom, Scan 00 → 100 %,
+ *                Status Scanning → Verified
+ *    900-1300    02 Access Granted (a gold flash, the words wiped in, the bar)
+ *   1300-1600    03 the collapse: the block squashes to a line, the line to a point, a gold dot
+ *                pops and a ring goes out
+ *   1700-2200    04 the dot floods the frame in gold; the name (SITE_NAME, Times, Title Case)
+ *                rises from its masks, the founder and the city above a rule, the full stop
+ *   2200-2480    05 the four gold cells pull into the centre and the page shows
+ *        2500    gone (the CSS splash-out; the same moment is the fallback without this script)
  *
- * Also exports the anchor geometry dotglobe.js shares (anchorBox, circleOfBox),
- * so the aperture and the globe agree to the pixel.
+ * This module adds what CSS cannot: the counter text, the names from config.js, the skip, and
+ * the events. At APERTURE (the cells opening) it dispatches `cs:splash-aperture` ({ x, y, r }:
+ * the hero globe's circle, else a centred one), so the first landing's in group rises as the
+ * cells open and dotglobe draws its limb and fires the hero arc; `cs:splash-done` follows when
+ * the splash is gone (also after a skip). done() records the User Timing measure `cs-splash`.
+ *
+ * - When: on an open, a refresh and every move between the site's own pages (owner,
+ *   2026-10-27). Only back/forward skips it: the shell's inline script mirrors splashWanted()
+ *   and sets html.splash-skip before first paint (keep the two in sync).
+ * - Any input (pointer down, key, wheel, touch) fades it in SKIP_MS and finishes it.
+ * - Reduced motion (html.rm or the OS setting): the CSS shows the name card still; it holds
+ *   RM_HOLD_MS, then fades over RM_FADE_MS.
+ * - It never waits for film.ready or fonts, never traps focus (aria-hidden, nothing focusable),
+ *   and uses WAAPI only (no GSAP), so it runs first.
+ *
+ * Also exports the anchor geometry dotglobe.js shares (anchorBox, circleOfBox), so the aperture
+ * and the globe agree to the pixel.
  */
+import { SITE_NAME, FOUNDER_NAME, FOUNDER_LAST_NAME, ADDRESS } from '../../assets/js/config.js';
+import { MARK_PATHS, MARK_PARTS } from './mark-draw.js';
 
-const SESSION_KEY = 'cs-splash';
-const MEASURE = 'cs-splash'; // User Timing: the mark's first frame to splash-done (perf-gate reads it)
-const MATCH_AT_MS = 1500; // ≈ 1 s longer hold on the drawn mark (owner, 2026-10-20). After the mark starts: the C (0-380), W (240-480) and sheen (220-580) are CSS
-const MATCH_MS = 340;
-const RING_FADE_MS = 60;
-const CAP_MS = 2000; // W1: the splash is done by 2.1 s from its first frame, whatever happens (+ SKIP_MS fade)
-const LATE_MS = 120; // a script arriving this long after MATCH_AT_MS skips the match cut
-const W_FADE_MS = 160;
+const MEASURE = 'cs-splash'; // User Timing: the splash's first frame to splash-done (perf-gate reads it)
+/** The CSS timeline in ms (visual.css §1 delays; change both together). */
+export const SPLASH_MS = Object.freeze({
+  countFrom: 150, countTo: 850, aperture: 2220, end: 2500,
+});
 const SKIP_MS = 150;
-const RM_HOLD_MS = 1300;
+const RM_HOLD_MS = 600;
 const RM_FADE_MS = 200;
-const CSS_FALLBACK_MS = 2000; // visual.css fades the splash by itself from here (keep in sync)
-const MARK = Object.freeze({ cx: 24, cy: 24, r: 19, size: 48 }); // the C ring inside the 48-unit mark
+const PCT_MAX = 100;
 const GLOBE_FILL = 0.94; // the globe's radius as a share of its anchor's half-size
 const MIN_ANCHOR_PX = 24;
+const CENTRE_SHARE = 0.3; // no hero globe: the aperture is a centred circle of this share of the short side
 const SKIP_EVENTS = ['pointerdown', 'keydown', 'wheel', 'touchstart'];
-const EASE_IN = 'cubic-bezier(.55,0,1,.45)';
-const EASE_TRAVEL = 'cubic-bezier(.55,0,.25,1)'; // the ring visibly leaves the centre and settles onto the horizon (a pure ease-in read as a pop)
-const SVG_NS = 'http://www.w3.org/2000/svg';
 
 const state = { phase: 'idle', aperture: null };
 
-/** Where the splash is: 'idle' | 'running' | 'done', plus the aperture circle once the match cut landed. */
+/** Where the splash is: 'idle' | 'running' | 'skipping' | 'done', plus the aperture circle once sent. */
 export function splashState() {
   return { ...state };
+}
+
+/**
+ * True when this load should play the splash: an open, a refresh or a move between the site's
+ * own pages. Back/forward does not. type: the navigation entry's type.
+ */
+export function splashWanted({ type = 'navigate' } = {}) {
+  return type !== 'back_forward';
+}
+
+/** The scan counter at `ms` from the first frame: 0 → 100, easing out. */
+export function counterAt(ms) {
+  const p = Math.min(1, Math.max(0, (ms - SPLASH_MS.countFrom) / (SPLASH_MS.countTo - SPLASH_MS.countFrom)));
+  return Math.round(PCT_MAX * (1 - (1 - p) ** 2));
+}
+
+/** Two digits until 100 (the Portfolio's "00"). */
+export const counterText = (n) => (n >= PCT_MAX ? String(PCT_MAX) : String(n).padStart(2, '0'));
+
+/** The name card's text from config: the site name in two lines, the founder, the city. */
+export function splashNames(config = { SITE_NAME, FOUNDER_NAME, FOUNDER_LAST_NAME, ADDRESS }) {
+  const words = String(config.SITE_NAME || '').trim().split(/\s+/).filter(Boolean);
+  const founder = [config.FOUNDER_NAME, config.FOUNDER_LAST_NAME].filter(Boolean).join(' ');
+  const city = [config.ADDRESS?.city, config.ADDRESS?.province].filter(Boolean).join(', ');
+  return {
+    lines: words.length > 1 ? [words[0], words.slice(1).join(' ')] : words,
+    founder: founder ? `${founder}, Founder` : '',
+    city,
+  };
 }
 
 /**
@@ -97,50 +126,61 @@ function heroCircle() {
   return box.w >= MIN_ANCHOR_PX && box.h >= MIN_ANCHOR_PX ? circleOfBox(box) : null;
 }
 
+const centreCircle = () => ({
+  x: window.innerWidth / 2, y: window.innerHeight / 2, r: Math.min(window.innerWidth, window.innerHeight) * CENTRE_SHARE,
+});
+
 const wait = (ms) => new Promise((resolve) => { setTimeout(resolve, Math.max(0, ms)); });
 const finished = (anim) => anim.finished.catch(() => {});
 
-function seen() {
-  try {
-    if (sessionStorage.getItem(SESSION_KEY)) return true;
-    sessionStorage.setItem(SESSION_KEY, '1');
-  } catch {
-    /* storage blocked: play it, it is short */
-  }
-  return false;
+/** Names from config into the card, and the mark's paths from MARK_PATHS (one source for the C and W). */
+function fill(el) {
+  const names = splashNames();
+  const set = (key, text) => { const node = el.querySelector(`[data-splash="${key}"]`); if (node && text) node.textContent = text; };
+  set('site', SITE_NAME);
+  set('founder', names.founder);
+  set('city', names.city);
+  const spans = el.querySelectorAll('[data-splash="name"] .splash__line > span');
+  names.lines.forEach((line, i) => {
+    const span = spans[i];
+    if (!span) return;
+    const stop = span.querySelector('.splash__stop');
+    span.textContent = line;
+    if (stop) span.appendChild(stop);
+  });
+  el.querySelectorAll(MARK_PARTS.c).forEach((path) => path.setAttribute('d', MARK_PATHS.c));
+  el.querySelectorAll(MARK_PARTS.w).forEach((path) => path.setAttribute('d', MARK_PATHS.w));
 }
 
-/**
- * The C ring as a circle in a full-viewport SVG, in screen px. Its centre and
- * radius animate (CSS cx / cy / r), not a transform, so the stroke stays 2 px
- * and the pathLength-based gap stays on the right at every size.
- */
-function makeAperture(from) {
-  const svg = document.createElementNS(SVG_NS, 'svg');
-  svg.setAttribute('class', 'splash__aperture');
-  svg.setAttribute('focusable', 'false');
-  const ring = document.createElementNS(SVG_NS, 'circle');
-  ring.setAttribute('cx', String(from.x));
-  ring.setAttribute('cy', String(from.y));
-  ring.setAttribute('r', String(from.r));
-  ring.setAttribute('pathLength', '100');
-  svg.appendChild(ring);
-  return { svg, ring };
+/** The scan counter, frame by frame until it reads 100 (the CSS fallback shows 100 throughout). */
+function runCounter(el, startedAt) {
+  const node = el.querySelector('.splash__pct');
+  if (!node) return;
+  let shown = '';
+  const frame = () => {
+    if (state.phase !== 'running') return;
+    const n = counterAt(performance.now() - startedAt);
+    const text = counterText(n);
+    if (text !== shown) { node.textContent = text; shown = text; }
+    if (n < PCT_MAX) requestAnimationFrame(frame);
+  };
+  frame();
 }
 
-/** Mark's C ring in viewport px. */
-function markCircle(mark) {
-  const box = mark.getBoundingClientRect();
-  const k = box.width / MARK.size;
-  return { x: box.left + MARK.cx * k, y: box.top + MARK.cy * k, r: MARK.r * k };
+function sendAperture() {
+  if (state.aperture) return;
+  state.aperture = heroCircle() || centreCircle();
+  document.dispatchEvent(new CustomEvent('cs:splash-aperture', { detail: { ...state.aperture } }));
 }
 
 export function initSplash() {
   const el = document.getElementById('splash');
   const html = document.documentElement;
-  let startedAt = null;
+  // The CSS splash-out run on .splash started on the splash's first frame: its startTime is the clock.
+  const clock = el?.getAnimations?.().find((a) => a.animationName === 'splash-out')?.startTime;
+  const startedAt = Number.isFinite(clock) ? clock : performance.now();
   const done = () => {
-    if (startedAt !== null && state.phase !== 'done') {
+    if (state.phase !== 'done' && state.phase !== 'idle') {
       try { performance.measure(MEASURE, { start: startedAt }); } catch { /* User Timing L3 missing: no measure */ }
     }
     state.phase = 'done';
@@ -148,18 +188,15 @@ export function initSplash() {
     html.classList.add('splash-done');
     document.dispatchEvent(new CustomEvent('cs:splash-done'));
   };
-  const mark = el?.querySelector('.splash__mark');
-  // The C's CSS draw is the clock (the mask's paths come first and never animate); pending → now.
-  const clock = mark?.querySelector('.splash__c')?.getAnimations?.()[0]?.startTime;
-  const elapsed = performance.now() - (clock ?? performance.now());
-  if (!el || seen() || html.classList.contains('splash-skip') || elapsed >= CSS_FALLBACK_MS || (clock == null && performance.now() > CSS_FALLBACK_MS)) {
+  const reduced = html.classList.contains('rm') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const late = performance.now() - startedAt >= (reduced ? RM_HOLD_MS + RM_FADE_MS : SPLASH_MS.end);
+  if (!el || html.classList.contains('splash-skip') || late) {
     done();
     return Promise.resolve();
   }
-  html.classList.add('splash-js'); // JS owns the exit now: stops the CSS fallback fade
   state.phase = 'running';
-  const reduced = html.classList.contains('rm') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  startedAt = clock ?? performance.now();
+  fill(el);
+  if (!reduced) runCounter(el, startedAt);
   let skip = null;
   const skipped = new Promise((resolve) => { skip = resolve; });
   const onInput = () => skip();
@@ -176,36 +213,12 @@ export function initSplash() {
       await fadeAll(RM_FADE_MS);
       return;
     }
-    if (performance.now() - startedAt > MATCH_AT_MS + LATE_MS) { // too late to cut and still make the cap
-      await fadeAll(SKIP_MS);
-      return;
-    }
-    await wait(startedAt + MATCH_AT_MS - performance.now());
-    if (state.phase !== 'running' || !mark || !el.animate) return;
-    await matchCut();
-  }
-
-  async function matchCut() {
-    const to = heroCircle() || { x: window.innerWidth / 2, y: window.innerHeight / 2, r: Math.min(window.innerWidth, window.innerHeight) * 0.3 };
-    const from = markCircle(mark);
-    const { svg, ring } = makeAperture(from);
-    el.appendChild(svg);
-    const frames = [
-      { cx: `${from.x}px`, cy: `${from.y}px`, r: `${from.r}px` },
-      { cx: `${to.x}px`, cy: `${to.y}px`, r: `${to.r}px` },
-    ];
-    mark.querySelector('.splash__c')?.setAttribute('visibility', 'hidden'); // the aperture takes the C's place on this frame
-    const grow = ring.animate(frames, { duration: MATCH_MS, easing: EASE_TRAVEL, fill: 'forwards' });
-    el.querySelector('.splash__bg')?.animate([{ opacity: 1 }, { opacity: 0 }], { duration: MATCH_MS, easing: EASE_IN, fill: 'forwards' });
-    mark.animate([{ opacity: 1 }, { opacity: 0 }], { duration: W_FADE_MS, fill: 'forwards' }); // the W and the sheen
-    await finished(grow);
+    await wait(startedAt + SPLASH_MS.aperture - performance.now());
     if (state.phase !== 'running') return;
-    state.aperture = { x: to.x, y: to.y, r: to.r };
-    document.dispatchEvent(new CustomEvent('cs:splash-aperture', { detail: { ...state.aperture } }));
-    await finished(svg.animate([{ opacity: 1 }, { opacity: 0 }], { duration: RING_FADE_MS, fill: 'forwards' }));
+    sendAperture();
+    await wait(startedAt + SPLASH_MS.end - performance.now());
   }
 
-  wait(startedAt + CAP_MS - performance.now()).then(() => skip()); // after done() this is a no-op
   const skipping = skipped.then(async () => {
     if (state.phase !== 'running') return;
     state.phase = 'skipping';

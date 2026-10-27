@@ -23,5 +23,4 @@
 .logo__notes { grid-column: 1 / -1; grid-row: 4; display: grid; justify-items: center; gap: var(--space-2xs); text-align: center; }
 .logo__how { margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); color: var(--fg-muted); max-width: 52ch; }
 .logo__ref { margin: 0; font: 500 var(--fs-label)/1.4 var(--font-ui); color: var(--fg-muted); }   /* a reference only, never quoted */
-.logo__faith { margin: 0; font-size: var(--fs-note); color: var(--fg-muted); }
 

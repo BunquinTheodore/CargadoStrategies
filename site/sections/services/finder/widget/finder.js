@@ -25,7 +25,7 @@ import { titleCase } from '../../../../core/lib/text-case.js';
 
 const MSG_EMPTY_QUERY = 'Type a city, province or postal code.';
 const MSG_NOT_FOUND = (q) =>
-  `We couldn't find “${q}”. Try a nearby city, your province, or the first three characters of your postal code.`;
+  `No match for “${q}”. Try a nearby city, your province, or the first three characters of your postal code.`;
 const MSG_MAP_FAILED = 'The map didn’t load. Use the search box: it gives the same results.';
 const TAB_MODES = Object.freeze([
   { when: '(max-width: 759px)', tabs: ['fp-search', 'fp-map', 'fp-results'] },
@@ -51,7 +51,7 @@ function categoryOptions() {
   const foundersOnly = OURS.filter((c) => !hasPartners(c));
   return `<option value="">Choose a service</option>
     <optgroup label="Partner network">${network.map((c) => option(c.slug, c.name)).join('')}</optgroup>
-    <optgroup label="Our founder's own">${foundersOnly.map((c) => option(c.slug, c.name)).join('')}</optgroup>`;
+    <optgroup label="Cargado Strategies' own">${foundersOnly.map((c) => option(c.slug, c.name)).join('')}</optgroup>`;
 }
 
 export function initFinder({ root, film, onPlace = () => {}, onError = () => {}, onRender = () => {} }) {

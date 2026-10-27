@@ -1,6 +1,7 @@
 /**
- * Home page (index.html): 6 scenes + credits on the Round 5 cut engine
- * (DIRECTION §7.1, H1-H7). Each scene's behaviour is its section class
+ * Home page (index.html): 7 scenes + credits on the Round 5 cut engine
+ * (DIRECTION §7.1, H1-H7, plus the v2 services orbit after the hero, spec §6.3).
+ * Each scene's behaviour is its section class
  * (sections/home/<name>/<Name>.js); the credits have none.
  *
  * Order (api.md §2): fill the copy that depends on config first, then boot(),
@@ -10,9 +11,10 @@
  */
 import { boot } from '../core/main.js';
 import { mountSections } from '../core/Section.js';
-import { FOUNDER_LAST_NAME, FOUNDER_NAME, FOUNDER_PHOTO, FOUNDER_SIGNATURE, HERO_VARIANT } from '../assets/js/config.js';
+import { FOUNDER_LAST_NAME, FOUNDER_NAME, FOUNDER_PHOTO, FOUNDER_PHOTOS, FOUNDER_SIGNATURE, HERO_VARIANT } from '../assets/js/config.js';
 import { buildIntro, waLink } from '../core/chrome/whatsapp.js';
 import { Hero } from '../sections/home/hero/Hero.js';
+import { Orbit } from '../sections/home/orbit/Orbit.js';
 import { OneMessage } from '../sections/home/one-message/OneMessage.js';
 import { Situations } from '../sections/home/situations/Situations.js';
 import { Founder } from '../sections/home/founder/Founder.js';
@@ -20,6 +22,10 @@ import { Find } from '../sections/home/find/Find.js';
 import { Close } from '../sections/home/close/Close.js';
 
 const PAGE = 'home';
+/** The intrinsic size of the founder photos (tools/gen-images.mjs), so a slot never shifts as it loads. */
+const PHOTO_SIZE = Object.freeze({ width: 480, height: 687 });
+/** Slots inside the first scene load at once; the rest wait until they are near the view. */
+const EAGER_SCENE = 'hero';
 const TRIAD_TITLE = 'Protect. Plan. <em>Delegate</em><span class="visually-hidden">.</span><span class="stop" aria-hidden="true"></span>';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -46,6 +52,21 @@ function writeFounderName(el) {
   el.classList.remove('ph');
 }
 
+/**
+ * One founder photo slot: the photo it names (data-founder-photo="navy"), else the default.
+ * Home's slots are small avatars beside her name, so the image is decorative (alt="").
+ */
+function fillPhoto(slot) {
+  const src = FOUNDER_PHOTOS[slot.dataset.founderPhoto] || FOUNDER_PHOTO;
+  if (!src) return;
+  const img = new Image(PHOTO_SIZE.width, PHOTO_SIZE.height);
+  img.src = src;
+  img.alt = '';
+  img.decoding = 'async';
+  if (!slot.closest(`#${EAGER_SCENE}`)) img.loading = 'lazy';
+  slot.replaceChildren(img);
+}
+
 /** Hero title variant and the founder's name, photo and signature (hero and founder scenes). */
 function fillCopy() {
   if (HERO_VARIANT === 'triad') {
@@ -54,15 +75,7 @@ function fillCopy() {
   }
   if (FOUNDER_NAME) $$('[data-founder-name]').forEach(writeFounderName);
   // The founder's face beside her name ([data-when="FOUNDER_PHOTO"] slots); never a stand-in face.
-  if (FOUNDER_PHOTO) {
-    $$('[data-founder-photo]').forEach((slot) => {
-      const img = new Image();
-      img.src = FOUNDER_PHOTO;
-      img.alt = '';
-      img.decoding = 'async';
-      slot.replaceChildren(img);
-    });
-  }
+  $$('[data-founder-photo]').forEach(fillPhoto);
   // Her own signature mark stands in only while there is no photo (the owner's file, never drawn).
   $$('[data-founder-signature]').forEach((slot) => {
     if (!FOUNDER_SIGNATURE || FOUNDER_PHOTO) return void slot.remove();
@@ -87,4 +100,4 @@ function fillWhatsAppLinks() {
 fillCopy();
 fillWhatsAppLinks();
 const ctx = boot({ page: PAGE });
-mountSections([Hero, OneMessage, Situations, Founder, Find, Close], ctx);
+mountSections([Hero, Orbit, OneMessage, Situations, Founder, Find, Close], ctx);

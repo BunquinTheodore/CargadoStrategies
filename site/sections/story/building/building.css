@@ -1,0 +1,12 @@
+/* The Story building (building/Building.js): one decorative WebGL canvas, never a target.
+   Cut mode: a full-stage layer just above the globe and under the scenes, so every word and
+   button paints over it; during a field-change cut it rides above the iris circle (the
+   entering scene still stacks on top). Touch-cut: fixed, like #globe. Flow: one still frame
+   inside #beginning, under its .scene__inner. Building.js writes its opacity. */
+.story-building {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  z-index: var(--z-globe); pointer-events: none; user-select: none;
+}
+html.touch-cut .story-building { position: fixed; }
+.story-building.is-over-iris { z-index: calc(var(--z-iris) + 1); }
+html.rm .story-building, .story-building--still { z-index: auto; }

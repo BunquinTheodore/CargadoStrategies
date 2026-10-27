@@ -30,3 +30,32 @@
 .cats__partner { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-xs); }
 .cats__cta { margin-top: var(--space-2xs); }
 .cats__notice { margin: 0; }
+/* v2 (spec §6.1): nine services of its own, fifteen categories. Both groups set in columns
+   (owner, 2026-10-26 fit pass), and from 760 px wide the rail runs across the top with the
+   detail under it in two columns: the category and its action, then the partners and notices. */
+.cats__list--ours, .cats__list:not(.cats__list--ours) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-s); }
+.cats__item > span:first-child { min-width: 0; }
+.cats__hint { margin: 0; }
+.cats__intro, .cats__about, .cats__listing { display: grid; gap: var(--space-xs); justify-items: start; min-width: 0; }
+.cats__intro { gap: 2px; }
+.cats__listing { width: 100%; }
+@media (min-width: 760px) {
+  .cats__body { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-m); }
+  .cats__rail { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); grid-template-rows: auto auto; grid-auto-flow: column; column-gap: var(--space-l); }
+  .cats__group, .cats__group:first-child { margin: 0 0 2px; }
+  .cats__list--ours { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .cats__card--split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "intro listing" "about listing"; grid-template-rows: auto 1fr; column-gap: var(--space-l); align-items: start; }
+  .cats__card--split > .cats__intro { grid-area: intro; }
+  .cats__card--split > .cats__about { grid-area: about; }
+  .cats__card--split > .cats__listing { grid-area: listing; }
+}
+@media (min-width: 1000px) {
+  .dialog.cats { width: min(1180px, calc(100vw - 2 * var(--page-pad))); }   /* room for the rail of five columns and the two-column detail */
+}
+/* Short screens: the panel, the title and the gaps tighten so the tallest view fits with 24 px to spare. */
+@media (min-width: 760px) and (max-height: 800px) {
+  .cats .dialog__panel { padding-block: 20px; gap: var(--space-xs); }
+  .cats__title { font-size: 2rem; }
+  .cats__name { font-size: 1.75rem; }
+  .cats__body { row-gap: var(--space-s); }
+}

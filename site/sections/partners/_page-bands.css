@@ -114,6 +114,13 @@
   /* Dialogs: on phones the tabs already compare the tiers; the dialog keeps the terms. */
   .tiers-dialog__grid { display: none; }
 }
+/* Short phones (≤ 760 tall): the paper closes up, so the licence step with every error still
+   leaves ≥ 40 px under it when flow's scrollbar narrows the page (360x740). */
+@media (max-width: 759px) and (max-height: 760px) {
+  #apply .scene__pan { gap: var(--space-xs); }
+  .apply__paper { padding-block: var(--space-xs); }
+  .apply-form .input, .apply-form .select { min-height: var(--tap-min); padding-block: 6px; }
+}
 /* Wide screens (≥ 1280, 3:2 and wider, any height): Canada fills its side (owner, 2026-10-20).
    Last in the cascade, so it wins over the laptop-short cap above. */
 @media (min-width: 1280px) and (min-aspect-ratio: 3/2) {
