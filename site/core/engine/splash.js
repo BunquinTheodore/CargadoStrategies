@@ -13,14 +13,14 @@
  *                pops and a ring goes out
  *   2720-3520    04 the dot floods the frame in gold; the name (SITE_NAME, Times, Title Case)
  *                rises from its masks, the founder and the city above a rule, the full stop
- *   3520-3970    05 the four gold cells pull into the centre and the page shows
- *        4000    gone (the CSS splash-out; the same moment is the fallback without this script)
- *   (owner, 2026-10-28: 1.6x the first 2.5 s cut, which read too fast)
+ *   3520-4000    05 the whole splash fades out evenly and the page shows (the CSS splash-out;
+ *                the same end is the fallback without this script)
+ *   (owner, 2026-10-28: 1.6x the first 2.5 s cut, which read too fast; one uniform fade)
  *
  * This module adds what CSS cannot: the counter text, the names from config.js, the skip, and
- * the events. At APERTURE (the cells opening) it dispatches `cs:splash-aperture` ({ x, y, r }:
+ * the events. At APERTURE (the fade beginning) it dispatches `cs:splash-aperture` ({ x, y, r }:
  * the hero globe's circle, else a centred one), so the first landing's in group rises as the
- * cells open and dotglobe draws its limb and fires the hero arc; `cs:splash-done` follows when
+ * splash fades and dotglobe draws its limb and fires the hero arc; `cs:splash-done` follows when
  * the splash is gone (also after a skip). done() records the User Timing measure `cs-splash`.
  *
  * - When: only on an open and a refresh (owner, 2026-10-28). Moving between the site's own

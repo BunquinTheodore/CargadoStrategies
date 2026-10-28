@@ -13,9 +13,9 @@
 /* The CSS plays the whole intro on its own, from the first frame, so the page under it never waits
    for a script: 0-1.44 s the scan (brackets, tick rulers, ridges, the mark lit by the scanline),
    1.44-2.08 s Access Granted, 2.08-2.56 s the collapse to the dot, 2.72-3.52 s the gold flood and
-   the name, 3.52-3.97 s the four cells pull into the centre and the page shows; at 4 s the splash
-   is gone (splash-out, also the fallback when splash.js never runs). Owner, 2026-10-28: 1.6x the
-   first cut's 2.5 s, which read too fast. splash.js adds the counter, the
+   the name, 3.52-4 s the whole splash fades out evenly and the page shows; at 4 s it is gone
+   (splash-out, also the fallback when splash.js never runs). Owner, 2026-10-28: 1.6x the
+   first cut's 2.5 s, which read too fast, and one uniform fade instead of the four cells. splash.js adds the counter, the
    config names, the skip on input and the events. Only transform, opacity and clip-path animate,
    plus the mark's one stroke draw (stroke-dashoffset). The times are the delays below; splash.js
    mirrors them in SPLASH_MS (change both together). */
@@ -25,7 +25,7 @@ html:not(.js) .splash,
   --sf: min(46vmin, 300px);                       /* the scan frame's width (its height is 1.2x) */
   position: fixed; inset: 0; z-index: var(--z-splash, 30);
   pointer-events: none; overflow: hidden; color: var(--c-ivory-text, #F3ECDD);
-  animation: splash-out 1ms linear 4s forwards;
+  animation: splash-out .48s linear 3.52s forwards; /* one even fade of everything, 3.52-4 s */
 }
 .splash > * { position: absolute; }
 .splash__bg {
@@ -103,17 +103,17 @@ html:not(.js) .splash,
 .splash__dot { background: var(--c-gold, #D4AF37); box-shadow: 0 0 24px var(--c-gold, #D4AF37); animation: splash-dot .48s linear 2.48s forwards; }
 .splash__ring { border: 2px solid var(--c-gold, #D4AF37); animation: splash-ring .64s var(--ease-out) 2.528s forwards; }
 
-/* 04 the gold flood and the name, then 05 the four cells pull into the centre */
+/* 04 the gold flood and the name (the four cells only tile the metal; 05 is the .splash fade) */
 .splash__flood { inset: 0; clip-path: circle(0 at 50% 50%); animation: splash-flood .4s var(--ease-in) 2.72s forwards; }
 .splash__cell {
   position: absolute; width: 50%; height: 50%; background: var(--metal-grad, linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%));
-  background-size: 200% 200%; animation: splash-cell .416s var(--ease-in) 3.552s forwards;
+  background-size: 200% 200%;
 }
 .splash__cell--tl { left: 0; top: 0; transform-origin: 100% 100%; background-position: 0 0; }
-.splash__cell--tr { right: 0; top: 0; transform-origin: 0 100%; background-position: 100% 0; animation-delay: 3.616s; }
-.splash__cell--bl { left: 0; bottom: 0; transform-origin: 100% 0; background-position: 0 100%; animation-delay: 3.68s; }
-.splash__cell--br { right: 0; bottom: 0; transform-origin: 0 0; background-position: 100% 100%; animation-delay: 3.744s; }
-.splash__name { inset: 0; display: grid; place-content: center; padding: 0 max(16px, 6vw); color: var(--c-black, #0B0B0C); animation: splash-hide 128ms linear 3.52s forwards; }
+.splash__cell--tr { right: 0; top: 0; transform-origin: 0 100%; background-position: 100% 0; }
+.splash__cell--bl { left: 0; bottom: 0; transform-origin: 100% 0; background-position: 0 100%; }
+.splash__cell--br { right: 0; bottom: 0; transform-origin: 0 0; background-position: 100% 100%; }
+.splash__name { inset: 0; display: grid; place-content: center; padding: 0 max(16px, 6vw); color: var(--c-black, #0B0B0C); }
 .splash__name .splash__label { position: absolute; top: max(24px, 8svh); color: var(--c-gold-2nd, #1F1A0E); opacity: 0; animation: splash-show .32s linear 3.12s forwards; }
 .splash__meta--l { left: max(16px, 6vw); }
 .splash__meta--r { right: max(16px, 6vw); text-align: right; }
@@ -160,7 +160,6 @@ html:not(.js) .splash,
 @keyframes splash-dot { 0% { transform: scale(0); } 25% { transform: scale(1.9); } 100% { transform: scale(1); } }
 @keyframes splash-ring { from { opacity: .9; transform: scale(.1); } to { opacity: 0; transform: scale(9); } }
 @keyframes splash-flood { to { clip-path: circle(150% at 50% 50%); } }
-@keyframes splash-cell { to { transform: scale(0); } }
 @keyframes splash-rise { to { transform: none; } }
 @keyframes splash-pop { to { transform: scale(1); } }
 
