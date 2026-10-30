@@ -1,9 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { FOUNDER_PHOTOS, ORBIT_GROUPS } from '../site/assets/js/config.js';
-import { MARK_PATHS } from '../site/core/engine/mark-draw.js';
 
 const SITE = fileURLToPath(new URL('../site/', import.meta.url));
 const read = (path) => readFileSync(SITE + path, 'utf8');
@@ -31,12 +30,10 @@ test('home orbit renders one static node per ORBIT_GROUPS entry, in order', () =
   );
 });
 
-test('home orbit centre carries the shared mark paths', () => {
+test('home orbit centre shows the header logo image, decorative', () => {
   const html = orbitHtml();
-  assert.match(html, /<div class="orbit__centre"><div class="mark" aria-hidden="true">/);
-  for (const [part, d] of Object.entries(MARK_PATHS)) {
-    assert.match(html, new RegExp(`<svg class="mark__${part}"[^>]*><path d="${d}" pathLength="100"`));
-  }
+  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-mark-orbit\.webp" alt=""/);
+  assert.ok(existsSync(fileURLToPath(new URL('../site/assets/img/brand/logo-mark-orbit.webp', import.meta.url))));
 });
 
 test('home orbit stays within the word and group budgets', () => {

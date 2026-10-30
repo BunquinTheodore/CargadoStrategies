@@ -11,7 +11,8 @@
  * Logo: crops the mark only (C, W, 24 and arrow; no wordmark), keys the black background
  * to alpha by brightness with a soft edge, un-mixes the edge colour from the background
  * (no dark fringe), trims, and writes logo-mark@2x.png / @3x.png (2x and 3x of
- * MARK_CSS_HEIGHT) plus logo-mark.webp (3x).
+ * MARK_CSS_HEIGHT) plus logo-mark.webp (3x), and logo-mark-orbit.webp (ORBIT_MARK_HEIGHT tall)
+ * for the centre of the services orbit.
  * Photos: whole frame, aspect kept, never cropped; {name}-{480,800,1200}.webp and
  * {name}-800.jpg. Widths are capped at the source width (never upscaled), so a small
  * original gives the same pixels under every name and srcsets stay valid.
@@ -44,6 +45,7 @@ const MARK_CROP = { x: 290, y: 220, w: 520, h: 490 };
 /** Header mark height in CSS px (Task 10 sizes .brand__mark to it); files are 2x and 3x. */
 const MARK_CSS_HEIGHT = 40;
 const MARK_SCALES = [2, 3];
+const ORBIT_MARK_HEIGHT = 400; // the orbit centre shows the mark up to ~180 px tall: sharp at 2x
 /** Brightest channel at or below KEY_LO is background, at or above KEY_HI is solid gold. */
 const KEY_LO = 50;
 const KEY_HI = 140;
@@ -190,6 +192,9 @@ async function writeMark(send) {
     writeFileSync(join(BRAND, `logo-mark@${scale}x.png`), png);
     if (webp) writeFileSync(join(BRAND, 'logo-mark.webp'), webp);
   }
+  const w = Math.round((width * ORBIT_MARK_HEIGHT) / height);
+  const [orbit] = await resize(send, mark, w, ORBIT_MARK_HEIGHT, [{ type: 'image/webp', quality: WEBP_QUALITY }]);
+  writeFileSync(join(BRAND, 'logo-mark-orbit.webp'), orbit);
 }
 
 async function writePhoto(send, name) {
@@ -222,7 +227,7 @@ async function main() {
   } finally {
     await chrome.close();
   }
-  process.stdout.write('gen-images: wrote assets/img/brand/logo-mark@{2,3}x.png, logo-mark.webp and assets/img/founder/*\n');
+  process.stdout.write('gen-images: wrote assets/img/brand/logo-mark@{2,3}x.png, logo-mark.webp, logo-mark-orbit.webp and assets/img/founder/*\n');
 }
 
 main().catch((e) => { process.stderr.write(`gen-images: ${e.message}\n`); process.exit(1); });

@@ -30,6 +30,8 @@
 .mark__c, .mark__w { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mark path { stroke-dasharray: 100; }   /* pathLength="100": mark-draw.js draws them on the cut */
 .orbit.is-previewing .mark { opacity: 0; }
+/* Home (owner, 2026-10-30): the header's logo image in the centre instead of the drawn C/W. */
+.mark__logo { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 /* A node: a frosted circle on the ring at its angle (--a, set by ui-orbit.js). */
 .orbit__node {
