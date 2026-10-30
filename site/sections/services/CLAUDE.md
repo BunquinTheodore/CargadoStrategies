@@ -6,7 +6,7 @@ Entry `pages/services.js`, styles `pages/services.css`, spec `plan/round5/DIRECT
 
 | # | id (aliases) | field · archetype | Partial / class | What it does |
 |---|---|---|---|---|
-| S1 | `orbit` | ink · stage | `orbit/` · `Orbit.js` | The services orbit (`core/ui/ui-orbit.js`, `core/design/orbit.css`): the C/W mark (`core/engine/mark-draw.js`, poster timings) with the ten `ORBIT_GROUPS` round it as same-page #links, hover/focus/tap previews. The page's h1 and the "Ours / Partners" legend (`ORBIT_LEGEND` wording) |
+| S1 | `orbit` | ink · stage | `orbit/` · `Orbit.js` | The services orbit (`core/ui/ui-orbit.js`, `core/design/orbit.css`): the header logo image in the centre (`orbitLogoIn`, owner 2026-10-30) with the ten `ORBIT_GROUPS` round it as same-page #links, hover/focus/tap previews. The page's h1 and the "Ours / Partners" legend (`ORBIT_LEGEND` wording) |
 | S2 | `ours-insurance` (insurance) | bone · O | `ours-insurance/` | The typographic portrait (founder full name, photo and signature slots), her question, the sheet CTA and the contact link. Licence `[brackets]` |
 | S3 | `ours-strategy` (business-strategy, strategy) | bone · M | `ours-strategy/` | The business-strategy offer as a mega monument. `[$x]` price brackets |
 | S4 | `ours-includes` | bone · R | `ours-includes/` | "What You Get": five rows, each with the pain it fixes |

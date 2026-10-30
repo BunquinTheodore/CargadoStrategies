@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { CATEGORIES, FOUNDER_PHOTOS, INSURANCE_INQUIRY_URL, ORBIT_GROUPS, ORBIT_LEGEND, categoryBySlug } from '../site/assets/js/config.js';
-import { MARK_PATHS } from '../site/core/engine/mark-draw.js';
 import { readAssembled } from '../tools/lib/assemble.mjs';
 import {
   BOOK_CTA, FOUNDER_OFFERS, INSURANCE_HINT, bookingHref, insuranceLink, isOurs,
@@ -106,16 +105,13 @@ test('the page rhythm: no neighbouring archetype repeats, gold once, ink at leas
   assert.ok(list.filter((s) => s.field === 'ink').length * 2 >= list.length);
 });
 
-test('the services orbit: one static node per group in order, the mark, the owner legend', () => {
+test('the services orbit: one static node per group in order, the logo, the owner legend', () => {
   const html = partial('orbit');
   const nodes = [...html.matchAll(/<a class="orbit__node" href="([^"]+)" data-slug="([^"]+)"><span class="orbit__label">([^<]+)<\/span><\/a>/g)];
   assert.deepEqual(nodes.map(([, , slug, name]) => ({ slug, name })), ORBIT_GROUPS.map(({ slug, name }) => ({ slug, name })));
   const targets = new Set(scenes().flatMap((s) => [s.id, ...s.aliases]));
   nodes.forEach(([, href]) => assert.ok(href.startsWith('#') && targets.has(href.slice(1)), href));
-  assert.match(html, /<div class="orbit__centre"><div class="mark" aria-hidden="true">/);
-  for (const [part, d] of Object.entries(MARK_PATHS)) {
-    assert.match(html, new RegExp(`<svg class="mark__${part}"[^>]*><path d="${d}" pathLength="100"`));
-  }
+  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-mark-orbit\.webp" alt=""/);
   const legend = html.match(/<p class="[^"]*sorbit__legend[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1];
   assert.equal(plain(legend || ''), ORBIT_LEGEND);
 });

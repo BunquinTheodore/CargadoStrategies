@@ -5,11 +5,8 @@
  * fades and settles in on the cut into this scene.
  */
 import { Section } from '../../../core/Section.js';
-import { createOrbit } from '../../../core/ui/ui-orbit.js';
+import { createOrbit, orbitLogoIn } from '../../../core/ui/ui-orbit.js';
 import { ORBIT_GROUPS } from '../../../assets/js/config.js';
-
-/** The logo's arrival on the cut, in seconds after the 'in' label. */
-const LOGO_IN = Object.freeze({ scaleFrom: 0.94, duration: 0.6 });
 
 export class Orbit extends Section {
   static id = 'orbit';
@@ -20,10 +17,8 @@ export class Orbit extends Section {
   }
 
   /** Only the cut into #orbit brings the logo in. */
-  cut({ tl, toEl }) {
-    const logo = toEl?.id === Orbit.id ? toEl.querySelector('.mark__logo') : null;
-    if (!tl || !logo) return;
-    tl.fromTo(logo, { opacity: 0, scale: LOGO_IN.scaleFrom }, { opacity: 1, scale: 1, duration: LOGO_IN.duration, ease: 'expo.out' }, 'in');
+  cut(event) {
+    if (event.toEl?.id === Orbit.id) orbitLogoIn(event);
   }
 
   leave() {

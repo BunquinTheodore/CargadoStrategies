@@ -1,12 +1,14 @@
 /**
- * The services orbit (spec §6.3): the Cargado mark in a centre circle, one circle per
+ * The services orbit (spec §6.3): the Cargado logo in a centre circle, one circle per
  * main group round it. Shared by Home and Services (their Orbit.js sections mount it).
  *
  *   createOrbit(root, groups = ORBIT_GROUPS, { onNavigate, film, openLabel })
  *   → { show(slugOrIndex, { touch }), hide(), destroy() }
+ *   orbitLogoIn({ tl, toEl })   adds the centre logo's arrival to the cut into the orbit's scene
  *
  * Markup (root = the scene's .orbit box):
- *   .orbit__centre               the mark (core/engine/mark-draw.js MARK_PARTS) and the preview
+ *   .orbit__centre               the header's logo image (.mark > img.mark__logo, owner 2026-10-30)
+ *                                and the preview
  *   .orbit__ring                 holds one <a class="orbit__node" href data-slug> per group;
  *                                rendered from `groups` when the markup has none
  *   .orbit__preview              role="tooltip" card (created inside .orbit__centre if missing):
@@ -30,6 +32,15 @@ const NEXT_KEYS = ['ArrowRight', 'ArrowDown'];
 const PREV_KEYS = ['ArrowLeft', 'ArrowUp'];
 const TOUCH_TYPES = new Set(['touch', 'pen']);
 const OPEN_LABEL = 'Open';
+/** The centre logo's arrival on the cut, from the 'in' label (seconds). */
+const LOGO_IN = Object.freeze({ scaleFrom: 0.94, duration: 0.6 });
+
+/** On a cut into the orbit's scene, the centre logo fades and settles in. */
+export function orbitLogoIn({ tl, toEl }) {
+  const logo = toEl?.querySelector('.orbit .mark__logo');
+  if (!tl || !logo) return;
+  tl.fromTo(logo, { opacity: 0, scale: LOGO_IN.scaleFrom }, { opacity: 1, scale: 1, duration: LOGO_IN.duration, ease: 'expo.out' }, 'in');
+}
 
 /** The node index a key moves to round a ring of `count` (wrapping); -1 for any other key. */
 export function ringIndex(index, key, count) {

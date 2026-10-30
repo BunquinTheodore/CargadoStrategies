@@ -1,6 +1,6 @@
 /* ==========================================================================
    The services orbit (spec §6.3), shared by Home and Services: core/ui/ui-orbit.js
-   wires it, core/engine/mark-draw.js draws the centre mark. Pages import this file
+   wires it and brings in the centre logo (orbitLogoIn). Pages import this file
    from pages/<page>.css (before the orbit scene's own CSS); scene CSS sizes it with
    --orbit-size, --orbit-node and, on phones, --orbit-core-h / --orbit-pill-h.
    Ring from 760 px; on phones the mark sits above a two-column grid of pills.
@@ -30,7 +30,7 @@
 .mark__c, .mark__w { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mark path { stroke-dasharray: 100; }   /* pathLength="100": mark-draw.js draws them on the cut */
 .orbit.is-previewing .mark { opacity: 0; }
-/* Home (owner, 2026-10-30): the header's logo image in the centre instead of the drawn C/W. */
+/* Home and Services (owner, 2026-10-30): the header's logo image in the centre, not the drawn C/W. */
 .mark__logo { display: block; width: 100%; height: 100%; object-fit: contain; }
 
 /* A node: a frosted circle on the ring at its angle (--a, set by ui-orbit.js). */
