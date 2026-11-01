@@ -46,7 +46,7 @@ const WA_HREF = /^https:\/\/wa\.me\//;
 const NEED_CHIPS = Object.freeze([
   { slug: 'insurance', label: 'Insurance' },
   { slug: 'business-strategy', label: 'Business Strategy' },
-  { slug: 'outsourcing', label: 'Outsourcing', founder: true },
+  { slug: 'virtual-assistant', label: 'Virtual Assistant', founder: true },
   { slug: 'mortgage', label: 'Mortgage' },
   { slug: 'legal', label: 'Lawyer' },
   { slug: 'real-estate', label: 'Real Estate' },

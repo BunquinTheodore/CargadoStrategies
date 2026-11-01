@@ -8,8 +8,21 @@
 .own__row:last-child { border-bottom: 1px solid var(--line); }
 .own__num { font-size: min(var(--fs-row-num), 6cqh); }
 .own__item { font: 400 min(var(--fs-d2), 5.4cqh)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+/* Ten items (owner, 2026-11-01): two columns of five, numbered down each column, beside the motif. */
+.own__rows--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column;
+  column-gap: var(--gap-col); max-width: 58%;
+}
+.own__rows--two .own__row { min-height: min(var(--row-pitch), 7.4cqh); padding-inline: 12px; }
+.own__rows--two .own__row:nth-child(5) { border-bottom: 1px solid var(--line); }
+.own__rows--two .own__num { font-size: min(var(--fs-row-num), 4.2cqh); }
+.own__rows--two .own__item { font-size: min(var(--fs-d4), 3.6cqh); line-height: 1.2; }
 @media (max-width: 759px) {
   #ours-contractor :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-m); }
   .own__row { min-height: 52px; padding-inline: 8px; }
   .own__item { font-size: max(1.5rem, min(var(--fs-d2), 6.5vw)); }
+  .own__rows--two { max-width: none; column-gap: 12px; }
+  .own__rows--two .own__row { min-height: 44px; padding-inline: 4px; column-gap: 8px; grid-template-columns: 2.4ch minmax(0, 1fr); }
+  .own__rows--two .own__num { font-size: 1rem; }
+  .own__rows--two .own__item { font-size: 0.9375rem; }
 }

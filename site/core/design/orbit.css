@@ -9,7 +9,10 @@
 
 .orbit {
   --orbit-size: min(660px, max(470px, min(72svh, 62vw)));
-  --orbit-node: clamp(104px, 14vmin, 124px);
+  /* Twelve nodes need size >= node + 3.86 (node + 6 px) to clear each other, so a node is at most
+     size / 4.95 (owner, 2026-11-01: twelve groups). Scene CSS sets --orbit-node-max. */
+  --orbit-node-max: clamp(104px, 14vmin, 124px);
+  --orbit-node: min(var(--orbit-node-max), calc(var(--orbit-size) / 4.95));
   --orbit-gap: 12px;
   --orbit-r: calc((var(--orbit-size) - var(--orbit-node)) / 2);
   --orbit-core: calc(var(--orbit-size) - 2 * var(--orbit-node) - 2 * var(--orbit-gap));
@@ -30,8 +33,9 @@
 .mark__c, .mark__w { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .mark path { stroke-dasharray: 100; }   /* pathLength="100": mark-draw.js draws them on the cut */
 .orbit.is-previewing .mark { opacity: 0; }
-/* Home and Services (owner, 2026-10-30): the header's logo image in the centre, not the drawn C/W. */
-.mark__logo { display: block; width: 100%; height: 100%; object-fit: contain; }
+/* Home and Services (owner, 2026-11-01): the full logo (mark and wordmark on black) fills the centre as a disc. */
+.orbit .mark--logo { inset: 3%; }
+.mark__logo { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
 
 /* A node: a frosted circle on the ring at its angle (--a, set by ui-orbit.js). */
 .orbit__node {
@@ -61,6 +65,7 @@
 }
 :is(.orbit__node, .orbit__preview)[data-slug="insurance"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3l7 3v5c0 4.6-3 8.2-7 10-4-1.8-7-5.4-7-10V6z'/%3E%3Cpath d='M9 12l2 2 4-4'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="business-strategy"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 20h16'/%3E%3Cpath d='M5 16l5-5 3 3 6-7'/%3E%3Cpath d='M15 7h4v4'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="business-consultation"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H9l-4 3v-3a2 2 0 0 1-2-2z'/%3E%3Cpath d='M19 9h.5A1.5 1.5 0 0 1 21 10.5V15a2 2 0 0 1-2 2v3l-4-3h-3a2 2 0 0 1-2-1.7'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="outsourcing"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3'/%3E%3Cpath d='M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6'/%3E%3Ccircle cx='17' cy='9' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.6 4.5 5.3'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="web-design"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='2'/%3E%3Cpath d='M3 9h18'/%3E%3Cpath d='M6 6.8h.01M8.5 6.8h.01'/%3E%3Cpath d='M7 13h6M7 16h4'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="graphics"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3a9 9 0 1 0 0 18c1 0 1.6-.7 1.6-1.5 0-1-.8-1.3-.8-2.3 0-.9.7-1.4 1.6-1.4H17a4 4 0 0 0 4-4c0-4.9-4-8.8-9-8.8z'/%3E%3Ccircle cx='7.5' cy='11' r='1.1'/%3E%3Ccircle cx='10.5' cy='7' r='1.1'/%3E%3Ccircle cx='15' cy='7.5' r='1.1'/%3E%3C/svg%3E"); }
@@ -68,6 +73,7 @@
 :is(.orbit__node, .orbit__preview)[data-slug="software-development"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 7l-5 5 5 5'/%3E%3Cpath d='M16 7l5 5-5 5'/%3E%3Cpath d='M13.5 4.5l-3 15'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="export-import"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M3 12h18'/%3E%3Cpath d='M12 3c2.6 2.6 3.8 5.6 3.8 9s-1.2 6.4-3.8 9c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="contractor"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 11l9-7 9 7'/%3E%3Cpath d='M5 9.5V20h14V9.5'/%3E%3Cpath d='M10 20v-5h4v5'/%3E%3C/svg%3E"); }
+:is(.orbit__node, .orbit__preview)[data-slug="health-care"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z'/%3E%3Cpath d='M3 13h4l1.5-2.5 2 4.5 1.5-2h9'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="partner-network"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='5' r='2.2'/%3E%3Ccircle cx='5' cy='18' r='2.2'/%3E%3Ccircle cx='19' cy='18' r='2.2'/%3E%3Cpath d='M10.9 7l-4.8 9M13.1 7l4.8 9M7.2 18h9.6'/%3E%3C/svg%3E"); }
 
 /* The groups circle the centre like planets round a sun (owner, 2026-10-25): every node runs

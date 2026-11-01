@@ -137,7 +137,7 @@ test('three loads lazily: only the stage chunk names it, the page code imports t
   const own = read('sections/services/own-3d.js');
   assert.match(own, /const STAGE_MODULE = '\.\/own-3d-stage\.js';/);
   assert.match(own, /import\(STAGE_MODULE\)/);
-  assert.match(read('pages/services.js'), /mountSections\(\[Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, \.\.\.OWN_3D_SECTIONS\]/);
+  assert.match(read('pages/services.js'), /mountSections\(\[Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, PackagesDialog, \.\.\.OWN_3D_SECTIONS\]/);
 });
 
 test('the 3D files log nothing', () => {

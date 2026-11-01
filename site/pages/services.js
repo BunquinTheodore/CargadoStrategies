@@ -27,10 +27,12 @@ import { PAGE, insuranceLink } from '../sections/services/services-data.js';
 import { Inquiry } from '../sections/services/inquiry/Inquiry.js';
 import { CategoriesDialog } from '../sections/services/categories-dialog/CategoriesDialog.js';
 import { ProfileDialog } from '../sections/services/profile-dialog/ProfileDialog.js';
+import { PackagesDialog } from '../sections/services/packages-dialog/PackagesDialog.js';
 import { OursOutsourcing } from '../sections/services/ours-outsourcing/OursOutsourcing.js';
 import { Finder } from '../sections/services/finder/Finder.js';
 import { Orbit } from '../sections/services/orbit/Orbit.js';
 import { OWN_3D_SECTIONS } from '../sections/services/own-3d.js';
+import { initScenePhotos } from '../sections/services/scene-photos.js';
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 /** The founder photos' intrinsic size (tools/gen-images.mjs keeps the source aspect), against layout shift. */
@@ -143,7 +145,7 @@ function inquireAbout(slug) {
 
 // Mount order is the original wiring order (listeners on the same node keep their order); the v2 orbit,
 // then the own-scene 3D motifs (own-3d.js: three.js loads only near those scenes), last.
-const { sections: [inquiry, , , , finder] } = mountSections([Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, ...OWN_3D_SECTIONS], {
+const { sections: [inquiry, , , , finder] } = mountSections([Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, PackagesDialog, ...OWN_3D_SECTIONS], {
   ...booted,
   sound,
   fillWhatsAppLinks,
@@ -151,3 +153,4 @@ const { sections: [inquiry, , , , finder] } = mountSections([Inquiry, Categories
   inquireAbout,
   prefillInquiry: (values) => inquiry.prefill(values),
 });
+initScenePhotos(film);

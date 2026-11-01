@@ -1,5 +1,5 @@
-/* 6b. The services Cargado Strategies delivers itself (v2 §6.1; S5a-S5e: ours-web, ours-creative,
-   ours-software, ours-contractor, ours-trade): the shared head, description and action. No prices:
+/* 6b. The services Cargado Strategies delivers itself (v2 §6.1; S4a ours-consultation, S5a-S5e: ours-web,
+   ours-creative, ours-software, ours-contractor, ours-trade): the shared head, description and action. No prices:
    each scene books a free consultation (contact.html#book), with the WhatsApp sheet as the link.
    Each scene's own file places the groups; the phone composition is at the end of this file. */
 .own__title { font-size: min(var(--fs-mega), 20cqh); max-width: none; text-wrap: balance; }
@@ -16,8 +16,29 @@
 .own__3d-slot { position: absolute; pointer-events: none; }
 .own__3d-slot--m { top: 0; right: 0; bottom: 36%; left: 50%; }      /* M: above the monument, right half */
 .own__3d-slot--r { top: 6%; right: 0; bottom: 6%; left: 58%; }      /* R: right of the short rows */
+.own__3d-slot--o { top: 4%; right: 0; bottom: 4%; left: 50%; }      /* O: the object half */
 .own__3d-slot--part { top: 0; right: 0; left: 46%; height: 56%; }   /* D: beside each ghost numeral */
 html.rm .scene__inner:has(> .own__3d) { isolation: isolate; }       /* flow has no pan to hold the box above the field */
+
+/* Service photos (owner, 2026-11-01; scene-photos.js loads them near their scene): a greyscale photo
+   blended into the field behind everything, fading out toward the copy, so the palette stays black and gold. */
+/* Full bleed: the scene inner is the content column, so the photo spans the viewport from its centre. */
+.scene-photo { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; overflow: hidden; pointer-events: none; }
+.scene-photo__img {
+  width: 100%; height: 100%; object-fit: cover; opacity: 0; filter: grayscale(1) contrast(1.08);
+  mix-blend-mode: luminosity; transition: opacity .9s var(--ease-out);
+  -webkit-mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 82%);
+  mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 82%);
+}
+.scene-photo__img[srcset] { opacity: var(--photo-o, .22); }
+[data-field="bone"] .scene-photo__img { --photo-o: .16; mix-blend-mode: multiply; }
+[data-field="gold"] .scene-photo__img { --photo-o: .14; mix-blend-mode: multiply; }
+html.rm .scene__inner:has(> .scene-photo) { isolation: isolate; }
+html.rm .scene-photo__img { transition: none; }
+@media (max-width: 759px) {
+  .scene-photo__img { -webkit-mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, .4) 45%, transparent 75%); mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, .4) 45%, transparent 75%); }
+  .scene-photo__img[srcset] { opacity: calc(var(--photo-o, .22) * .8); }
+}
 
 @media (max-width: 759px) {
   .own__head { gap: var(--space-xs); }
@@ -30,5 +51,6 @@ html.rm .scene__inner:has(> .own__3d) { isolation: isolate; }       /* flow has 
   /* Phones: only the monuments keep a motif, as a faint band above the copy; the busier scenes skip it. */
   .own__3d.is-live { opacity: .55; }
   .own__3d-slot--m { top: 0; right: 0; bottom: auto; left: 0; height: 24%; }
+  .own__3d-slot--o { top: 0; right: 0; bottom: auto; left: 0; height: 30%; }   /* O: the object as a top band */
   .own__3d-slot--r, .own__3d-slot--part { display: none; }
 }

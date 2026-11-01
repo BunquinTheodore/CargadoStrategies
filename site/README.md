@@ -168,7 +168,7 @@ To see the plain, motion-free version of any page, turn on "reduce motion" in th
 | `partner-dashboard.html` | Partner dashboard (app page) | Profile, referrals |
 | `admin.html` | Admin (app page) | Applications, bookings and their status, clients and points, referrals |
 
-v2 (2026-10-25) also added the services orbit to Home (after the hero) and to Services (in place of the intro), and five Services scenes for the services Cargado Strategies provides itself (`ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-trade`). Each page's scene list is in `sections/<page>/CLAUDE.md`. App pages are ordinary scrolling pages, not scroll films (`sections/app/CLAUDE.md`).
+v2 (2026-10-25) also added the services orbit to Home (after the hero) and to Services (in place of the intro), and five Services scenes for the services Cargado Strategies provides itself (`ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-health`, `ours-trade`). Each page's scene list is in `sections/<page>/CLAUDE.md`. App pages are ordinary scrolling pages, not scroll films (`sections/app/CLAUDE.md`).
 
 Useful deep links: `services.html#finder`, `services.html#<category-slug>` (for example `services.html#legal`, `services.html#web-design`), `contact.html?service=<slug>#book`, `legal.html#disclosure`, `#privacy`, `#terms`, `#conduct`, `#faq`. Home's `#faq` opens the FAQ dialog.
 
@@ -276,7 +276,7 @@ Add an entry to `CATEGORIES` in `assets/js/config.js`:
 },
 ```
 
-The new category shows up by itself in the home page service tiles, the finder's "What do you need?" list, the Services category rail, the inquiry form and the partner application form. Its deep link `services.html#<slug>` works straight away. Do not use a slug that is already a scene id on the Services page (`orbit`, `finder`, `categories`, `inquiry`, `close`, `ours-insurance`, `ours-strategy`, `ours-includes`, `ours-outsourcing`, `ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-trade`).
+The new category shows up by itself in the home page service tiles, the finder's "What do you need?" list, the Services category rail, the inquiry form and the partner application form. Its deep link `services.html#<slug>` works straight away. Do not use a slug that is already a scene id on the Services page (`orbit`, `finder`, `categories`, `inquiry`, `close`, `ours-insurance`, `ours-strategy`, `ours-includes`, `ours-consultation`, `ours-outsourcing`, `ours-web`, `ours-creative`, `ours-software`, `ours-contractor`, `ours-trade`).
 
 For a category with `ownership: 'founder'` or `'both'`, also add its offer and credential line to `FOUNDER_OFFERS` in `sections/services/services-data.js` and `FOUNDER_LINES` in `sections/services/categories-dialog/services-categories.js` (with `[bracket]` placeholders until the details are confirmed).
 

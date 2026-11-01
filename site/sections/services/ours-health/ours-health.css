@@ -1,0 +1,7 @@
+/* 6b. #ours-health · O: the care motif fills the right half; the name, description and CTA hold the left half */
+#ours-health :is(.scene__pan, html.rm .scene__inner) { justify-content: center; gap: var(--space-l); }
+#ours-health :is(.own__head, .own__body) { max-width: min(52ch, 50%); }
+@media (max-width: 759px) {
+  #ours-health :is(.scene__pan, html.rm .scene__inner) { justify-content: flex-end; gap: var(--space-m); padding-top: 28svh; }
+  #ours-health :is(.own__head, .own__body) { max-width: none; }
+}

@@ -17,8 +17,8 @@
  */
 
 const PHONE = (w) => w < 760;
-const CATEGORIES = ['insurance', 'business-strategy', 'outsourcing', 'web-design', 'graphics', 'virtual-assistant',
-  'software-development', 'export-import', 'contractor', 'manufacturing', 'legal', 'mortgage',
+const CATEGORIES = ['insurance', 'business-strategy', 'business-consultation', 'outsourcing', 'web-design', 'graphics', 'virtual-assistant',
+  'software-development', 'export-import', 'contractor', 'health-care', 'manufacturing', 'legal', 'mortgage',
   'real-estate', 'accounting-and-tax', 'financial-planning'];
 /** `run` is serialised with toString(), so each one is built with its values written in. */
 const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;

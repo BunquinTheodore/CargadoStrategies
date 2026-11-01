@@ -20,14 +20,17 @@
 @import "../sections/services/ours-includes/ours-includes.css";
 @import "../sections/services/ours-outsourcing/ours-outsourcing.css";
 @import "../sections/services/_own.css";
+@import "../sections/services/ours-consultation/ours-consultation.css";
 @import "../sections/services/ours-web/ours-web.css";
 @import "../sections/services/ours-creative/ours-creative.css";
 @import "../sections/services/ours-software/ours-software.css";
 @import "../sections/services/ours-contractor/ours-contractor.css";
+@import "../sections/services/ours-health/ours-health.css";
 @import "../sections/services/ours-trade/ours-trade.css";
 @import "../sections/services/finder/finder.css";
 @import "../sections/services/inquiry/inquiry.css";
 @import "../sections/services/close/close.css";
 @import "../sections/services/categories-dialog/categories-dialog.css";
 @import "../sections/services/profile-dialog/profile-dialog.css";
+@import "../sections/services/packages-dialog/packages-dialog.css";
 @import "../sections/services/_bands.css";

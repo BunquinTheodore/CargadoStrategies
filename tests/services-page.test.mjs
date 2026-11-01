@@ -15,14 +15,18 @@ const read = (path) => readFileSync(SITE + path, 'utf8');
 const WORD_BUDGET = 60;
 const GROUP_BUDGET = 3;
 
-/** The founder's own new services, one scene each (Graphics and Virtual Assistant share one). */
-const OWN_SCENES = [
+/** Business Consultation (owner, 2026-11-01) sits by Business Strategy, before the back-office scene (now Virtual Assistant). */
+const CONSULT_SCENE = { id: 'ours-consultation', aliases: ['business-consultation'], field: 'bone', archetype: 'M' };
+/** The founder's own new services after outsourcing, one scene each (Graphics and Virtual Assistant share one). */
+const AFTER_OUTSOURCING = [
   { id: 'ours-web', aliases: ['web-design'], field: 'ink', archetype: 'M' },
-  { id: 'ours-creative', aliases: ['graphics', 'virtual-assistant'], field: 'bone', archetype: 'D' },
+  { id: 'ours-creative', aliases: ['graphics'], field: 'bone', archetype: 'R' },
   { id: 'ours-software', aliases: ['software-development'], field: 'ink', archetype: 'M' },
   { id: 'ours-contractor', aliases: ['contractor'], field: 'bone', archetype: 'R' },
+  { id: 'ours-health', aliases: ['health-care'], field: 'ink', archetype: 'O' },
   { id: 'ours-trade', aliases: ['export-import'], field: 'ink', archetype: 'M' },
 ];
+const OWN_SCENES = [CONSULT_SCENE, ...AFTER_OUTSOURCING];
 const NEW_SLUGS = OWN_SCENES.flatMap((s) => s.aliases);
 
 const partial = (name) => read(`sections/services/${name}/${name}.html`);
@@ -47,14 +51,16 @@ function scenes() {
   }));
 }
 
-test('the orbit replaces the intro as the first scene; the new scenes follow outsourcing', () => {
+test('the orbit replaces the intro as the first scene; consultation precedes the back-office (Virtual Assistant) scene, the rest follow it', () => {
   const list = markers();
   assert.equal(list[0], 'services/orbit');
   assert.ok(!list.includes('services/intro'));
   assert.ok(!existsSync(`${SITE}sections/services/intro`), 'intro/ is deleted');
   const at = list.indexOf('services/ours-outsourcing');
-  assert.deepEqual(list.slice(at + 1, at + 1 + OWN_SCENES.length), OWN_SCENES.map((s) => `services/${s.id}`));
-  assert.equal(list[at + 1 + OWN_SCENES.length], 'services/finder');
+  assert.equal(list[at - 1], `services/${CONSULT_SCENE.id}`);
+  assert.equal(list[at - 2], 'services/ours-includes');
+  assert.deepEqual(list.slice(at + 1, at + 1 + AFTER_OUTSOURCING.length), AFTER_OUTSOURCING.map((s) => `services/${s.id}`));
+  assert.equal(list[at + 1 + AFTER_OUTSOURCING.length], 'services/finder');
 });
 
 test('each new scene partial is one scene with its id, field, archetype and aliases, no trailing newline', () => {
@@ -111,7 +117,7 @@ test('the services orbit: one static node per group in order, the logo, the owne
   assert.deepEqual(nodes.map(([, , slug, name]) => ({ slug, name })), ORBIT_GROUPS.map(({ slug, name }) => ({ slug, name })));
   const targets = new Set(scenes().flatMap((s) => [s.id, ...s.aliases]));
   nodes.forEach(([, href]) => assert.ok(href.startsWith('#') && targets.has(href.slice(1)), href));
-  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-mark-orbit\.webp" alt=""/);
+  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-full-orbit\.webp" alt=""/);
   const legend = html.match(/<p class="[^"]*sorbit__legend[^"]*"[^>]*>([\s\S]*?)<\/p>/)?.[1];
   assert.equal(plain(legend || ''), ORBIT_LEGEND);
 });
@@ -164,7 +170,7 @@ test('the new scenes book a consultation: the CTA links to Contact, the descript
   });
 });
 
-test('the contractor scene lists its four items from config', () => {
+test('the contractor scene lists its ten items from config', () => {
   const html = partial('ours-contractor');
   const items = [...html.matchAll(/<span class="[^"]*own__item[^"]*">([^<]+)<\/span>/g)].map((m) => m[1]);
   assert.deepEqual(items, [...categoryBySlug('contractor').items]);

@@ -1,0 +1,28 @@
+/* Packages dialog (owner, 2026-11-01; continues section 10 of pages/services.css): three cards side by
+   side from 760 px, stacked on phones (the dialog body scrolls). Hairlines, not boxes. */
+.packages-dialog { width: min(1080px, calc(100vw - 2 * var(--page-pad))); }
+.packages-dialog .dialog__panel { max-height: calc(100svh - 2 * var(--space-l)); overflow-y: auto; overscroll-behavior: contain; }
+.pkg__head { display: grid; gap: var(--space-2xs); }
+.pkg__title { font: 400 var(--fs-d2)/var(--lh-d2) var(--font-display); letter-spacing: var(--track-display); }
+.pkg__photo { display: block; width: 100%; height: clamp(96px, 18svh, 180px); object-fit: cover; filter: grayscale(1) sepia(.4) contrast(1.05); }
+.pkg__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+.pkg { display: grid; grid-template-rows: auto auto 1fr auto auto; gap: var(--space-s); min-width: 0; padding: var(--space-m) clamp(12px, 2vw, 24px); }
+.pkg + .pkg { border-left: 1px solid var(--line); }
+.pkg__name { font: 400 var(--fs-d4)/1.25 var(--font-display); }
+.pkg__price { margin: 0; font: 400 var(--fs-d2)/1.1 var(--font-display); color: var(--accent); }
+.pkg__list { display: grid; gap: var(--space-2xs); margin: 0; padding: 0; list-style: none; font-size: var(--fs-note); line-height: var(--lh-note); }
+.pkg__list li { padding-left: 1.1em; position: relative; }
+.pkg__list li::before { content: ""; position: absolute; left: 0; top: .62em; width: .4em; height: .4em; background: var(--accent); transform: rotate(45deg); }
+.pkg__extras { display: grid; gap: var(--space-2xs); margin: 0; padding-top: var(--space-xs); border-top: 1px solid var(--line); }
+.pkg__extras div { display: grid; grid-template-columns: 5ch minmax(0, 1fr); gap: var(--space-xs); }
+.pkg__extras dt { font: 600 var(--fs-label)/1.4 var(--font-ui); color: var(--accent); }
+.pkg__extras dd { margin: 0; font-size: var(--fs-note); line-height: var(--lh-note); }
+.pkg__cta { justify-self: start; }
+@media (max-width: 759px) {
+  .packages-dialog { width: 100vw; }
+  .packages-dialog .dialog__panel { max-height: 92svh; }
+  .pkg__grid { grid-template-columns: minmax(0, 1fr); }
+  .pkg { padding-inline: 0; }
+  .pkg + .pkg { border-left: 0; border-top: 1px solid var(--line); }
+  .pkg__cta { justify-self: stretch; }
+}

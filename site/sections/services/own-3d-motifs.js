@@ -592,5 +592,58 @@ function house(T, kit) {
   };
 }
 
+/* ---------- health care: a turning medical cross, a heartbeat line running in front ---------- */
+
+const BEAT = Object.freeze({ width: 4, steps: 120, speed: 0.35 });
+
+/** The heartbeat trace's height at s (0..1 across): flat, then one beat in the middle. */
+function beatAt(s) {
+  const x = (s - 0.5) * 10;
+  if (Math.abs(x) > 1.6) return 0;
+  const bump = (c, w) => Math.exp(-((x - c) ** 2) * w);
+  return 0.75 * bump(0, 6) - 0.28 * bump(-0.45, 18) - 0.22 * bump(0.5, 18);
+}
+
+function beatTrace() {
+  const pts = Array.from({ length: BEAT.steps + 1 }, (_, i) => {
+    const s = i / BEAT.steps;
+    return [(s - 0.5) * BEAT.width, beatAt(s), 0];
+  });
+  return { pts, flat: pts.slice(1).flatMap((pt, i) => [...pts[i], ...pt]) };
+}
+
+function care(T, kit) {
+  const root = new T.Group();
+  const cross = new T.Group();
+  root.add(cross);
+  solid(T, kit, cross, new T.BoxGeometry(0.42, 1.3, 0.34), 0.5);
+  solid(T, kit, cross, new T.BoxGeometry(1.3, 0.42, 0.34), 0.5);
+  const halo = lines(T, circle([], 1.15, 64), kit.line(0.3));
+  root.add(halo);
+  const { pts, flat } = beatTrace();
+  const trace = lines(T, flat, kit.line(0.75));
+  trace.position.set(0, -1.15, 0.6);
+  root.add(trace);
+  const dotGeo = geometry(T, [0, 0, 0]);
+  const dot = new T.Points(dotGeo, kit.dots(0.11));
+  dot.frustumCulled = false;
+  trace.add(dot);
+  root.rotation.set(0.15, -0.35, 0);
+  return {
+    root,
+    radius: 2,
+    update(t, dt, p) {
+      cross.rotation.y += dt * 0.35 * (1 + 1.2 * p.near);
+      cross.scale.setScalar(1 + 0.04 * Math.max(0, Math.sin(t * 2.4)) ** 4);
+      halo.rotation.z = t * 0.1;
+      const f = ((t * BEAT.speed) % 1) * BEAT.steps, at = Math.floor(f), k = f - at;
+      const a = pts[at], b = pts[Math.min(BEAT.steps, at + 1)];
+      dotGeo.getAttribute('position').setXYZ(0, lerp(a[0], b[0], k), lerp(a[1], b[1], k), 0);
+      dotGeo.getAttribute('position').needsUpdate = true;
+      tilt(root, p, { x: 0.15, y: -0.35 + Math.sin(t * 0.3) * 0.2 }, { x: 0.25, y: 0.5 }, clamp01(dt * 4));
+    },
+  };
+}
+
 /** Motif name (data-own-3d-view) → builder(T, kit). */
-export const MOTIFS = Object.freeze({ browser, morph, tiles, lattice, globe, house });
+export const MOTIFS = Object.freeze({ browser, morph, tiles, lattice, globe, house, care });

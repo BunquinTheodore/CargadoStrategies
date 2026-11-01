@@ -174,9 +174,9 @@ export const CATEGORIES = Object.freeze([
     types: [],
   },
   {
-    slug: 'outsourcing',
-    name: 'Outsourcing',
-    description: 'Back-office and support roles supplied by Cargado Strategies itself.',
+    slug: 'business-consultation',
+    name: 'Business Consultation',
+    description: 'Advice from Cargado Strategies on the decisions in front of your business, from planning and growth to day-to-day operations.',
     ownership: 'founder',
     types: [],
   },
@@ -193,11 +193,12 @@ export const CATEGORIES = Object.freeze([
     description: 'Logos, social media posts, flyers and print designs made by Cargado Strategies.',
     ownership: 'founder',
     types: [],
+    items: Object.freeze(['Logos', 'Social Media Posts', 'Flyers', 'Print Designs']),
   },
   {
     slug: 'virtual-assistant',
     name: 'Virtual Assistant',
-    description: 'A virtual assistant from Cargado Strategies for email, scheduling, data entry and everyday admin.',
+    description: 'A virtual assistant from Cargado Strategies for your back office: bookkeeping, inbox and calendar, social media and customer follow-up.',
     ownership: 'founder',
     types: [],
   },
@@ -218,10 +219,20 @@ export const CATEGORIES = Object.freeze([
   {
     slug: 'contractor',
     name: 'Contractor',
-    description: 'Home and property work arranged by Cargado Strategies: homecare cleaning, roofing, cleaning and gardening.',
+    description: 'Residential and commercial property work arranged by Cargado Strategies, from repairs and inspections to seasonal upkeep.',
     ownership: 'founder',
     types: [],
-    items: Object.freeze(['Homecare Cleaning Services', 'Roofing', 'Cleaning', 'Gardening']),
+    items: Object.freeze([
+      'Homecare Cleaning Services', 'Roofing', 'Landscaping', 'General Contractor', 'Electrical',
+      'Plumbing', 'Home Inspection', 'Property Appraisal', 'Property Inspection', 'Snow Removal Services',
+    ]),
+  },
+  {
+    slug: 'health-care',
+    name: 'Health Care Services',
+    description: 'Health care services arranged by Cargado Strategies, with the details worked out in a free consultation.',
+    ownership: 'founder',
+    types: [],
   },
   {
     slug: 'manufacturing',
@@ -298,13 +309,14 @@ const orbitGroup = (slug, name, href) => Object.freeze({ slug, name, href, previ
 export const ORBIT_GROUPS = Object.freeze([
   orbitGroup('insurance', 'Insurance', 'services.html#ours-insurance'),
   orbitGroup('business-strategy', 'Business Strategy', 'services.html#ours-strategy'),
-  orbitGroup('outsourcing', 'Outsourcing', 'services.html#ours-outsourcing'),
+  orbitGroup('business-consultation', 'Business Consultation', 'services.html#business-consultation'),
   orbitGroup('web-design', 'Web Design', 'services.html#web-design'),
   orbitGroup('graphics', 'Graphics', 'services.html#graphics'),
   orbitGroup('virtual-assistant', 'Virtual Assistant', 'services.html#virtual-assistant'),
   orbitGroup('software-development', 'Software Development', 'services.html#software-development'),
   orbitGroup('export-import', 'Export and Import', 'services.html#export-import'),
   orbitGroup('contractor', 'Contractor', 'services.html#contractor'),
+  orbitGroup('health-care', 'Health Care', 'services.html#health-care'),
   Object.freeze({
     slug: 'partner-network',
     name: 'Partner Network',
@@ -312,6 +324,61 @@ export const ORBIT_GROUPS = Object.freeze([
     preview: 'Independent local professionals, listed by distance only.',
   }),
 ]);
+
+/**
+ * Packages (owner, 2026-11-01): three per service, shown in the Services "See Packages" dialog.
+ * Fill in each one: name, price (as written, e.g. '$499' or 'From $99 a month'), what is included
+ * (one line each), the bonus and the free extra. Anything still in [brackets] shows as a placeholder.
+ * Insurance has no packages (policies are quoted per person).
+ */
+const pkg = (name, price, includes, bonus, free) => Object.freeze({ name, price, includes: Object.freeze(includes), bonus, free });
+export const PACKAGES = Object.freeze({
+  'business-strategy': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'business-consultation': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'virtual-assistant': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'web-design': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'graphics': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'software-development': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'contractor': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'health-care': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+  'export-import': Object.freeze([
+    pkg('Essential', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Standard', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+    pkg('Premium', '[$x]', ['[What is included]', '[What is included]', '[What is included]'], '[Bonus]', '[Free extra]'),
+  ]),
+});
 
 /** The orbit legend (owner wording, 2026-10-25). The scene wraps "Ours" and "Partners" in <strong>. */
 export const ORBIT_LEGEND = 'Ours means Cargado Strategies provides it directly. Partners are independent local professionals.';

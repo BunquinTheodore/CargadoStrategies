@@ -99,7 +99,7 @@
     },
     {
      "where": "section#orbit",
-     "text": "Nine services Cargado Strategies provides directly, and a partner network of independent local professionals for the rest."
+     "text": "Ten services Cargado Strategies provides directly, and a partner network of independent local professionals for the rest."
     },
     {
      "where": "section#founder",
@@ -164,22 +164,6 @@
     }
    ],
    "offerFine": [
-    {
-     "where": "section#ours-insurance",
-     "text": "Family Protection Review · 30 min"
-    },
-    {
-     "where": "section#ours-web",
-     "text": "No prices online: Cargado Strategies quotes after a free consultation."
-    },
-    {
-     "where": "section#ours-software",
-     "text": "No prices online: Cargado Strategies quotes after a free consultation."
-    },
-    {
-     "where": "section#ours-trade",
-     "text": "No prices online: Cargado Strategies quotes after a free consultation."
-    }
    ],
    "legalDraft": [],
    "fineprint": [
@@ -266,7 +250,7 @@
     },
     {
      "where": "section#ours-outsourcing",
-     "text": "Ours · Outsourcing"
+     "text": "Ours · Virtual Assistant"
     },
     {
      "where": "section#ours-web",
@@ -274,7 +258,7 @@
     },
     {
      "where": "section#ours-creative",
-     "text": "Ours · Two Services"
+     "text": "Ours · Graphics"
     },
     {
      "where": "section#ours-software",
@@ -646,7 +630,7 @@
     },
     {
      "where": "section#disclosure",
-     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services (homecare cleaning, roofing, cleaning and gardening). They are labelled “Ours” and operate under their own licences where a licence applies. Licence details are provided on request and before any application."
+     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, business consultation, web design, graphics, virtual assistance (back-office outsourcing), software development, export and import, residential and commercial services (homecare cleaning, roofing, landscaping, general contracting, electrical, plumbing, home inspection, property appraisal, property inspection and snow removal), and health care services. They are labelled “Ours” and operate under their own licences where a licence applies. Licence details are provided on request and before any application."
     },
     {
      "where": "section#disclosure",
@@ -718,7 +702,7 @@
     },
     {
      "where": "section#faq",
-     "text": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+     "text": "Cargado Strategies' own services (insurance, business strategy, business consultation, web design, graphics, virtual assistance (back-office outsourcing), software development, export and import, residential and commercial services, and health care services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
     },
     {
      "where": "section#faq",
@@ -776,7 +760,7 @@
     {
      "where": "section#faq",
      "question": "Does Cargado Give Advice?",
-     "answer": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
+     "answer": "Cargado Strategies' own services (insurance, business strategy, business consultation, web design, graphics, virtual assistance (back-office outsourcing), software development, export and import, residential and commercial services, and health care services) are labelled “Ours”. Its strategy service is strategy and coaching only — not licensed accounting, tax or investment advice."
     },
     {
      "where": "section#faq",
@@ -825,7 +809,7 @@
     },
     {
      "where": "section#disclosure",
-     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services (homecare cleaning, roofing, cleaning and gardening)."
+     "text": "Some services on this website are provided by Cargado Strategies directly, not by a partner: insurance, business strategy, business consultation, web design, graphics, virtual assistance (back-office outsourcing), software development, export and import, residential and commercial services (homecare cleaning, roofing, landscaping, general contracting, electrical, plumbing, home inspection, property appraisal, property inspection and snow removal), and health care services."
     },
     {
      "where": "section#disclosure",
@@ -1209,7 +1193,7 @@
     },
     {
      "where": "section#faq",
-     "text": "Cargado Strategies' own services (insurance, business strategy, outsourcing, web design, graphics, virtual assistance, software development, export and import, and contractor services) are labelled “Ours”."
+     "text": "Cargado Strategies' own services (insurance, business strategy, business consultation, web design, graphics, virtual assistance (back-office outsourcing), software development, export and import, residential and commercial services, and health care services) are labelled “Ours”."
     },
     {
      "where": "section#faq",

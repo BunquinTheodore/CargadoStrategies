@@ -32,8 +32,8 @@ test('home orbit renders one static node per ORBIT_GROUPS entry, in order', () =
 
 test('home orbit centre shows the header logo image, decorative', () => {
   const html = orbitHtml();
-  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-mark-orbit\.webp" alt=""/);
-  assert.ok(existsSync(fileURLToPath(new URL('../site/assets/img/brand/logo-mark-orbit.webp', import.meta.url))));
+  assert.match(html, /<div class="orbit__centre"><div class="mark mark--logo" aria-hidden="true"><img class="mark__logo" src="assets\/img\/brand\/logo-full-orbit\.webp" alt=""/);
+  assert.ok(existsSync(fileURLToPath(new URL('../site/assets/img/brand/logo-full-orbit.webp', import.meta.url))));
 });
 
 test('home orbit stays within the word and group budgets', () => {

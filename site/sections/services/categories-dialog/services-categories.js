@@ -41,13 +41,14 @@ const itemsLine = (slug) => [OWN_LINE, ...(categoryBySlug(slug)?.items || [])].j
 export const FOUNDER_LINES = Object.freeze({
   insurance: OWN_LINE,
   'business-strategy': 'Provided by Cargado Strategies itself · Finance and operations strategy · Strategy and coaching only, not licensed accounting, tax or investment advice.',
-  outsourcing: OWN_LINE,
+  'business-consultation': OWN_LINE,
   'web-design': OWN_LINE,
   graphics: OWN_LINE,
   'virtual-assistant': OWN_LINE,
   'software-development': OWN_LINE,
   'export-import': OWN_LINE,
   contractor: itemsLine('contractor'),
+  'health-care': OWN_LINE,
 });
 
 function ownershipLabel(category) {

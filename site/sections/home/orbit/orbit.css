@@ -13,7 +13,7 @@
 .horbit__hint { margin: 0; }
 .horbit__orbit {
   --orbit-size: min(640px, max(470px, min(calc(var(--scene-safe-h) - 8px), 50vw)));
-  --orbit-node: clamp(108px, 13vmin, 120px);
+  --orbit-node-max: clamp(108px, 13vmin, 120px);
   margin: 0;
 }
 

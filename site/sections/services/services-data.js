@@ -23,13 +23,14 @@ const bookingOffer = (slug, scene, name) => Object.freeze({ scene, name, cta: BO
 export const FOUNDER_OFFERS = Object.freeze({
   insurance: Object.freeze({ scene: 'ours-insurance', name: 'Family Protection Review', cta: 'Ask About Insurance' }),
   'business-strategy': Object.freeze({ scene: 'ours-strategy', name: 'The 30-Day Cash-Flow Clean-Up', cta: 'Ask About the Clean-Up' }),
-  outsourcing: Object.freeze({ scene: 'ours-outsourcing', name: 'Your Back-Office Team', cta: 'Ask About Outsourcing' }),
+  'business-consultation': bookingOffer('business-consultation', 'ours-consultation', 'Business Consultation'),
   'web-design': bookingOffer('web-design', 'ours-web', 'Web Design'),
   graphics: bookingOffer('graphics', 'ours-creative', 'Graphics'),
-  'virtual-assistant': bookingOffer('virtual-assistant', 'ours-creative', 'Virtual Assistant'),
+  'virtual-assistant': bookingOffer('virtual-assistant', 'ours-outsourcing', 'Virtual Assistant'),
   'software-development': bookingOffer('software-development', 'ours-software', 'Software Development'),
   'export-import': bookingOffer('export-import', 'ours-trade', 'Export and Import'),
-  contractor: bookingOffer('contractor', 'ours-contractor', 'Contractor Services'),
+  contractor: bookingOffer('contractor', 'ours-contractor', 'Residential and Commercial Services'),
+  'health-care': bookingOffer('health-care', 'ours-health', 'Health Care Services'),
 });
 
 /** Insurance inquiries open the policy review site in a new tab (spec §6.1b), with this hint beside the link. */

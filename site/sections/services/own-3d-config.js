@@ -13,10 +13,12 @@
 
 /** Scene id → the motifs its slots name, in markup order. */
 export const OWN_3D_SCENES = Object.freeze({
+  'ours-consultation': Object.freeze(['tiles']),
   'ours-web': Object.freeze(['browser']),
-  'ours-creative': Object.freeze(['morph', 'tiles']),
+  'ours-creative': Object.freeze(['morph']),
   'ours-software': Object.freeze(['lattice']),
   'ours-contractor': Object.freeze(['house']),
+  'ours-health': Object.freeze(['care']),
   'ours-trade': Object.freeze(['globe']),
 });
 
