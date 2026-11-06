@@ -9,7 +9,8 @@
  *             so cut and touch-cut share it and seek-test can pause it anywhere)
  *   landed    the pose snaps to the landed scene's (also after a resize or a jump)
  *   #values   the row under the pointer, in focus or open lights its part
- *   pointer   a small sway toward the pointer (fine pointers, tier A), parked when still
+ *
+ * The pointer sway was removed (client 2026-11-07, calm); the pose on cuts stays.
  *
  * The WebGL stage (building-stage.js, with three) loads on idle after the first
  * landing; tier C and Save-Data never load it. Until it is there the pose is
@@ -18,7 +19,7 @@
  * scene and never moves. Frames are drawn on demand only.
  */
 import { getTier, onTierChange } from '../../../core/engine/tier.js';
-import { createLoop, finePointer, onIdle, onInputIdle, saveData } from '../../../core/engine/perf.js';
+import { onIdle, onInputIdle, saveData } from '../../../core/engine/perf.js';
 import {
   PARTS, STILL_SCENE, bandOf, copyPose, glowOf, isVisible, lerpPose, poseFor, renderMode, rowPick,
 } from './building-plan.js';
@@ -34,10 +35,8 @@ const poseSeconds = (tl) => {
   return Number.isFinite(out) && Number.isFinite(settled) && settled > out ? settled - out : POSE_S;
 };
 const PICK_S = 0.35;
-const SWAY_MAX = 0.08;
-const SWAY_EASE = 4;
-const SWAY_REST = 0.0005;
-const SWAY_IDLE_MS = 2500;
+/** The stage's sway input, held at rest: the building never follows the pointer. */
+const NO_SWAY = Object.freeze({ x: 0, y: 0 });
 const OVER_IRIS = 'is-over-iris';
 const FIRST_SCENE = 'logo';
 
@@ -67,15 +66,13 @@ export function mountBuilding(ctx = {}) {
   let sceneId = flow ? STILL_SCENE : film.currentScene?.id || FIRST_SCENE;
   let state = poseFor(sceneId, band);
   let pick = noPick();
-  let sway = { x: 0, y: 0 };
-  let swayTarget = { x: 0, y: 0 };
   let stage = null;
   let overIris = false;
   let cutToken = 0;
   let raf = 0;
   let resizer = null;
 
-  const drawNow = () => stage?.draw(state, glowOf(state, pick), sway);
+  const drawNow = () => stage?.draw(state, glowOf(state, pick), NO_SWAY);
   const requestDraw = () => {
     if (!stage || raf) return;
     raf = requestAnimationFrame(() => {
@@ -143,28 +140,6 @@ export function mountBuilding(ctx = {}) {
     offs.push(() => Object.entries(handlers).forEach(([type, fn]) => rows.removeEventListener(type, fn)));
   }
 
-  /* ---------- the pointer sway (fine pointers, tier A) ---------- */
-
-  function wireSway() {
-    if (getTier() !== 'A' || !finePointer()) return;
-    const loop = createLoop((now, dt) => {
-      const k = Math.min(1, dt * SWAY_EASE);
-      sway = { x: sway.x + (swayTarget.x - sway.x) * k, y: sway.y + (swayTarget.y - sway.y) * k };
-      drawNow();
-      return Math.abs(swayTarget.x - sway.x) + Math.abs(swayTarget.y - sway.y) > SWAY_REST;
-    }, { idleMs: SWAY_IDLE_MS });
-    const aim = (e) => {
-      if (!stage || !isVisible(state)) return;
-      swayTarget = { x: ((e.clientX / window.innerWidth) - 0.5) * 2 * SWAY_MAX, y: ((e.clientY / window.innerHeight) - 0.5) * SWAY_MAX };
-      loop.wake();
-    };
-    window.addEventListener('pointermove', aim, { passive: true });
-    offs.push(() => {
-      window.removeEventListener('pointermove', aim);
-      loop.sleep();
-    });
-  }
-
   /* ---------- the stage ---------- */
 
   function place(canvas) {
@@ -219,7 +194,6 @@ export function mountBuilding(ctx = {}) {
   if (!flow) {
     offs.push(film.on('cut', onCut), film.on('landed', onLanded));
     wireRows();
-    wireSway();
   }
   offs.push(onTierChange(({ tier }) => { if (tier === 'C') switchOff(); }));
   Promise.resolve(film.ready).then(() => {

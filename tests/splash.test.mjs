@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SPLASH_MS, splashWanted, counterAt, counterText, splashNames } from '../site/core/engine/splash.js';
+import { SPLASH_MS, splashWanted, splashNames } from '../site/core/engine/splash.js';
 import { SITE_NAME } from '../site/assets/js/config.js';
 
 const SITE = fileURLToPath(new URL('../site/', import.meta.url));
@@ -20,22 +20,9 @@ test('the splash plays only on an open and a refresh, not between the site\'s ow
   assert.equal(splashWanted({ type: 'navigate', referrer: 'not a url', origin: ORIGIN }), true);
 });
 
-test('the intro stays inside 4 s and the aperture comes before the end', () => {
-  assert.ok(SPLASH_MS.end <= 4000);
+test('the card stays inside 1.2 s and the aperture comes before the end', () => {
+  assert.ok(SPLASH_MS.end <= 1200);
   assert.ok(SPLASH_MS.aperture < SPLASH_MS.end);
-  assert.ok(SPLASH_MS.countFrom < SPLASH_MS.countTo);
-});
-
-test('the counter runs 00 to 100 and never goes back', () => {
-  assert.equal(counterText(counterAt(0)), '00');
-  assert.equal(counterText(counterAt(SPLASH_MS.countTo)), '100');
-  assert.equal(counterText(7), '07');
-  let last = -1;
-  for (let ms = 0; ms <= SPLASH_MS.countTo + 100; ms += 25) {
-    const n = counterAt(ms);
-    assert.ok(n >= last && n <= 100);
-    last = n;
-  }
 });
 
 test('the name card reads config', () => {

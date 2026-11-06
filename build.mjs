@@ -38,8 +38,8 @@
  *   left out of the sitemap. The Firebase SDK stays an external gstatic import.
  * - Report: sizes, and tools/.cache/build-meta.json (per page: the entry, its
  *   preloaded chunks and the source modules in them) for tools/perf-gate.mjs,
- *   which enforces the §12 budgets (the legal page loads no dotglobe, layers
- *   or cursor). build.mjs only warns about them.
+ *   which enforces the §12 budgets (the legal page loads no dotglobe or
+ *   layers). build.mjs only warns about them.
  */
 import { build, transform } from 'esbuild';
 import { existsSync } from 'node:fs';
@@ -90,8 +90,8 @@ const EXTERNAL_JS = ['https://www.gstatic.com/firebasejs/*'];
 const NOINDEX = '<meta name="robots" content="noindex">';
 /** Source folders (in site/) whose modules the build reads; every page's modules live under one of them. */
 const JS_DIRS = ['core', 'assets/js', 'pages', 'sections'];
-/** Source modules the legal page must never load (DIRECTION §12: no dotglobe, stars or cursor). */
-const LEGAL_EXCLUDES = ['dotglobe.js', 'dotglobe-draw.js', 'dotglobe-points.js', 'layers.js', 'cursor.js'];
+/** Source modules the legal page must never load (DIRECTION §12: no dotglobe or stars). */
+const LEGAL_EXCLUDES = ['dotglobe.js', 'dotglobe-draw.js', 'dotglobe-points.js', 'layers.js'];
 const LEGAL_PAGE = 'legal.html';
 /** main.js imports this module only on pages with #splash; there the build also starts it from the head (splashBoot). */
 const SPLASH_MODULE = 'core/engine/splash.js';
@@ -615,7 +615,7 @@ async function writeBuildMeta(metafile, pageMap) {
     return [page.html, { entry: toUrl(path), preload: files.slice(1).map(toUrl), inputs }];
   }));
   const banned = pages[LEGAL_PAGE].inputs.filter((p) => LEGAL_EXCLUDES.includes(basename(p)));
-  if (banned.length) process.stdout.write(`warning: ${LEGAL_PAGE} preloads ${banned.join(', ')} (DIRECTION §12: none of dotglobe, stars or cursor; perf-gate fails this)\n`);
+  if (banned.length) process.stdout.write(`warning: ${LEGAL_PAGE} preloads ${banned.join(', ')} (DIRECTION §12: none of dotglobe or stars; perf-gate fails this)\n`);
   await mkdir(dirname(META_FILE), { recursive: true });
   await writeFile(META_FILE, `${JSON.stringify({ generated: new Date().toISOString(), legalExcludes: LEGAL_EXCLUDES, pages }, null, 1)}\n`);
 }

@@ -15,12 +15,10 @@
 .door__title { font-size: var(--fs-d2); line-height: var(--lh-d2); }
 /* Side by side (≥ 760), the doors share one row grid (subgrid): a spacer, then title, quote,
    offer and the fine print + CTA, so "Protect. / Plan. / Delegate." share a baseline however
-   long each door's fine print is. The widen-on-focus moves from flex-grow (fx.css) to the
-   column track, same 1 → 1.5 and the same 350 ms curve. */
+   long each door's fine print is. The columns stay equal (no widen on hover: client 2026-11-07). */
 @media (min-width: 760px) {
   .founder__doors {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) repeat(4, auto);
-    transition: grid-template-columns var(--dur-door) cubic-bezier(.215,.61,.355,1);
   }
   /* One stretched column (ui.css's flex-end would pack the auto column right, so each door
      started at its own inset), and the row pulled out by the door's inline padding (ui.css
@@ -42,10 +40,6 @@
     position: relative; inset: auto; grid-row: 1 / 3; align-self: end; justify-self: end; margin-right: -.06em;
     font-size: min(var(--fs-ghost), 24svh); line-height: .74;
   }
-  .founder__doors:has(> .door:nth-child(1):is(:hover, :focus-within)) { grid-template-columns: 1.5fr 1fr 1fr; }
-  .founder__doors:has(> .door:nth-child(2):is(:hover, :focus-within)) { grid-template-columns: 1fr 1.5fr 1fr; }
-  .founder__doors:has(> .door:nth-child(3):is(:hover, :focus-within)) { grid-template-columns: 1fr 1fr 1.5fr; }
-  html.rm .founder__doors { transition: none; }
 }
 /* The quote sits a step under the d2 title, so the title leads (Times never under 28 px). */
 .founder__doors .door__q { font-size: max(1.75rem, min(calc(var(--fs-d2) * .78), 4cqh)); }

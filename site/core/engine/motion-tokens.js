@@ -8,13 +8,13 @@
 /** Durations in seconds (GSAP); the one `…Ms` key is milliseconds. */
 export const DUR = Object.freeze({
   out: 0.32, iris: 0.62, same: 0.40, in: 0.65, stop: 0.24, hover: 0.2, door: 0.35,
-  frame: 0.6, vt: 0.45, fadeRm: 0.2, fadeC: 0.25, eyebrow: 0.45, idleStopMs: 5000,
+  vt: 0.45, fadeRm: 0.2, fadeC: 0.25, eyebrow: 0.35, idleStopMs: 5000,
 });
 
 /** Keyed by cut step (§4.4 table), not by curve name: the out step uses power2.in, the in step expo.out. */
 export const EASE = Object.freeze({
   stepOut: 'power2.in', iris: 'expo.inOut', same: 'power2.inOut', stepIn: 'expo.out',
-  stop: 'back.out(3)', hover: 'power3.out', morph: 'power3.inOut',
+  stop: 'power2.out', hover: 'power3.out', morph: 'power3.inOut',
 });
 
 /** The CSS curves by their base.css names, for WAAPI (splash, View Transitions). */
@@ -26,5 +26,5 @@ export const CSS_EASE = Object.freeze({
 /** Cut label times (s) and constants: lockAt is the share of `total` after which one step may queue. */
 export const CUT = Object.freeze({
   out: 0, iris: 0.10, in: 0.30, settled: 0.95, total: 0.95, lockAt: 0.7,
-  outY: 40, wordStagger: 0.07, itemStagger: 0.06, frameAt: 0.4,
+  outY: 40, wordStagger: 0.035, itemStagger: 0.04,
 });

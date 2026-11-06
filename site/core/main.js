@@ -12,14 +12,14 @@
  * handlers. Register film listeners synchronously after boot(): the first
  * build waits for web fonts, so nothing is missed.
  *
- * The splash, sound, layers (stars), the cursor and the globe are dynamic
+ * The splash, sound, layers (stars) and the globe are dynamic
  * imports, so the legal bundle never contains them (DIRECTION §12). `sfx` is a
  * facade that is ready at once and forwards to sfx.js once it loads on idle.
  */
 import { initTier, sampleTier } from './engine/tier.js';
 import { initChrome } from './chrome/chrome.js';
 import { initFilm } from './engine/film.js';
-import { onIdle, finePointer } from './engine/perf.js';
+import { onIdle } from './engine/perf.js';
 import { prefersReducedMotion } from './engine/motion-pref.js';
 import { fitRules } from './lib/fit-rule.js';
 /* Re-exported so the build keeps Section.js in the engine chunk (every page reaches main.js):
@@ -172,8 +172,6 @@ export function boot({ page = document.body.dataset.page || 'home' } = {}) {
   onIdle(() => {
     if (!legal) startModule(() => import('./engine/layers.js'), 'layers', ({ initLayers }) => initLayers({ film, tier }));
     if (!legal) startModule(loadSfx, 'sound', ({ initSfx }) => initSfx({ film })); // §7.5: no sound on legal
-    startModule(() => import('./engine/interact.js'), 'interact', ({ initInteract }) => initInteract({ film }));
-    if (!legal && tier !== 'C' && finePointer()) startModule(() => import('./engine/cursor.js'), 'cursor', ({ initCursor }) => initCursor({ film }));
   });
   viewTransitions();
   return { film, chrome, sfx, tier, globe, sheet };

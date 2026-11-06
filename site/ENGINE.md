@@ -26,9 +26,9 @@ A page is a list of discrete scenes, one shown at a time. Moving between them is
 | label | time | what the engine puts there |
 |---|---|---|
 | `'out'` | 0 | the outgoing `.scene__pan` leaves as one group: `y −40 × dir` in 0.32 s, `power2.in`. Its opacity reaches 0 by `'in'` on a same-field cut, by 0.45 s on a circle cut (under the circle; the incoming scene is clipped to it) or when the outgoing scene carries `data-out-hold` (a scene with no headline, e.g. Story `#logo`), by 0.12 s on a swap (tier C, where `'iris'` and `'in'` both sit at 0.12 s) |
-| `'iris'` | 0.10 | field change: a DOM circle in the next field's colour scales 0.02 → 1 from the origin (0.62 s, `expo.inOut`). Same field: the field holds and a `[data-frame]` hairline draws from 0.38 s |
+| `'iris'` | 0.10 | field change: a DOM circle in the next field's colour scales 0.02 → 1 from the origin (0.62 s, `expo.inOut`). Same field: the field holds |
 | `'in'` | 0.30 | the incoming pan shows and its **in group** plays (§4): eyebrow → headline words → rule → body and rows → CTA, `expo.out` |
-| `'stop'` | after the heading's last word | the full stop pops: scale 0 → 1, 0.24 s, `back.out(3)` |
+| `'stop'` | after the heading's last word | the full stop pops: scale 0 → 1, 0.24 s, `power2.out` (no overshoot) |
 | `'settled'` | 0.95 | end of the engine part |
 
 - Backward cuts mirror y. Jumps (nav, Home/End, deep links) cut straight from the current scene to the target, with nothing in between.
@@ -36,36 +36,13 @@ A page is a list of discrete scenes, one shown at a time. Moving between them is
 - **Input lock:** during a cut, wheel, key and swipe input is ignored until 70% of the engine part; after that one step is queued and starts at `'settled'`. Jumps never wait: they finish the running cut (`tl.progress(1)`) and cut at once.
 - There is no master timeline, no ScrollTrigger and no scroll-linked visual anywhere. Visuals never read scroll progress.
 
-### 1.1 Transition styles (`data-transition`, transitions.js)
+### 1.1 One cut (client request, 2026-11-07)
 
-A scene names how it is **entered** with `data-transition`; going back, the cut uses the style of the scene being **left**, so one boundary always moves the same way. The labels and times above never move: every style fills the same slots, so sections append by label as before and seek-test's "no dead air" timing holds.
+Every cut is the classic cut: a field change opens the iris circle from the origin (`data-iris`), and a cut on the same field holds the field while the outgoing pan leaves (`y −40 × dir`) and the incoming in group rises. The dot, quad and flood styles, the same-field clip reveal, the `.iris[data-state="wipe"]` layer, `transitions.js` and the `data-transition` attribute were removed; do not re-add per-scene transition variety. Tier C (and `html.rm`) swaps on a field change, touch-cut paints the circle, and flow mode has no transition at all.
 
-| style | field change (from `'iris'`, 0.62 s) | same field (a reveal, from `'iris'`, 0.62 s) | outgoing pan (from `'out'`) |
-|---|---|---|---|
-| `iris` | the circle from the origin (`data-iris`), as before | the incoming scene inside a circle from the origin, the outgoing one outside it | `y −40 × dir` |
-| `dot` | collapse to the dot: a 14 px dot pops at the centre (first 18%), then swells to cover | the same dot, as a reveal | squashes to a line (`scaleY 0.2`, `scaleX 0.9`, `power3.in`) |
-| `quad` | four cells grow from the corners, 10% of the run apart (forward TL, TR, BL, BR; back reversed) | the same cells, as a reveal | pulls back to `scale 0.94` |
-| `flood` | a 45° flood from the bottom-left (top-right going back), `power3.inOut` | the same flood, as a reveal | drifts off the diagonal (`x +24`, `y −24` × dir) |
+### 1.2 One entrance (client request, 2026-11-07)
 
-- No attribute: the classic cut (the circle on a field change, the plain hold on the same field).
-- On a field change the iris element paints the shape: a circle (`iris`, `dot`, which keep `--iris-x/y/r` and the scale, so dotglobe's clip still matches) or a full-frame layer `.iris[data-state="wipe"]` with an inline `clip-path: polygon(evenodd, …)` (`quad`, `flood`); the incoming scene is clipped to the same shape (J-cut, the outgoing group holds to 0.45 s). A field change **into a globe scene** (`data-globe-mode` other than `hidden`) always keeps a circle (`quad`/`flood` play as `iris`).
-- On the same field nothing is painted: the incoming scene is clipped to the region and the outgoing one to the rest of the frame (`complementOf`), so the two never overlap and the stars and the globe stay in view. The outgoing pan stays opaque until the region covers the frame (0.72 s), then fades in 0.06 s. Both clips are removed at `'settled'`.
-- Tier C swaps on a field change as before, and on the same field keeps the plain hold (the outgoing motion still varies by style); a tier-locked page (legal, C by policy) keeps the same-field reveals. Touch-cut paints the field in the style (no scene clips: the sections scroll); flow mode has no transition at all.
-- The `'cut'` event carries `transition` (the style, or `null`).
-
-### 1.2 Entrances (`data-entrance`, entrances.js)
-
-A scene names how its **in group** arrives on its cut-in with `data-entrance` (default `rise`). The eyebrow, rule, stop and frame keep their own reveal; the first landing always rises (its text was painted by the HTML).
-
-| entrance | headline words | fade and stagger items |
-|---|---|---|
-| `rise` | rise from their masks (`yPercent 110 → 0`) | opacity 0 → 1, y 24 → 0 |
-| `depth` | grow in from depth (`scale 0.85`, `yPercent 30`, opacity 0) | opacity 0 → 1, scale 0.92 → 1 |
-| `slide` | slide in from the left (`xPercent −60`, opacity 0) | opacity 0 → 1, x −40 → 0 |
-| `wipe` | a mask wipe left to right (`clip-path: inset(0 100% 0 0)` → 0) | the same wipe with the fade |
-| `open` | open from the centre line (`clip-path: inset(50% 0 50% 0)` → 0) | the same with the fade |
-
-Only transform, opacity and clip-path change, with the same slots and durations as `rise`. Every film page assigns both attributes so neighbouring scenes differ (tests/transitions.test.mjs and tests/entrances.test.mjs check the shells).
+Every scene's **in group** arrives with the same gentle rise (`entrances.js`: `RISE_PX`, `WORD_STATES`, `ITEM_STATES`): headline words rise from their masks (`yPercent 110 → 0`), and fade and stagger items fade in with `y 12 → 0`. The depth, slide, wipe and open entrances, the `[data-frame]` stroke draw and the `data-entrance` attribute were removed; do not re-add per-scene entrance variety. Only transform and opacity change.
 
 ## 2. Modes
 
@@ -145,8 +122,6 @@ On `section.scene`:
 |---|---|---|
 | `id` | unique | deep links (`page.html#id`), `html[data-scene]` |
 | `data-field` | `ink \| bone \| gold` | the field (iris, `.fields`, the header via `html[data-hdr-field]`) |
-| `data-transition` | `iris \| dot \| quad \| flood` | how a cut **into** this scene moves (and a cut back out of it): §1.1. Unset = the classic cut |
-| `data-entrance` | `rise \| depth \| slide \| wipe \| open` | how this scene's in group arrives on its cut-in: §1.2. Unset = `rise` |
 | `data-iris` | `stop \| center \| trigger \| "x% y%"` | iris origin when this scene is entered: the outgoing scene's `.stop`, the viewport centre, the clicked trigger, or viewport percentages. Unset = the trigger, else the centre. `cut(…, { origin })` overrides it |
 | `data-alias` | space-separated names | `#name` resolves to this section (a real `id` always wins) |
 | `data-open` | `dialogId:key …` | after a hash lands here, each pair whose key is the hash (`*`: any alias, not the own id) fires a cancelable `cs:open` on `#dialogId`; unless prevented, `ui-dialog.js` opens it |
@@ -163,14 +138,13 @@ The **in group** (film-reveals.js), in DOM order; a hook inside another hook is 
 
 | hook | in animation | slot |
 |---|---|---|
-| `.eyebrow` (automatic) | mask slide inside its own box, 0.45 s | `in` |
-| `[data-reveal="words"]` (`lines` and `chars` play as words) | each word rises from its mask (`yPercent 110 → 0`), 70 ms apart | `in + 0.08` |
-| `.rule` (automatic) | `scaleX 0 → 1` from the left | after the words |
-| `[data-reveal="fade"]` | opacity 0 → 1, y 24 → 0 (2D only) | 60 ms after the previous item |
-| `[data-reveal="stagger"]` | its children as fade, 60 ms apart | as above |
-| `[data-reveal="scale"]` | opacity 0 → 1, scale 0.96 → 1 | as above |
-| `.stop` (automatic) | scale 0 → 1, `back.out(3)` | 0.3 s after its heading's last word starts |
-| `[data-frame]` on an SVG `rect`/`path` | `stroke-dashoffset` length → 0, 0.6 s | 40% of a same-field cut, else with the group |
+| `.eyebrow` (automatic) | mask slide inside its own box, 0.35 s | `in` |
+| `[data-reveal="words"]` (`lines` and `chars` play as words) | each word rises from its mask (`yPercent 110 → 0`), 0.4 s, 35 ms apart | `in + 0.08` |
+| `.rule` (automatic) | `scaleX 0 → 1` from the left, 0.4 s | after the words |
+| `[data-reveal="fade"]` | opacity 0 → 1, y 12 → 0 (2D only), 0.35 s | 40 ms after the previous item |
+| `[data-reveal="stagger"]` | its children as fade, 40 ms apart | as above |
+| `[data-reveal="scale"]` | plays as fade (kept for old markup) | as above |
+| `.stop` (automatic) | scale 0 → 1, `power2.out` | 0.2 s after its heading's last word starts |
 | `[data-reveal="none"]` | none: shows with its scene | — |
 
 - `data-delay="s"` (0–0.6) puts an item `s` seconds after `'in'`. Every slot is clamped so the group lands by `'settled'`; long lists get a tighter stagger.
@@ -188,7 +162,7 @@ Inside scenes, the engine also reads:
 | `[data-snap="off"]`, `[data-lenis-prevent]` | wheel and touch inside it are left to it while it can still scroll that way, and never chain to the page |
 | `[data-film-tab]` | written by the engine: a parked control's original tabindex (`''` = none) |
 | `[data-globe-anchor]` | the box dotglobe places itself in (`globe-fit.js`); keep it empty, in reserved space |
-| `<div class="medallion" aria-hidden="true">` | **medallion contract**: with `data-globe-mode="medallion"`, dotglobe shrinks the globe into this disc, then fades it up and glints it once (`--glint`) on the cut timeline. Animate the words, never `.medallion` (`.medallion--sm` for Partners `#close`) |
+| `<div class="medallion" aria-hidden="true">` | **medallion contract**: with `data-globe-mode="medallion"`, dotglobe shrinks the globe into this disc, then fades it up on the cut timeline (no glint since 2026-11-07). Animate the words, never `.medallion` (`.medallion--sm` for Partners `#close`) |
 
 ## 5. Page module
 
@@ -241,7 +215,7 @@ film.on('build', ({ sceneEl, index }) => { /* layout fitters only: measure and c
 |---|---|---|
 | `'ready'` | `{ mode }` | once, with `film.ready` |
 | `'build'` | `{ sceneEl, index, mode }` | per scene after layout, on the first build and every rebuild. Layout fitters only |
-| `'cut'` | `{ from, to, dir, tl, cause, origin, fieldChange, fromField, toField, fromEl, toEl, mode, immediate, transition }` | when a cut timeline is created, before it plays (`from === −1` on the first landing; while the splash is up that cut is rendered at its start and plays on `cs:splash-aperture`, at most 2.6 s). `transition`: §1.1. `cause`: `wheel key touch step goto hash focus click load` |
+| `'cut'` | `{ from, to, dir, tl, cause, origin, fieldChange, fromField, toField, fromEl, toEl, mode, immediate }` | when a cut timeline is created, before it plays (`from === −1` on the first landing; while the splash is up that cut is rendered at its start and plays on `cs:splash-aperture`, at most 1.1 s). `cause`: `wheel key touch step goto hash focus click load` |
 | `'landed'` | `{ index, id, el, field, from, cause, mode }` | when the whole timeline (page appends included) is done; once on load (`cause: 'load'`); in flow mode whenever the current section changes |
 | `'field'` | `{ field, from }` | at 50% of the iris or crossfade, with `html[data-hdr-field]` |
 | `'scene'` | `{ index, id, el, field, title, count }` | at cut start |
@@ -268,7 +242,7 @@ On `<html>`: the mode classes, `data-mode`, `film-ready`, `film-fallback` (head 
 - `motion-pref.js`: `prefersReducedMotion()`, `osReducedMotion()`, `motionPref()`, `setMotionPref(value)`, `REDUCE_QUERY`, `MOTION_KEY`.
 - `film-events.js`: `createEmitter`, `fontsReady`, `sceneTitle`, `hashTargetOf`, `idFromHash`.
 - `splash.js` (2c): `anchorBox(el, scene)` (an element's box relative to its scene, transforms ignored), `circleOfBox(box)` (the shared globe circle that fills a box) and `splashState()`. main.js loads the splash only on pages with `#splash`; without one it sets `html.splash-done` itself.
-- **The splash** (owner, 2026-10-26: the Portfolio boot intro). The `#splash` block in every film shell plays from its CSS alone (visual.css §1), 4 s (owner, 2026-10-28: slowed 1.6x from 2.5 s): 0-1.44 s the scan (brackets, tick rulers, ridges round the C/W mark, a gold scanline lighting it, Scan 00 → 100 %, Status Scanning → Verified), 1.44-2.08 s Access Granted, 2.08-2.56 s the collapse to a gold dot, 2.72-3.52 s the gold flood and the name (`SITE_NAME`, founder and city from config.js), 3.52-4 s the whole splash fades out evenly (one uniform fade, owner 2026-10-28). splash.js fills the names and the counter, sends `cs:splash-aperture` at 3.55 s (the hero globe's circle, else a centred one; the first landing plays then) and `cs:splash-done` at 4 s. It plays only on an open and a refresh (owner, 2026-10-28); a same-origin `navigate` and back/forward skip it (the shell's inline script, `splashWanted()`). On story and legal the flood is ivory paper instead of gold (no gold field on those pages). Any input fades it in 150 ms; reduced motion shows the name card for 600 ms, then fades it.
+- **The splash** (client request, 2026-11-07: a ~1 s card). The `#splash` block in every film shell plays from its CSS alone (visual.css §1): the C/W mark, the name and the founder and city (from config.js) fade in over 0.24 s and hold, then the whole splash fades out from 0.72 s to 1 s. splash.js fills the names, sends `cs:splash-aperture` at 720 ms (the hero globe's circle, else a centred one; the first landing plays then) and `cs:splash-done` at 1000 ms. It plays only on an open and a refresh (owner, 2026-10-28); a same-origin `navigate` and back/forward skip it (the shell's inline script, `splashWanted()`). On story and legal the card is ivory paper instead of gold (no gold field on those pages). Any input fades it in 150 ms; reduced motion shows the card without the fade-in. The scan, the counter and Access Granted were removed; do not re-add them.
 - Internal (do not import): `film.js`, `cut.js`, `iris.js` (except via `film.irisTo`), `film-snap.js`, `touch-cut.js`, `film-reveals.js`, `film-split.js`, `film-map.js`, `film-flow.js`, `film-reach.js`, `film-links.js`.
 
 ## 10. Between pages: View Transitions
@@ -277,7 +251,7 @@ Same-origin cross-page link clicks store the link's centre in `sessionStorage['c
 
 ## 11. Conventions
 
-- Animate only `transform`, `opacity` and `clip-path`. Choreography goes in `film.on('cut')` at a label; hover micro-transitions are the only other motion.
+- Animate only `transform`, `opacity` and `clip-path`. Choreography goes in `film.on('cut')` at a label; hover micro-transitions are the only other motion: no cursor ring, magnetic pull, tilt or ambient loops; hover changes colour/opacity (plus small arrow nudges).
 - Nothing measures with `getBoundingClientRect()` for layout decisions inside a cut. Components use `offsetTop`, `offsetHeight`, `clientHeight`, `scrollHeight`.
 - Never invent partners, people, photos, reviews, ratings, counts or licence numbers. Use `.ph` brackets and "Partner spot available". Compliance copy is verbatim (DIRECTION "Fixed constraints" and §10).
 - Display type is the Times New Roman stack in Title Case as written (never `text-transform`); body Manrope; UI Poppins. Black and gold only.

@@ -440,6 +440,8 @@ export function initConcierge(root /* form.concierge */, { sheet }) // → { des
 | `cursor.js` (2b) | `initCursor({ film })` | fine pointer only |
 | `wa-sheet.js` (2d) | `initWaSheet({ film, sfx })` | §13 |
 
+**Addendum (client request, 2026-11-07: calm motion).** `interact.js` and `cursor.js` were removed, so main.js no longer calls `initInteract` or `initCursor` (the rows above and step 7 of §2 are historical). The splash is a ~1 s logo and name card (`cs:splash-aperture` at 720 ms, `cs:splash-done` at 1000 ms, film.js waits at most 1.1 s). The `'cut'` event no longer carries a `transition` field: every cut is the classic cut, and every scene has the one rise entrance.
+
 **`DotGlobe`** (2c owns the implementation; this is the agreed surface):
 ```js
 initDotGlobe({ film, tier }) // tier: 'A'|'B'|'C' (C → posters: globe-poster.svg / canada-poster.svg)

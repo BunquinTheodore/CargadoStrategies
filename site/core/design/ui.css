@@ -1,7 +1,7 @@
 /* ==========================================================================
    Cargado Strategies — ui.css (Round 5 shared components; loads after fx.css)
    1 utilities · 2 proof slots · 3 index rows · 4 doors · 5 strike list
-   6 steps strip · 7 paper and its hairline frame · 8 fine print
+   6 steps strip · 7 paper and its static hairline frame · 8 fine print
    9 tabs and switch · 10 pager · 11 stepper · 12 dialog · 13 WhatsApp sheet
    14 footer switches · 15 text floor (LAST)
    Mechanics are shared; pages size and skin these classes inside their own
@@ -113,9 +113,9 @@ html.rm .globe-anchor--credits, html:not(.js) .globe-anchor--credits { display: 
   .steps__n { font-size: var(--fs-row-num); }
 }
 
-/* 7. Paper (C16): the one framed element; its hairline frame draws on arrival ---------- */
+/* 7. Paper (C16): the one framed element; its hairline frame is drawn statically ---------- */
 /* <div class="paper"><svg class="paper__frame" aria-hidden="true" focusable="false">
-     <rect data-frame x=".5" y=".5"/></svg> … </div>   (the engine sets the dash from getTotalLength) */
+     <rect data-frame x=".5" y=".5"/></svg> … </div> */
 .paper { position: relative; isolation: isolate; padding: clamp(20px, 3svh, 40px) clamp(20px, 3vw, 44px); background: var(--paper-bg); color: var(--fg); }
 .paper__frame { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; pointer-events: none; }
 .paper__frame rect, .paper__frame path {

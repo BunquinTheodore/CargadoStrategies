@@ -4,7 +4,6 @@
  *
  *   createOrbit(root, groups = ORBIT_GROUPS, { onNavigate, film, openLabel })
  *   → { show(slugOrIndex, { touch }), hide(), destroy() }
- *   orbitLogoIn({ tl, toEl })   adds the centre logo's arrival to the cut into the orbit's scene
  *
  * Markup (root = the scene's .orbit box):
  *   .orbit__centre               the header's logo image (.mark > img.mark__logo, owner 2026-10-30)
@@ -32,16 +31,6 @@ const NEXT_KEYS = ['ArrowRight', 'ArrowDown'];
 const PREV_KEYS = ['ArrowLeft', 'ArrowUp'];
 const TOUCH_TYPES = new Set(['touch', 'pen']);
 const OPEN_LABEL = 'Open';
-/** The centre logo's arrival on the cut, from the 'in' label (seconds). */
-const LOGO_IN = Object.freeze({ scaleFrom: 0.94, duration: 0.6 });
-
-/** On a cut into the orbit's scene, the centre logo fades and settles in. */
-export function orbitLogoIn({ tl, toEl }) {
-  const logo = toEl?.querySelector('.orbit .mark__logo');
-  if (!tl || !logo) return;
-  tl.fromTo(logo, { opacity: 0, scale: LOGO_IN.scaleFrom }, { opacity: 1, scale: 1, duration: LOGO_IN.duration, ease: 'expo.out' }, 'in');
-}
-
 /** The node index a key moves to round a ring of `count` (wrapping); -1 for any other key. */
 export function ringIndex(index, key, count) {
   if (count <= 0) return -1;

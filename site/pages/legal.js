@@ -2,7 +2,7 @@
  * Legal page (legal.html, DIRECTION §7.5 L1-L8; FR16, SRS Appendix B).
  *
  * Calm on purpose: tier C by design (html[data-tier-lock]), one bone field, no
- * splash, globe, stars, grain, cursor ring or sound. The cuts are the engine's
+ * splash, globe, stars, grain or sound. The cuts are the engine's
  * own swaps and in-group fades; the page adds no choreography.
  *
  * Page-only behaviour: legal-fx.js, its own chunk started at once, mounts the

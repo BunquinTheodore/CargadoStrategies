@@ -2,7 +2,7 @@
  * Home page (index.html): 7 scenes + credits on the Round 5 cut engine
  * (DIRECTION §7.1, H1-H7, plus the v2 services orbit after the hero, spec §6.3).
  * Each scene's behaviour is its section class
- * (sections/home/<name>/<Name>.js); the credits have none.
+ * (sections/home/<name>/<Name>.js); the hero and the credits have none.
  *
  * Order (api.md §2): fill the copy that depends on config first, then boot(),
  * then mount the sections (their film listeners) in the same tick. Sound is
@@ -13,7 +13,6 @@ import { boot } from '../core/main.js';
 import { mountSections } from '../core/Section.js';
 import { FOUNDER_LAST_NAME, FOUNDER_NAME, FOUNDER_PHOTO, FOUNDER_PHOTOS, FOUNDER_SIGNATURE, HERO_VARIANT } from '../assets/js/config.js';
 import { buildIntro, waLink } from '../core/chrome/whatsapp.js';
-import { Hero } from '../sections/home/hero/Hero.js';
 import { Orbit } from '../sections/home/orbit/Orbit.js';
 import { OneMessage } from '../sections/home/one-message/OneMessage.js';
 import { Situations } from '../sections/home/situations/Situations.js';
@@ -100,4 +99,4 @@ function fillWhatsAppLinks() {
 fillCopy();
 fillWhatsAppLinks();
 const ctx = boot({ page: PAGE });
-mountSections([Hero, Orbit, OneMessage, Situations, Founder, Find, Close], ctx);
+mountSections([Orbit, OneMessage, Situations, Founder, Find, Close], ctx);

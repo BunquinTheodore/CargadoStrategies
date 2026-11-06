@@ -16,8 +16,8 @@ export const qsa = (root, sel) => Array.from(root.querySelectorAll(sel));
 export const isPhone = () => window.matchMedia(PHONE_QUERY).matches;
 
 /**
- * W2 is a J-cut: the strikes arrive from the 'iris' label, while the outgoing scene leaves, so
- * no seek frame falls between the two scenes (§10.2, T5). The pan's fade moves with them. A swap
+ * W2 is a J-cut: the pan arrives from the 'iris' label, while the outgoing scene leaves, so
+ * no seek frame falls between the two scenes (§10.2, T5). The pan's fade moves with it. A swap
  * (tier C, reduced motion) changes the field just before 'in', so there they keep the 'in' slot.
  */
 export function leadLabel(tl, el, { fieldChange, origin }) {

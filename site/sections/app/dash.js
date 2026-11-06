@@ -1,7 +1,7 @@
 /**
  * The dashboard shell shared by dashboard.html, partner-dashboard.html and admin.html.
  *
- *   wireDashNav(root)   the section links: smooth jump, aria-current follows the panel in view
+ *   wireDashNav(root)   the section links: jump, aria-current follows the panel in view
  *   wireTabs(root)      [data-dash-tabs]: APG tabs (arrows, Home, End) over [role="tabpanel"]
  *   markPreview()       shows the "Preview · sample data" badge
  *   kpi(name, value)    fills [data-kpi="name"]

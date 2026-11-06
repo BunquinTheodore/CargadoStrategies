@@ -14,10 +14,10 @@
  *              the travellers that morph. Optional
  *              data-globe-face="lat,lon". The first scene's arc (or
  *              data-globe-arc="pulse") spans at least a third of the
- *              diameter and fires from a pulsing "you" node twice (900 ms
- *              each, a travelling head), first on the splash ring's hand-off,
- *              then rests; pointer movement over the globe replays it once
- *              (tier A).
+ *              diameter and draws once from a pulsing "you" node (900 ms, a
+ *              travelling head) on the splash card's hand-off, then rests.
+ *              The globe holds still: no idle spin, no pointer tilt
+ *              (client 2026-11-07: calm).
  * - map        the globe faces Canada and every traveller morphs to its place
  *              on a flat dot map (per-point lerp plus a camera dolly, 900 ms)
  *              while the rest of the land fades; the map develops into an
@@ -33,15 +33,14 @@
  * - ring       the points collapse onto the C ring of the monogram (1.2 s),
  *              the ring inscribed in the anchor box (Story #logo).
  * - medallion  the globe (or map) shrinks into the scene's .medallion over
- *              600 ms from the cut's start and hands over to it: the disc fades up and glints once (--glint). Pages
+ *              600 ms from the cut's start and hands over to it: the disc fades up. Pages
  *              animate the words, not the .medallion element.
  * - hidden     shrinks and fades with the out group, then nothing is drawn.
  *
  * Every mode change is appended to the cut's timeline (film.on('cut')), so the
  * seek test and immediate landings see it. Rendering is on demand: one
- * gsap.ticker callback while something changes, removed when nothing moves,
- * and asleep 5 s after the last input or landing (the tier A idle rotation
- * stops too). Paused while the tab is hidden. Tier C, reduced motion and flow
+ * gsap.ticker callback while something changes, removed when nothing moves.
+ * Paused while the tab is hidden. Tier C, reduced motion and flow
  * mode get the SVG posters inside the anchors instead (the map posters with
  * their label as text beside the node; ring has none, the page's mark is its
  * end state); onTierChange follows. A splash hand-off on a first scene with no
@@ -69,8 +68,6 @@ const POSTER_LABEL_LEFT_U = 0.55; // a poster label beside a node right of this 
 /* Motion (s unless named …MS). */
 const ROT_K = 0.07; // rotation lerp per 60 fps frame
 const ROT_EPS = 0.01; // degrees: close enough to stop
-const SPIN_DEG_PER_S = 6; // 1 rev / 60 s, tier A, ≤ 5 s after the last input
-const TILT_DEG = 7; // pointer tilt over the globe, tier A
 const GLIDE_S = 0.85;
 const APPEAR_S = 0.5;
 const APPEAR_MAP_S = 0.2; // W4: the sphere shows at once, facing North America, before it morphs
@@ -84,11 +81,10 @@ const ARC_S = 0.6;
 const PULSE_ARC_S = 0.9; // the hero arc draws over this, with a travelling head
 const RING_S = 1.2;
 const MEDAL_S = 0.6;
-const GLINT_S = 0.6;
 const LABEL_S = 0.3;
 const PULSE_HOLD_S = 0.25;
 const PULSE_FADE_S = 0.35;
-const PULSE_TIMES = 2;
+const PULSE_TIMES = 1;
 const SHRINK_EASE = 'power2.inOut'; // W5: the map or globe visibly travels into the medallion from the cut's start
 const SHRINK_R_EASE = 'power3.out'; // …and is small early, so it never sits large behind the incoming words
 const OUT_FADE_S = 0.28; // §4.4 rule 3: a leaving globe is gone before the in group starts (0.30 s)
@@ -96,7 +92,6 @@ const GLIDE_DIP = 0.2; // alpha while the globe glides between scenes, past the 
 const GLIDE_DIP_S = 0.2;
 const GLIDE_DIP_MIN = 0.5; // dip only when the centre moves more than this share of the radius
 const LIMB_S = 0.6;
-const IDLE_MS = DUR.idleStopMs;
 const QUIET_FRAMES = 2;
 
 /* Drawing and geometry (the renderer's own constants are in dotglobe-draw.js). */
@@ -257,7 +252,6 @@ function createGlobe({ film, tier, canvas }) {
   const S = { cx: 0, cy: 0, r: 0, alpha: 0, morph: 0, ring: 0, medal: 0, arc: 0, arcAlpha: 0, label: 0, pulse: 0, join: 0, limb: 0, mx: 0, my: 0, mw: 0, mh: 0, gw: 0 };
   const rot = { ...HERO_FACE };
   const rotTarget = { ...HERO_FACE };
-  const tilt = { lat: 0, lon: 0 };
   const extras = { arc: { from: null, to: null, label: '' }, join: { place: null, label: LABEL_JOIN } };
   const places = [];
   const offs = [];
@@ -268,10 +262,7 @@ function createGlobe({ film, tier, canvas }) {
   let dirty = false;
   let quiet = 0;
   let last = 0;
-  let lastInput = performance.now();
   let pulseTl = null;
-  let pulseRested = false;
-  let inside = false;
   let destroyed = false;
   let overIris = false;
   let awaitingSplash = false;
@@ -285,22 +276,15 @@ function createGlobe({ film, tier, canvas }) {
     let moving = false;
     const k = 1 - (1 - ROT_K) ** (dt * 60);
     ['lat', 'lon'].forEach((key) => {
-      const goal = rotTarget[key] + tilt[key];
+      const goal = rotTarget[key];
       const d = goal - rot[key];
       if (Math.abs(d) > ROT_EPS) { rot[key] += d * k; moving = true; } else rot[key] = goal;
     });
-    if (spinning(now)) {
-      rotTarget.lon -= SPIN_DEG_PER_S * dt; // the view and its goal turn together: no lag left when the spin stops
-      rot.lon -= SPIN_DEG_PER_S * dt;
-      moving = true;
-    }
     if (moving || dirty || overIris) renderer.draw(S, rot, extras, field, irisClip());
     quiet = moving || dirty || overIris ? 0 : quiet + 1;
     dirty = false;
     if (quiet >= QUIET_FRAMES) stopTicker(); // a frame or two of grace keeps tween-driven redraws from re-adding the callback every frame
   }
-
-  const spinning = (now) => cfg.idleSpin && mode === 'sphere' && S.alpha > 0.01 && now - lastInput < IDLE_MS;
 
   function startTicker() {
     if (ticking || destroyed || document.hidden) return;
@@ -413,14 +397,14 @@ function createGlobe({ film, tier, canvas }) {
     const p = placeAt(film.current);
     if (mode !== 'sphere' || p.arc !== 'pulse' || pulseTl) return;
     setArcEnds(p);
-    pulseTl = gsap.timeline({ onUpdate: invalidate, onComplete: () => { pulseTl = null; pulseRested = true; } });
+    pulseTl = gsap.timeline({ onUpdate: invalidate, onComplete: () => { pulseTl = null; } });
     for (let i = 0; i < times; i += 1) {
       if (i > 0) pulseTl.to(S, { arcAlpha: 0, duration: PULSE_FADE_S, ease: 'power1.in' }, `+=${PULSE_HOLD_S}`);
       pulseTl.fromTo(S, { arc: 0, arcAlpha: 1, pulse: 0 }, { arc: 1, pulse: 1, duration: PULSE_ARC_S, ease: 'power1.inOut' });
     }
   }
 
-  /** W1: the first play fires on the splash ring's hand-off (or when the splash is skipped or gone). */
+  /** W1: the first play fires on the splash card's hand-off (or when the splash is skipped or gone). */
   function releasePulse() {
     if (!awaitingSplash) return;
     awaitingSplash = false;
@@ -516,13 +500,12 @@ function createGlobe({ film, tier, canvas }) {
     }
   }
 
-  /** The globe (or map) shrinks into the disc over MEDAL_S from `label`; the disc fades up at 70% and glints. */
+  /** The globe (or map) shrinks into the disc over MEDAL_S from `label`; the disc fades up at 70%. */
   function medallionMode(p, tl, label) {
     tween(tl, { medal: 1 }, MEDAL_S, SHRINK_EASE, pos(tl, label));
     const el = p.medallion;
     if (!el) return;
     tl.fromTo(el, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out', immediateRender: false }, pos(tl, label, MEDAL_S * 0.7));
-    tl.fromTo(el, { '--glint': '-120%' }, { '--glint': '120%', duration: GLINT_S, ease: 'power2.inOut', immediateRender: false }, pos(tl, label, MEDAL_S));
   }
 
   /* ----- film events ----- */
@@ -539,7 +522,6 @@ function createGlobe({ film, tier, canvas }) {
 
   function onCut({ to, tl, from, fieldChange, toField }) {
     cutTo = to;
-    lastInput = performance.now();
     const fields = document.querySelector('.fields');
     const iris = Boolean(fieldChange && from >= 0 && fields && fields.dataset.field !== toField);
     applyMode(placeAt(to), tl, { iris, toField });
@@ -547,42 +529,17 @@ function createGlobe({ film, tier, canvas }) {
 
   function onLanded({ index }) {
     landedOnce = true;
-    lastInput = performance.now();
     if (overIris) setOverIris(false);
     if (cutTo !== index) snapTo(index);
     cutTo = -1;
-    pulseRested = false;
     awaitingSplash = splashPending();
     if (!awaitingSplash) playPulse();
     invalidate();
   }
 
-  /* ----- input: the 5 s rule, the tier A tilt and the hero arc replay ----- */
-
-  function poke() {
-    lastInput = performance.now();
-    if (spinning(lastInput)) startTicker();
-  }
-
-  function onPointer(e) {
-    poke();
-    if (!cfg.idleSpin || mode !== 'sphere' || S.alpha < 0.01) return;
-    const dx = (e.clientX - S.cx) / S.r;
-    const dy = (e.clientY - S.cy) / S.r;
-    const now = dx * dx + dy * dy < 1;
-    tilt.lon = now ? dx * TILT_DEG : 0;
-    tilt.lat = now ? -dy * TILT_DEG : 0;
-    if (now && !inside && pulseRested) {
-      pulseRested = false;
-      playPulse(1);
-    }
-    inside = now;
-    startTicker();
-  }
-
-  /** The splash ring lands on the globe's horizon: draw the limb on this very frame, then fire the hero arc. */
+  /** The splash card opens on the globe's horizon: draw the limb on this very frame, then fire the hero arc. */
   function onAperture({ x, y, r }) {
-    /* A first scene without a globe (Story #top, Services #intro): the ring's centre circle is not ours to fill. */
+    /* A first scene without a globe (Story #top, Services #intro): the splash aperture is not ours to fill. */
     if (mode === 'hidden' || mode === 'medallion' || placeAt(film.current).mode === 'hidden') {
       releasePulse();
       return;
@@ -638,13 +595,11 @@ function createGlobe({ film, tier, canvas }) {
       if (tl) tl.add(sub.paused(false), at);
     },
     replayArc() {
-      pulseRested = false;
       stopPulse();
       playPulse(1);
     },
     sleep() {
       stopPulse();
-      lastInput = 0;
       stopTicker();
     },
     destroy() {
@@ -664,8 +619,6 @@ function createGlobe({ film, tier, canvas }) {
   onFilm('landed', onLanded);
   onFilm('field', ({ field: next }) => { field = next; invalidate(); });
   listen(window, 'resize', () => { resize(); invalidate(); });
-  listen(window, 'pointermove', onPointer, { passive: true });
-  ['wheel', 'keydown', 'pointerdown', 'touchstart'].forEach((name) => listen(window, name, poke, { passive: true }));
   listen(document, 'visibilitychange', () => { if (document.hidden) stopTicker(); else invalidate(); });
   listen(document, 'cs:splash-aperture', (e) => onAperture(e.detail));
   listen(document, 'cs:splash-done', releasePulse);

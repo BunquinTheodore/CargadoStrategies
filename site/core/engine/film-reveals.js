@@ -7,31 +7,29 @@
  *   .eyebrow                  mask slide inside its own box
  *   [data-reveal="words"]     each word rises from its mask ("lines" and "chars" play as words)
  *   .rule                     scaleX from the left
- *   [data-reveal="fade"]      opacity and a 24 px rise (2D only)
- *   [data-reveal="stagger"]   its children as fade, 60 ms apart
- *   [data-reveal="scale"]     opacity and scale 0.96 → 1
- *   .stop                     pops after the last word of its heading (back.out)
- *   [data-frame]              an SVG hairline draws (stroke-dashoffset)
+ *   [data-reveal="fade"]      opacity and a 12 px rise (2D only)
+ *   [data-reveal="stagger"]   its children as fade, 40 ms apart
+ *   [data-reveal="scale"]     plays as fade
+ *   .stop                     appears after the last word of its heading (power2.out, no overshoot)
  *   [data-reveal="none"]      excluded: shows with its scene
  * data-delay="s" (0-0.6) moves an item to s seconds after the 'in' label.
  * Every slot is clamped so the group lands by 'settled'. Only transform,
- * opacity, clip-path and stroke-dashoffset are animated, all with fromTo, so
- * a cut seeked to any point (T5) shows the right state.
+ * opacity and clip-path are animated, all with fromTo, so a cut seeked to
+ * any point (T5) shows the right state. One entrance for every scene
+ * (entrances.js, client 2026-11-07).
  */
 import { splitWords } from './film-split.js';
 import { CUT, DUR, EASE } from './motion-tokens.js';
-import { itemStates, wordStates, DEFAULT_ENTRANCE } from './entrances.js';
+import { ITEM_STATES, RISE_PX, WORD_STATES } from './entrances.js';
 
-export const IN_GROUP = '.eyebrow, [data-reveal], .rule, .stop, [data-frame]';
+export const IN_GROUP = '.eyebrow, [data-reveal], .rule, .stop';
 const WORD_KINDS = new Set(['words', 'lines', 'chars']);
-const WORD_DUR = 0.5;
-const ITEM_DUR = 0.45;
-const RULE_DUR = 0.5;
+const WORD_DUR = 0.4;
+const ITEM_DUR = 0.35;
+const RULE_DUR = 0.4;
 const WORDS_AFTER = 0.08; // the headline starts this long after the 'in' label (the eyebrow leads)
-const STOP_AFTER = 0.3; // the stop pops this long after its heading's last word starts (the word has landed)
+const STOP_AFTER = 0.2; // the stop pops this long after its heading's last word starts (the word has landed)
 const MAX_DELAY = 0.6;
-const RISE_PX = 24;
-const SCALE_FROM = 0.96;
 const EYEBROW_OFFSET = 100;
 
 const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
@@ -41,10 +39,9 @@ function kindOf(el) {
     const asked = el.dataset.reveal;
     if (asked === 'none') return 'none';
     if (WORD_KINDS.has(asked)) return 'words';
-    return asked === 'stagger' || asked === 'scale' ? asked : 'fade';
+    return asked === 'stagger' ? asked : 'fade';
   }
   if (el.classList.contains('stop')) return 'stop';
-  if (el.hasAttribute('data-frame')) return 'frame';
   return el.classList.contains('rule') ? 'rule' : 'eyebrow';
 }
 
@@ -56,17 +53,9 @@ function isOuter(el, sceneEl) {
   return !el.closest('[data-reveal="none"]');
 }
 
-function frameLength(el) {
-  try {
-    return Math.ceil(el.getTotalLength?.() || 0);
-  } catch {
-    return 0; // not rendered (display: none): nothing to draw
-  }
-}
-
 /**
- * Collect and prepare a scene's in group: split headings into words, read
- * frame lengths. Call on every build (layout may have changed).
+ * Collect and prepare a scene's in group: split headings into words.
+ * Call on every build (layout may have changed).
  */
 export function prepareInGroup(sceneEl) {
   return Array.from(sceneEl.querySelectorAll(IN_GROUP))
@@ -76,7 +65,6 @@ export function prepareInGroup(sceneEl) {
     .map((item) => {
       if (item.kind === 'words') item.words = splitWords(item.el);
       if (item.kind === 'stagger') item.kids = Array.from(item.el.children);
-      if (item.kind === 'frame') item.length = frameLength(item.el);
       if (item.kind === 'stop') item.heading = item.el.parentElement?.closest('[data-reveal]') || null;
       return item;
     });
@@ -90,16 +78,13 @@ const fitStagger = (step, count, start, latest) => (count < 2 ? 0 : Math.min(ste
 
 /**
  * Append the in group to `tl`, starting at `at` (the 'in' label time) and
- * landing by `settled`. `frameAt` (same-field cuts) is when [data-frame]
- * starts drawing; null draws it with the group. `keepOpacity` (the first
- * landing): "fade" items only rise, so text painted from the HTML is never
- * hidden again. `entrance` (the scene's data-entrance, entrances.js) sets how words and
- * fade / stagger items arrive; the first landing always rises. Adds the 'stop' label.
+ * landing by `settled`. `keepOpacity` (the first landing): "fade" items
+ * only rise, so text painted from the HTML is never hidden again. Adds the
+ * 'stop' label.
  */
-export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity = false, entrance = DEFAULT_ENTRANCE }) {
-  const look = keepOpacity ? DEFAULT_ENTRANCE : entrance;
-  const words = wordStates(look);
-  const fades = itemStates(look);
+export function addInGroup(tl, items, { at, settled, keepOpacity = false }) {
+  const words = WORD_STATES;
+  const fades = ITEM_STATES;
   let cursor = at;
   let stopAt = null;
   let wordsEnd = null;
@@ -136,14 +121,10 @@ export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity
       tl.fromTo(el, { scaleX: 0, transformOrigin: '0% 50%' },
         { scaleX: 1, duration: RULE_DUR, ease: EASE.stepIn }, start);
       cursor = start + CUT.itemStagger;
-    } else if (kind === 'fade' || kind === 'scale') {
+    } else if (kind === 'fade') {
       const start = slot(item, cursor, ITEM_DUR);
-      if (kind === 'fade' && keepOpacity) {
-        tl.fromTo(el, { y: RISE_PX }, { y: 0, duration: ITEM_DUR, ease: EASE.stepIn }, start);
-      } else {
-        if (kind === 'fade') fadeIn(el, { ...fades.from }, start, {}, fades.to);
-        else fadeIn(el, { opacity: 0, scale: SCALE_FROM }, start);
-      }
+      if (keepOpacity) tl.fromTo(el, { y: RISE_PX }, { y: 0, duration: ITEM_DUR, ease: EASE.stepIn }, start);
+      else fadeIn(el, { ...fades.from }, start, {}, fades.to);
       cursor = start + CUT.itemStagger;
     } else if (kind === 'stagger') {
       if (!item.kids.length) return;
@@ -157,10 +138,6 @@ export function addInGroup(tl, items, { at, settled, frameAt = null, keepOpacity
       tl.fromTo(el, { scale: 0, transformOrigin: '50% 50%' },
         { scale: 1, duration: DUR.stop, ease: EASE.stop }, start);
       stopAt ??= start;
-    } else if (kind === 'frame' && item.length > 0) {
-      const start = clamp(frameAt ?? at, 0, latest(DUR.frame));
-      tl.fromTo(el, { strokeDasharray: item.length, strokeDashoffset: item.length },
-        { strokeDashoffset: 0, duration: DUR.frame, ease: EASE.same }, start);
     }
   });
   tl.addLabel('stop', stopAt ?? clamp(wordsEnd ?? at, at, latest(DUR.stop)));

@@ -222,7 +222,7 @@ test('the building code keeps the page rules', () => {
   assert.match(css, /pointer-events:\s*none/);
   assert.doesNotMatch(css, /transition|animation/);
   assert.match(read('pages/story.css'), /building\/building\.css";\n@import "\.\.\/sections\/story\/_bands\.css";/);
-  assert.match(read('pages/story.js'), /mountSections\(\[Logo, Values\], ctx\);\nmountBuilding\(ctx\);/);
+  assert.match(read('pages/story.js'), /mountSections\(\[Values\], ctx\);\nmountBuilding\(ctx\);/);
   // the canvas is decorative
   assert.match(files[3], /'aria-hidden', 'true'/);
 });

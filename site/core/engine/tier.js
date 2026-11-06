@@ -22,16 +22,16 @@ const LOCK_ATTR = 'data-tier-lock';
 
 const CONFIG = Object.freeze({
   A: Object.freeze({
-    globe: 'dots', globePoints: 900, dpr: 1.5, halo: true, idleSpin: true, stars: 180, starDrift: true,
-    grain: 'tile', grainJitter: true, iris: 'circle', headerBlur: true,
+    globe: 'dots', globePoints: 900, dpr: 1.5, halo: true, stars: 180,
+    grain: 'tile', iris: 'circle', headerBlur: true,
   }),
   B: Object.freeze({
-    globe: 'dots', globePoints: 520, dpr: 1, halo: false, idleSpin: false, stars: 110, starDrift: false,
-    grain: 'tile', grainJitter: false, iris: 'circle', headerBlur: false,
+    globe: 'dots', globePoints: 520, dpr: 1, halo: false, stars: 110,
+    grain: 'tile', iris: 'circle', headerBlur: false,
   }),
   C: Object.freeze({
-    globe: 'poster', globePoints: 0, dpr: 1, halo: false, idleSpin: false, stars: 0, starDrift: false,
-    grain: 'none', grainJitter: false, iris: 'fade', headerBlur: false,
+    globe: 'poster', globePoints: 0, dpr: 1, halo: false, stars: 0,
+    grain: 'none', iris: 'fade', headerBlur: false,
   }),
 });
 

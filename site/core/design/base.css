@@ -42,7 +42,6 @@
   --metal-grad: linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%);
   --metal-tile: url("../../assets/img/brushed-256.png");
   --metal-tile-op: .06;
-  --metal-sheen: linear-gradient(100deg, transparent 35%, rgba(255,246,214,.38) 50%, transparent 65%);
   --emboss-hi: rgba(255,240,200,.35);  --emboss-lo: rgba(11,11,12,.55);
 
   /* fonts */
@@ -134,7 +133,7 @@
   --ease-in:    cubic-bezier(.55,0,1,.45);
   --ease-inout: cubic-bezier(.87,0,.13,1);
   --dur-out: .32s;  --dur-iris: .62s;  --dur-in: .65s;  --dur-stop: .24s;
-  --dur-hover: .2s;  --dur-door: .35s;  --dur-frame: .6s;  --dur-vt: .45s;
+  --dur-hover: .2s;  --dur-door: .35s;  --dur-vt: .45s;
   --dur-fade-rm: .2s;  --idle-stop: 5s;
 }
 @media (max-width: 759px) {
@@ -376,8 +375,6 @@ html.is-cutting .scene:is(.is-entering, .is-leaving) .scene__pan { will-change: 
 .iris[data-field="ink"] { background-image: var(--ink-wash); }
 .iris[data-field="gold"] { background-image: var(--metal-grad); }
 .iris[data-state="fade"] { left: 0; top: 0; width: 100%; height: 100%; border-radius: 0; transform: none; z-index: var(--z-fields); }
-/* quad and flood (transitions.js): the full frame, clipped to the region polygon iris.js writes inline. */
-.iris[data-state="wipe"] { left: 0; top: 0; width: 100%; height: 100%; border-radius: 0; transform: none; }
 .iris[data-state="idle"] { visibility: hidden; }
 .iris:not([data-field]) { visibility: hidden; }
 /* Canvases and grain sit in the stage, under the scenes (visual.css skins them). */
@@ -594,7 +591,7 @@ html:not(.js) .nav-toggle { display: none; }
 .btn__arrow { display: inline-block; color: var(--btn-arrow, currentColor); transition: transform var(--dur-hover) var(--ease-out); }
 .btn:is(:hover, :focus-visible) .btn__arrow { transform: translateX(6px); }
 /* Round, frosted-glass buttons (owner, 2026-10-20): a tinted pane that blurs what is behind it,
-   a lit top edge and a soft drop. Same motion as before (arrow nudge, CTA sheen, magnetic). */
+   a lit top edge and a soft drop. Same motion as before (arrow nudge). */
 .btn { border-radius: 999px; }
 .btn--primary {
   position: relative; background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-line, var(--btn-bg));
@@ -628,14 +625,12 @@ html:not(.js) .nav-toggle { display: none; }
 .icon { width: 20px; height: 20px; flex: none; }
 .btn .icon, .icon-link .icon { color: currentColor; }   /* the sprite's --accent colour (visual.css) would vanish on a gold button */
 .icon-link { display: inline-grid; place-items: center; width: var(--tap-min); height: var(--tap-min); color: inherit; background: none; border: 0; padding: 0; }
-/* The labelled "Next ↓" chevron, hero only (C36). It breathes ≤ 5 s, then holds. */
+/* The labelled "Next ↓" chevron, hero only (C36). */
 .next {
   display: inline-flex; align-items: center; gap: 10px; min-height: var(--tap-min); padding: 0 4px;
   background: none; border: 0; color: var(--fg); font: 500 var(--fs-ui-min)/1 var(--font-ui);
 }
 .next__chev { display: inline-block; color: var(--accent); }
-html.film-ready:not(.rm) .next__chev { animation: next-breathe 1.6s var(--ease) 0s 3; }
-@keyframes next-breathe { 50% { transform: translateY(5px); opacity: .6; } }
 /* The text link (C21): a 1 px line at 35% that draws to 100%; ≥ 44 px hit area. */
 a.link, .link {
   position: relative; display: inline; padding-block: 12px; background: none; border: 0;

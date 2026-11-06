@@ -1,8 +1,7 @@
 /**
  * Our Story (story.html): 5 scenes + credits on the Round 5 cut engine
- * (DIRECTION §7.3, T1-T6). The scenes' behaviour lives in their sections:
+ * (DIRECTION §7.3, T1-T6). The one scene with behaviour of its own:
  *
- *   #logo    sections/story/logo/Logo.js      W5: the mark draws as the globe becomes its ring
  *   #values  sections/story/values/Values.js  on phones an exclusive accordion (01 open)
  *
  * and, across the scenes, sections/story/building/Building.js: one 3D building
@@ -20,7 +19,6 @@ import { boot } from '../core/main.js';
 import { mountSections } from '../core/Section.js';
 import { FOUNDER_LAST_NAME, FOUNDER_NAME, FOUNDER_PHOTO, FOUNDER_PHOTOS, FOUNDER_SIGNATURE, SITE_NAME } from '../assets/js/config.js';
 import { buildIntro, waLink } from '../core/chrome/whatsapp.js';
-import { Logo } from '../sections/story/logo/Logo.js';
 import { Values } from '../sections/story/values/Values.js';
 import { mountBuilding } from '../sections/story/building/Building.js';
 
@@ -87,5 +85,5 @@ function fillWhatsAppLinks() {
 fillCopy();
 fillWhatsAppLinks();
 const ctx = boot({ page: PAGE });
-mountSections([Logo, Values], ctx);
+mountSections([Values], ctx);
 mountBuilding(ctx);   // after the sections: its #values click handler runs after Values.js has moved .is-open

@@ -19,7 +19,7 @@ Read this first on every task. Deeper contracts: `site/core/CLAUDE.md` (engine, 
 - **Owner decisions (2026-10-20), do not re-add:**
   - No footer fine print, and no "We only message from" line. The Story "Independent partners" notice and the Partners "Commission terms" notice are gone too.
   - The Legal page is final, with no visible draft markers. (v2: new or changed legal sentences carry an invisible `data-draft="pending-lawyer-review"` marker for the owner's lawyer review, listed in `site/sections/legal/CLAUDE.md`.)
-  - No Sound or Motion switches; the site always runs with full motion and sound on.
+  - No Sound or Motion switches; sound stays on. Motion is calm (client request, 2026-11-07): one classic cut (iris on a field change, plain hold on the same field), one gentle rise entrance, a ~1 s logo and name card splash, and no cursor ring, magnetic pull, tilt, ambient loops or decorative keyframes. Do not re-add per-scene transition/entrance variety or the scan splash.
   - Buttons are round frosted glass (`.btn` in base.css).
   - The nav is centred and includes Home and (v2) Contact; the header also has the account (Log In) entry.
   - Footer contact shows WhatsApp, the email address, the Facebook page name and the address, with no Call item.
@@ -41,7 +41,7 @@ site/
     main.js             boot(): splash, tier, chrome, film, sheet hub, globe, idle extras, View Transitions
     Section.js          base class + mountSections()
     engine/             the scroll-film engine and shared visuals (film*, cut, iris, tier, touch-cut,
-                        layers, perf, motion-*, splash, sfx, textfx, kerning, cursor, interact, dotglobe*, globe-fit)
+                        layers, perf, motion-*, splash, sfx, textfx, kerning, dotglobe*, globe-fit)
     ui/                 ui-dialog, ui-stepper, ui-pager, ui-tabs, ui-accordion, ui-focus
     chrome/             chrome.js (header, menu, footer, [data-when]), whatsapp.js (every message), wa-sheet.js
     design/             base.css (tokens, fields, type, header, buttons, forms), fx.css, ui.css, visual.css

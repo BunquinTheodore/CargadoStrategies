@@ -1,19 +1,13 @@
 /**
- * Stage layers (Round 5, DIRECTION §9.6, C30, C31, W3): stars, grain and the
- * gold field's sheen. All decorative and aria-hidden; visual.css styles them.
+ * Stage layers (Round 5, DIRECTION §9.6, C30, C31): stars and grain. Both are
+ * decorative, aria-hidden and still (client 2026-11-07: calm); visual.css styles them.
  *
  * - Stars (#stars): drawn ONCE on a static canvas, redrawn only when the
  *   viewport size changes. Count and DPR by tier (tierConfig: 180 / 110 / 0).
- *   Ink only (visual.css hides them on other fields). On tier A the first
- *   scene and every #close get a compositor translate drift (≤ 5 s, CSS) on
- *   arrival. A scene with data-stars="dim" (long text: inquiry, apply) dims
- *   them to --stars-op-long. No rAF loop, no pointer push, no twinkle.
- * - Grain (.grain): a static tile (visual.css). It jitters with steps(6) only
- *   while html.is-cutting on tier A, also pure CSS.
- * - Gold sheen: when a cut enters a gold field, one band crosses the metal
- *   (the --sheen-x custom property on .stage, read by the .fields and .iris
- *   pseudo-elements), appended to the cut's timeline, so it moves only during
- *   the scene's entry.
+ *   Ink only (visual.css hides them on other fields). A scene with
+ *   data-stars="dim" (long text: inquiry, apply) dims them to --stars-op-long.
+ *   No rAF loop, no drift, no pointer push, no twinkle.
+ * - Grain (.grain): a static tile (visual.css).
  *
  * initLayers({ film, tier }) runs on idle (main.js), never on legal.
  */
@@ -24,10 +18,6 @@ const STAR_GOLD_SHARE = 0.22;
 const STAR_SEED = 0x51a25;
 const STAR_MIN_AREA = 9000; // px² per star at most density: small screens get fewer
 const RESIZE_DEBOUNCE_MS = 150;
-const SHEEN_AT = 0.3; // s after the iris label: the band crosses while the gold swells
-const SHEEN_S = 0.9;
-const SHEEN_FROM = '-60%';
-const SHEEN_TO = '160%';
 
 function mulberry32(seed) {
   let a = seed >>> 0;
@@ -99,23 +89,9 @@ function initStars(canvas, cfg) {
   };
 }
 
-/** Tier A drift on arrival at the first scene and #close: alternate two keyframe sets, so it restarts without a reflow and never jumps. */
-function initDrift(canvas, film) {
-  let flip = false;
-  return film.on('landed', ({ index, id }) => {
-    if (index !== 0 && id !== 'close') return;
-    flip = !flip;
-    canvas.classList.toggle('drift-a', flip);
-    canvas.classList.toggle('drift-b', !flip);
-  });
-}
-
-function initCutHooks(stage, canvas, film) {
-  return film.on('cut', ({ toEl, toField, fieldChange, tl }) => {
+function initCutHooks(canvas, film) {
+  return film.on('cut', ({ toEl }) => {
     canvas.toggleAttribute('data-dim', toEl?.dataset.stars === 'dim');
-    if (toField !== 'gold' || !fieldChange || !tl) return;
-    const at = tl.labels && 'iris' in tl.labels ? `iris+=${SHEEN_AT}` : 0;
-    tl.fromTo(stage, { '--sheen-x': SHEEN_FROM }, { '--sheen-x': SHEEN_TO, duration: SHEEN_S, ease: 'power2.inOut', immediateRender: false }, at);
   });
 }
 
@@ -126,12 +102,10 @@ export function initLayers({ film, tier, stage = document.querySelector('.stage'
   if (film.mode === 'flow') return; // flow: CSS hides both; nothing to draw
   const cfg = tierConfig(tier);
   const stopStars = initStars(stars, cfg);
-  const offs = [initCutHooks(stage, stars, film)];
-  if (cfg.starDrift) offs.push(initDrift(stars, film));
+  const offCut = initCutHooks(stars, film);
   onTierChange(({ tier: next }) => {
     if (next !== 'C') return;
     stopStars();
-    offs.forEach((off) => typeof off === 'function' && off());
-    stars.classList.remove('drift-a', 'drift-b');
+    if (typeof offCut === 'function') offCut();
   });
 }

@@ -30,14 +30,13 @@ export const DPR_CAP = 1.5;
 /**
  * How a device renders the motifs:
  *   'off'    Save-Data or tier C: three never loads, the box stays empty
- *   'still'  reduced motion: one frame on landing, no pointer response
- *   'live'   tiers A and B: the motifs move continuously while their scene is the current one and
- *            the tab is visible (owner, 2026-10-25: "animate continuously"; tier B keeps a pixel ratio of 1)
+ *   'still'  every other device: one frame on landing, no pointer response (client 2026-11-07,
+ *            calm: the continuous motion of owner 2026-10-25 is gone; tier B keeps a pixel ratio of 1).
+ *            Reduced motion is still too, so the `reduced` flag callers pass no longer changes the mode.
  */
-export function renderMode({ tier = 'A', saveData = false, reduced = false } = {}) {
+export function renderMode({ tier = 'A', saveData = false } = {}) {
   if (saveData || tier === 'C') return 'off';
-  if (reduced) return 'still';
-  return 'live';
+  return 'still';
 }
 
 /** The renderer's pixel ratio: the device's, never above the tier's or DPR_CAP. */

@@ -19,7 +19,7 @@
  * frame is the Round 5 cut from scene 1 to 2 paused at 50% (film.seekCut), or the Round 4
  * midpoint between the two focus points (film.scrollToTime) on the old engine.
  * After each seek the shot also waits for the globe canvas (#globe) to stop drawing (no draw for
- * GLOBE_QUIET_MS, at most GLOBE_WAIT_MAX_MS: the tier A idle spin draws until it sleeps), so a
+ * GLOBE_QUIET_MS, at most GLOBE_WAIT_MAX_MS), so a
  * map morph or ring fade still running is never captured as the landed scene.
  * The splash is waited out (html.splash-done) before shooting scenes. Unlike fit-audit, base.css
  * is NOT rewritten: the shots show the site as a visitor sees it today.
@@ -38,7 +38,7 @@ const DEFAULT_VPS = '1440x900,1366x768,390x844';
 const LOAD_TIMEOUT_MS = 15000;
 const READY_TIMEOUT_MS = 8000;
 const SPLASH_TIMEOUT_MS = 6000;
-const SPLASH_SHOT_MS = 650; // after navigation: splash fully painted, before its 900 ms minimum
+const SPLASH_SHOT_MS = 400; // after navigation: the card faded in (0.24 s), before its fade-out at 0.72 s
 const SETTLE_MS = 1100; // after a seek: CSS transitions on .is-active, char decodes, image decode
 const GLOBE_QUIET_MS = 400;
 const GLOBE_WAIT_MAX_MS = 2500;

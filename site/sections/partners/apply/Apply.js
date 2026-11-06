@@ -9,7 +9,7 @@ const $ = (sel, root = document) => root.querySelector(sel);
 
 /**
  * P5 on a swap (tier C, reduced motion: 'iris' and 'in' share one early time, cut.js): the paper
- * and its frame start at 'in' with the head, so the 25% frame shows more than the eyebrow. The
+ * starts at 'in' with the head, so the 25% frame shows more than the eyebrow. The
  * circle cut keeps the head-then-paper order from the markup's data-delay.
  */
 function leadPaper(tl, el) {
@@ -17,7 +17,7 @@ function leadPaper(tl, el) {
   if (!(at > 0) || iris !== at) return;
   const paper = $('.apply__paper', el);
   if (!paper) return;
-  tl.getTweensOf([paper, $('[data-frame]', paper)].filter(Boolean))
+  tl.getTweensOf(paper)
     .forEach((tween) => { if (tween.startTime() > at) tween.startTime(at); });
 }
 

@@ -51,10 +51,8 @@
 .map__marker-dot { fill: var(--fg); stroke: var(--bg); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
 .map__marker-ring {
   fill: none; stroke: var(--fg); stroke-width: 1.5; vector-effect: non-scaling-stroke;
-  transform-box: fill-box; transform-origin: center; animation: map-ping 1.2s var(--ease-out) 2;   /* twice, then still */
+  transform-box: fill-box; transform-origin: center;   /* a static ring (no ping: client 2026-11-07) */
 }
-@keyframes map-ping { 0% { transform: scale(.4); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
-html.rm .map__marker-ring { animation: none; }
 .map__caption { display: grid; gap: 2px; font: 500 var(--fs-note)/1.35 var(--font-ui); color: var(--fg-muted); }
 .map__chosen { color: var(--fg); }
 .combo { position: relative; }

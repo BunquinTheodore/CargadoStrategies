@@ -15,9 +15,6 @@
 /* 1. Page mode ------------------------------------------------------------------- */
 .app-body.is-dash :is(.app-header, .app-footer) { display: none; }
 .app-body.is-dash .app-main { display: block; max-width: none; padding: 0; }
-@media (prefers-reduced-motion: no-preference) {
-  html.app:has(.app-body.is-dash) { scroll-behavior: smooth; }
-}
 .dash {
   --side-w: 264px;
   --dash-gap: clamp(16px, 1.6vw, 24px);

@@ -137,12 +137,12 @@ Owner-approved text removals are recorded in `plan/round5/compliance-baseline.js
 - **Removed notices and switches:**
   - no footer fine print and no "We only message from" line;
   - several partner, commission and coaching notices removed;
-  - no Sound/Motion switches (the site always runs with full motion and sound).
+  - no Sound/Motion switches (sound stays on; motion is calm by client request, 2026-11-07: one classic cut, one gentle rise, no cursor ring, magnetic pull, tilt or ambient loops).
 - **Legal page:** final, with no visible draft markers (the v2 clauses carry an invisible `data-draft="pending-lawyer-review"` marker until a lawyer approves them). Its privacy contact, Lee Holgado at the email above, is written into `sections/legal/privacy/privacy.html`.
 - **Nav:** centred, with Home, Services, Story, For Professionals, Contact (v2), plus the Log In / account button.
 - **Footer:** shows WhatsApp, the email, the Facebook page name and the address, with © under the brand.
 - **Story page:** opens with the logo story (W = Wealth, C = Cargado, Mark 11:24, KJV).
-- **Splash:** about 1.9 s.
+- **Splash:** a ~1 s logo and name card (client request, 2026-11-07).
 - **Headings:** a `.rule[data-rule-fit]` underline runs to the end of its heading.
 
 ## Still needed from the owner

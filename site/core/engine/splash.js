@@ -1,24 +1,17 @@
 /**
- * Splash (owner, 2026-10-26): the boot intro of the Portfolio film, in black and gold, on every
- * film page when the site is opened or refreshed.
+ * Splash (client, 2026-11-07: calm): a ~1 s logo and name card on every film page when the site
+ * is opened or refreshed.
  *
  * The markup (the #splash block, the same in every film shell) and its CSS (visual.css §1) play
- * the whole intro by themselves from the first frame, so a late script never holds the page:
+ * the whole card by themselves from the first frame, so a late script never holds the page:
  *
- *     0-1440 ms  01 the scan: corner brackets, tick rulers, ridges round the Cargado mark (the
- *                MARK_PATHS C and W), a gold scanline lights the mark top to bottom, Scan 00 → 100 %,
- *                Status Scanning → Verified
- *   1440-2080    02 Access Granted (a gold flash, the words wiped in, the bar)
- *   2080-2560    03 the collapse: the block squashes to a line, the line to a point, a gold dot
- *                pops and a ring goes out
- *   2720-3520    04 the dot floods the frame in gold; the name (SITE_NAME, Times, Title Case)
- *                rises from its masks, the founder and the city above a rule, the full stop
- *   3520-4000    05 the whole splash fades out evenly and the page shows (the CSS splash-out;
- *                the same end is the fallback without this script)
- *   (owner, 2026-10-28: 1.6x the first 2.5 s cut, which read too fast; one uniform fade)
+ *      0-240 ms  the card fades in: the Cargado mark (the MARK_PATHS C and W), the name
+ *                (SITE_NAME, Times, Title Case, the full stop), the founder and the city; it holds
+ *    720-1000    the whole splash fades out evenly and the page shows (the CSS splash-out; the
+ *                same end is the fallback without this script)
  *
- * This module adds what CSS cannot: the counter text, the names from config.js, the skip, and
- * the events. At APERTURE (the fade beginning) it dispatches `cs:splash-aperture` ({ x, y, r }:
+ * This module adds what CSS cannot: the names from config.js, the skip, and the events. At
+ * APERTURE (the fade beginning) it dispatches `cs:splash-aperture` ({ x, y, r }:
  * the hero globe's circle, else a centred one), so the first landing's in group rises as the
  * splash fades and dotglobe draws its limb and fires the hero arc; `cs:splash-done` follows when
  * the splash is gone (also after a skip). done() records the User Timing measure `cs-splash`.
@@ -27,8 +20,7 @@
  *   pages (a same-origin referrer on a 'navigate') and back/forward skip it: the shell's inline
  *   script mirrors splashWanted() and sets html.splash-skip before first paint (keep the two in sync).
  * - Any input (pointer down, key, wheel, touch) fades it in SKIP_MS and finishes it.
- * - Reduced motion (html.rm or the OS setting): the CSS shows the name card still; it holds
- *   RM_HOLD_MS, then fades over RM_FADE_MS.
+ * - Reduced motion (html.rm or the OS setting): the CSS shows the card still, on the same clock.
  * - It never waits for film.ready or fonts, never traps focus (aria-hidden, nothing focusable),
  *   and uses WAAPI only (no GSAP), so it runs first.
  *
@@ -40,13 +32,8 @@ import { MARK_PATHS, MARK_PARTS } from './mark-draw.js';
 
 const MEASURE = 'cs-splash'; // User Timing: the splash's first frame to splash-done (perf-gate reads it)
 /** The CSS timeline in ms (visual.css §1 delays; change both together). */
-export const SPLASH_MS = Object.freeze({
-  countFrom: 240, countTo: 1360, aperture: 3552, end: 4000,
-});
+export const SPLASH_MS = Object.freeze({ aperture: 720, end: 1000 });
 const SKIP_MS = 150;
-const RM_HOLD_MS = 600;
-const RM_FADE_MS = 200;
-const PCT_MAX = 100;
 const GLOBE_FILL = 0.94; // the globe's radius as a share of its anchor's half-size
 const MIN_ANCHOR_PX = 24;
 const CENTRE_SHARE = 0.3; // no hero globe: the aperture is a centred circle of this share of the short side
@@ -72,15 +59,6 @@ export function splashWanted({ type = 'navigate', referrer = '', origin = '' } =
     return true;
   }
 }
-
-/** The scan counter at `ms` from the first frame: 0 → 100, easing out. */
-export function counterAt(ms) {
-  const p = Math.min(1, Math.max(0, (ms - SPLASH_MS.countFrom) / (SPLASH_MS.countTo - SPLASH_MS.countFrom)));
-  return Math.round(PCT_MAX * (1 - (1 - p) ** 2));
-}
-
-/** Two digits until 100 (the Portfolio's "00"). */
-export const counterText = (n) => (n >= PCT_MAX ? String(PCT_MAX) : String(n).padStart(2, '0'));
 
 /** The name card's text from config: the site name in two lines, the founder, the city. */
 export function splashNames(config = { SITE_NAME, FOUNDER_NAME, FOUNDER_LAST_NAME, ADDRESS }) {
@@ -144,7 +122,6 @@ const finished = (anim) => anim.finished.catch(() => {});
 function fill(el) {
   const names = splashNames();
   const set = (key, text) => { const node = el.querySelector(`[data-splash="${key}"]`); if (node && text) node.textContent = text; };
-  set('site', SITE_NAME);
   set('founder', names.founder);
   set('city', names.city);
   const spans = el.querySelectorAll('[data-splash="name"] .splash__line > span');
@@ -157,21 +134,6 @@ function fill(el) {
   });
   el.querySelectorAll(MARK_PARTS.c).forEach((path) => path.setAttribute('d', MARK_PATHS.c));
   el.querySelectorAll(MARK_PARTS.w).forEach((path) => path.setAttribute('d', MARK_PATHS.w));
-}
-
-/** The scan counter, frame by frame until it reads 100 (the CSS fallback shows 100 throughout). */
-function runCounter(el, startedAt) {
-  const node = el.querySelector('.splash__pct');
-  if (!node) return;
-  let shown = '';
-  const frame = () => {
-    if (state.phase !== 'running') return;
-    const n = counterAt(performance.now() - startedAt);
-    const text = counterText(n);
-    if (text !== shown) { node.textContent = text; shown = text; }
-    if (n < PCT_MAX) requestAnimationFrame(frame);
-  };
-  frame();
 }
 
 function sendAperture() {
@@ -195,15 +157,13 @@ export function initSplash() {
     html.classList.add('splash-done');
     document.dispatchEvent(new CustomEvent('cs:splash-done'));
   };
-  const reduced = html.classList.contains('rm') || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const late = performance.now() - startedAt >= (reduced ? RM_HOLD_MS + RM_FADE_MS : SPLASH_MS.end);
+  const late = performance.now() - startedAt >= SPLASH_MS.end;
   if (!el || html.classList.contains('splash-skip') || late) {
     done();
     return Promise.resolve();
   }
   state.phase = 'running';
   fill(el);
-  if (!reduced) runCounter(el, startedAt);
   let skip = null;
   const skipped = new Promise((resolve) => { skip = resolve; });
   const onInput = () => skip();
@@ -215,11 +175,6 @@ export function initSplash() {
   }
 
   async function play() {
-    if (reduced) {
-      await wait(startedAt + RM_HOLD_MS - performance.now());
-      await fadeAll(RM_FADE_MS);
-      return;
-    }
     await wait(startedAt + SPLASH_MS.aperture - performance.now());
     if (state.phase !== 'running') return;
     sendAperture();

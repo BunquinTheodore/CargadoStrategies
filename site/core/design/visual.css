@@ -5,181 +5,50 @@
    3. Globe posters        6. Grain (C31)              9. Portrait slot (C34) · icons (C35)
    Tokens (--metal-*, --emboss-*, --grain-op, --stars-op-*, --z-*) come from base.css;
    the fallbacks after each var() only keep this file readable on its own.
-   Nothing here uses mix-blend-mode or backdrop-filter, and only transform and
-   opacity animate (plus clip-path, and the splash mark's one stroke-dashoffset draw).
+   Nothing here uses mix-blend-mode or backdrop-filter, and only opacity animates
+   (the splash card); everything else here is static.
    ========================================================================== */
 
-/* 1. Splash (owner, 2026-10-26: the Portfolio boot intro) ------------------------------------- */
-/* The CSS plays the whole intro on its own, from the first frame, so the page under it never waits
-   for a script: 0-1.44 s the scan (brackets, tick rulers, ridges, the mark lit by the scanline),
-   1.44-2.08 s Access Granted, 2.08-2.56 s the collapse to the dot, 2.72-3.52 s the gold flood and
-   the name, 3.52-4 s the whole splash fades out evenly and the page shows; at 4 s it is gone
-   (splash-out, also the fallback when splash.js never runs). Owner, 2026-10-28: 1.6x the
-   first cut's 2.5 s, which read too fast, and one uniform fade instead of the four cells. splash.js adds the counter, the
-   config names, the skip on input and the events. Only transform, opacity and clip-path animate,
-   plus the mark's one stroke draw (stroke-dashoffset). The times are the delays below; splash.js
-   mirrors them in SPLASH_MS (change both together). */
+/* 1. Splash (client, 2026-11-07: calm) ---------------------------------------------------------- */
+/* A ~1 s logo and name card. The card fades in over 0.24 s and holds; the whole splash fades out
+   from 0.72 s and is gone at 1 s (splash-out, also the fallback when splash.js never runs). Only
+   opacity animates. splash.js fills the config names, skips on input and sends the events; its
+   SPLASH_MS mirrors these times (change both together). */
 html:not(.js) .splash,
 .splash-skip .splash { display: none; }
 .splash {
-  --sf: min(46vmin, 300px);                       /* the scan frame's width (its height is 1.2x) */
   position: fixed; inset: 0; z-index: var(--z-splash, 30);
-  pointer-events: none; overflow: hidden; color: var(--c-ivory-text, #F3ECDD);
-  animation: splash-out .48s linear 3.52s forwards; /* one even fade of everything, 3.52-4 s */
+  display: grid; place-items: center; padding: 0 max(16px, 6vw);
+  pointer-events: none; overflow: hidden; color: var(--c-black, #0B0B0C);
+  background: var(--metal-key, none), var(--metal-grad, linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%));
+  animation: splash-out .28s linear .72s forwards; /* one even fade of everything, 0.72-1 s */
 }
-.splash > * { position: absolute; }
-.splash__bg {
-  inset: 0;
-  background: radial-gradient(70% 60% at 50% 50%, rgba(212, 175, 55, 0.12), rgba(212, 175, 55, 0.03) 45%, transparent 75%), var(--c-black, #0B0B0C);
-  animation: splash-hide 1ms linear 3.12s forwards; /* the flood covers the frame by then */
-}
+.splash__card { display: grid; justify-items: center; gap: 16px; text-align: center; animation: splash-in .24s var(--ease-out) both; }
+.splash__mark { position: relative; width: clamp(56px, 12vmin, 96px); aspect-ratio: 1; }
+.splash__mark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.splash__mark path { fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: square; stroke-linejoin: miter; stroke-dasharray: none; }
+.splash__title { margin: 0; font: 400 clamp(2.75rem, 10vw, 7.5rem)/.92 var(--font-display); letter-spacing: var(--track-mega, -.015em); }
+.splash__line { display: block; padding-bottom: .06em; }
+.splash__stop { display: inline-block; width: var(--stop-size, .17em); height: var(--stop-size, .17em); margin-left: .04em; border-radius: 50%; background: currentColor; }
+.splash__meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 24px; margin: 0; }
 /* Labels: Poppins, letter-spaced caps (UI labels, never display type), on the 14 px floor. */
 .splash__label {
-  margin: 0; font: 500 var(--fs-label, .875rem)/1.6 var(--font-ui); letter-spacing: .2em;
-  text-transform: uppercase; white-space: nowrap; color: var(--c-ivory-2nd, rgba(243, 236, 221, .82));
+  font: 500 var(--fs-label, .875rem)/1.6 var(--font-ui); letter-spacing: .2em;
+  text-transform: uppercase; white-space: nowrap; color: var(--c-gold-2nd, #1F1A0E);
 }
-.splash__label b { font-weight: 600; color: var(--c-ivory-text, #F3ECDD); }
+.splash__label:empty { display: none; }
+/* Story and legal have no gold field, so their card is ivory paper (the bone field's colours). */
+:is([data-page="story"], [data-page="legal"]) .splash {
+  background: linear-gradient(115deg, var(--c-champagne, #E9DCB8) 0%, var(--c-ivory, #F5F0E6) 46%, var(--c-input-bone, #FFFDF8) 100%);
+}
+:is([data-page="story"], [data-page="legal"]) .splash__label { color: var(--c-ink-2nd, #3B362C); }
 
-/* 01 the scan */
-.splash__scan { inset: 0; animation: splash-hide 128ms linear 1.408s forwards; }
-.splash__scan > .splash__label { position: absolute; opacity: 0; animation: splash-label .72s var(--ease-out) forwards; }
-.splash__label--tl { left: max(16px, 6vw); top: max(24px, 8svh); }
-.splash__scan > .splash__label--tr { right: max(16px, 6vw); top: max(24px, 8svh); text-align: right; animation-delay: 128ms; }
-.splash__scan > .splash__label--bl { left: max(16px, 6vw); bottom: max(24px, 8svh); animation-delay: .16s; }
-.splash__scan > .splash__label--br { right: max(16px, 6vw); bottom: max(24px, 8svh); text-align: right; animation-delay: .256s; }
-.splash__label .splash__pct { display: inline-block; min-width: 3ch; font-variant-numeric: tabular-nums; color: var(--c-gold, #D4AF37); }
-.splash__st { display: inline-grid; }
-.splash__label .splash__st > b { grid-area: 1 / 1; color: var(--c-gold, #D4AF37); }
-.splash__st > b:first-child { animation: splash-hide 1ms linear 1.36s forwards; }
-.splash__st > b + b { opacity: 0; animation: splash-show 1ms linear 1.36s forwards; }
-.splash__frame { position: absolute; left: 50%; top: 50%; width: var(--sf); height: calc(var(--sf) * 1.2); transform: translate(-50%, -50%); }
-.splash__frame > * { position: absolute; }
-.splash__br {
-  width: 18%; aspect-ratio: 1; border: 0 solid var(--c-ivory-text, #F3ECDD); opacity: 0;
-  animation: splash-bracket .48s var(--ease-out) forwards;
-}
-.splash__br--tl { left: 0; top: 0; border-width: 2px 0 0 2px; }
-.splash__br--tr { right: 0; top: 0; border-width: 2px 2px 0 0; animation-delay: 64ms; }
-.splash__br--bl { left: 0; bottom: 0; border-width: 0 0 2px 2px; animation-delay: 128ms; }
-.splash__br--br { right: 0; bottom: 0; border-width: 0 2px 2px 0; animation-delay: .192s; }
-.splash__ticks {
-  top: 0; height: 100%; width: 10px; transform: scaleY(0); transform-origin: 50% 0;
-  background: repeating-linear-gradient(to bottom, rgba(243, 236, 221, .38) 0 1px, transparent 1px 10px);
-  animation: splash-ticks .64s var(--ease-out) .16s forwards;
-}
-.splash__ticks--l { left: -24px; }
-.splash__ticks--r { right: -24px; }
-.splash__ridges { left: 6%; top: 4%; width: 88%; height: 92%; overflow: visible; opacity: 0; animation: splash-show .64s linear forwards; }
-.splash__ridges ellipse { fill: none; stroke: rgba(243, 236, 221, .2); stroke-width: .6; }
-.splash__mark { left: 22%; top: 27%; width: 56%; aspect-ratio: 1; }
-.splash__mark svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.splash__mark path { fill: none; stroke-width: 1.4; stroke-linecap: square; stroke-linejoin: miter; stroke-dasharray: 100; }
-.splash__mark--base path { stroke: rgba(243, 236, 221, .3); stroke-dashoffset: 100; animation: splash-draw .8s cubic-bezier(.3, 0, .55, 1) forwards; }
-.splash__mark--lit path { stroke: var(--c-gold, #D4AF37); filter: drop-shadow(0 0 4px rgba(212, 175, 55, .55)); }
-.splash__mark--lit { clip-path: inset(0 0 100% 0); animation: splash-lit 1.12s cubic-bezier(.45, 0, .55, 1) .24s forwards; }
-.splash__scanline {
-  left: -6%; width: 112%; top: 0; height: 2px; background: var(--c-gold, #D4AF37);
-  box-shadow: 0 0 12px var(--c-gold, #D4AF37); opacity: 0;
-  animation: splash-scan 1.12s cubic-bezier(.45, 0, .55, 1) .24s forwards;
-}
-
-/* 02 Access Granted, then 03 the collapse to the dot (one keyframe run) */
-.splash__access {
-  inset: 0; display: grid; place-content: center; justify-items: center; gap: 12px; opacity: 0;
-  transform-origin: 50% 50%; animation: splash-access 1.152s linear 1.44s forwards;
-}
-.splash__access::before { content: ""; position: fixed; inset: 0; background: var(--c-gold, #D4AF37); opacity: 0; animation: splash-flash .4s var(--ease-out) 1.44s; }
-.splash__access .splash__label { color: var(--c-gold, #D4AF37); }
-.splash__granted {
-  margin: 0; font: 400 clamp(2.5rem, 9vw, 7rem)/1 var(--font-display); letter-spacing: var(--track-mega, -.015em); text-align: center;
-  clip-path: inset(0 100% 0 0); animation: splash-wipe .4s var(--ease-out) 1.472s forwards;
-}
-.splash__granted em { font-style: italic; color: var(--c-gold, #D4AF37); }
-.splash__bar {
-  width: min(60vw, 420px); height: 2px; background: var(--c-gold, #D4AF37); box-shadow: 0 0 12px var(--c-gold, #D4AF37);
-  transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .48s var(--ease-out) 1.6s forwards;
-}
-.splash__dot, .splash__ring { left: 50%; top: 50%; width: 24px; height: 24px; margin: -12px 0 0 -12px; border-radius: 50%; transform: scale(0); }
-.splash__dot { background: var(--c-gold, #D4AF37); box-shadow: 0 0 24px var(--c-gold, #D4AF37); animation: splash-dot .48s linear 2.48s forwards; }
-.splash__ring { border: 2px solid var(--c-gold, #D4AF37); animation: splash-ring .64s var(--ease-out) 2.528s forwards; }
-
-/* 04 the gold flood and the name (the four cells only tile the metal; 05 is the .splash fade) */
-.splash__flood { inset: 0; clip-path: circle(0 at 50% 50%); animation: splash-flood .4s var(--ease-in) 2.72s forwards; }
-.splash__cell {
-  position: absolute; width: 50%; height: 50%; background: var(--metal-grad, linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%));
-  background-size: 200% 200%;
-}
-.splash__cell--tl { left: 0; top: 0; transform-origin: 100% 100%; background-position: 0 0; }
-.splash__cell--tr { right: 0; top: 0; transform-origin: 0 100%; background-position: 100% 0; }
-.splash__cell--bl { left: 0; bottom: 0; transform-origin: 100% 0; background-position: 0 100%; }
-.splash__cell--br { right: 0; bottom: 0; transform-origin: 0 0; background-position: 100% 100%; }
-.splash__name { inset: 0; display: grid; place-content: center; padding: 0 max(16px, 6vw); color: var(--c-black, #0B0B0C); }
-.splash__name .splash__label { position: absolute; top: max(24px, 8svh); color: var(--c-gold-2nd, #1F1A0E); opacity: 0; animation: splash-show .32s linear 3.12s forwards; }
-.splash__meta--l { left: max(16px, 6vw); }
-.splash__meta--r { right: max(16px, 6vw); text-align: right; }
-.splash__name .splash__label:empty { display: none; }
-.splash__rule {
-  position: absolute; left: max(16px, 6vw); right: max(16px, 6vw); top: calc(max(24px, 8svh) + 2.6em); height: 2px;
-  background: var(--c-black, #0B0B0C); transform: scaleX(0); transform-origin: 0 50%; animation: splash-bar .48s var(--ease-out) 3.04s forwards;
-}
-.splash__title { margin: 0; font: 400 clamp(3rem, 12vw, 10rem)/.92 var(--font-display); letter-spacing: var(--track-mega, -.015em); }
-.splash__line { display: block; overflow: hidden; padding-bottom: .06em; }
-.splash__line > span { display: inline-block; transform: translateY(110%); animation: splash-rise .48s var(--ease-out) 3.008s forwards; }
-.splash__line + .splash__line > span { animation-delay: 3.152s; }
-.splash__stop {
-  display: inline-block; width: var(--stop-size, .17em); height: var(--stop-size, .17em); margin-left: .04em; border-radius: 50%;
-  background: currentColor; transform: scale(0); animation: splash-pop .32s cubic-bezier(.34, 1.8, .64, 1) 3.328s forwards;
-}
-/* Story and legal have no gold field, so their flood is ivory paper (the bone field's colours,
-   with the same 115deg sheen as the metal); the name stays black. The gold accents before it stay. */
-:is([data-page="story"], [data-page="legal"]) .splash__cell {
-  background-image: linear-gradient(115deg, var(--c-champagne, #E9DCB8) 0%,var(--c-ivory, #F5F0E6) 46%, var(--c-input-bone, #FFFDF8) 100%);
-}
-:is([data-page="story"], [data-page="legal"]) .splash__name .splash__label { color: var(--c-ink-2nd, #3B362C); }
-
+@keyframes splash-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes splash-out { to { opacity: 0; visibility: hidden; } }
-@keyframes splash-hide { to { opacity: 0; } }
-@keyframes splash-show { to { opacity: 1; } }
-@keyframes splash-label { from { opacity: 0; transform: translateX(-16px); } to { opacity: 1; transform: none; } }
-@keyframes splash-bracket { from { opacity: 0; transform: scale(1.4); } to { opacity: .8; transform: none; } }
-@keyframes splash-ticks { to { transform: scaleY(1); } }
-@keyframes splash-draw { to { stroke-dashoffset: 0; } }
-@keyframes splash-lit { to { clip-path: inset(0 0 0 0); } }
-@keyframes splash-scan { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: 1; } 100% { opacity: 1; transform: translateY(calc(var(--sf) * 1.2)); } }
-@keyframes splash-flash { from { opacity: .45; } to { opacity: 0; } }
-@keyframes splash-wipe { to { clip-path: inset(0 0 0 0); } }
-@keyframes splash-bar { to { transform: scaleX(1); } }
-/* From 1.44 s: shown until 2.08 s, squashed to a line by 2.32 s (ease-in), the line to a point by 2.53 s, gone at 2.56 s. */
-@keyframes splash-access {
-  0% { opacity: 1; transform: none; }
-  55.5% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
-  76.4% { opacity: 1; transform: scale(1, .012); animation-timing-function: cubic-bezier(.55, 0, 1, .45); }
-  94.4% { opacity: 1; transform: scale(0, .012); }
-  97.2%, 100% { opacity: 0; transform: scale(0, .012); }
-}
-@keyframes splash-dot { 0% { transform: scale(0); } 25% { transform: scale(1.9); } 100% { transform: scale(1); } }
-@keyframes splash-ring { from { opacity: .9; transform: scale(.1); } to { opacity: 0; transform: scale(9); } }
-@keyframes splash-flood { to { clip-path: circle(150% at 50% 50%); } }
-@keyframes splash-rise { to { transform: none; } }
-@keyframes splash-pop { to { transform: scale(1); } }
 
-/* Reduced motion: a brief static card (the name on the gold flood); splash.js holds it 600 ms, then fades it. */
-html.rm .splash :is(.splash__scan, .splash__access, .splash__dot, .splash__ring) { display: none; }
-html.rm .splash *, html.rm .splash *::before { animation: none !important; }
-html.rm .splash { animation: splash-out .2s linear .8s forwards; }
-html.rm .splash__flood { clip-path: none; }
-html.rm .splash :is(.splash__line > span, .splash__stop, .splash__rule) { transform: none; }
-html.rm .splash__name .splash__label { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .splash :is(.splash__scan, .splash__access, .splash__dot, .splash__ring) { display: none; }
-  .splash *, .splash *::before { animation: none !important; }
-  .splash { animation: splash-out .2s linear .8s forwards; }
-  .splash__flood { clip-path: none; }
-  .splash :is(.splash__line > span, .splash__stop, .splash__rule) { transform: none; }
-  .splash__name .splash__label { opacity: 1; }
-}
-/* Phones: the two top scan labels would meet; the left one stays. */
-@media (max-width: 519px) { .splash__label--tr { display: none; } }
+/* Reduced motion: the card shows still; the splash keeps its 1 s clock (splash.js has one timeline). */
+html.rm .splash__card { animation: none; }
+@media (prefers-reduced-motion: reduce) { .splash__card { animation: none; } }
 
 /* 2. Globe canvas (C29) ------------------------------------------------------------------------ */
 #globe {
@@ -231,42 +100,26 @@ html.rm #globe,
 /* A node on the right half of the map: the label ends at the node instead. */
 .globe-poster__label.is-left { transform: translate(calc(-100% - 10px), calc(-50% + 14px)); }
 
-/* 4. Gold metal field (W3): static gradient + brushed tile + one sheen band during entry ------ */
+/* 4. Gold metal field (W3): static gradient + brushed tile ------------------------------------ */
 /* .fields and .iris paint --field-bg (base.css); these add a soft static key highlight (top-left,
-   so the gradient reads as a lit surface), the tile (::before, 128 px: fine grain, not streaks)
-   and the sheen (::after). layers.js tweens --sheen-x on .stage during the cut into gold, so the
-   band only moves while the scene enters; at rest it sits off-screen. */
+   so the gradient reads as a lit surface) and the tile (::before, 128 px: fine grain, not streaks).
+   Client, 2026-11-07: the sheen band that crossed the field on the cut into gold is gone. */
 :root { --metal-key: radial-gradient(75% 65% at 16% 10%, rgba(255, 246, 214, 0.12), rgba(255, 246, 214, 0) 70%); }
 @media (min-width: 760px) { :root { --metal-tile-op: 0.035; } }
 .fields[data-field="gold"],
 .iris[data-field="gold"] { background-image: var(--metal-key), var(--metal-grad, linear-gradient(115deg, #B8913A 0%, #C9A24A 46%, #D9B862 100%)); }
-.stage { --sheen-x: -60%; }
 .iris[data-field="gold"] { overflow: hidden; }
 .fields[data-field="gold"]::before,
-.iris[data-field="gold"]::before,
-.fields[data-field="gold"]::after,
-.iris[data-field="gold"]::after {
+.iris[data-field="gold"]::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-.fields[data-field="gold"]::before,
-.iris[data-field="gold"]::before {
   background: var(--metal-tile, url("../../assets/img/brushed-256.png")) 0 0 / 128px 128px repeat;
   opacity: var(--metal-tile-op, 0.06);
 }
-.fields[data-field="gold"]::after,
-.iris[data-field="gold"]::after {
-  background: var(--metal-sheen, linear-gradient(100deg, transparent 35%, rgba(255, 246, 214, 0.38) 50%, transparent 65%));
-  transform: translateX(var(--sheen-x));
-}
-html.rm .fields::after,
-html.rm .iris::after,
-html[data-tier="C"] .fields::after,
-html[data-tier="C"] .iris::after { display: none; }
 
-/* 5. Stars (C30): drawn once by layers.js; ink only; tier A drift on the hero and close -------- */
+/* 5. Stars (C30): drawn once by layers.js; ink only; static ----------------------------------- */
 #stars {
   position: absolute;
   inset: -16px;
@@ -279,10 +132,6 @@ html[data-tier="C"] .iris::after { display: none; }
 }
 .fields[data-field="ink"] ~ #stars { opacity: var(--stars-op-ink, 1); }
 .fields[data-field="ink"] ~ #stars[data-dim] { opacity: var(--stars-op-long, 0.25); }
-#stars.drift-a { animation: stars-drift-a 4.8s cubic-bezier(.16, 1, .3, 1) both; }
-#stars.drift-b { animation: stars-drift-b 4.8s cubic-bezier(.16, 1, .3, 1) both; }
-@keyframes stars-drift-a { from { transform: translate(0, 0); } to { transform: translate(-12px, -8px); } }
-@keyframes stars-drift-b { from { transform: translate(-12px, -8px); } to { transform: translate(0, 0); } }
 html[data-tier="C"] #stars,
 html.rm #stars { display: none; }
 
@@ -291,7 +140,7 @@ html.rm #stars { display: none; }
   position: absolute;
   inset: -24px;
   z-index: var(--z-grain, 3);
-  width: calc(100% + 48px); /* the jitter never shows an edge */
+  width: calc(100% + 48px);
   height: calc(100% + 48px);
   pointer-events: none;
   opacity: 0;
@@ -299,27 +148,16 @@ html.rm #stars { display: none; }
   background-size: 256px 256px;
 }
 .fields[data-field="ink"] ~ .grain { opacity: var(--grain-op, 0.05); }
-/* Tier A only: the tile jitters while a cut plays, and is still the rest of the time. */
-html[data-tier="A"].is-cutting .grain { animation: grain-jitter 0.5s steps(6) infinite; }
-@keyframes grain-jitter {
-  0% { transform: translate(0, 0); }
-  20% { transform: translate(-9px, 7px); }
-  40% { transform: translate(7px, -11px); }
-  60% { transform: translate(-13px, -4px); }
-  80% { transform: translate(11px, 9px); }
-  100% { transform: translate(0, 0); }
-}
 html[data-tier="C"] .grain,
 html.rm .grain { display: none; }
 
 /* 7. Medallion (C32, W5): a metal disc with the C·W mark embossed in ink ---------------------- */
 /* Markup (pages): <div class="medallion" aria-hidden="true"></div> inside the #close scene.
    With data-globe-mode="medallion" on that scene, dotglobe.js shrinks the globe into it, then
-   fades the disc up and glints it once (--glint). Pages animate the words, not this element.
+   fades the disc up (client, 2026-11-07: no glint). Pages animate the words, not this element.
    Sizes: 22svh wide, 16svh laptop-short, 14svh phone; .medallion--sm for Partners #close. */
 .medallion {
   --medallion-size: 22svh;
-  --glint: -120%;
   position: relative;
   display: block;
   flex: none;
@@ -340,20 +178,13 @@ html.rm .grain { display: none; }
     0 10px 28px -6px rgba(0, 0, 0, 0.55);
   transform-origin: 50% 50%;
 }
-.medallion::before,
-.medallion::after {
+.medallion::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-.medallion::before {
   background: var(--metal-tile, url("../../assets/img/brushed-256.png")) 0 0 / 64px 64px repeat;
   opacity: calc(var(--metal-tile-op, 0.06) * 1.5); /* a touch more grain on the small disc */
-}
-.medallion::after {
-  background: var(--metal-sheen, linear-gradient(100deg, transparent 35%, rgba(255, 246, 214, 0.38) 50%, transparent 65%));
-  transform: translateX(var(--glint));
 }
 .medallion--sm { --medallion-size: 14svh; margin-inline: 0; }
 @media (min-width: 760px) and (max-height: 760px) { .medallion { --medallion-size: 16svh; } .medallion--sm { --medallion-size: 12svh; } }

@@ -7,8 +7,8 @@
  *   baseUrl   default: serves dist/ itself with serve.mjs (Brotli/gzip, real cache headers) on a free port
  *
  * static      from dist/ and tools/.cache/build-meta.json (written by build.mjs): initial JS gzip per
- *             page (entry + modulepreloads) ≤ 70 KB, legal ≤ 40 KB with no dotglobe, layers (stars)
- *             or cursor module, CSS gzip per page ≤ 28 KB, the brushed tile ≤ 6 KB
+ *             page (entry + modulepreloads) ≤ 70 KB, legal ≤ 40 KB with no dotglobe or layers (stars)
+ *             module, CSS gzip per page ≤ 28 KB, the brushed tile ≤ 6 KB
  * lighthouse  Lighthouse 13.5.0 (npx, the installed Chrome, isolated profile), mobile (Moto G Power,
  *             4x CPU, slow 4G) and desktop (--preset=desktop): Performance ≥ 90 / ≥ 95,
  *             Accessibility 100, Best Practices ≥ 95, SEO ≥ 95, LCP ≤ 2.0 s / 1.0 s, TBT ≤ 150 / 50 ms,
@@ -16,8 +16,8 @@
  * lab         our own CDP session: DOM nodes ≤ 900, composited layers < 30, INP on a sheet chip
  *             ≤ 150 / 100 ms, 3 cuts at 4x CPU (mobile, touch-cut, tier B) or 1x (desktop, tier A)
  *             with no long task > 50 ms and ≥ 55 / 58 fps, 0 rAF callbacks 6 s after the last
- *             landing, splash ≤ 4.1 s (Home, fresh load: splash.js's `cs-splash` measure, the
- *             splash's first frame to done; the boot intro is 4 s). The tier is pinned per profile.
+ *             landing, splash ≤ 1.1 s (Home, fresh load: splash.js's `cs-splash` measure, the
+ *             splash's first frame to done; the logo and name card is ~1 s). The tier is pinned per profile.
  *   --gpu     render the lab on the machine's GPU. Without it Chrome uses SwiftShader (software
  *             GL), whose frame rate and long tasks say more about the CPU than the site: those
  *             rows are then reported as "info" and never fail. Run the fps gate with --gpu on an
@@ -46,9 +46,9 @@ const B = {
   perf: [90, 95], a11y: [100, 100], bp: [95, 95], seo: [95, 95],
   lcp: [2000, 1000], tbt: [150, 50], cls: [0.02, 0.02], inp: [150, 100],
   // Initial JS raised from 70 / 40 KB (owner, 2026-10-27): the splash, transitions, orbit and
-  // account link added ~13 KB gzip, parsed while the splash (now 4 s) is on screen.
+  // account link added ~13 KB gzip, parsed while the splash (~1 s since 2026-11-07) is on screen.
   jsInitialKb: 80, jsLegalKb: 60, cssKb: 28, tileKb: 6, scriptKb: [70, 110], fonts: 5, homeKb: [300, 380],
-  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 4100,
+  dom: 900, layers: 30, longTaskMs: 50, fps: [55, 58], idleRaf: 0, splashMs: 1300,
 };
 
 const cli = parseArgs();
@@ -80,7 +80,7 @@ function staticChecks(rows) {
     rows.push({ check: 'JS initial gzip', page, value: `${js.toFixed(1)} KB`, budget: `≤ ${jsBudget} KB`, fail: js > jsBudget });
     if (page === LEGAL) {
       const banned = m.inputs.filter((p) => meta.legalExcludes.includes(p.split('/').pop()));
-      rows.push({ check: 'legal: no dotglobe/stars/cursor', page, value: banned.join(', ') || 'none', budget: 'none', fail: banned.length > 0 });
+      rows.push({ check: 'legal: no dotglobe/stars', page, value: banned.join(', ') || 'none', budget: 'none', fail: banned.length > 0 });
     }
     const html = readFileSync(join(DIST, page), 'utf8');
     const css = [...html.matchAll(/<link rel="stylesheet" href="([^"]+\.css)">/g)].reduce((n, x) => n + gzKb(join(DIST, x[1])), 0);

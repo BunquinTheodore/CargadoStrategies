@@ -1,6 +1,6 @@
 /**
- * P3 · Tiers (partners.html): the panels pick a tier and the one "Join Us" carries it,
- * the panels are dealt in on the cut, and "Compare All" opens #tiers-dialog
+ * P3 · Tiers (partners.html): the panels pick a tier and the one "Join Us" carries it
+ * (no deal on the cut: client 2026-11-07, calm), and "Compare All" opens #tiers-dialog
  * (sections/partners/tiers-dialog). The choice lives in the application form: the page hands
  * over ctx.selectTier(tier) (pages/partners.js), so this section never reaches into Apply.
  */
@@ -8,42 +8,8 @@ import { Section } from '../../../core/Section.js';
 import { createTabs } from '../../../core/ui/ui-tabs.js';
 import { closeDialog, openDialog } from '../../../core/ui/ui-dialog.js';
 
-const PHONE_QUERY = '(max-width: 759px)';
-/** P3: the tier panels are dealt in like the Home doors, at most 12° (DIRECTION §7.4). */
-const DEAL = Object.freeze({
-  y: 48,
-  rotationY: 12,
-  perspective: 1100,
-  duration: 0.6,
-  stagger: 0.07,
-  after: 0.04, // seconds after the 'in' label (deal-ins start by 0.36 s, slice lesson 5)
-});
-
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-const isPhone = () => window.matchMedia(PHONE_QUERY).matches;
-
-/* ---------- P3 choreography (film 'cut' listener, api.md §4.3) ---------- */
-
-function dealTiers(tl, el) {
-  const panels = $$('.tier', el);
-  if (!panels.length) return;
-  const flat = isPhone();
-  const from = flat
-    ? { opacity: 0, y: DEAL.y }
-    : {
-      opacity: 0,
-      y: (i) => (i % 2 ? DEAL.y : -DEAL.y),
-      rotationY: (i) => (i % 2 ? -DEAL.rotationY : DEAL.rotationY),
-      transformPerspective: DEAL.perspective,
-    };
-  const to = flat
-    ? { opacity: 1, y: 0 }
-    : { opacity: 1, y: 0, rotationY: 0, transformPerspective: DEAL.perspective };
-  tl.fromTo(panels, from, {
-    ...to, duration: DEAL.duration, ease: 'expo.out', stagger: DEAL.stagger, clearProps: 'transform',
-  }, `in+=${DEAL.after}`);
-}
 
 /* ---------- P3 tier choice: the panels pick a tier, the one "Join Us" carries it ---------- */
 
@@ -106,9 +72,5 @@ export class Tiers extends Section {
   mount() {
     const pick = wireTiers(this.el, this.film, this.ctx.selectTier);
     wireCompare(this.film, pick);
-  }
-
-  cut({ toEl, tl }) {
-    if (toEl === this.el) dealTiers(tl, toEl);
   }
 }

@@ -135,10 +135,10 @@ What made the difference (details for developers in `ENGINE.md` §11, *Performan
 ### Acceptance check (2026-10-17, `dist/`, 1440×900 and 390×844)
 
 Every item passed on all five pages:
-- The splash opens with an iris into the hero.
+- The splash fades into the hero.
 - Display type is Times New Roman in Title Case: no uppercase transform, and no Josefin Sans or blue anywhere.
 - Text links draw their underline on hover and keyboard focus.
-- Magnetic buttons, the tier panel tilt and the cursor ring work on a mouse. Phones get none of them.
+- No cursor ring, magnetic buttons or tilt (removed 2026-11-07, calm motion); hovers change colour and opacity (plus small arrow nudges).
 - Word reveals scrub forward and back to the same state.
 - Sound starts only after the first click or key.
 - Scroll budget: about 8 wheel notches per scene on desktop, with no dead scroll. Every 100 px of scroll moves something, including the still parts of scenes that pan.
@@ -185,7 +185,7 @@ Other files:
 
 ## Design system (Round 5)
 
-Three stylesheets load on every page, in this order, before the page's own CSS: `base.css` (tokens, fields, type, the scene box in every mode, header, menu, footer, buttons, links, forms), `fx.css` (word-reveal masks and the hover mechanics of rows and doors, the cursor ring) and `ui.css` (the shared components, ending with the text-floor block). `visual.css` (splash, globe, stars, grain, metal, medallion) follows them.
+Three stylesheets load on every page, in this order, before the page's own CSS: `base.css` (tokens, fields, type, the scene box in every mode, header, menu, footer, buttons, links, forms), `fx.css` (word-reveal masks and the hover mechanics of rows and doors) and `ui.css` (the shared components, ending with the text-floor block). `visual.css` (splash, globe, stars, grain, metal, medallion) follows them.
 
 - **Fields.** A scene's `data-field` is `ink` (the stage), `bone` (the reading room) or `gold` (at most once per page, finished as metal). Each field sets the colour roles (`--bg`, `--fg`, `--fg-muted`, `--accent`, `--line`, buttons, inputs, row flood, focus, header). Text contrast is at least 4.5:1, and 3:1 for large type, on all three.
 - **Type.** `.t-mega`, `.t-statement`, `.t-d1`, `.t-d2`, `.t-quote` (Times), `.t-lead` and body (Manrope), `.eyebrow` and every control label (Poppins). Nothing visible is smaller than 14 px (`--fs-label`); reading and fine-print lines use `--fs-note` (16 px, 15 on phones).

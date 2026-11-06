@@ -23,8 +23,8 @@ const T = new Proxy(Object.fromEntries(THREE_NEEDS.map((name) => [name, THREE[na
 });
 
 test('the render mode follows tier, Save-Data and reduced motion', () => {
-  assert.equal(renderMode({ tier: 'A' }), 'live');
-  assert.equal(renderMode({ tier: 'B' }), 'live');   // continuous on every capable device (owner, 2026-10-25)
+  assert.equal(renderMode({ tier: 'A' }), 'still');
+  assert.equal(renderMode({ tier: 'B' }), 'still');   // still frames everywhere (client 2026-11-07, calm)
   assert.equal(renderMode({ tier: 'C' }), 'off');
   assert.equal(renderMode({ tier: 'A', saveData: true }), 'off');
   assert.equal(renderMode({ tier: 'A', reduced: true }), 'still');

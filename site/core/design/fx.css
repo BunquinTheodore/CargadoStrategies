@@ -1,10 +1,9 @@
 /* ==========================================================================
    Cargado Strategies — fx.css (Round 5: reveal masks and hover mechanics)
-   1 reveal masks · 2 row flood · 3 door widen and flood · 4 strike bar
-   5 magnetic hero CTA and the tier tilt · 6 cursor ring · 7 motion safety
-   Only transform, opacity and clip-path animate here, plus the door's
-   flex-grow (contained to its own row) and the row's padding (one row).
-   The offset plates, the 3D panel and every other tilt are gone (DIRECTION §4.4).
+   1 reveal masks · 2 row flood · 3 door flood · 4 strike bar
+   5 touch press · 6 motion safety
+   Only transform, opacity and clip-path animate here. No cursor ring, magnetic
+   pull, tilt or layout-animating hover (client 2026-11-07: calm).
    ========================================================================== */
 
 /* 1. Reveal masks: each word rises from its own mask (film-split.js writes them;
@@ -19,36 +18,32 @@ html.is-cutting .scene.is-entering .rv-word { will-change: transform; }
 /* The eyebrow slides inside its own box. */
 .eyebrow { overflow: clip; }
 
-/* 2. Row flood (C11, C12): on hover or focus the row floods --row-flood in 220 ms,
-   from the edge the pointer came in by (interact.js writes --flood-from), and the
-   padding goes 24 → 46 px. The whole row is the target. */
-.row:where(a, button) { position: relative; isolation: isolate; contain: layout; transition: padding-inline .22s var(--ease-out), color .22s var(--ease-out); }
+/* 2. Row flood (C11, C12): on hover or focus the row floods --row-flood in 220 ms
+   from its bottom edge. The whole row is the target. */
+.row:where(a, button) { position: relative; isolation: isolate; contain: layout; transition: color .22s var(--ease-out); }
 .row:where(a, button)::before {
   content: ""; position: absolute; inset: 0; z-index: -1; background: var(--row-flood);
-  transform: scaleY(0); transform-origin: var(--flood-from, 50% 100%); transition: transform .22s var(--ease-out);
+  transform: scaleY(0); transform-origin: 50% 100%; transition: transform .22s var(--ease-out);
 }
 .row:where(a, button):is(:hover, :focus-visible) {
   --fg: var(--row-flood-fg); --fg-muted: var(--row-flood-fg); --accent: var(--row-flood-fg);
   --stroke-num: color-mix(in srgb, var(--row-flood-fg) 55%, transparent);
-  color: var(--row-flood-fg); padding-inline: 46px;
+  color: var(--row-flood-fg);
 }
 .row:where(a, button):is(:hover, :focus-visible)::before { transform: scaleY(1); }
 .row:where(a, button):focus-visible { outline-offset: -2px; outline-color: var(--row-flood-fg); }
 .row__arrow { transition: transform var(--dur-hover) var(--ease-out); }
 .row:where(a, button):is(:hover, :focus-visible) .row__arrow { transform: translateX(6px); }
-@media (hover: none) { .row:where(a, button):hover { padding-inline: 24px; } }
 
-/* 3. Doors (W3): a door widens on hover or focus (flex-grow 1 → 1.5, 350 ms,
-   power3.out; contain: layout on the door row only), floods ink, and its type
-   turns ivory. The other doors stay gold. Phones stack them (ui.css). */
+/* 3. Doors (W3): on hover or focus a door floods ink and its type turns ivory.
+   The other doors stay gold. Phones stack them (ui.css). */
 @media (min-width: 760px) {
   .doors { contain: layout; }
-  .door { transition: flex-grow var(--dur-door) cubic-bezier(.215,.61,.355,1), color var(--dur-door) var(--ease-out); }
+  .door { transition: color var(--dur-door) var(--ease-out); }
   .door::before {
     content: ""; position: absolute; inset: 0; z-index: -1; background: #0B0B0C;
     opacity: 0; transition: opacity var(--dur-door) var(--ease-out);
   }
-  .door:is(:hover, :focus-within) { flex-grow: 1.5; }
   .door:is(:hover, :focus-within)::before { opacity: 1; }
   .door:is(:hover, :focus-within) {
     --fg: #F3ECDD; --fg-muted: var(--c-ivory-2nd); --accent: #D4AF37; --line: rgba(212,175,55,.22);
@@ -77,39 +72,10 @@ html.is-cutting .scene.is-entering .rv-word { will-change: transform; }
 }
 .strike > li.is-struck { --strike: 1; --strike-dim: 1; }
 
-/* 5. Magnetic pull (the hero CTA only, ≤ 6 px) and the Partners tier tilt (≤ 4°).
-   interact.js writes --mag-x/--mag-y into the CSS translate property, which adds to
-   (never fights) GSAP's transform. */
-[data-magnetic] { translate: var(--mag-x, 0px) var(--mag-y, 0px); transition: translate .5s cubic-bezier(.22,1.4,.36,1); }
-[data-magnetic].is-magnet { transition-duration: .18s; }
-.fx-rel { position: relative; }
-.fx-tilt { transition: rotate .8s cubic-bezier(.22,1,.36,1); }
-.fx-tilt.is-tilting { transition-duration: .2s; }
+/* 5. Touch press: a short scale on tap, coarse pointers only. */
 @media (hover: none) {
   .btn:active, .chip:active, .row:where(a, button):active { scale: .98; transition: scale .1s linear; }
 }
 
-/* 6. Cursor ring (C39): 32 px, 1.9× over links and rows, fine pointer only.
-   The native cursor stays. */
-.cursor-ring {
-  position: fixed; left: 0; top: 0; z-index: var(--z-cursor); width: 32px; height: 32px; margin: -16px 0 0 -16px;
-  pointer-events: none; opacity: 0; transition: opacity .2s linear;
-}
-.cursor-ring::before {
-  content: ""; position: absolute; inset: 0; border: 1.5px solid var(--accent); border-radius: 50%;
-  transition: transform .25s var(--ease-out);
-}
-.cursor-ring.is-visible { opacity: .9; }
-.cursor-ring.is-hover::before { transform: scale(1.9); }
-.cursor-ring.is-down::before { transform: scale(.85); }
-@media (hover: none), (pointer: coarse) { .cursor-ring { display: none; } }
-
-/* 7. Motion safety: no pointer physics, floods or widening without motion. */
-@media (prefers-reduced-motion: reduce) {
-  .fx-tilt { rotate: none !important; }
-  [data-magnetic] { translate: none !important; }
-}
-html.rm .fx-tilt { rotate: none !important; }
-html.rm [data-magnetic] { translate: none !important; }
+/* 6. Motion safety: no floods without motion. */
 html.rm :is(.row:where(a, button), .door), html.rm .door::before, html.rm .row:where(a, button)::before { transition: none; }
-html:is(.rm, :not(.film)) .cursor-ring { display: none; }

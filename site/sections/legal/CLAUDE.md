@@ -1,6 +1,6 @@
 # Legal (`legal.html`): sections/legal
 
-Entry `pages/legal.js` (plus `pages/legal-fx.js`, its own chunk), styles `pages/legal.css`, spec `plan/round5/DIRECTION.md` §7.5 (L1-L8; FR16, SRS Appendix B). **Calm on purpose:** tier C locked (`<html data-tier="C" data-tier-lock>`), one bone field, and no splash, globe, stars, grain, cursor or sound. Every word here is compliance copy, and a lawyer in Canada must review it before launch.
+Entry `pages/legal.js` (plus `pages/legal-fx.js`, its own chunk), styles `pages/legal.css`, spec `plan/round5/DIRECTION.md` §7.5 (L1-L8; FR16, SRS Appendix B). **Calm on purpose:** tier C locked (`<html data-tier="C" data-tier-lock>`), one bone field, the shared ~1 s splash card (ivory, as on story), and no globe, stars, grain or sound. Every word here is compliance copy, and a lawyer in Canada must review it before launch.
 
 ## Scenes, in order
 
@@ -21,7 +21,7 @@ Page-level files: `_page.css` (first), `_documents.css` (rules shared by L2-L5, 
 
 - No config keys directly. The footer and the sheet read config through chrome.js and wa-sheet.js. `pages/legal.js` fills the `main a[data-wa-sheet]` no-JS hrefs.
 - Flow: `legal.js` boots, then `import('./legal-fx.js')` → `initLegal(ctx)` → `mountSections([Disclosure, Privacy, Terms, Conduct, Faq], ctx)`. `film.on('deeplink')` waits for it, then `reveal()`: a Q&A answer opens, a clause turns to its page, a document opens on page 1. `legal-fx.js` imports `mountSections` from `core/main.js` on purpose (keeps the chunk count).
-- Core: `Section`, `ui-pager`, `ui-tabs`, `film.refreshReach`. main.js skips layers, sfx, cursor and the globe on `page === 'legal'`.
+- Core: `Section`, `ui-pager`, `ui-tabs`, `film.refreshReach`. main.js skips layers, sfx and the globe on `page === 'legal'`.
 - Deep links: `legal.html#disclosure`, `#privacy`, `#terms`, `#conduct`, `#faq`.
 
 ## Known open issues (plan/round5/final-audit.txt)

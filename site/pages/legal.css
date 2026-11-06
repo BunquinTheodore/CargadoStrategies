@@ -5,8 +5,8 @@
    contents (L1) · _documents.css: L2-L5 documents (paged reader; the Q&A shares it)
    faq (L6 Q&A) · close (L7) · _bands.css: flow mode and the tablet portrait, phone
    and short phone bands, which mix sections and must stay last.
-   Calm on purpose: one bone field, no globe, stars, grain, cursor ring or
-   tilt. Shared mechanics (rows, paper, fine print, pager, tabs) live in
+   Calm on purpose: one bone field, no globe, stars, grain or tilt. Shared
+   mechanics (rows, paper, fine print, pager, tabs) live in
    core/design/ui.css; these files only place and size them.
    ========================================================================== */
 @import "../sections/legal/_page.css";

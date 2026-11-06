@@ -83,37 +83,13 @@
   <script type="module" src="pages/services.js"></script>
 </head>
 <body data-page="services">
-  <!-- splash: the boot intro (core/engine/splash.js, visual.css §1). Shared node, the same in every film shell. -->
+  <!-- splash: the logo + name card (core/engine/splash.js, visual.css §1). Shared node, the same in every film shell. -->
   <script>try{var n=performance.getEntriesByType('navigation')[0],r=document.referrer;if(n&&(n.type==='back_forward'||(n.type==='navigate'&&r&&new URL(r).origin===location.origin)))document.documentElement.classList.add('splash-skip')}catch(e){}</script>
   <div class="splash" id="splash" aria-hidden="true">
-    <div class="splash__bg"></div>
-    <div class="splash__scan">
-      <p class="splash__label splash__label--tl">Identity Scan<br><b data-splash="site">Cargado Strategies</b></p>
-      <p class="splash__label splash__label--tr">Channel <b>01 / 05</b><br>Link <b>Secure</b></p>
-      <div class="splash__frame">
-        <svg class="splash__ridges" viewBox="0 0 100 120" focusable="false"><ellipse cx="50" cy="60" rx="14" ry="18" pathLength="100" stroke-dasharray="78 8 14 0"/><ellipse cx="50" cy="60" rx="22" ry="28" pathLength="100" stroke-dasharray="40 6 50 4"/><ellipse cx="50" cy="60" rx="30" ry="37" pathLength="100" stroke-dasharray="62 7 25 6"/><ellipse cx="50" cy="60" rx="38" ry="46" pathLength="100" stroke-dasharray="30 5 58 7"/><ellipse cx="50" cy="60" rx="46" ry="56" pathLength="100" stroke-dasharray="70 9 15 6"/></svg>
-        <div class="mark splash__mark splash__mark--base"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
-        <div class="mark splash__mark splash__mark--lit"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
-        <i class="splash__br splash__br--tl"></i><i class="splash__br splash__br--tr"></i><i class="splash__br splash__br--bl"></i><i class="splash__br splash__br--br"></i>
-        <i class="splash__ticks splash__ticks--l"></i><i class="splash__ticks splash__ticks--r"></i>
-        <i class="splash__scanline"></i>
-      </div>
-      <p class="splash__label splash__label--bl">Scan <b class="splash__pct">100</b> %</p>
-      <p class="splash__label splash__label--br">Status <span class="splash__st"><b>Scanning</b><b>Verified</b></span></p>
-    </div>
-    <div class="splash__access">
-      <p class="splash__label">Identity Confirmed</p>
-      <p class="splash__granted">Access <em>Granted</em></p>
-      <i class="splash__bar"></i>
-    </div>
-    <i class="splash__ring"></i>
-    <i class="splash__dot"></i>
-    <div class="splash__flood"><i class="splash__cell splash__cell--tl"></i><i class="splash__cell splash__cell--tr"></i><i class="splash__cell splash__cell--bl"></i><i class="splash__cell splash__cell--br"></i></div>
-    <div class="splash__name">
-      <p class="splash__label splash__meta--l" data-splash="founder"></p>
-      <p class="splash__label splash__meta--r" data-splash="city"></p>
-      <i class="splash__rule"></i>
+    <div class="splash__card">
+      <div class="mark splash__mark"><svg class="mark__c" viewBox="0 0 48 48" focusable="false"><path d="M37.4 10.6A19 19 0 1 0 37.4 37.4" pathLength="100"/></svg><svg class="mark__w" viewBox="0 0 48 48" focusable="false"><path d="M13.5 17 19.2 31.5 24 21.5 28.8 31.5 34.5 17" pathLength="100"/></svg></div>
       <p class="splash__title" data-splash="name"><span class="splash__line"><span>Cargado</span></span><span class="splash__line"><span>Strategies<i class="splash__stop"></i></span></span></p>
+      <p class="splash__meta"><span class="splash__label" data-splash="founder"></span><span class="splash__label" data-splash="city"></span></p>
     </div>
   </div>
   <!-- /splash -->
