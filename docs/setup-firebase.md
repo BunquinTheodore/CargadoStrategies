@@ -15,7 +15,7 @@ You do this once. It takes about 30 minutes.
 1. Open <https://console.firebase.google.com/>, choose the project, then **Build → Authentication → Get started**.
 2. **Sign-in method → Add new provider → Email/Password**: enable the first switch (not "Email link") and save.
 3. **Add new provider → Google**: enable it, choose the support email, save.
-4. **Settings → Authorised domains**: add the site's domain (for example `www.cargadostrategies.ca` and `cargadostrategies.ca`) and the Vercel domain (`<project>.vercel.app`). `localhost` is there already.
+4. **Settings → Authorised domains**: add the site's domain (for example `www.cargadostrategies.com` and `cargadostrategies.com`) and the Vercel domain (`<project>.vercel.app`). `localhost` is there already.
 5. Do **not** turn on Google Analytics for the project: the Privacy Policy says the site uses no analytics.
 
 ## 2. Create the database
@@ -117,4 +117,4 @@ Then, with `@firebase/rules-unit-testing` in a scratch folder (not this reposito
 | `FIREBASE_CLIENT_EMAIL` | service account JSON `client_email` | the same |
 | `FIREBASE_PRIVATE_KEY` | service account JSON `private_key` | the same |
 | `CRON_SECRET` | any long random text | the daily job that completes bookings and awards points |
-| `SITE_URL` (optional) | the live address, e.g. `https://www.cargadostrategies.ca` | links in partner invitations (otherwise the address the admin used) |
+| `SITE_URL` (optional) | the live address, e.g. `https://www.cargadostrategies.com` | links in partner invitations (otherwise the address the admin used) |

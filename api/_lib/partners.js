@@ -8,7 +8,7 @@ import { getDoc, commit, setWrite, runQuery } from './firebase.js';
 import { sendMail, escapeHtml } from './mail.js';
 
 const BRAND = 'Cargado Strategies';
-const DEFAULT_SITE_URL = 'https://www.cargadostrategies.ca';
+const DEFAULT_SITE_URL = 'https://www.cargadostrategies.com';
 
 /** The site origin for links in emails: SITE_URL, else the request's host. */
 export function siteOrigin(req) {

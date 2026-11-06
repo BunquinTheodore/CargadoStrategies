@@ -36,7 +36,7 @@ npm run serve        # dist/ at http://127.0.0.1:8231/ (Brotli/gzip, like a real
 npm run serve:src    # site/ at http://127.0.0.1:8230/ with the same server
 ```
 
-Before the build for the live site, set the real domain so the canonical links, Open Graph tags, `sitemap.xml` and `robots.txt` point to it (the default `https://www.cargadostrategies.ca` is a **placeholder** until the domain is confirmed):
+The canonical links, Open Graph tags, `sitemap.xml` and `robots.txt` use the live domain `https://www.cargadostrategies.com` by default. To build for a different domain, set it first:
 
 ```bash
 SITE_URL=https://the-real-domain.ca npm run build          # macOS / Linux / Git Bash

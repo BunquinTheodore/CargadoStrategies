@@ -2,8 +2,8 @@
  * Production build: site/ (readable source, runs unbundled from CDNs) → dist/
  * (what you upload).
  *
- *   npm run build                         # SITE_URL defaults to the placeholder below
- *   SITE_URL=https://example.ca npm run build
+ *   npm run build                         # SITE_URL defaults to the live domain below
+ *   SITE_URL=https://example.com npm run build
  *
  * What it does
  * - Checks first: tools/check-config.mjs (PARTNERS caps, Round 5 keys) stops the
@@ -59,7 +59,7 @@ const NODE_MODULES = join(ROOT, 'node_modules');
 const META_FILE = join(ROOT, 'tools', '.cache', 'build-meta.json');
 
 /** TODO founder: the live domain. [Placeholder until the domain is confirmed.] */
-const DEFAULT_SITE_URL = 'https://www.cargadostrategies.ca';
+const DEFAULT_SITE_URL = 'https://www.cargadostrategies.com';
 const SITE_URL = (process.env.SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, '');
 const SITE_NAME = 'Cargado Strategies';
 const LOCALE = 'en_CA';
@@ -643,7 +643,6 @@ async function cleanOut() {
 }
 
 async function main() {
-  if (!process.env.SITE_URL) process.stdout.write(`SITE_URL not set: canonical, Open Graph and sitemap use the placeholder ${DEFAULT_SITE_URL}\n`);
   const config = await checkConfig();
   if (config.errors.length) throw new Error(`check-config failed:\n${config.errors.map((e) => `  - ${e}`).join('\n')}`);
   const kern = await buildKerning();
