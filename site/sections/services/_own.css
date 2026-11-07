@@ -7,21 +7,11 @@
 .own__body { display: grid; gap: var(--space-s); }
 .own__desc { max-width: 52ch; font-size: var(--fs-lead); line-height: 1.5; }
 .own__action { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-l); }
-/* The three.js motifs (own-3d.js, owner 2026-10-25): one canvas box behind the copy of each scene and
-   the slots the stage draws into, placed where the scene has room. Decorative (aria-hidden,
-   data-fit-ignore) and never hit by the pointer: the stage listens on the scene itself. */
-.own__3d { position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .8s var(--ease-out); }
-.own__3d.is-live { opacity: 1; }
-.own__3d-canvas { display: block; width: 100%; height: 100%; }
-.own__3d-slot { position: absolute; pointer-events: none; }
-.own__3d-slot--m { top: 0; right: 0; bottom: 36%; left: 50%; }      /* M: above the monument, right half */
-.own__3d-slot--r { top: 6%; right: 0; bottom: 6%; left: 58%; }      /* R: right of the short rows */
-.own__3d-slot--o { top: 4%; right: 0; bottom: 4%; left: 50%; }      /* O: the object half */
-.own__3d-slot--part { top: 0; right: 0; left: 46%; height: 56%; }   /* D: beside each ghost numeral */
-html.rm .scene__inner:has(> .own__3d) { isolation: isolate; }       /* flow has no pan to hold the box above the field */
 
 /* Service photos (owner, 2026-11-01; scene-photos.js loads them near their scene): a greyscale photo
-   blended into the field behind everything, fading out toward the copy, so the palette stays black and gold. */
+   blended into the field behind everything, fading out toward the copy, so the palette stays black and gold.
+   They are each scene's picture (owner, 2026-11-07: they replace the 3D motifs), so they show clearly on
+   the side away from the copy. */
 /* Full bleed: the scene inner is the content column, so the photo spans the viewport from its centre. */
 .scene-photo { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -2; overflow: hidden; pointer-events: none; }
 .scene-photo__img {
@@ -30,14 +20,14 @@ html.rm .scene__inner:has(> .own__3d) { isolation: isolate; }       /* flow has 
   -webkit-mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 82%);
   mask-image: linear-gradient(to left, #000 0%, rgba(0, 0, 0, .55) 45%, transparent 82%);
 }
-.scene-photo__img[srcset] { opacity: var(--photo-o, .22); }
-[data-field="bone"] .scene-photo__img { --photo-o: .16; mix-blend-mode: multiply; }
-[data-field="gold"] .scene-photo__img { --photo-o: .14; mix-blend-mode: multiply; }
+.scene-photo__img[srcset] { opacity: var(--photo-o, .55); }
+[data-field="bone"] .scene-photo__img { --photo-o: .42; mix-blend-mode: multiply; }
+[data-field="gold"] .scene-photo__img { --photo-o: .36; mix-blend-mode: multiply; }
 html.rm .scene__inner:has(> .scene-photo) { isolation: isolate; }
 html.rm .scene-photo__img { transition: none; }
 @media (max-width: 759px) {
   .scene-photo__img { -webkit-mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, .4) 45%, transparent 75%); mask-image: linear-gradient(to bottom, #000, rgba(0, 0, 0, .4) 45%, transparent 75%); }
-  .scene-photo__img[srcset] { opacity: calc(var(--photo-o, .22) * .8); }
+  .scene-photo__img[srcset] { opacity: calc(var(--photo-o, .55) * .7); }   /* the copy sits over the band */
 }
 
 @media (max-width: 759px) {
@@ -48,11 +38,6 @@ html.rm .scene-photo__img { transition: none; }
   .own__action { flex-direction: column; align-items: stretch; gap: 0; width: 100%; }
   .own__action .btn { width: 100%; }
   .own__action .link { align-self: center; }
-  /* Phones: only the monuments keep a motif, as a faint band above the copy; the busier scenes skip it. */
-  .own__3d.is-live { opacity: .55; }
-  .own__3d-slot--m { top: 0; right: 0; bottom: auto; left: 0; height: 24%; }
-  .own__3d-slot--o { top: 0; right: 0; bottom: auto; left: 0; height: 30%; }   /* O: the object as a top band */
-  .own__3d-slot--r, .own__3d-slot--part { display: none; }
 }
 /* Short phones (360 × 740 and under): the rule steps out and the description takes the reading-line
    size, so the scene keeps its 18 % air. */

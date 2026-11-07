@@ -31,7 +31,6 @@ import { PackagesDialog } from '../sections/services/packages-dialog/PackagesDia
 import { OursOutsourcing } from '../sections/services/ours-outsourcing/OursOutsourcing.js';
 import { Finder } from '../sections/services/finder/Finder.js';
 import { Orbit } from '../sections/services/orbit/Orbit.js';
-import { OWN_3D_SECTIONS } from '../sections/services/own-3d.js';
 import { initScenePhotos } from '../sections/services/scene-photos.js';
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -143,9 +142,9 @@ function inquireAbout(slug) {
   inquiry.focusTitle();
 }
 
-// Mount order is the original wiring order (listeners on the same node keep their order); the v2 orbit,
-// then the own-scene 3D motifs (own-3d.js: three.js loads only near those scenes), last.
-const { sections: [inquiry, , , , finder] } = mountSections([Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, PackagesDialog, ...OWN_3D_SECTIONS], {
+// Mount order is the original wiring order (listeners on the same node keep their order); the v2 orbit
+// and the packages dialog last.
+const { sections: [inquiry, , , , finder] } = mountSections([Inquiry, CategoriesDialog, ProfileDialog, OursOutsourcing, Finder, Orbit, PackagesDialog], {
   ...booted,
   sound,
   fillWhatsAppLinks,

@@ -19,7 +19,7 @@ Read this first on every task. Deeper contracts: `site/core/CLAUDE.md` (engine, 
 - **Owner decisions (2026-10-20), do not re-add:**
   - No footer fine print, and no "We only message from" line. The Story "Independent partners" notice and the Partners "Commission terms" notice are gone too.
   - The Legal page is final, with no visible draft markers. (v2: new or changed legal sentences carry an invisible `data-draft="pending-lawyer-review"` marker for the owner's lawyer review, listed in `site/sections/legal/CLAUDE.md`.)
-  - No Sound or Motion switches; sound stays on. Motion is calm (client request, 2026-11-07): one classic cut (iris on a field change, plain hold on the same field), one gentle rise entrance, a ~1 s logo and name card splash, and no cursor ring, magnetic pull, tilt, ambient loops or decorative keyframes. Do not re-add per-scene transition/entrance variety or the scan splash.
+  - No Sound or Motion switches; sound stays on. Motion is calm (client request, 2026-11-07): one classic cut (iris on a field change, plain hold on the same field), one gentle rise entrance, a ~1 s logo and name card splash, and no cursor ring, magnetic pull, tilt, ambient loops or decorative keyframes. One exception (owner, 2026-11-07): the services orbit nodes keep their slow 90 s spin round the centre (`core/design/orbit.css`). Do not re-add per-scene transition/entrance variety or the scan splash.
   - Buttons are round frosted glass (`.btn` in base.css).
   - The nav is centred and includes Home and (v2) Contact; the header also has the account (Log In) entry.
   - Footer contact shows WhatsApp, the email address, the Facebook page name and the address, with no Call item.

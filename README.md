@@ -137,7 +137,7 @@ Owner-approved text removals are recorded in `plan/round5/compliance-baseline.js
 - **Removed notices and switches:**
   - no footer fine print and no "We only message from" line;
   - several partner, commission and coaching notices removed;
-  - no Sound/Motion switches (sound stays on; motion is calm by client request, 2026-11-07: one classic cut, one gentle rise, no cursor ring, magnetic pull, tilt or ambient loops).
+  - no Sound/Motion switches (sound stays on; motion is calm by client request, 2026-11-07: one classic cut, one gentle rise, no cursor ring, magnetic pull, tilt or ambient loops; the services orbit keeps its slow spin, owner 2026-11-07).
 - **Legal page:** final, with no visible draft markers (the v2 clauses carry an invisible `data-draft="pending-lawyer-review"` marker until a lawyer approves them). Its privacy contact, Lee Holgado at the email above, is written into `sections/legal/privacy/privacy.html`.
 - **Nav:** centred, with Home, Services, Story, For Professionals, Contact (v2), plus the Log In / account button.
 - **Footer:** shows WhatsApp, the email, the Facebook page name and the address, with © under the brand.

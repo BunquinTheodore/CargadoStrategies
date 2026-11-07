@@ -251,7 +251,7 @@ Same-origin cross-page link clicks store the link's centre in `sessionStorage['c
 
 ## 11. Conventions
 
-- Animate only `transform`, `opacity` and `clip-path`. Choreography goes in `film.on('cut')` at a label; hover micro-transitions are the only other motion: no cursor ring, magnetic pull, tilt or ambient loops; hover changes colour/opacity (plus small arrow nudges).
+- Animate only `transform`, `opacity` and `clip-path`. Choreography goes in `film.on('cut')` at a label; hover micro-transitions are the only other motion: no cursor ring, magnetic pull, tilt or ambient loops; hover changes colour/opacity (plus small arrow nudges). The one exception is the services orbit spin (owner, 2026-11-07).
 - Nothing measures with `getBoundingClientRect()` for layout decisions inside a cut. Components use `offsetTop`, `offsetHeight`, `clientHeight`, `scrollHeight`.
 - Never invent partners, people, photos, reviews, ratings, counts or licence numbers. Use `.ph` brackets and "Partner spot available". Compliance copy is verbatim (DIRECTION "Fixed constraints" and §10).
 - Display type is the Times New Roman stack in Title Case as written (never `text-transform`); body Manrope; UI Poppins. Black and gold only.

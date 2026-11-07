@@ -76,11 +76,19 @@
 :is(.orbit__node, .orbit__preview)[data-slug="health-care"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 20s-7.5-4.6-7.5-10A4.3 4.3 0 0 1 12 7.3 4.3 4.3 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z'/%3E%3Cpath d='M3 13h4l1.5-2.5 2 4.5 1.5-2h9'/%3E%3C/svg%3E"); }
 :is(.orbit__node, .orbit__preview)[data-slug="partner-network"] { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='5' r='2.2'/%3E%3Ccircle cx='5' cy='18' r='2.2'/%3E%3Ccircle cx='19' cy='18' r='2.2'/%3E%3Cpath d='M10.9 7l-4.8 9M13.1 7l4.8 9M7.2 18h9.6'/%3E%3C/svg%3E"); }
 
-/* The groups sit round the centre like planets round a sun (owner, 2026-10-25), each at its own
-   --a angle and counter-rotated so its label stays upright. They hold still (client 2026-11-07:
-   calm). Nothing grows: the nodes never leave the orbit box. */
+/* The groups circle the centre like planets round a sun (owner, 2026-10-25; kept by the owner
+   through the 2026-11-07 calm pass): every node runs the same 90 s turn on its own transform
+   (orbit-spin: its angle +0 to +360deg, counter-rotated so its label stays upright), so the spin
+   stays on the compositor. Nothing grows: the nodes never leave the orbit box. It pauses while
+   the scene is off screen, on hover, focus or a preview, and holds still in flow mode (html.rm). */
 @media (min-width: 760px) {
-  .orbit__node { padding: 3px; }
+  .orbit__node {
+    padding: 3px;
+    animation: orbit-spin var(--orbit-turn, 90s) linear infinite;
+    transition-property: border-color, color;   /* the spin owns the transform */
+  }
+  :is(.scene:not(.is-active), .orbit:hover, .orbit:focus-within, .orbit.is-previewing) .orbit__node { animation-play-state: paused; }
+  html.rm .orbit__node { animation: none; }
 
   /* Clear gold rings (owner, 2026-10-26: no fill, the page shows through). Each node is only a
      brushed-gold rim (::after, a conic band of gold tones masked to a 4 px ring) with a gold glow
@@ -139,6 +147,10 @@
 }
 .orbit__open[hidden] { display: none; }
 @keyframes orbit-preview-in { from { opacity: 0; } }
+@keyframes orbit-spin {
+  from { transform: rotate(var(--a, 0deg)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--a, 0deg))) scale(var(--s)); }
+  to { transform: rotate(calc(var(--a, 0deg) + 360deg)) translateY(calc(-1 * var(--orbit-r))) rotate(calc(-1 * var(--a, 0deg) - 360deg)) scale(var(--s)); }
+}
 
 /* Phones: the mark above, the groups as a two-column grid of pills (each ≥ 44 px). */
 @media (max-width: 759px) {

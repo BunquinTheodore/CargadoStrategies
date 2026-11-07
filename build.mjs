@@ -16,7 +16,7 @@
  *   keeps the engine in a shared chunk cached across pages. The Round 5 engine's
  *   `import(LENIS_URL)` (the jsDelivr Lenis URL) becomes a lazy local chunk.
  *   The globe stays dotglobe.js (DIRECTION §10); three.js is back only for the
- *   Services own-scene motifs (owner, 2026-10-25): their lazy stage module
+ *   Story building (sections/story/building, owner 2026-10-25): its lazy stage module
  *   imports the jsDelivr three URL, which resolves to the npm copy inside that
  *   lazy chunk. Any other external dynamic import fails the build.
  * - CSS: one file per page (SHARED_CSS + self-hosted @font-face + the page's
@@ -101,7 +101,7 @@ const SPLASH_MARK = /\bid="splash"/;
 const IMAGE_LOADERS = { '.png': 'file', '.svg': 'file', '.webp': 'file', '.avif': 'file', '.jpg': 'file' };
 /** The jsDelivr URL film-snap.js imports Lenis from (api.md §16); bundled as a lazy local chunk. */
 const LENIS_URL = /^https:\/\/cdn\.jsdelivr\.net\/npm\/lenis@[\d.]+\/dist\/lenis\.mjs$/;
-/** The jsDelivr URL sections/services/own-3d-stage.js imports three from; bundled from the npm copy (owner, 2026-10-25). */
+/** The jsDelivr URL the Story building (sections/story/building) imports three from; bundled from the npm copy (owner, 2026-10-25). */
 const THREE_URL = /^https:\/\/cdn\.jsdelivr\.net\/npm\/three@[\d.]+\/build\/three\.module\.js$/;
 
 /** Self-hosted fonts (DIRECTION §12). `preload` marks the face the first screen needs. */
