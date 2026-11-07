@@ -48,7 +48,7 @@ The S5a-S5e 3D motifs (owner, 2026-10-25; the owner allowed the `three` npm pack
 
 ## Known open issues (plan/round5/final-audit.txt)
 
-- Fit (2026-10-27): all 27 mode/viewport combinations fit with `--fixture=partners-max`. Two approved exceptions remain and are expected in the output: the 13 px `.orbit__label` (owner, 2026-10-26) and 7 field changes on the page (owner, 2026-10-27: the offer scenes alternate light and dark so each reads as its own chapter; fit-audit's `IRIS_MAX` allows 7 here).
+- Fit (2026-11-07, re-run after the calm-motion pass and the 2026-11-01 services): all 27 mode/viewport combinations fit; the short-phone bands in `orbit/`, `_own.css`, `ours-contractor/` and `ours-outsourcing/`, and the four-column own list in the categories dialog on short wide screens, hold the air and the spare. Earlier (2026-10-27): all 27 fit with `--fixture=partners-max`. Two approved exceptions remain and are expected in the output: the 13 px `.orbit__label` (owner, 2026-10-26) and 7 field changes on the page (owner, 2026-10-27: the offer scenes alternate light and dark so each reads as its own chapter; fit-audit's `IRIS_MAX` allows 7 here).
 - Run: `node tools/fit-audit.mjs <site-url> services.html --states=tools/fit-states/services.mjs --fixture=partners-max`.
 - Perf: initial JS 78.7 KB gzip against the raised 80 KB budget (owner, 2026-10-27), the tightest page.
 - console-check cannot open `profile-dialog` (no trigger while `PARTNERS` is empty), nor `categories-dialog` in cut mode.

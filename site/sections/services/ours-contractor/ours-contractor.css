@@ -26,3 +26,7 @@
   .own__rows--two .own__num { font-size: 1rem; }
   .own__rows--two .own__item { font-size: 0.9375rem; }
 }
+/* Short phones: the ten rows are not tap targets, so they tighten to keep the scene's air. */
+@media (max-width: 759px) and (max-height: 760px) {
+  .own__rows--two .own__row { min-height: 36px; }
+}

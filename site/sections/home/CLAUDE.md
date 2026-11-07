@@ -26,7 +26,7 @@ Page-level files: `_page.css` (the shared scene frame, first in cascade order), 
 
 ## Known open issues (plan/round5/final-audit.txt)
 
-- Fit (T1): clean in film, flow and touch at all 9 viewports before v2. The v2 `#orbit` scene has not been fit-audited yet (gate agent); tune `--orbit-size` / `--orbit-node` / `--orbit-core-h` in `orbit/orbit.css` if a short viewport fails. Keep it clean: `node tools/fit-audit.mjs <url> index.html --states=tools/fit-states/home.mjs` (also `--flow` and `--touch`).
+- Fit (T1, 2026-11-07): clean in film, flow and touch at all 9 viewports, except the approved 13 px `.orbit__label` (owner, 2026-10-26). Short phones keep `#orbit`'s 18 % air with a 32 px mark band and tighter gaps; tune `--orbit-size` / `--orbit-node` / `--orbit-core-h` in `orbit/orbit.css` if a short viewport fails. Keep it clean: `node tools/fit-audit.mjs <url> index.html --states=tools/fit-states/home.mjs` (also `--flow` and `--touch`).
 - Seek (T5): 1 known failing frame, tier A at 390x844, cut #4→#5 (0-based: find → close; #5→#6 now that `#orbit` sits second) at 50%: "One Message." is drawn over the globe. This is the baseline. Add no new ones.
 - Perf budgets (T2): mobile script transfer 80.3 KB (budget 70). The splash budget is 1300 ms (the 1 s card plus timer slack under CPU throttling); the old 1339 ms (mobile) and 1620 ms (desktop) were measured on the scan splash, so re-measure the ~1 s card (2026-11-07). Lighthouse itself scores 99/100.
 - Owner content still missing: proof numbers, rating, client quotes, signature, video (README "What the founder must supply").

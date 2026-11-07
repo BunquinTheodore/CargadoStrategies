@@ -92,3 +92,9 @@ html:not(.ph-loud) .panel__title .ph { text-decoration: none; }
   .panel__plus::after { transform: rotate(90deg); transition: transform var(--dur-hover) var(--ease-out); }
   .panel__toggle[aria-expanded="true"] .panel__plus::after { transform: rotate(0deg); }
 }
+/* Short phones (360 × 740 and under): a smaller title and tighter gaps (the role rows stay 44 px taps), so the metal keeps its 18 % of air. */
+@media (max-width: 759px) and (max-height: 760px) {
+  #ours-outsourcing :is(.scene__pan, html.rm .scene__inner) { gap: var(--space-s); }
+  .out__head .eyebrow { display: none; }
+  .out__title { font-size: 2rem; }
+}

@@ -54,3 +54,9 @@ html.rm .scene-photo__img { transition: none; }
   .own__3d-slot--o { top: 0; right: 0; bottom: auto; left: 0; height: 30%; }   /* O: the object as a top band */
   .own__3d-slot--r, .own__3d-slot--part { display: none; }
 }
+/* Short phones (360 × 740 and under): the rule steps out and the description takes the reading-line
+   size, so the scene keeps its 18 % air. */
+@media (max-width: 759px) and (max-height: 760px) {
+  .own__head .rule { display: none; }
+  .own__desc { font-size: var(--fs-note); line-height: var(--lh-note); }
+}

@@ -26,7 +26,7 @@ Page-level files: `_page.css` (first), `_documents.css` (rules shared by L2-L5, 
 
 ## Known open issues (plan/round5/final-audit.txt)
 
-- Fit flow: #7 `credits` spare 21 < 24 at 360x740. Film and touch are clean.
+- Fit (2026-11-07): clean in film, flow and touch at all 9 viewports (the old flow credits spare at 360x740 is gone). Short phones drop the documents' eyebrows and set the title at 1.75rem; disclosure 03 continues on the next page there.
 - Always run with the counsel-length stand-in: `node tools/fit-audit.mjs <url> legal.html --states=tools/fit-states/legal.mjs --ph-repeat=3` (also `--flow` and `--touch`).
 - Perf: initial JS gzip 51.3 KB against the legal budget of 40 KB (FAIL). Never add imports to legal's entry path. Keep heavy modules dynamic.
 - Final copy (owner, 2026-10-20): no visible draft markers and no bracket placeholders. The privacy contact (Lee Holgado, the email) is written into `privacy/privacy.html`; update it there if it changes.
@@ -38,7 +38,7 @@ The owner approved the third-person rewrite and asked the builder to draft the c
 | Where | Clause | What changed |
 |---|---|---|
 | `contents/` | fine print | Third person ("how it handles your information and what its partners agree to"); updated date 2026-10-25, row counts 6 / 9 / 8 |
-| `disclosure/` | 03 | The services Cargado Strategies provides directly (all ten "Ours" services incl. the four contractor items), replacing "offered by the founder through her own businesses" |
+| `disclosure/` | 03 | The services Cargado Strategies provides directly (all ten "Ours" services incl. the four contractor items), replacing "offered by the founder through her own businesses". Two pager items (2026-11-07): the services sentence, then an unnumbered `data-cont` item with the rest, so the clause can continue on the next page on short phones; both carry the marker |
 | `disclosure/` | 04 | Third person ("You never pay Cargado Strategies", "it discloses") |
 | `disclosure/` | 06 (new) | Insurance inquiries continue on a separate policy review website under its own terms |
 | `privacy/` | 01-09 (all) | Third person throughout; 01 adds booking, account, points, referral and partner-application data; 02 adds booking, accounts and points, applications; 04 names Google Firebase, Google Calendar and Meet, Resend, and storage that may be outside Canada; 05 adds "while your account stays open"; 06 adds closing the account; 07 adds booking and account emails; 08 drops the stale "sound and motion choices" sentence and adds the Firebase sign-in state on the device; 09 (new) accounts and Google sign-in, passwords handled by Firebase |

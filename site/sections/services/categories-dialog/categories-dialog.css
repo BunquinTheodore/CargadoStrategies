@@ -59,3 +59,9 @@
   .cats__name { font-size: 1.75rem; }
   .cats__body { row-gap: var(--space-s); }
 }
+/* Short wide screens: the ten own services set in four columns (three rows, as the partners), so a
+   category with partners keeps its 24 px of spare. */
+@media (min-width: 1000px) and (max-height: 800px) {
+  .cats__rail { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .cats__list--ours { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}

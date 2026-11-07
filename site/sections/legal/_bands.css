@@ -36,6 +36,9 @@ html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(va
   .legal-head .rule { display: none; }
   .legal-aside { font-size: var(--fs-note); }
   .legal-paper { padding: 14px 14px 6px; max-height: 64cqh; }
+  /* Disclosure 03 (the services list, 2026-11-01) fills a page on its own, as privacy 04
+     does: a tighter leading at the same type size. */
+  #disclosure .legal-reader { --doc-lh: 1.5; }
   body[data-page="legal"] .scene.legal-doc:not(.legal-faq) .scene__pan { justify-content: center; }
   /* The clause number hangs in the first line, so the text gets the paper's full width. */
   .clauses > li { display: block; }
@@ -81,10 +84,15 @@ html:not(.film) body[data-page="legal"] .scene [id] { scroll-margin-top: calc(va
    (R4 legal §4 scene 0); the notice never shrinks. */
 @media (max-width: 759px) and (max-height: 760px) {
   .legal-contents .contents__head > .eyebrow { display: none; }
+  /* The documents' eyebrows step out too, and the title keeps one line ("Professional
+     Disclosure"), so disclosure 03, a page on its own, fits with its pager. */
+  body[data-page="legal"] { --legal-title: 1.75rem; }
+  .legal-doc:not(.legal-faq) .legal-head > .eyebrow { display: none; }
   .legal-paper { max-height: 58cqh; }
   #conduct .legal-paper { max-height: 48cqh; }   /* its head carries the aside and the link */
   /* Privacy 04 (the services list) fills a page on its own: more paper and a tighter
      leading so the whole clause and the pager show, at the same type size. */
   #privacy .legal-paper { max-height: 70cqh; }
   #privacy .legal-reader { --doc-lh: 1.5; }
+  #disclosure .legal-paper { max-height: 72cqh; }
 }
