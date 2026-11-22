@@ -6,6 +6,12 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/index.html" },
+    { "source": "/book", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/book.html" },
+    { "source": "/robots.txt", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/robots.txt" },
+    { "source": "/sitemap.xml", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/sitemap.xml" }
+  ],
   "crons": [{ "path": "/api/cron/complete-bookings", "schedule": "0 9 * * *" }],
   "headers": [
     {
@@ -15,6 +21,13 @@
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/lite/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" },
+        { "key": "X-Robots-Tag", "value": "noindex" }
       ]
     },
     {

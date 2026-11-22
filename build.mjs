@@ -50,6 +50,7 @@ import { checkConfig } from './tools/check-config.mjs';
 import { buildKerning } from './tools/build-kerning.mjs';
 import { splitHtml } from './tools/build-splits.mjs';
 import { readAssembled } from './tools/lib/assemble.mjs';
+import { buildLite } from './tools/build-lite.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const SRC = join(ROOT, 'site');
@@ -653,6 +654,7 @@ async function main() {
   const pageMap = pageFiles(metafile, await splashPages());
   await buildHtml(jsOutputs(pageMap), css);
   await writeExtras();
+  await buildLite({ out: OUT, siteUrl: SITE_URL, fontFaces: fontFaces(), preloadFonts: preloadFonts() }); // additive: dist/lite/ (site-lite/)
   await writeBuildMeta(metafile, pageMap);
   await sizeReport();
   process.stdout.write(`Built ${PAGES.length} pages into ${relative(ROOT, OUT)}/\n`);

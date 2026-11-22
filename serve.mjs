@@ -9,6 +9,9 @@
  *
  * Serving site/, .html responses are assembled on the fly (section markers
  * expanded by tools/lib/assemble.mjs), so the source pages load whole.
+ *
+ *   node serve.mjs dist 8631 --lite   # also answer as the Lite host: / /book /robots.txt /sitemap.xml
+ *                                     # come from dist/lite/, as the vercel.json host rewrites do
  */
 import { createHash } from 'node:crypto';
 import { createServer } from 'node:http';
@@ -45,6 +48,14 @@ const COMPRESSIBLE = new Set(['.html', '.js', '.mjs', '.css', '.json', '.svg', '
 
 const root = resolve(process.argv[2] || 'dist');
 const port = Number(process.argv[3]) || DEFAULT_PORT;
+const lite = process.argv.includes('--lite');
+/** What vercel.json rewrites on the Lite host (the path form /lite/... always works). */
+const LITE_ROUTES = { '/': '/lite/index.html', '/book': '/lite/book.html', '/robots.txt': '/lite/robots.txt', '/sitemap.xml': '/lite/sitemap.xml' };
+const liteRoute = (url) => {
+  const [path, query] = url.split('?');
+  const to = lite ? LITE_ROUTES[path] : null;
+  return to ? (query === undefined ? to : `${to}?${query}`) : url;
+};
 const assembles = isSiteDir(root); // site/ pages are shells with section markers
 const cache = new Map(); // path + content hash + encoding → compressed body
 
@@ -75,7 +86,7 @@ async function resolveFile(urlPath) {
 }
 
 async function respond(req, res) {
-  const path = await resolveFile(req.url || '/');
+  const path = await resolveFile(liteRoute(req.url || '/'));
   if (!path) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Not found');

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{{TITLE}}</title>
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="theme-color" content="#0B0B0C">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  {{SEO}}
+  {{FONT_PRELOADS}}
+  <link rel="stylesheet" href="{{CSS_HREF}}">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to Content</a>
+  {{HEADER}}
+  <main id="main">
+
+    <section class="sec sec--hero sec--short" data-field="ink" aria-labelledby="book-title">
+      <div class="wrap wrap--narrow">
+        <p class="eyebrow">{{MEETING_LABEL}}</p>
+        <h1 id="book-title" class="h1">Book a Free Consultation</h1>
+        <p class="lede">Ten minutes on Google Meet, at no cost.</p>
+      </div>
+    </section>
+
+    <section class="sec" data-field="bone" aria-label="Booking form">
+      <div class="wrap wrap--narrow">
+        <form class="book-form" id="book-form" novalidate aria-labelledby="book-title">
+          <fieldset class="block">
+            <legend class="h3">Choose a Day</legend>
+            <div class="book-cal" data-calendar>
+              <div class="book-cal__head">
+                <button class="book-cal__arrow" type="button" data-days-prev aria-label="Earlier month"><span aria-hidden="true">←</span></button>
+                <p class="book-cal__title" id="book-days-range" data-days-range aria-live="polite"><span class="book-cal__month" data-days-month></span><span class="vh">, </span><span class="book-cal__zone">Central Time</span></p>
+                <button class="book-cal__arrow" type="button" data-days-next aria-label="Later month"><span aria-hidden="true">→</span></button>
+              </div>
+              <div class="book-cal__grid" data-days role="grid" aria-labelledby="book-days-range"></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="block">
+            <legend class="h3">Choose a Time</legend>
+            <div class="form-row">
+              <label class="label" for="book-start">Time, in Central Time (Winnipeg)</label>
+              <select class="select" id="book-start" name="start" aria-required="true" aria-describedby="book-start-day book-start-error"></select>
+              <p class="hint" id="book-start-day" data-book-day></p>
+              <p class="error" id="book-start-error"></p>
+            </div>
+          </fieldset>
+
+          <fieldset class="block">
+            <legend class="h3">Your Details</legend>
+            <div class="book-grid">
+              <div class="form-row">
+                <label class="label" for="book-name">Your name</label>
+                <input class="input" id="book-name" name="name" autocomplete="name" maxlength="120" aria-required="true" aria-describedby="book-name-error">
+                <p class="error" id="book-name-error"></p>
+              </div>
+              <div class="form-row">
+                <label class="label" for="book-email">Email</label>
+                <input class="input" id="book-email" name="email" type="email" autocomplete="email" maxlength="254" aria-required="true" aria-describedby="book-email-error">
+                <p class="error" id="book-email-error"></p>
+              </div>
+              <div class="form-row">
+                <label class="label" for="book-phone">Phone (optional)</label>
+                <input class="input" id="book-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" aria-describedby="book-phone-error">
+                <p class="error" id="book-phone-error"></p>
+              </div>
+              <div class="form-row">
+                <label class="label" for="book-service">Service (optional)</label>
+                <select class="select" id="book-service" name="service"></select>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="label" for="book-note">Note (optional)</label>
+              <textarea class="textarea" id="book-note" name="note" rows="3" maxlength="1000"></textarea>
+            </div>
+            <div class="form-row">
+              <label class="check"><input type="checkbox" id="book-consent" name="consent" aria-required="true" aria-describedby="book-consent-error">
+                <!-- draft: pending lawyer review --><span data-draft="pending-lawyer-review">I agree that Cargado Strategies may use these details to book this call. See the <a href="{{MAIN_URL}}/legal#privacy">privacy policy</a>.</span></label>
+              <p class="error" id="book-consent-error"></p>
+            </div>
+          </fieldset>
+
+          <div class="hp" aria-hidden="true"><label for="book-website">Leave this field empty</label><input id="book-website" name="website" tabindex="-1" autocomplete="off"></div>
+          <div class="actions">
+            <button type="submit" class="btn btn--primary" data-book-send>Book the Call</button>
+          </div>
+          <p class="book__status hint" data-book-status role="status" aria-live="polite"></p>
+        </form>
+        <div class="book-success" id="book-success" tabindex="-1" hidden></div>
+        <noscript><p class="hint">Booking needs JavaScript. You can also message {{SITE_NAME}} on <a href="{{WHATSAPP_URL}}">WhatsApp</a>.</p></noscript>
+      </div>
+    </section>
+
+  </main>
+  {{FOOTER}}
+  {{SCRIPT}}
+</body>
+</html>
