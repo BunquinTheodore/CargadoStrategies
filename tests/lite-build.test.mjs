@@ -170,7 +170,7 @@ test('vercel.json rewrites only the Lite host, keeps the global headers, and mar
   assert.deepEqual(config.rewrites.map((r) => r.source).sort(), ['/', '/book', '/robots.txt', '/sitemap.xml']);
   config.rewrites.forEach((r) => {
     assert.deepEqual(r.has, [{ type: 'host', value: host }]);
-    assert.match(r.destination, /^\/lite\/(index\.html|book\.html|robots\.txt|sitemap\.xml)$/);
+    assert.match(r.destination, /^\/lite(\/(book|robots\.txt|sitemap\.xml))?$/);
   });
   assert.equal(config.rewrites.some((r) => /assets|api/.test(r.source)), false);
   const lite = config.headers.find((h) => h.source === '/lite/(.*)');
