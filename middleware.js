@@ -12,8 +12,8 @@ export const LITE_HOST = 'lite.cargadostrategies.com';
 
 /** Request path on the lite host to the file the lite build wrote under dist/lite/. */
 export const LITE_FILES = Object.freeze({
-  '/': '/lite/index.html',
-  '/book': '/lite/book.html',
+  '/': '/lite',
+  '/book': '/lite/book',
   '/robots.txt': '/lite/robots.txt',
   '/sitemap.xml': '/lite/sitemap.xml',
 });

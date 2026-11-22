@@ -7,8 +7,8 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/index.html" },
-    { "source": "/book", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/book.html" },
+    { "source": "/", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite" },
+    { "source": "/book", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/book" },
     { "source": "/robots.txt", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/robots.txt" },
     { "source": "/sitemap.xml", "has": [{ "type": "host", "value": "lite.cargadostrategies.com" }], "destination": "/lite/sitemap.xml" }
   ],
