@@ -28,6 +28,6 @@ export default function middleware(request) {
   if (!file || hostOf(request) !== LITE_HOST) {
     return new Response(null, { headers: { 'x-middleware-next': '1' } });
   }
-  const target = new URL(file, request.url);
-  return new Response(null, { headers: { 'x-middleware-rewrite': target.toString() } });
+  // A relative target keeps the rewrite internal (an absolute URL is treated as an external host).
+  return new Response(null, { headers: { 'x-middleware-rewrite': file } });
 }

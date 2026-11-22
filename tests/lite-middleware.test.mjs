@@ -8,7 +8,7 @@ const call = (host, path) => middleware(new Request(`https://${host}${path}`, { 
 test('lite host paths are rewritten to dist/lite files', () => {
   for (const [path, file] of Object.entries(LITE_FILES)) {
     const res = call(LITE_HOST, path);
-    assert.equal(res.headers.get('x-middleware-rewrite'), `https://${LITE_HOST}${file}`);
+    assert.equal(res.headers.get('x-middleware-rewrite'), file);
   }
 });
 
